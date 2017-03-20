@@ -16,11 +16,13 @@ public class playerDataBase : MonoBehaviour {
     public int ATKLevel { get; set; }
     public int DEFLevel { get; set; }
 
-    public int COIN { get; set; }
+    public float COIN { get; set; }
+    public int COINBounsPercent { get; set; }
     public int POINT { get; set; }
 
     public int ResetTimes { get; set; }
     public int currentFloor { get; set; }
+    public int maxFloor { get; set; }
 
     public void testOnlySetUp() {
         //MaxHP = 10;
@@ -34,9 +36,11 @@ public class playerDataBase : MonoBehaviour {
         ATKLevel = 1;
         DEFLevel = 1;
         COIN = 40;
+        COINBounsPercent = 100;
         POINT = 20;
         ResetTimes = 0;
         currentFloor = 1;
+        maxFloor = 1;
     }
 
     void Awake() {

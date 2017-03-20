@@ -45,6 +45,13 @@ public class playerMainScript : MonoBehaviour {
 
     }
 
+    public void OnPlayerDead() {
+        if (playerDataBase.Static.maxFloor < playerDataBase.Static.currentFloor) {
+            playerDataBase.Static.maxFloor = playerDataBase.Static.currentFloor;
+        }
+
+    }
+
     public void deadAliveCheck() {
         /*
         if (playerDataBase.Static.HP <= 0) {
@@ -58,6 +65,7 @@ public class playerMainScript : MonoBehaviour {
             //event : hp = 0  gameover
             playerDataBase.Static.HP = 0;
             roundScript.Static.IsDead = true;
+            OnPlayerDead();
             //GetComponent<chessMovement>().enabled = false; //youdead
         } 
         else {

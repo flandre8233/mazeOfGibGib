@@ -11,7 +11,7 @@ public class enemyDataBase : MonoBehaviour {
     public int ATK { get; set; }
     //public int DEF { get; set; }
 
-    public int COIN { get; set; }
+    public float COIN { get; set; }
 
     public void testOnlySetUp() {
         MaxHP = 20;

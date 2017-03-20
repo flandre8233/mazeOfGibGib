@@ -30,7 +30,7 @@ public class enemyScript : MonoBehaviour {
             //roundScript.Static.roundSystem -= roundScript.Static.enemyList[DataBase.UID].GetComponent<enemyScript>().enemyAttackPlayerScript;
             //roundScript.Static.roundSystem -= roundScript.Static.enemyList[DataBase.UID].GetComponent<enemyScript>().enemyHPCheck;
 
-            playerDataBase.Static.COIN += DataBase.COIN;
+            playerDataBase.Static.COIN += (DataBase.COIN * (playerDataBase.Static.COINBounsPercent/100) );
             Destroy(gameObject);
         }
 
