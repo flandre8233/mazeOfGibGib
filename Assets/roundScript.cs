@@ -28,6 +28,7 @@ public class roundScript : MonoBehaviour {
     public void OnEnterNextLevel() { // enter next level
         if (isExitTouchPlayer) {
             GameObject.FindGameObjectWithTag("Player").transform.position = new Vector3(0, 0, -2);
+            chessMovement.Static.startLerpMovement = false;
             playerDataBase.Static.currentFloor++;
             if (playerDataBase.Static.currentFloor % 5 == 0) { //到5,10,15,20......關卡
                 playerDataBase.Static.POINT += 5;
@@ -64,10 +65,11 @@ public class roundScript : MonoBehaviour {
         else {
             Static = this;
         }
-        roundSystem += OnEnterNextLevel;
         roundSystem += playerMainScript.subSP;
         roundSystem += playerMainScript.checkLife;
-        roundSystem += playerMainScript.getItemSet;
+
+        //roundSystem += OnEnterNextLevel;
+        //roundSystem += playerMainScript.getItemSet;
     }
 
 }

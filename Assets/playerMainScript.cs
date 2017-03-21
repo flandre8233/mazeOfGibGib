@@ -102,6 +102,7 @@ public class playerMainScript : MonoBehaviour {
     void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "item") { //hit item
             hitItem = other.gameObject;
+            getItemSet();
         }
     }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class chessMovement : MonoBehaviour {
+    public static chessMovement Static;
     [SerializeField]
     Vector3 center;
 
@@ -14,8 +15,12 @@ public class chessMovement : MonoBehaviour {
     public bool thisFrameMoved=false;
     bool isHitNpc = false;
     bool StartedOnce = false;
+
+    [Range(1,5)]
+    public float lerpSpeed = 1;
     // Use this for initialization
     void Start () {
+        Static = this;
         reset();
     }
 
@@ -24,7 +29,7 @@ public class chessMovement : MonoBehaviour {
     //你自己有能力就先控我部機研究啦
 
     void Update() {
-
+        LerpMove();
         if (thisFrameMoved) {
             if (isHitNpc) { //這步會打中npc的話
                 roundScript.Static.roundSystem -= roundScript.Static.playerMainScript.subSP;
@@ -173,12 +178,32 @@ public class chessMovement : MonoBehaviour {
     }//自動重復執行MovementPart
 
     void movePlayer(Collider[] hitColliders) { //真正移動
-        GameObject groundBox = hitColliders[0].gameObject;
+        //
+        //transform.parent = groundBox.transform; //change object parent
+        groundBox = hitColliders[0].gameObject;
+        groundBoxPosition = new Vector3(groundBox.transform.position.x, groundBox.transform.position.y, -2);
+        startLerpMovement = true;
+        startTime = Time.time;
 
-        transform.parent = groundBox.transform; //change object parent
-        transform.localPosition = Vector3.zero;
-        transform.localPosition = new Vector3(0, 0, -2);
+        //transform.localPosition = Vector3.zero;
+        //ansform.localPosition = new Vector3(0, 0, -2); //"<--"
         thisFrameMoved = true;
+    }
+
+    private float startTime;
+    public bool startLerpMovement=false;
+    Vector3 groundBoxPosition;
+    GameObject groundBox = null;
+    void LerpMove() {
+        if (startLerpMovement) {
+            transform.position = Vector3.Lerp(transform.position, groundBoxPosition, (Time.time - startTime) * lerpSpeed);
+            Debug.Log(groundBoxPosition);
+            Debug.Log(Vector3.Distance(transform.position, groundBoxPosition));
+            if (Vector3.Distance(transform.position, groundBoxPosition) == 0) {
+                startLerpMovement = false;
+                
+            }
+        }
     }
 
     void moveCheck() { //正確是否正確移動
