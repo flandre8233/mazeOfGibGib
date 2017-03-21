@@ -16,7 +16,8 @@ public class chessMovement : MonoBehaviour {
     bool isHitNpc = false;
     bool StartedOnce = false;
 
-    [Range(1,5)]
+    [
+        (1,5)]
     public float lerpSpeed = 1;
     // Use this for initialization
     void Start () {
