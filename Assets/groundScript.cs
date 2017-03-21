@@ -17,7 +17,7 @@ public class groundScript : MonoBehaviour {
 	void Update () {
         Vector3 hitPoint = new Vector3(transform.position.x,transform.position.y,-2);
         Collider[] hitColliders = Physics.OverlapSphere(hitPoint, 0.25f);
-        if (hitColliders.Length != 0) {
+        if (hitColliders.Length != 0 && Vector2.Distance( ((Vector2)hitColliders[0].transform.position), ((Vector2)transform.position)) <= 0.2f) {
             haveSomethingInHere = true;
         }
         else {

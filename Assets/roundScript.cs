@@ -45,6 +45,9 @@ public class roundScript : MonoBehaviour {
         foreach (var item in GameObject.FindGameObjectsWithTag("enemy")) {
             Destroy(item);
         }
+        foreach (var item in GameObject.FindGameObjectsWithTag("floor")) {
+            item.GetComponent<groundScript>().haveSomethingInHere = false;
+        }
     }
 
     public void Update() {

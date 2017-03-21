@@ -16,9 +16,9 @@ public class mapThingsGenerator : MonoBehaviour {
     public int spawnTimes = 5;
 
     [Header("ProbabilitySetting")]
-    [Range(1,100)]
+    [Range(0,100)]
     public float itemSpawnProbability;
-    [Range(1, 100)]
+    [Range(0, 100)]
     public float enemySpawnProbability;
     
     public List<float> ProbabilityArray = new List<float>();
@@ -80,23 +80,30 @@ public class mapThingsGenerator : MonoBehaviour {
         return 0;
     }
 
+    public GameObject[] allFloor ;
+
     public void StartGeneratorTheThings() {
 
             GameObject[] allFloor;
             allFloor = GameObject.FindGameObjectsWithTag("floor");
-            for (int i = 0; i < spawnTimes; i++) {
 
-                totalfloorCanBePlaceThings.Clear();
-            if (allFloor.Length != 0) {
-                foreach (var item in allFloor) {
-                    if (item.GetComponent<groundScript>().canSpawnThings && !item.GetComponent<groundScript>().startPoint && !item.GetComponent<groundScript>().haveSomethingInHere) {
-                        totalfloorCanBePlaceThings.Add(item);
-                    }
+        totalfloorCanBePlaceThings.Clear();
+        if (allFloor.Length != 0) {
+            foreach (var item in allFloor) {
+                if (item.GetComponent<groundScript>().canSpawnThings && !item.GetComponent<groundScript>().startPoint && !item.GetComponent<groundScript>().haveSomethingInHere) {
+                    totalfloorCanBePlaceThings.Add(item);
                 }
             }
+        }
+
+        if (spawnTimes > totalfloorCanBePlaceThings.Count) { //鎖住spawntimes上限 別超出上限
+            spawnTimes = totalfloorCanBePlaceThings.Count;
+        }
 
 
-                int canPlaceThingsFloorNumber = totalfloorCanBePlaceThings.Count;
+        for (int i = 0; i < spawnTimes; i++) { 
+                int canPlaceThingsFloorNumber = totalfloorCanBePlaceThings.Count ;
+            Debug.Log(canPlaceThingsFloorNumber + "floor");
                 int randomNumber = Random.Range(0, canPlaceThingsFloorNumber ); //在可放置東西的地板array上選出一個數字
             int randomNumberThingsType = randomSetItemType(); //為這次spawn的物品決定出他的種類
             Vector3 randomPosition = new Vector3(totalfloorCanBePlaceThings[randomNumber].transform.position.x, totalfloorCanBePlaceThings[randomNumber].transform.position.y, -2); //放在那裡?
@@ -116,7 +123,7 @@ public class mapThingsGenerator : MonoBehaviour {
                         break;
                 }
                 totalfloorCanBePlaceThings[randomNumber].GetComponent<groundScript>().haveSomethingInHere = true;
-
+            totalfloorCanBePlaceThings.Remove(totalfloorCanBePlaceThings[randomNumber]);
             }
     }
 

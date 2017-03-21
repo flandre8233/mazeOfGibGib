@@ -21,7 +21,7 @@ public class itemScript : MonoBehaviour
     public int AddSPMax { get; set; }
     public int AddCOIN { get; set; }
 
-    void Awake() {
+    void Start() {
         setItemType();
     }
 
