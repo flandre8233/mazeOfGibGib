@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class groundScript : MonoBehaviour {
-    public int UID;
+    public int TerrainUID;
     public bool haveSomethingInHere;
     public bool canSpawnThings;
     public bool startPoint;
+
+    public bool isPortFloor = false;
+    public bool isPortExitFloor = false;
 
 	// Use this for initialization
 	void Start () {
