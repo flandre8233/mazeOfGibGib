@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class mapThingsGenerator : MonoBehaviour {
     public static mapThingsGenerator Static;
+    public GameObject[] allFloor;
+
     public List<GameObject> totalfloorCanBePlaceThings;
+    public List<GameObject> totalfloorCanBePlaceExit;
+
+
 
     [HideInInspector]
     public GameObject enemy;
@@ -12,7 +17,12 @@ public class mapThingsGenerator : MonoBehaviour {
     [HideInInspector]
     public GameObject item;
 
-     bool doOnce = false;
+    [HideInInspector]
+    public GameObject exitGoal;
+
+    public GameObject player;
+
+    bool doOnce = false;
     public int spawnTimes = 5;
 
     [Header("ProbabilitySetting")]
@@ -80,12 +90,7 @@ public class mapThingsGenerator : MonoBehaviour {
         return 0;
     }
 
-    public GameObject[] allFloor ;
-
-    public void StartGeneratorTheThings() {
-
-            GameObject[] allFloor;
-            allFloor = GameObject.FindGameObjectsWithTag("floor");
+    public void StartGeneratorTheThings() {   
 
         totalfloorCanBePlaceThings.Clear();
         if (allFloor.Length != 0) {
@@ -127,10 +132,41 @@ public class mapThingsGenerator : MonoBehaviour {
             }
     }
 
+    public void spawnExitPoint() {
+        GameObject[] allFloor;
+        allFloor = GameObject.FindGameObjectsWithTag("floor");
+        totalfloorCanBePlaceExit.Clear();
+        if (allFloor.Length != 0) {
+            foreach (var item in allFloor) {
+                if (item.GetComponent<groundScript>().ExitGoalPoint) {
+                    totalfloorCanBePlaceExit.Add(item);
+                    Vector3 targetV3 = new Vector3(item.transform.position.x,item.transform.position.y,-2 );
+                    Instantiate(exitGoal, targetV3,Quaternion.identity);
+                }
+            }
+        }
+
+
+    }
+
+    public void SerializePlayerPositionToSpawnPoint() {
+        if (allFloor.Length != 0) {
+            foreach (var item in allFloor) {
+                if (item.GetComponent<groundScript>().startPoint) {
+                    Vector3 targetV3 = new Vector3(item.transform.position.x, item.transform.position.y, -2);
+                    player.transform.position = targetV3;
+                }
+            }
+        }
+    }
+
     void LateUpdate() {
         if (!doOnce) {
             doOnce = true;
+            allFloor = GameObject.FindGameObjectsWithTag("floor");
             StartGeneratorTheThings();
+            spawnExitPoint();
+            SerializePlayerPositionToSpawnPoint();
         }
     }
 }

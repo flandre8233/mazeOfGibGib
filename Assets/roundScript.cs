@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using System.Collections.Generic;
 
 public class roundScript : MonoBehaviour {
     public static roundScript Static;
@@ -27,7 +26,7 @@ public class roundScript : MonoBehaviour {
 
     public void OnEnterNextLevel() { // enter next level
         if (isExitTouchPlayer) {
-            GameObject.FindGameObjectWithTag("Player").transform.position = new Vector3(0, 0, -2);
+            //GameObject.FindGameObjectWithTag("Player").transform.position = new Vector3(0, 0, -2);
             chessMovement.Static.startLerpMovement = false;
             playerDataBase.Static.currentFloor++;
             if (playerDataBase.Static.currentFloor % 5 == 0) { //到5,10,15,20......關卡
@@ -35,6 +34,8 @@ public class roundScript : MonoBehaviour {
             }
             clearLevel();
             mapThingsGenerator.Static.StartGeneratorTheThings();
+            mapThingsGenerator.Static.spawnExitPoint();
+            mapThingsGenerator.Static.SerializePlayerPositionToSpawnPoint();
         }
     }
 
@@ -43,6 +44,9 @@ public class roundScript : MonoBehaviour {
             Destroy(item);
         }
         foreach (var item in GameObject.FindGameObjectsWithTag("enemy")) {
+            Destroy(item);
+        }
+        foreach (var item in GameObject.FindGameObjectsWithTag("exit")) {
             Destroy(item);
         }
         foreach (var item in GameObject.FindGameObjectsWithTag("floor")) {

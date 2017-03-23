@@ -15,15 +15,21 @@ public class mapTerrainGenerator : MonoBehaviour {
         //allTerrainPort[0].transform.parent = allTerrainPortExit[1].transform;
         //transform.parent = allTerrainPort[0].transform;
 
-        for (int i = 0; i < allTerrainPort.Count-1; i++) {
-            allTerrainPort[i].transform.position = allTerrainPortExit[i+1].transform.position;
-            allTerrainPort[i].transform.parent = allTerrainPortExit[i+1].transform;
-            WithForeachLoop(allTerrainPortExit[i]);
-            Destroy(allTerrainPortExit[i]);
-        }
+        linkAllPort();
         WithForeachLoop(allTerrainPortExit[allTerrainPort.Count-1]);
         Destroy(allTerrainPortExit[allTerrainPort.Count-1]);
 
+
+    }
+
+    void linkAllPort() {
+        for (int i = 0; i < allTerrainPort.Count - 1; i++) {
+            allTerrainPort[i].transform.position = allTerrainPortExit[i + 1].transform.position;
+            allTerrainPort[i].transform.rotation = new Quaternion(0,0,90,0);
+            allTerrainPort[i].transform.parent = allTerrainPortExit[i + 1].transform;
+            WithForeachLoop(allTerrainPortExit[i]);
+            Destroy(allTerrainPortExit[i]);
+        }
 
     }
 

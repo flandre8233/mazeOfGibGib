@@ -7,6 +7,7 @@ public class groundScript : MonoBehaviour {
     public bool haveSomethingInHere;
     public bool canSpawnThings;
     public bool startPoint;
+    public bool ExitGoalPoint;
 
     public bool isPortFloor = false;
     public bool isPortExitFloor = false;
