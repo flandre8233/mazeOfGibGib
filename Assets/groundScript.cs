@@ -12,6 +12,14 @@ public class groundScript : MonoBehaviour {
     public bool isPortFloor = false;
     public bool isPortExitFloor = false;
 
+    void Awake() {
+        mapTerrainGenerator.Static.thisLevelAllFloor.Add(gameObject);
+    }
+
+    void OnDestroy() {
+        mapTerrainGenerator.Static.thisLevelAllFloor.Remove(gameObject);
+    }
+
 	// Use this for initialization
 	void Start () {
 
@@ -31,6 +39,15 @@ public class groundScript : MonoBehaviour {
     }
 
     void OnTriggerEnter(Collider other) {
+        if (other.gameObject.tag == "floor") {
+            if (TerrainUID > other.gameObject.GetComponent<groundScript>().TerrainUID) {
+                Destroy(other.gameObject);
+            }
+        }
+    }
+
+    void OnCollisionEnter(Collision collision) {
+        Debug.Log("SADSAD");
     }
 
 }

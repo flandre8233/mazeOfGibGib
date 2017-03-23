@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class mapThingsGenerator : MonoBehaviour {
     public static mapThingsGenerator Static;
-    public GameObject[] allFloor;
 
     public List<GameObject> totalfloorCanBePlaceThings;
     public List<GameObject> totalfloorCanBePlaceExit;
@@ -93,8 +92,8 @@ public class mapThingsGenerator : MonoBehaviour {
     public void StartGeneratorTheThings() {   
 
         totalfloorCanBePlaceThings.Clear();
-        if (allFloor.Length != 0) {
-            foreach (var item in allFloor) {
+        if (mapTerrainGenerator.Static.thisLevelAllFloor.Count != 0) {
+            foreach (var item in mapTerrainGenerator.Static.thisLevelAllFloor) {
                 if (item.GetComponent<groundScript>().canSpawnThings && !item.GetComponent<groundScript>().startPoint && !item.GetComponent<groundScript>().haveSomethingInHere) {
                     totalfloorCanBePlaceThings.Add(item);
                 }
@@ -133,11 +132,9 @@ public class mapThingsGenerator : MonoBehaviour {
     }
 
     public void spawnExitPoint() {
-        GameObject[] allFloor;
-        allFloor = GameObject.FindGameObjectsWithTag("floor");
         totalfloorCanBePlaceExit.Clear();
-        if (allFloor.Length != 0) {
-            foreach (var item in allFloor) {
+        if (mapTerrainGenerator.Static.thisLevelAllFloor.Count != 0) {
+            foreach (var item in mapTerrainGenerator.Static.thisLevelAllFloor) {
                 if (item.GetComponent<groundScript>().ExitGoalPoint) {
                     totalfloorCanBePlaceExit.Add(item);
                     Vector3 targetV3 = new Vector3(item.transform.position.x,item.transform.position.y,-2 );
@@ -150,8 +147,8 @@ public class mapThingsGenerator : MonoBehaviour {
     }
 
     public void SerializePlayerPositionToSpawnPoint() {
-        if (allFloor.Length != 0) {
-            foreach (var item in allFloor) {
+        if (mapTerrainGenerator.Static.thisLevelAllFloor.Count != 0) {
+            foreach (var item in mapTerrainGenerator.Static.thisLevelAllFloor) {
                 if (item.GetComponent<groundScript>().startPoint) {
                     Vector3 targetV3 = new Vector3(item.transform.position.x, item.transform.position.y, -2);
                     player.transform.position = targetV3;
@@ -163,7 +160,6 @@ public class mapThingsGenerator : MonoBehaviour {
     void LateUpdate() {
         if (!doOnce) {
             doOnce = true;
-            allFloor = GameObject.FindGameObjectsWithTag("floor");
             StartGeneratorTheThings();
             spawnExitPoint();
             SerializePlayerPositionToSpawnPoint();

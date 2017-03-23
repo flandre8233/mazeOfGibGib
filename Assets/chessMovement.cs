@@ -197,8 +197,8 @@ public class chessMovement : MonoBehaviour {
     void LerpMove() {
         if (startLerpMovement) {
             transform.position = Vector3.Lerp(transform.position, groundBoxPosition, (Time.time - startTime) * lerpSpeed);
-            Debug.Log(groundBoxPosition);
-            Debug.Log(Vector3.Distance(transform.position, groundBoxPosition));
+            //Debug.Log(groundBoxPosition);
+            //Debug.Log(Vector3.Distance(transform.position, groundBoxPosition));
             if (Vector3.Distance(transform.position, groundBoxPosition) == 0) {
                 startLerpMovement = false;
                 

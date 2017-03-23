@@ -19,20 +19,22 @@ public class roundScript : MonoBehaviour {
 
     public void pastRound() {
         round++;
-        
         roundSystem.Invoke();
         playerMainScript.deadAliveCheck();
     }
 
     public void OnEnterNextLevel() { // enter next level
         if (isExitTouchPlayer) {
+            clearLevel();
             //GameObject.FindGameObjectWithTag("Player").transform.position = new Vector3(0, 0, -2);
             chessMovement.Static.startLerpMovement = false;
             playerDataBase.Static.currentFloor++;
             if (playerDataBase.Static.currentFloor % 5 == 0) { //到5,10,15,20......關卡
                 playerDataBase.Static.POINT += 5;
             }
-            clearLevel();
+
+            Debug.Log(GameObject.FindGameObjectsWithTag("floor").Length);
+            mapTerrainGenerator.Static.resetTerrain();
             mapThingsGenerator.Static.StartGeneratorTheThings();
             mapThingsGenerator.Static.spawnExitPoint();
             mapThingsGenerator.Static.SerializePlayerPositionToSpawnPoint();
@@ -40,6 +42,12 @@ public class roundScript : MonoBehaviour {
     }
 
     public void clearLevel() {
+        mapTerrainGenerator.Static.thisLevelAllFloor.Clear();
+        foreach (var item in GameObject.FindGameObjectsWithTag("floor") ) { //看來GameObject.FindGameObjectsWithTag("floor")不太靈活
+            Destroy(item);
+            //Debug.Log(GameObject.FindGameObjectsWithTag("floor").Length);
+            //item.GetComponent<groundScript>().haveSomethingInHere = false;
+        }
         foreach (var item in GameObject.FindGameObjectsWithTag("item") ) {
             Destroy(item);
         }
@@ -49,9 +57,7 @@ public class roundScript : MonoBehaviour {
         foreach (var item in GameObject.FindGameObjectsWithTag("exit")) {
             Destroy(item);
         }
-        foreach (var item in GameObject.FindGameObjectsWithTag("floor")) {
-            item.GetComponent<groundScript>().haveSomethingInHere = false;
-        }
+
     }
 
     public void Update() {
