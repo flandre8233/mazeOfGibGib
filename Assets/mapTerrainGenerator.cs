@@ -25,13 +25,39 @@ public class mapTerrainGenerator : MonoBehaviour {
     void linkAllPort() {
         for (int i = 0; i < allTerrainPort.Count - 1; i++) {
             allTerrainPort[i].transform.position = allTerrainPortExit[i + 1].transform.position;
-            allTerrainPort[i].transform.rotation = new Quaternion(0,0,90,0);
+            allTerrainPort[i].transform.Rotate(randomRotation());
             allTerrainPort[i].transform.parent = allTerrainPortExit[i + 1].transform;
             WithForeachLoop(allTerrainPortExit[i]);
             Destroy(allTerrainPortExit[i]);
         }
 
     }
+
+    Vector3 randomRotation() {
+        Vector3 rotation = new Vector3() ;
+        int randomNumber = Random.Range(0,4);
+        switch (randomNumber) {
+            case 0:
+                rotation = new Vector3(0,0,0);
+                break;
+            case 1:
+                rotation = new Vector3(0, 0, 90);
+                break;
+            case 2:
+                rotation = new Vector3(0, 0, 180);
+                break;
+            case 3:
+                rotation = new Vector3(0, 0, 270);
+                break;
+
+            default:
+                rotation = new Vector3(0, 0, 0);
+                break;
+        }
+
+        return rotation;
+    }
+
 
     void WithForeachLoop(GameObject go) {
         foreach (Transform child in go.transform)
@@ -81,6 +107,6 @@ public class mapTerrainGenerator : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-		
-	}
+        Debug.Log(Random.Range(0, 4) );
+    }
 }
