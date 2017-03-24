@@ -33,16 +33,14 @@ public class mapTerrainGenerator : MonoBehaviour {
 
      public void resetTerrain() {
         ThisLevelAllTerrainParts.Clear();
-        allTerrainPort.Clear();
-        allTerrainPortExit.Clear();
 
-        selectTerrainInAssets();
+        selectTerrainInAssets(); //碰撞會在下一個frame才做
         allTerrainPort = FindALLTerrainPort();
         allTerrainPortExit = FindALLTerrainPortExit();
         allTerrainPort = syncTwoPortList(allTerrainPort);
         allTerrainPortExit = syncTwoPortList(allTerrainPortExit);
 
-        linkAllPort();
+        //linkAllPort();
         allFloorDetach();
     }
 
@@ -66,8 +64,9 @@ public class mapTerrainGenerator : MonoBehaviour {
     }
     List<GameObject> FindALLTerrainPortExit() {
         List<GameObject> returnObject = new List<GameObject>();
+        Debug.Log(thisLevelAllFloor.Count);
         if (thisLevelAllFloor.Count != 0) {
-            foreach (var item in thisLevelAllFloor) {
+            foreach (var item in thisLevelAllFloor) {  //找不到全部啦啦啦
                 if (item.GetComponent<groundScript>().type == groundType.ExitGoalPoint) {
                     returnObject.Add(item);
                 }
@@ -91,9 +90,17 @@ public class mapTerrainGenerator : MonoBehaviour {
     void selectTerrainInAssets() { //隨機在數據庫抽出地形
         for (int i = 0; i < terrainLength; i++) {
             int randomNumber = Random.Range(0, gameAllTerrainParts.Count);
-            GameObject spawnObject = Instantiate(gameAllTerrainParts[randomNumber], new Vector3(), Quaternion.identity);
+            GameObject spawnObject = Instantiate(gameAllTerrainParts[randomNumber], Vector3.up*i*50, Quaternion.identity);
             Debug.Log(thisLevelAllFloor.Count);
             ThisLevelAllTerrainParts.Add(spawnObject);
+
+            thisLevelAllFloor.Add(spawnObject);
+            spawnObject.GetComponent<groundScript>().TerrainUID = i;
+            foreach (Transform child in spawnObject.transform) { //依個work
+                thisLevelAllFloor.Add(child.gameObject);
+                child.gameObject.GetComponent<groundScript>().TerrainUID = i;
+            }
+
         }
     }
 
@@ -135,10 +142,12 @@ public class mapTerrainGenerator : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        /*
         if (Input.anyKeyDown) {
             ThisLevelAllTerrainParts.Clear();
             allTerrainPort.Clear();
             allTerrainPortExit.Clear();
         }
+        */
     }
 }

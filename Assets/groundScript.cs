@@ -26,7 +26,7 @@ public class groundScript : MonoBehaviour {
     */
 
     void Start() {
-        mapTerrainGenerator.Static.thisLevelAllFloor.Add(gameObject);
+        //mapTerrainGenerator.Static.thisLevelAllFloor.Add(gameObject);
     }
 
     void OnDestroy() {
@@ -49,7 +49,8 @@ public class groundScript : MonoBehaviour {
     void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "floor") {
             if (TerrainUID > other.gameObject.GetComponent<groundScript>().TerrainUID) {
-                Destroy(other.gameObject);
+                //Destroy(other.gameObject);
+                Debug.Log("SADSAD");
             }
         }
     }
