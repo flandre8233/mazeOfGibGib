@@ -56,7 +56,7 @@ public class mapTerrainGenerator : MonoBehaviour {
         List<GameObject> returnObject = new List<GameObject>();
         if (thisLevelAllFloor.Count != 0) {
             foreach (var item in thisLevelAllFloor) {
-                if (item.GetComponent<groundScript>().isPortFloor) {
+                if (item.GetComponent<groundScript>().type == groundType.isPortFloor) {
                     returnObject.Add(item);
                 }
             }
@@ -68,7 +68,7 @@ public class mapTerrainGenerator : MonoBehaviour {
         List<GameObject> returnObject = new List<GameObject>();
         if (thisLevelAllFloor.Count != 0) {
             foreach (var item in thisLevelAllFloor) {
-                if (item.GetComponent<groundScript>().isPortExitFloor) {
+                if (item.GetComponent<groundScript>().type == groundType.ExitGoalPoint) {
                     returnObject.Add(item);
                 }
             }

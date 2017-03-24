@@ -12,6 +12,7 @@ public class roundScript : MonoBehaviour {
     public bool IsDead = false;
     public bool isExitTouchPlayer = false;
     public bool isInExitLevel = false;
+    bool NeedGenertorThings = false;
 
     public playerMainScript playerMainScript;
 
@@ -24,21 +25,20 @@ public class roundScript : MonoBehaviour {
     }
 
     public void OnEnterNextLevel() { // enter next level
-        if (isExitTouchPlayer) {
-            clearLevel();
-            //GameObject.FindGameObjectWithTag("Player").transform.position = new Vector3(0, 0, -2);
-            chessMovement.Static.startLerpMovement = false;
-            playerDataBase.Static.currentFloor++;
-            if (playerDataBase.Static.currentFloor % 5 == 0) { //到5,10,15,20......關卡
-                playerDataBase.Static.POINT += 5;
-            }
 
-            Debug.Log(GameObject.FindGameObjectsWithTag("floor").Length);
-            mapTerrainGenerator.Static.resetTerrain();
-            mapThingsGenerator.Static.StartGeneratorTheThings();
-            mapThingsGenerator.Static.spawnExitPoint();
-            mapThingsGenerator.Static.SerializePlayerPositionToSpawnPoint();
+        clearLevel();
+        //GameObject.FindGameObjectWithTag("Player").transform.position = new Vector3(0, 0, -2);
+        chessMovement.Static.startLerpMovement = false;
+        playerDataBase.Static.currentFloor++;
+        if (playerDataBase.Static.currentFloor % 5 == 0) { //到5,10,15,20......關卡
+            playerDataBase.Static.POINT += 5;
         }
+
+        Debug.Log(GameObject.FindGameObjectsWithTag("floor").Length);
+        mapTerrainGenerator.Static.resetTerrain();
+        NeedGenertorThings = true;
+
+
     }
 
     public void clearLevel() {
@@ -61,13 +61,21 @@ public class roundScript : MonoBehaviour {
     }
 
     public void Update() {
+        if (NeedGenertorThings) {
+            NeedGenertorThings = false;
+            mapThingsGenerator.Static.StartGeneratorTheThings();
+            mapThingsGenerator.Static.spawnExitPoint();
+            mapThingsGenerator.Static.SerializePlayerPositionToSpawnPoint();
+        }
+        if (isExitTouchPlayer) {
+            isExitTouchPlayer = false;
+            OnEnterNextLevel();
+        }
         if (IsDead) {
             playerMainScript.GetComponent<chessMovement>().enabled = false;
             Debug.Log("lkdsalkjdalslk");
         }
-        if (isExitTouchPlayer) {
-            isExitTouchPlayer = false;
-        }
+
     }
 
     public void Awake() {

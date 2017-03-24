@@ -2,17 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum groundType
+{
+    canSpawnThings,
+    startPoint,
+    ExitGoalPoint,
+    isPortFloor,
+    isPortExitFloor
+}
+
 public class groundScript : MonoBehaviour {
     public int TerrainUID;
     public bool haveSomethingInHere;
+    public groundType type;
+
+    /*
     public bool canSpawnThings;
     public bool startPoint;
     public bool ExitGoalPoint;
 
     public bool isPortFloor = false;
     public bool isPortExitFloor = false;
+    */
 
-    void Awake() {
+    void Start() {
         mapTerrainGenerator.Static.thisLevelAllFloor.Add(gameObject);
     }
 
@@ -20,11 +33,6 @@ public class groundScript : MonoBehaviour {
         mapTerrainGenerator.Static.thisLevelAllFloor.Remove(gameObject);
     }
 
-	// Use this for initialization
-	void Start () {
-
-    }
-	
 	// Update is called once per frame
 	void Update () {
         Vector3 hitPoint = new Vector3(transform.position.x,transform.position.y,-2);

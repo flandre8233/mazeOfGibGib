@@ -94,7 +94,7 @@ public class mapThingsGenerator : MonoBehaviour {
         totalfloorCanBePlaceThings.Clear();
         if (mapTerrainGenerator.Static.thisLevelAllFloor.Count != 0) {
             foreach (var item in mapTerrainGenerator.Static.thisLevelAllFloor) {
-                if (item.GetComponent<groundScript>().canSpawnThings && !item.GetComponent<groundScript>().startPoint && !item.GetComponent<groundScript>().haveSomethingInHere) {
+                if (item.GetComponent<groundScript>().type == groundType.canSpawnThings) {
                     totalfloorCanBePlaceThings.Add(item);
                 }
             }
@@ -135,7 +135,7 @@ public class mapThingsGenerator : MonoBehaviour {
         totalfloorCanBePlaceExit.Clear();
         if (mapTerrainGenerator.Static.thisLevelAllFloor.Count != 0) {
             foreach (var item in mapTerrainGenerator.Static.thisLevelAllFloor) {
-                if (item.GetComponent<groundScript>().ExitGoalPoint) {
+                if (item.GetComponent<groundScript>().type == groundType.ExitGoalPoint) {
                     totalfloorCanBePlaceExit.Add(item);
                     Vector3 targetV3 = new Vector3(item.transform.position.x,item.transform.position.y,-2 );
                     Instantiate(exitGoal, targetV3,Quaternion.identity);
@@ -149,7 +149,7 @@ public class mapThingsGenerator : MonoBehaviour {
     public void SerializePlayerPositionToSpawnPoint() {
         if (mapTerrainGenerator.Static.thisLevelAllFloor.Count != 0) {
             foreach (var item in mapTerrainGenerator.Static.thisLevelAllFloor) {
-                if (item.GetComponent<groundScript>().startPoint) {
+                if (item.GetComponent<groundScript>().type == groundType.startPoint) {
                     Vector3 targetV3 = new Vector3(item.transform.position.x, item.transform.position.y, -2);
                     player.transform.position = targetV3;
                 }
