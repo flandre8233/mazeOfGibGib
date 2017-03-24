@@ -35,12 +35,12 @@ public class mapTerrainGenerator : MonoBehaviour {
         ThisLevelAllTerrainParts.Clear();
 
         selectTerrainInAssets(); //碰撞會在下一個frame才做
-        allTerrainPort = FindALLTerrainPort();
-        allTerrainPortExit = FindALLTerrainPortExit();
-        allTerrainPort = syncTwoPortList(allTerrainPort);
-        allTerrainPortExit = syncTwoPortList(allTerrainPortExit);
+        FindALLTerrainPortAndPortExit(ref allTerrainPort,ref allTerrainPortExit);
 
-        //linkAllPort();
+        syncTwoPortList(ref allTerrainPort);
+         syncTwoPortList(ref allTerrainPortExit);
+
+        linkAllPort();
         allFloorDetach();
     }
 
@@ -50,32 +50,22 @@ public class mapTerrainGenerator : MonoBehaviour {
         }
     }
 
-    List<GameObject> FindALLTerrainPort() {
-        List<GameObject> returnObject = new List<GameObject>();
+    void FindALLTerrainPortAndPortExit(ref List<GameObject> Port,ref  List<GameObject>  PortExit) {
+        Port.Clear();
+        PortExit.Clear();
         if (thisLevelAllFloor.Count != 0) {
             foreach (var item in thisLevelAllFloor) {
                 if (item.GetComponent<groundScript>().type == groundType.isPortFloor) {
-                    returnObject.Add(item);
+                    Port.Add(item);
+                }
+                if (item.GetComponent<groundScript>().type == groundType.isPortExitFloor) {
+                    PortExit.Add(item);
                 }
             }
         }
 
-        return returnObject;
     }
-    List<GameObject> FindALLTerrainPortExit() {
-        List<GameObject> returnObject = new List<GameObject>();
-        Debug.Log(thisLevelAllFloor.Count);
-        if (thisLevelAllFloor.Count != 0) {
-            foreach (var item in thisLevelAllFloor) {  //找不到全部啦啦啦
-                if (item.GetComponent<groundScript>().type == groundType.ExitGoalPoint) {
-                    returnObject.Add(item);
-                }
-            }
-        }
-
-        return returnObject;
-    }
-    List<GameObject> syncTwoPortList(List<GameObject> port) {
+    void syncTwoPortList(ref List<GameObject> port) {
         List<GameObject> returnObject = new List<GameObject>();
         for (int i = port.Count - 1; i >= 0; i--) {
             foreach (var item in port) {
@@ -84,14 +74,13 @@ public class mapTerrainGenerator : MonoBehaviour {
                 }
             }
         }
-        return returnObject;
+        port = returnObject;
     }
 
     void selectTerrainInAssets() { //隨機在數據庫抽出地形
         for (int i = 0; i < terrainLength; i++) {
             int randomNumber = Random.Range(0, gameAllTerrainParts.Count);
             GameObject spawnObject = Instantiate(gameAllTerrainParts[randomNumber], Vector3.up*i*50, Quaternion.identity);
-            Debug.Log(thisLevelAllFloor.Count);
             ThisLevelAllTerrainParts.Add(spawnObject);
 
             thisLevelAllFloor.Add(spawnObject);

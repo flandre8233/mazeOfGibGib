@@ -49,8 +49,7 @@ public class groundScript : MonoBehaviour {
     void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "floor") {
             if (TerrainUID > other.gameObject.GetComponent<groundScript>().TerrainUID) {
-                //Destroy(other.gameObject);
-                Debug.Log("SADSAD");
+                Destroy(other.gameObject);
             }
         }
     }

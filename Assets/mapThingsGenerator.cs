@@ -107,7 +107,6 @@ public class mapThingsGenerator : MonoBehaviour {
 
         for (int i = 0; i < spawnTimes; i++) { 
                 int canPlaceThingsFloorNumber = totalfloorCanBePlaceThings.Count ;
-            Debug.Log(canPlaceThingsFloorNumber + "floor");
                 int randomNumber = Random.Range(0, canPlaceThingsFloorNumber ); //在可放置東西的地板array上選出一個數字
             int randomNumberThingsType = randomSetItemType(); //為這次spawn的物品決定出他的種類
             Vector3 randomPosition = new Vector3(totalfloorCanBePlaceThings[randomNumber].transform.position.x, totalfloorCanBePlaceThings[randomNumber].transform.position.y, -2); //放在那裡?

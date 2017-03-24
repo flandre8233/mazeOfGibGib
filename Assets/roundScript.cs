@@ -34,7 +34,6 @@ public class roundScript : MonoBehaviour {
             playerDataBase.Static.POINT += 5;
         }
 
-        Debug.Log(GameObject.FindGameObjectsWithTag("floor").Length);
         mapTerrainGenerator.Static.resetTerrain();
         NeedGenertorThings = true;
 

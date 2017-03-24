@@ -2,8 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class enemyDataBase : MonoBehaviour {
+public enum enemyType
+{
+    normal,
+    tank,
+    portal,
+    masksman
+};
 
+public class enemyDataBase : MonoBehaviour {
+    public enemyType type;
     public int UID = 0;
 
     public int HP { get; set; }
@@ -14,6 +22,7 @@ public class enemyDataBase : MonoBehaviour {
     public float COIN { get; set; }
 
     public void testOnlySetUp() {
+        type = enemyType.normal;
         MaxHP = 20;
         HP = MaxHP;
         ATK = 2;

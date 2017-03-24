@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class enemyScript : MonoBehaviour {
     public npcSensor sensor;
     enemyDataBase DataBase;

@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum itemType
+{
+    hpItem,
+    spItem,
+    hpmaxItem,
+    spmaxItem,
+    coinItem
+};
+
 public class itemScript : MonoBehaviour
 {
     public bool IsAutoSetType = true;
-    public enum itemType
-    {
-        hpItem,
-        spItem,
-        hpmaxItem,
-        spmaxItem,
-        coinItem
-    };
     public itemType ItemType;
 
     public int AddHP { get; set; }

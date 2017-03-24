@@ -61,7 +61,7 @@ public class itemGenerator : MonoBehaviour {
         ProbabilityArray.Add(spmaxitemProbability);
         ProbabilityArray.Add(coinitemProbability);
     }
-    public itemScript.itemType randomSetItemType() {
+    public itemType randomSetItemType() {
         int randomNumber = Random.Range(0, 100);
         float sumProbability = 0;
         int type=1;
@@ -76,20 +76,20 @@ public class itemGenerator : MonoBehaviour {
         }
         switch (type) {
             case 1:
-                return itemScript.itemType.hpItem;
+                return itemType.hpItem;
             case 2:
-                return itemScript.itemType.spItem;
+                return itemType.spItem;
             case 3:
-                return itemScript.itemType.hpmaxItem;
+                return itemType.hpmaxItem;
             case 4:
-                return itemScript.itemType.spmaxItem;
+                return itemType.spmaxItem;
             case 5:
-                return itemScript.itemType.coinItem;
+                return itemType.coinItem;
             default:
                 break;
         }
 
-        return itemScript.itemType.hpItem;
+        return itemType.hpItem;
 
         #region legacy randomSystem
         /*
