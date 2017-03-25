@@ -39,6 +39,21 @@ public class playerMainScript : MonoBehaviour {
                     }
                 }
             }
+
+            if (playerDataBase.Static.HP > playerDataBase.Static.MaxHP) {
+                playerDataBase.Static.HP = playerDataBase.Static.MaxHP;
+            }
+            else if(playerDataBase.Static.HP < 0) {
+                playerDataBase.Static.HP = 0;
+            }
+
+            if (playerDataBase.Static.SP > playerDataBase.Static.MaxSP) {
+                playerDataBase.Static.SP = playerDataBase.Static.MaxSP;
+            }
+            else if (playerDataBase.Static.SP < 0) {
+                playerDataBase.Static.SP = 0;
+            }
+
         }
 
         //deadAliveCheck();

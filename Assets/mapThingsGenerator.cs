@@ -22,7 +22,8 @@ public class mapThingsGenerator : MonoBehaviour {
     public GameObject player;
 
     bool doOnce = false;
-    public int spawnTimes = 5;
+    public int spawnTimes = 15;
+    public int thisLevelspawnTimes = 5;
 
     [Header("ProbabilitySetting")]
     [Range(0,100)]
@@ -89,8 +90,8 @@ public class mapThingsGenerator : MonoBehaviour {
         return 0;
     }
 
-    public void StartGeneratorTheThings() {   
-
+    public void StartGeneratorTheThings() {
+        thisLevelspawnTimes = spawnTimes;
         totalfloorCanBePlaceThings.Clear();
         if (mapTerrainGenerator.Static.thisLevelAllFloor.Count != 0) {
             foreach (var item in mapTerrainGenerator.Static.thisLevelAllFloor) {
@@ -100,12 +101,12 @@ public class mapThingsGenerator : MonoBehaviour {
             }
         }
 
-        if (spawnTimes > totalfloorCanBePlaceThings.Count) { //鎖住spawntimes上限 別超出上限
-            spawnTimes = totalfloorCanBePlaceThings.Count;
+        if (thisLevelspawnTimes > totalfloorCanBePlaceThings.Count) { //鎖住spawntimes上限 別超出上限
+            thisLevelspawnTimes = totalfloorCanBePlaceThings.Count;
         }
 
 
-        for (int i = 0; i < spawnTimes; i++) { 
+        for (int i = 0; i < thisLevelspawnTimes; i++) { 
                 int canPlaceThingsFloorNumber = totalfloorCanBePlaceThings.Count ;
                 int randomNumber = Random.Range(0, canPlaceThingsFloorNumber ); //在可放置東西的地板array上選出一個數字
             int randomNumberThingsType = randomSetItemType(); //為這次spawn的物品決定出他的種類
@@ -134,7 +135,8 @@ public class mapThingsGenerator : MonoBehaviour {
         totalfloorCanBePlaceExit.Clear();
         if (mapTerrainGenerator.Static.thisLevelAllFloor.Count != 0) {
             foreach (var item in mapTerrainGenerator.Static.thisLevelAllFloor) {
-                if (item.GetComponent<groundScript>().type == groundType.ExitGoalPoint) {
+                if (item.GetComponent<groundScript>().isDeadEnd()) {
+                    item.GetComponent<groundScript>().type = groundType.canNOTSpawnThings ;
                     totalfloorCanBePlaceExit.Add(item);
                     Vector3 targetV3 = new Vector3(item.transform.position.x,item.transform.position.y,-2 );
                     Instantiate(exitGoal, targetV3,Quaternion.identity);
@@ -159,8 +161,8 @@ public class mapThingsGenerator : MonoBehaviour {
     void LateUpdate() {
         if (!doOnce) {
             doOnce = true;
-            StartGeneratorTheThings();
             spawnExitPoint();
+            StartGeneratorTheThings();
             SerializePlayerPositionToSpawnPoint();
         }
     }

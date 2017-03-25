@@ -32,16 +32,18 @@ public class mapTerrainGenerator : MonoBehaviour {
     }
 
      public void resetTerrain() {
-        ThisLevelAllTerrainParts.Clear();
+        ThisLevelAllTerrainParts.RemoveRange(1,ThisLevelAllTerrainParts.Count-1);
 
         selectTerrainInAssets(); //碰撞會在下一個frame才做
+        
         FindALLTerrainPortAndPortExit(ref allTerrainPort,ref allTerrainPortExit);
 
         syncTwoPortList(ref allTerrainPort);
-         syncTwoPortList(ref allTerrainPortExit);
+        syncTwoPortList(ref allTerrainPortExit);
 
         linkAllPort();
         allFloorDetach();
+        
     }
 
     void allFloorDetach() {
@@ -55,6 +57,11 @@ public class mapTerrainGenerator : MonoBehaviour {
         PortExit.Clear();
         if (thisLevelAllFloor.Count != 0) {
             foreach (var item in thisLevelAllFloor) {
+                if (item.GetComponent<groundScript>().type == groundType.startPoint) {
+                    Port.Add(item);
+                    PortExit.Add(item);
+                }
+
                 if (item.GetComponent<groundScript>().type == groundType.isPortFloor) {
                     Port.Add(item);
                 }
@@ -78,10 +85,17 @@ public class mapTerrainGenerator : MonoBehaviour {
     }
 
     void selectTerrainInAssets() { //隨機在數據庫抽出地形
+        GameObject spawnObject = null;
+
         for (int i = 0; i < terrainLength; i++) {
-            int randomNumber = Random.Range(0, gameAllTerrainParts.Count);
-            GameObject spawnObject = Instantiate(gameAllTerrainParts[randomNumber], Vector3.up*i*50, Quaternion.identity);
-            ThisLevelAllTerrainParts.Add(spawnObject);
+            if (i == 0) {
+                spawnObject = Instantiate(ThisLevelAllTerrainParts[0], Vector3.zero, Quaternion.identity); //startpoint
+            }
+            else {
+                int randomNumber = Random.Range(0, gameAllTerrainParts.Count);
+                spawnObject = Instantiate(gameAllTerrainParts[randomNumber], Vector3.up * i * 20, Quaternion.identity);
+                ThisLevelAllTerrainParts.Add(spawnObject);
+            }
 
             thisLevelAllFloor.Add(spawnObject);
             spawnObject.GetComponent<groundScript>().TerrainUID = i;
@@ -89,6 +103,7 @@ public class mapTerrainGenerator : MonoBehaviour {
                 thisLevelAllFloor.Add(child.gameObject);
                 child.gameObject.GetComponent<groundScript>().TerrainUID = i;
             }
+
 
         }
     }

@@ -20,6 +20,7 @@ public class enemyScript : MonoBehaviour {
     public void enemyAttackPlayerScript() {
         if (sensor.isFindPlayer) {
             if (playerDataBase.Static.DEF < DataBase.ATK ) {
+                Debug.Log("hit");
                 playerDataBase.Static.HP -= (DataBase.ATK - playerDataBase.Static.DEF);
             }
         }

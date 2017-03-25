@@ -19,4 +19,8 @@ public class npcSensor : MonoBehaviour {
 
     }
 
+    void OnDestroy() {
+        isFindPlayer = false;
+    }
+
 }

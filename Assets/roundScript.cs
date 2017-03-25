@@ -58,13 +58,26 @@ public class roundScript : MonoBehaviour {
         }
 
     }
-
+    public int selectionX, selectionY;
+    int nextFrameLock = 0;
     public void Update() {
-        if (NeedGenertorThings) {
+        /*
+        RaycastHit hit;
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 50.0f )) {
+            selectionX = (int)hit.point.x;
+            selectionY = (int)hit.point.y;
+            Debug.Log(selectionX + " . " + selectionY);
+        }
+        */
+        if (nextFrameLock >= 2) {
+            nextFrameLock = 0;
             NeedGenertorThings = false;
-            mapThingsGenerator.Static.StartGeneratorTheThings();
             mapThingsGenerator.Static.spawnExitPoint();
+            mapThingsGenerator.Static.StartGeneratorTheThings();
             mapThingsGenerator.Static.SerializePlayerPositionToSpawnPoint();
+        }
+        if (NeedGenertorThings) {
+            nextFrameLock ++;
         }
         if (isExitTouchPlayer) {
             isExitTouchPlayer = false;

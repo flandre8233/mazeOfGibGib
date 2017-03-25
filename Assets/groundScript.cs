@@ -5,6 +5,7 @@ using UnityEngine;
 public enum groundType
 {
     canSpawnThings,
+    canNOTSpawnThings,
     startPoint,
     ExitGoalPoint,
     isPortFloor,
@@ -13,6 +14,7 @@ public enum groundType
 
 public class groundScript : MonoBehaviour {
     public int TerrainUID;
+    public int passCount;
     public bool haveSomethingInHere;
     public groundType type;
 
@@ -30,7 +32,33 @@ public class groundScript : MonoBehaviour {
     }
 
     void OnDestroy() {
-        mapTerrainGenerator.Static.thisLevelAllFloor.Remove(gameObject);
+        
+    }
+
+    public bool isDeadEnd() {
+        Vector3 left = transform.position + Vector3.left;
+        Vector3 right = transform.position + Vector3.right;
+        Vector3 up = transform.position + Vector3.up;
+        Vector3 down = transform.position + Vector3.down;
+        //int passCount = 0;
+        if (Physics.OverlapSphere(left, 0.5f).Length > 0) {
+            passCount++;
+        }
+        if (Physics.OverlapSphere(right, 0.5f).Length > 0) {
+            passCount++;
+        }
+        if (Physics.OverlapSphere(up, 0.5f).Length > 0) {
+            passCount++;
+        }
+        if (Physics.OverlapSphere(down, 0.5f).Length > 0) {
+            passCount++;
+        }
+
+        if (passCount == 1) {
+            return true;
+        }
+        return false;
+        
     }
 
 	// Update is called once per frame
@@ -48,8 +76,10 @@ public class groundScript : MonoBehaviour {
 
     void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "floor") {
-            if (TerrainUID > other.gameObject.GetComponent<groundScript>().TerrainUID) {
+            if (TerrainUID < other.gameObject.GetComponent<groundScript>().TerrainUID) {
+                Debug.Log(Time.frameCount +"   /   "+ mapTerrainGenerator.Static.thisLevelAllFloor.Count);
                 Destroy(other.gameObject);
+                mapTerrainGenerator.Static.thisLevelAllFloor.Remove(other.gameObject);
             }
         }
     }
