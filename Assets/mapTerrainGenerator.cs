@@ -10,6 +10,7 @@ public class mapTerrainGenerator : MonoBehaviour {
 
 
     public Vector3 mapCenter = new Vector3();
+    public Vector3 center;
     //public GameObject startPoint;
 
     public int terrainLength;
@@ -39,21 +40,30 @@ public class mapTerrainGenerator : MonoBehaviour {
     float Rightest;
 
     public void findCenter() {//可能唔要
+        findTopLeftDownRight();
         float centerX = (Leftest + Rightest) / 2;
         float centerY = (Toppest + Downest ) / 2;
-        Vector3 center = new Vector3(centerX,centerY,0);
+        center = new Vector3(centerX,centerY,0);
         Debug.Log(center);
     }//可能唔要
 
-    public void findLeftGround() {
+    public void findTopLeftDownRight() {
 
         if (thisLevelAllFloor.Count == 0) {
             return;
         }
 
         Vector3 LeftCheckLine = new Vector3(-200, 0, 0);
+        Vector3 UPCheckLine = new Vector3(200, 0, 0);
         GameObject LeftV3GO = thisLevelAllFloor[0];
+        GameObject UpV3GO = thisLevelAllFloor[0];
+        GameObject RightV3GO = thisLevelAllFloor[0];
+        GameObject DownV3GO = thisLevelAllFloor[0];
+
         float LeftGODistance = Vector3.Distance(LeftCheckLine, LeftV3GO.transform.position);
+        float UpGODistance = Vector3.Distance(UPCheckLine, LeftV3GO.transform.position);
+        float RightGODistance = Vector3.Distance(LeftCheckLine, LeftV3GO.transform.position);
+        float DownGODistance = Vector3.Distance(UPCheckLine, LeftV3GO.transform.position);
 
         foreach (var item in thisLevelAllFloor) {
 
@@ -61,30 +71,25 @@ public class mapTerrainGenerator : MonoBehaviour {
                 LeftGODistance = Vector3.Distance(LeftCheckLine, item.transform.position);
                 LeftV3GO = item;
             }
-        }
-        LeftV3GO.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-        Leftest = LeftV3GO.transform.position.x;
-    } //可能唔要
-    public void findRightGround() {
-
-        if (thisLevelAllFloor.Count == 0) {
-            return;
-        }
-
-        Vector3 RightCheckLine = new Vector3(-200, 0, 0);
-        GameObject RightV3GO = thisLevelAllFloor[0];
-        float RightGODistance = Vector3.Distance(RightCheckLine, RightV3GO.transform.position);
-
-        foreach (var item in thisLevelAllFloor) {
-
-            if (Vector3.Distance(RightCheckLine, item.transform.position) >= RightGODistance) {
-                RightGODistance = Vector3.Distance(RightCheckLine, item.transform.position);
+            if (Vector3.Distance(UPCheckLine, item.transform.position) >= UpGODistance) {
+                UpGODistance = Vector3.Distance(UPCheckLine, item.transform.position);
+                UpV3GO = item;
+            }
+            if (Vector3.Distance(LeftCheckLine, item.transform.position) >= RightGODistance) {
+                RightGODistance = Vector3.Distance(LeftCheckLine, item.transform.position);
                 RightV3GO = item;
             }
+            if (Vector3.Distance(UPCheckLine, item.transform.position) <= DownGODistance) {
+                DownGODistance = Vector3.Distance(UPCheckLine, item.transform.position);
+                DownV3GO = item;
+            }
         }
-        RightV3GO.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        //LeftV3GO.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+        Leftest = LeftV3GO.transform.position.x;
         Rightest = RightV3GO.transform.position.x;
-    }//可能唔要
+        Toppest = UpV3GO.transform.position.x;
+        Downest = DownV3GO.transform.position.x;
+    } //可能唔要
 
     public void mapLimit() {
         if (thisLevelAllFloor.Count <= 0) {
@@ -96,14 +101,12 @@ public class mapTerrainGenerator : MonoBehaviour {
         for (int i = 0; i < thisLevelAllFloor.Count; i++) {
             if (((thisLevelAllFloor[i].transform.position.x > mapCenter.x + widthLimit) || (thisLevelAllFloor[i].transform.position.x < mapCenter.x - widthLimit)) || ((thisLevelAllFloor[i].transform.position.y > mapCenter.y + heightLimit) || (thisLevelAllFloor[i].transform.position.y < mapCenter.y - heightLimit)) ) {
                 thisLevelAllFloor[i].transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+
                 Destroy(thisLevelAllFloor[i]);
                 thisLevelAllFloor.RemoveAt(i);
-                i = 0;
+                i = -1;
             }
 
-        }
-        foreach (var item in thisLevelAllFloor) { //可能做成浪費
-            
         }
 
     }
@@ -124,17 +127,20 @@ public class mapTerrainGenerator : MonoBehaviour {
     }
 
     void allFloorDetach() {
-        foreach (var item in thisLevelAllFloor) { //可能做成浪費
-            item.transform.parent = levelMapParentObject.transform;
-        }
 
+        thisLevelAllFloor[0].transform.parent = levelMapParentObject.transform;
         for (int i = 1; i < thisLevelAllFloor.Count; i++) {
+            thisLevelAllFloor[i].transform.parent = levelMapParentObject.transform;
             thisLevelAllFloor[i].transform.parent = thisLevelAllFloor[0].transform; //起初點
         }
         thisLevelAllFloor[0].transform.position = Vector3.zero; //原點
 
-        mapLimit();
+        foreach (var item in thisLevelAllFloor) {
+            item.transform.parent = null;
+        }
 
+        mapLimit();
+        findCenter();
     }
 
     void FindALLTerrainPortAndPortExit(ref List<GameObject> Port,ref  List<GameObject>  PortExit) {
