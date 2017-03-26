@@ -63,7 +63,7 @@ public class groundScript : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-        Vector3 hitPoint = new Vector3(transform.position.x,transform.position.y,-2);
+        Vector3 hitPoint = new Vector3(transform.position.x,transform.position.y,-1);
         Collider[] hitColliders = Physics.OverlapSphere(hitPoint, 0.25f);
         if (hitColliders.Length != 0 && Vector2.Distance( ((Vector2)hitColliders[0].transform.position), ((Vector2)transform.position)) <= 0.2f) {
             haveSomethingInHere = true;
@@ -78,8 +78,9 @@ public class groundScript : MonoBehaviour {
         if (other.gameObject.tag == "floor") {
             if (TerrainUID < other.gameObject.GetComponent<groundScript>().TerrainUID) {
                 Debug.Log(Time.frameCount +"   /   "+ mapTerrainGenerator.Static.thisLevelAllFloor.Count);
-                Destroy(other.gameObject);
                 mapTerrainGenerator.Static.thisLevelAllFloor.Remove(other.gameObject);
+                Destroy(other.gameObject);
+
             }
         }
     }

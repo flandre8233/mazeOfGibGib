@@ -3,11 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class canvasButton : MonoBehaviour {
+    public GameObject normalGameCanvas;
+    public GameObject bigMapCanvas;
+    public GameObject bigMapCamera;
+
 
     public void buttonClick() {
         roundScript.Static.OnEnterNextLevel();
     }
 
+    public void OpenMapButtonClick(bool Bool) {
+        normalGameCanvas.SetActive(!Bool);
+        bigMapCanvas.SetActive(Bool);
+        bigMapCamera.SetActive(Bool);
+    }
 
     /*
 

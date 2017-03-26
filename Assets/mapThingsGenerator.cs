@@ -110,7 +110,7 @@ public class mapThingsGenerator : MonoBehaviour {
                 int canPlaceThingsFloorNumber = totalfloorCanBePlaceThings.Count ;
                 int randomNumber = Random.Range(0, canPlaceThingsFloorNumber ); //在可放置東西的地板array上選出一個數字
             int randomNumberThingsType = randomSetItemType(); //為這次spawn的物品決定出他的種類
-            Vector3 randomPosition = new Vector3(totalfloorCanBePlaceThings[randomNumber].transform.position.x, totalfloorCanBePlaceThings[randomNumber].transform.position.y, -2); //放在那裡?
+            Vector3 randomPosition = new Vector3(totalfloorCanBePlaceThings[randomNumber].transform.position.x, totalfloorCanBePlaceThings[randomNumber].transform.position.y, -1); //放在那裡?
             switch (randomNumberThingsType) { //把結果分類
                 case 0:
 
@@ -138,7 +138,7 @@ public class mapThingsGenerator : MonoBehaviour {
                 if (item.GetComponent<groundScript>().isDeadEnd()) {
                     item.GetComponent<groundScript>().type = groundType.canNOTSpawnThings ;
                     totalfloorCanBePlaceExit.Add(item);
-                    Vector3 targetV3 = new Vector3(item.transform.position.x,item.transform.position.y,-2 );
+                    Vector3 targetV3 = new Vector3(item.transform.position.x,item.transform.position.y,-1 );
                     Instantiate(exitGoal, targetV3,Quaternion.identity);
                 }
             }
@@ -151,7 +151,7 @@ public class mapThingsGenerator : MonoBehaviour {
         if (mapTerrainGenerator.Static.thisLevelAllFloor.Count != 0) {
             foreach (var item in mapTerrainGenerator.Static.thisLevelAllFloor) {
                 if (item.GetComponent<groundScript>().type == groundType.startPoint) {
-                    Vector3 targetV3 = new Vector3(item.transform.position.x, item.transform.position.y, -2);
+                    Vector3 targetV3 = new Vector3(item.transform.position.x, item.transform.position.y, -1);
                     player.transform.position = targetV3;
                 }
             }
@@ -164,6 +164,10 @@ public class mapThingsGenerator : MonoBehaviour {
             spawnExitPoint();
             StartGeneratorTheThings();
             SerializePlayerPositionToSpawnPoint();
+
+            //mapTerrainGenerator.Static.findLeftGround();
+            //mapTerrainGenerator.Static.findRightGround();
+            //mapTerrainGenerator.Static.findCenter();
         }
     }
 }

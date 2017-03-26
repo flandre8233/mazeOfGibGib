@@ -27,7 +27,7 @@ public class roundScript : MonoBehaviour {
     public void OnEnterNextLevel() { // enter next level
 
         clearLevel();
-        //GameObject.FindGameObjectWithTag("Player").transform.position = new Vector3(0, 0, -2);
+        //GameObject.FindGameObjectWithTag("Player").transform.position = new Vector3(0, 0, -1);
         chessMovement.Static.startLerpMovement = false;
         playerDataBase.Static.currentFloor++;
         if (playerDataBase.Static.currentFloor % 5 == 0) { //到5,10,15,20......關卡
@@ -75,6 +75,9 @@ public class roundScript : MonoBehaviour {
             mapThingsGenerator.Static.spawnExitPoint();
             mapThingsGenerator.Static.StartGeneratorTheThings();
             mapThingsGenerator.Static.SerializePlayerPositionToSpawnPoint();
+            //mapTerrainGenerator.Static.findLeftGround();
+            //mapTerrainGenerator.Static.findRightGround();
+            //mapTerrainGenerator.Static.findCenter();
         }
         if (NeedGenertorThings) {
             nextFrameLock ++;
