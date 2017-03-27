@@ -134,6 +134,7 @@ public class mapThingsGenerator : MonoBehaviour {
     public void spawnExitPoint() {
         totalfloorCanBePlaceExit.Clear();
         if (mapTerrainGenerator.Static.thisLevelAllFloor.Count != 0) {
+            
             foreach (var item in mapTerrainGenerator.Static.thisLevelAllFloor) {
                 if (item.GetComponent<groundScript>().isDeadEnd()) {
                     item.GetComponent<groundScript>().type = groundType.canNOTSpawnThings ;

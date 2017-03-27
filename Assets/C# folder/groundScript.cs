@@ -18,6 +18,9 @@ public class groundScript : MonoBehaviour {
     public bool haveSomethingInHere;
     public groundType type;
 
+    public bool delByMapLimit;
+    public GameObject myParent;
+
     /*
     public bool canSpawnThings;
     public bool startPoint;
@@ -72,14 +75,21 @@ public class groundScript : MonoBehaviour {
             haveSomethingInHere = false;
         }
 
+        /*
+        if (myParent != null) {
+            if (myParent.GetComponent<groundScript>().delByMapLimit) {
+                Destroy(gameObject);
+            }
+        }
+        */
     }
 
     void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "floor") {
             if (TerrainUID < other.gameObject.GetComponent<groundScript>().TerrainUID) {
-                Debug.Log(Time.frameCount +"   /   "+ mapTerrainGenerator.Static.thisLevelAllFloor.Count);
-                mapTerrainGenerator.Static.thisLevelAllFloor.Remove(other.gameObject);
-                Destroy(other.gameObject);
+
+                //mapTerrainGenerator.Static.thisLevelAllFloor.Remove(other.gameObject);
+                //Destroy(other.gameObject);
 
             }
         }
