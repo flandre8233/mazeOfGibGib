@@ -46,7 +46,6 @@ public class mapTerrainGenerator : MonoBehaviour {
         center = new Vector3(centerX,centerY,0);
         Debug.Log(center);
     }//可能唔要
-
     public void findTopLeftDownRight() {
 
         if (thisLevelAllFloor.Count == 0) {
@@ -91,7 +90,7 @@ public class mapTerrainGenerator : MonoBehaviour {
         Downest = DownV3GO.transform.position.x;
     } //可能唔要
 
-    public void mapLimit() {
+    public void mapLimitDestroyer() {
         if (thisLevelAllFloor.Count <= 0) {
             return;
         }
@@ -102,28 +101,44 @@ public class mapTerrainGenerator : MonoBehaviour {
             if (((thisLevelAllFloor[i].transform.position.x > mapCenter.x + widthLimit) || (thisLevelAllFloor[i].transform.position.x < mapCenter.x - widthLimit)) || ((thisLevelAllFloor[i].transform.position.y > mapCenter.y + heightLimit) || (thisLevelAllFloor[i].transform.position.y < mapCenter.y - heightLimit)) ) {
                 thisLevelAllFloor[i].transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 
-                Destroy(thisLevelAllFloor[i]);
-                thisLevelAllFloor.RemoveAt(i);
-                i = -1;
+                //Destroy(thisLevelAllFloor[i]);
+                //thisLevelAllFloor.RemoveAt(i);
+                //i = -1;
             }
 
         }
 
     }
 
+    public bool mapLimit() {
+        if (thisLevelAllFloor.Count <= 0) {
+            return true;
+        }
+
+        int widthLimit = 5;
+        int heightLimit = 5;
+        for (int i = 0; i < thisLevelAllFloor.Count; i++) {
+            if (((thisLevelAllFloor[i].transform.position.x > mapCenter.x + widthLimit) || (thisLevelAllFloor[i].transform.position.x < mapCenter.x - widthLimit)) || ((thisLevelAllFloor[i].transform.position.y > mapCenter.y + heightLimit) || (thisLevelAllFloor[i].transform.position.y < mapCenter.y - heightLimit))) {
+                return true;
+            }
+
+        }
+        return false;
+    }
+
     public void resetTerrain() {
         ThisLevelAllTerrainParts.RemoveRange(1,ThisLevelAllTerrainParts.Count-1);
 
-        selectTerrainInAssets(); //碰撞會在下一個frame才做
-        
-        FindALLTerrainPortAndPortExit(ref allTerrainPort,ref allTerrainPortExit);
+        //selectTerrainInAssets(); //碰撞會在下一個frame才做
+        createTerrain();
+        //FindALLTerrainPortAndPortExit(ref allTerrainPort,ref allTerrainPortExit);
 
-        syncTwoPortList(ref allTerrainPort);
-        syncTwoPortList(ref allTerrainPortExit);
+        //syncTwoPortList(ref allTerrainPort);
+        //syncTwoPortList(ref allTerrainPortExit);
 
-        linkAllPort();
+        //linkAllPort();
         allFloorDetach();
-        
+
     }
 
     void allFloorDetach() {
@@ -139,7 +154,7 @@ public class mapTerrainGenerator : MonoBehaviour {
             item.transform.parent = null;
         }
 
-        mapLimit();
+        //mapLimitDestroyer();
         findCenter();
     }
 
@@ -200,6 +215,46 @@ public class mapTerrainGenerator : MonoBehaviour {
 
 
         }
+    }
+
+    public void createTerrain() {
+        GameObject spawnObject = null;
+
+        int count = 0;
+        for (int i = 0; i < terrainLength; i++) {
+            if (i == 0) {
+                spawnObject = Instantiate(ThisLevelAllTerrainParts[0], Vector3.zero, Quaternion.identity); //startpoint
+            }
+            else {
+                int randomNumber = Random.Range(0, gameAllTerrainParts.Count);
+                spawnObject = Instantiate(gameAllTerrainParts[randomNumber], Vector3.up, Quaternion.identity);
+                ThisLevelAllTerrainParts.Add(spawnObject);
+            }
+            thisLevelAllFloor.Add(spawnObject);
+            spawnObject.GetComponent<groundScript>().TerrainUID = i;
+            foreach (Transform child in spawnObject.transform) { //依個work
+                thisLevelAllFloor.Add(child.gameObject);
+                child.gameObject.GetComponent<groundScript>().TerrainUID = i;
+            }
+
+
+            for (int j = count; j < thisLevelAllFloor.Count; j++) {
+                if (thisLevelAllFloor[j].GetComponent<groundScript>().type == groundType.startPoint) {
+                    allTerrainPort.Add(thisLevelAllFloor[j]);
+                    //PortExit.Add(item);
+                }
+
+                if (thisLevelAllFloor[j].GetComponent<groundScript>().type == groundType.isPortFloor) {
+                    allTerrainPort.Add(thisLevelAllFloor[j]);
+                }
+                if (thisLevelAllFloor[j].GetComponent<groundScript>().type == groundType.isPortExitFloor) {
+                    allTerrainPortExit.Add(thisLevelAllFloor[j]);
+                }
+            }
+
+            count = thisLevelAllFloor.Count;
+        }
+
     }
 
     void linkAllPort() { //可能存在問題 多重出口
