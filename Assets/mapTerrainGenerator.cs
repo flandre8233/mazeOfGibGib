@@ -249,7 +249,21 @@ public class mapTerrainGenerator : MonoBehaviour {
                 }
                 if (thisLevelAllFloor[j].GetComponent<groundScript>().type == groundType.isPortExitFloor) {
                     allTerrainPortExit.Add(thisLevelAllFloor[j]);
+
+                    foreach (var item in allTerrainPortExit) {
+                        if (item.GetComponent<groundScript>().TerrainUID != allTerrainPort[i].GetComponent<groundScript>().TerrainUID) {
+
+                            allTerrainPort[i ].transform.position = item.transform.position;
+                            allTerrainPort[i].transform.Rotate(randomRotation());
+                            allTerrainPort[i].transform.parent = item.transform;
+
+                            allTerrainPortExit.Remove(item);
+                            break;
+                        }
+                    }
                 }
+
+
             }
 
             count = thisLevelAllFloor.Count;
