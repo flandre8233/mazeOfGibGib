@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class shopCanvasScript : MonoBehaviour {
+public class equipmentCanvasScript : MonoBehaviour {
     public Text ATK;
     public Text ATKLevel;
     public Text ATKCostText;
@@ -18,7 +18,6 @@ public class shopCanvasScript : MonoBehaviour {
 
     public int ATKCost;
     public int DEFCost;
-
     // Use this for initialization
     void Start () {
 		
