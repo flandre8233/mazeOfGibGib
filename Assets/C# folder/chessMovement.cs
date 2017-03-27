@@ -181,12 +181,12 @@ public class chessMovement : MonoBehaviour {
         //
         //transform.parent = groundBox.transform; //change object parent
         groundBox = hitColliders[0].gameObject;
-        groundBoxPosition = new Vector3(groundBox.transform.position.x, groundBox.transform.position.y, -2);
+        groundBoxPosition = new Vector3(groundBox.transform.position.x, groundBox.transform.position.y, -1);
         startLerpMovement = true;
         startTime = Time.time;
 
         //transform.localPosition = Vector3.zero;
-        //ansform.localPosition = new Vector3(0, 0, -2); //"<--"
+        //ansform.localPosition = new Vector3(0, 0, -1); //"<--"
         thisFrameMoved = true;
     }
 
@@ -208,7 +208,7 @@ public class chessMovement : MonoBehaviour {
 
     void moveCheck() { //正確是否正確移動
         Collider[] hitColliders = Physics.OverlapSphere(center, 0.25f);
-        Collider[] hitEnemyColliders = Physics.OverlapSphere(new Vector3(center.x,center.y,-2), 0.15f);
+        Collider[] hitEnemyColliders = Physics.OverlapSphere(new Vector3(center.x,center.y,-1), 0.15f);
 
         if (hitColliders.Length >= 1) {
             if (hitEnemyColliders.Length >= 1) {

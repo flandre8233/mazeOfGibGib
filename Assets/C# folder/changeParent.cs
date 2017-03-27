@@ -13,7 +13,7 @@ public class changeParent : MonoBehaviour {
 	void Start () {
         transform.parent = go1.transform; //change object parent
         transform.localPosition = Vector3.zero;
-        transform.localPosition = new Vector3(0,0,-2);
+        transform.localPosition = new Vector3(0,0,-1);
     }
 	
 	// Update is called once per frame
