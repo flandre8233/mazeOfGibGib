@@ -42,7 +42,7 @@ public class mapTerrainGenerator : MonoBehaviour {
     public void findCenter() {//可能唔要
         findTopLeftDownRight();
         float centerX = (Leftest + Rightest) / 2;
-        float centerY = (Toppest + Downest ) / 2;
+        float centerY = (Downest + Toppest) / 2;
         center = new Vector3(centerX,centerY,0);
         Debug.Log(center);
     }//可能唔要
@@ -53,7 +53,7 @@ public class mapTerrainGenerator : MonoBehaviour {
         }
 
         Vector3 LeftCheckLine = new Vector3(-200, 0, 0);
-        Vector3 UPCheckLine = new Vector3(200, 0, 0);
+        Vector3 UPCheckLine = new Vector3(0, 200, 0);
         GameObject LeftV3GO = thisLevelAllFloor[0];
         GameObject UpV3GO = thisLevelAllFloor[0];
         GameObject RightV3GO = thisLevelAllFloor[0];
@@ -70,7 +70,7 @@ public class mapTerrainGenerator : MonoBehaviour {
                 LeftGODistance = Vector3.Distance(LeftCheckLine, item.transform.position);
                 LeftV3GO = item;
             }
-            if (Vector3.Distance(UPCheckLine, item.transform.position) >= UpGODistance) {
+            if (Vector3.Distance(UPCheckLine, item.transform.position) <= UpGODistance) {
                 UpGODistance = Vector3.Distance(UPCheckLine, item.transform.position);
                 UpV3GO = item;
             }
@@ -78,7 +78,7 @@ public class mapTerrainGenerator : MonoBehaviour {
                 RightGODistance = Vector3.Distance(LeftCheckLine, item.transform.position);
                 RightV3GO = item;
             }
-            if (Vector3.Distance(UPCheckLine, item.transform.position) <= DownGODistance) {
+            if (Vector3.Distance(UPCheckLine, item.transform.position) >= DownGODistance) {
                 DownGODistance = Vector3.Distance(UPCheckLine, item.transform.position);
                 DownV3GO = item;
             }
