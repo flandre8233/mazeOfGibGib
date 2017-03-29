@@ -109,7 +109,7 @@ public class mapTerrainGenerator : MonoBehaviour {
                 }
                 
 
-                thisLevelAllFloor[i].transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                //thisLevelAllFloor[i].transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                 thisLevelAllFloor[i].GetComponent<groundScript>().delByMapLimit = true;
                 //Destroy(thisLevelAllFloor[i]);
             }
@@ -191,16 +191,19 @@ public class mapTerrainGenerator : MonoBehaviour {
 
     void allFloorDetach() {
 
-        thisLevelAllFloor[0].transform.parent = levelMapParentObject.transform;
-        for (int i = 1; i < thisLevelAllFloor.Count; i++) {
-            thisLevelAllFloor[i].transform.parent = levelMapParentObject.transform;
-            thisLevelAllFloor[i].transform.parent = thisLevelAllFloor[0].transform; //起初點
-        }
-        thisLevelAllFloor[0].transform.position = Vector3.zero; //原點
-
         foreach (var item in thisLevelAllFloor) {
             item.transform.parent = null;
+            //item.transform.parent = levelMapParentObject.transform;
         }
+
+        /*
+        for (int i = 1; i < thisLevelAllFloor.Count; i++) {
+            
+            //thisLevelAllFloor[i].transform.parent = thisLevelAllFloor[0].transform; //起初點
+        }
+       // thisLevelAllFloor[0].transform.position = Vector3.zero; //原點
+       */
+
 
         //mapLimitDestroyer();
 
@@ -333,15 +336,15 @@ public class mapTerrainGenerator : MonoBehaviour {
 
         int count = 0;
         for (int i = 0; i < terrainLength; i++) {
-            Debug.Log(i + " . " + count + " . " + thisLevelAllFloor.Count);
+            //Debug.Log(i + " . " + count + " . " + thisLevelAllFloor.Count);
             if (i == 0) {
-                Vector3 startPos = new Vector3(Random.Range(0, 8)-4, Random.Range(0, 8)-4, 0);
-                mapCenter = startPos;
-                spawnObject = Instantiate(ThisLevelAllTerrainParts[0], new Vector3(3,3,0), Quaternion.identity); //startpoint
+                //mapCenter = new Vector3(Random.Range(0, 8)-4, Random.Range(0, 8)-4, 0);
+                spawnObject = Instantiate(ThisLevelAllTerrainParts[0], mapCenter, Quaternion.identity); //startpoint
             }
             else {
                 int randomNumber = Random.Range(0, gameAllTerrainParts.Count);
                 spawnObject = Instantiate(gameAllTerrainParts[randomNumber], Vector3.up, Quaternion.identity);
+                spawnObject.transform.Rotate(randomRotation());
                 ThisLevelAllTerrainParts.Add(spawnObject);
             }
             allTerrainPort.Add(spawnObject);
@@ -349,7 +352,6 @@ public class mapTerrainGenerator : MonoBehaviour {
             spawnObject.GetComponent<groundScript>().TerrainUID = i;
             foreach (Transform child in spawnObject.transform) { //依個work
                 thisLevelAllFloor.Add(child.gameObject);
-                //child.parent = null;
                 child.gameObject.GetComponent<groundScript>().TerrainUID = i;
 
                 if (child.gameObject.GetComponent<groundScript>().type == groundType.isPortExitFloor) {
@@ -357,49 +359,34 @@ public class mapTerrainGenerator : MonoBehaviour {
                 }
 
             }
-
-            bool FindAndDone = false;
-            Debug.Log(thisLevelAllFloor.Count);
-            Debug.Log(allTerrainPortExit.Count + "   hkhkhk");
             //linkAllPort
-            for (int h = 0; h < allTerrainPortExit.Count; h++) {
+            if (i != 0) {
+                for (int h = 0; h < allTerrainPortExit.Count; h++) {
 
-                if (allTerrainPortExit[h].GetComponent<groundScript>().TerrainUID != i && !allTerrainPortExit[h].GetComponent<groundScript>().delByMapLimit) {
+                    if (allTerrainPortExit[h].GetComponent<groundScript>().TerrainUID != i && !allTerrainPortExit[h].GetComponent<groundScript>().delByMapLimit) {
 
-                    allTerrainPort[i].transform.position = allTerrainPortExit[h].transform.position;
-                    allTerrainPort[i].transform.Rotate(randomRotation());
-
-                    Debug.Log(i + " gj  uid");
-                    if (checkMapLimit(thisLevelAllFloor.Count - 1) == false) { //檢查是否超出map限制
-                        Debug.Log(i + " pass  uid");
-                        allTerrainPort[i].transform.parent = allTerrainPortExit[h].transform;
-                        allTerrainPortExit[h].GetComponent<groundScript>().delByMapLimit = true;
-                    }
-                    
-                    else {
-                        Debug.Log(i + "   uid");
-
-                        for (int k = 0; k < thisLevelAllFloor.Count; k++) { //回去最新一堆地板開始loop 進行刪除動作
-                            if (thisLevelAllFloor[k].GetComponent<groundScript>().TerrainUID == i) {
-                                thisLevelAllFloor[k].GetComponent<groundScript>().delByMapLimit = true;
-                                //thisLevelAllFloor.RemoveAt(k);
-                                //Debug.Log("gkdlsja");
-                                //k=0;
-                                //Debug.Log("gkdlsjass");
-                            }
-
-                            //Debug.Log("gkdlsjass22");
+                        allTerrainPort[i].transform.position = allTerrainPortExit[h].transform.position;
+                        
+                        if (checkMapLimit(thisLevelAllFloor.Count - 1) == false) { //檢查是否超出map限制
+                            allTerrainPort[i].transform.parent = allTerrainPortExit[h].transform;
+                            allTerrainPortExit[h].GetComponent<groundScript>().delByMapLimit = true;
                         }
-                        allTerrainPortExit[h].GetComponent<groundScript>().delByMapLimit = true;
-                        FindAndDone = true;
+
+                        else {
+
+                            for (int k = 0; k < thisLevelAllFloor.Count; k++) { //回去最新一堆地板開始loop 進行刪除動作
+                                if (thisLevelAllFloor[k].GetComponent<groundScript>().TerrainUID == i) {
+                                    thisLevelAllFloor[k].GetComponent<groundScript>().delByMapLimit = true;
+                                }
+                            }
+                            allTerrainPortExit[h].GetComponent<groundScript>().delByMapLimit = true;
+                        }
+
+                        break;
                     }
-                    
-                    break;
                 }
+            
                 
-            }
-            if (FindAndDone) {
-               // i--;
             }
 
             count = thisLevelAllFloor.Count;
@@ -416,7 +403,7 @@ public class mapTerrainGenerator : MonoBehaviour {
                 if (item.GetComponent<groundScript>().TerrainUID != allTerrainPort[i].GetComponent<groundScript>().TerrainUID) {
 
                     allTerrainPort[i].transform.position = item.transform.position;
-                    allTerrainPort[i].transform.Rotate(randomRotation());
+                    //allTerrainPort[i].transform.Rotate();
                     allTerrainPort[i].transform.parent = item.transform;
 
                     allTerrainPortExit.Remove(item);
