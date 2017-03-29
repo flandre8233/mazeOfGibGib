@@ -74,6 +74,15 @@ public class groundScript : MonoBehaviour {
         else {
             haveSomethingInHere = false;
         }
+        
+        if (GetComponent<groundScript>().delByMapLimit) {
+            if (
+            mapTerrainGenerator.Static.thisLevelAllFloor.Remove(gameObject)) {
+                mapTerrainGenerator.Static.thisLevelAllFloor.Remove(gameObject);
+            }
+            Destroy(gameObject);
+        }
+        
 
         /*
         if (myParent != null) {
@@ -86,10 +95,10 @@ public class groundScript : MonoBehaviour {
 
     void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "floor") {
-            if (TerrainUID < other.gameObject.GetComponent<groundScript>().TerrainUID) {
+            if (TerrainUID < other.gameObject.GetComponent<groundScript>().TerrainUID && !GetComponent<groundScript>().delByMapLimit) {
 
-                //mapTerrainGenerator.Static.thisLevelAllFloor.Remove(other.gameObject);
-                //Destroy(other.gameObject);
+                mapTerrainGenerator.Static.thisLevelAllFloor.Remove(other.gameObject);
+                Destroy(other.gameObject);
 
             }
         }
