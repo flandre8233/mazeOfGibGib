@@ -28,7 +28,7 @@ public class itemScript : MonoBehaviour
 
     public void setItemType() {
         if (IsAutoSetType) {
-            ItemType = itemGenerator.Static.randomSetItemType();
+            ItemType = itemGenerator.Static.selectType();
         }
         setItemFunction();
 

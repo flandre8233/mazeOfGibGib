@@ -6,7 +6,7 @@ public enum enemyType
 {
     normal,
     tank,
-    portal,
+    patrol,
     masksman
 };
 

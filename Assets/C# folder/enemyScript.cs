@@ -7,14 +7,23 @@ using UnityEngine;
 public class enemyScript : MonoBehaviour {
     public npcSensor sensor;
     enemyDataBase DataBase;
-
+    public bool IsAutoSetType = true;
     public bool killTest = false;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
        DataBase = GetComponent<enemyDataBase>();
+        setItemType();
         roundScript.Static.roundSystem += enemyAttackPlayerScript;
         roundScript.Static.roundSystem += enemyHPCheck;
+    }
+
+    public void setItemType() {
+        if (IsAutoSetType) {
+            DataBase.type = enemyGenerator.Static.selectType();
+        }
+        //setItemFunction();
+
     }
 
     public void enemyAttackPlayerScript() {
