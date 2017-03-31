@@ -18,6 +18,7 @@ public class chessMovement : MonoBehaviour {
 
     [Range (1,5)]
     public float lerpSpeed = 1;
+    float normalLerpSpeed;
     // Use this for initialization
     void Start () {
         Static = this;
@@ -56,6 +57,7 @@ public class chessMovement : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D)) {
             if (!ready) { //autoMovementParts
                 downTime = 0;
+                
                 ready = true;
             }
             else {
@@ -66,7 +68,7 @@ public class chessMovement : MonoBehaviour {
         }
 
         if (ready) {
-            //autoMovement(faceDirection);
+            autoMovement(faceDirection);
         }
         // w係+ s係-   a係-  d係+
     }
@@ -126,53 +128,59 @@ public class chessMovement : MonoBehaviour {
     }//找出鍵盤輸入的方位是什麼 並string化輸入數值
     void MovementPart(string moveDirection) {
 
-        switch (moveDirection) {
-            default:
-                break;
+        if (!roundScript.Static.isProcessingRound) {
+            switch (moveDirection) {
+                default:
+                    break;
 
-            case "up":
-                center = new Vector3(transform.position.x + 0, transform.position.y + 1, 0); //W
-                moveCheck();
-                break;
-            case "down":
-                center = new Vector3(transform.position.x + 0, transform.position.y - 1, 0); //S
-                moveCheck();
-                break;
-            case "left":
-                center = new Vector3(transform.position.x - 1, transform.position.y + 0, 0); //A
-                moveCheck();
-                break;
-            case "right":
-                center = new Vector3(transform.position.x + 1, transform.position.y + 0, 0);
-                moveCheck();
-                break;
-            case "up/left":
-                center = new Vector3(transform.position.x - 1, transform.position.y + 1, 0);
-                moveCheck();
-                break;
-            case "up/right":
-                center = new Vector3(transform.position.x + 1, transform.position.y + 1, 0);
-                moveCheck();
-                break;
-            case "down/left":
-                center = new Vector3(transform.position.x - 1, transform.position.y - 1, 0);
-                moveCheck();
-                break;
-            case "down/right":
-                center = new Vector3(transform.position.x + 1, transform.position.y - 1, 0);
-                moveCheck();
-                break;
+                case "up":
+                    center = new Vector3(transform.position.x + 0, transform.position.y + 1, 0); //W
+                    break;
+                case "down":
+                    center = new Vector3(transform.position.x + 0, transform.position.y - 1, 0); //S
+                    break;
+                case "left":
+                    center = new Vector3(transform.position.x - 1, transform.position.y + 0, 0); //A
+                    break;
+                case "right":
+                    center = new Vector3(transform.position.x + 1, transform.position.y + 0, 0);
+                    break;
+                case "up/left":
+                    center = new Vector3(transform.position.x - 1, transform.position.y + 1, 0);
+                    break;
+                case "up/right":
+                    center = new Vector3(transform.position.x + 1, transform.position.y + 1, 0);
+                    break;
+                case "down/left":
+                    center = new Vector3(transform.position.x - 1, transform.position.y - 1, 0);
+                    break;
+                case "down/right":
+                    center = new Vector3(transform.position.x + 1, transform.position.y - 1, 0);
+                    break;
+            }
+            moveCheck();
         }
+
     }//把已string化的鍵盤方位數值解碼，指揮檢查用vector3先去鍵盤要求前住的那一格方位
+
+    bool doOnce = false;
     void autoMovement(string direction) {
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) {
             downTime += Time.deltaTime;
         }
         if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D)) {
             downTime = 0;
+            lerpSpeed = normalLerpSpeed;
             ready = false;
+            doOnce = false;
         }
         if (downTime >= countDown) {
+            if (!doOnce) {
+                doOnce = true;
+                normalLerpSpeed = lerpSpeed;
+                lerpSpeed = normalLerpSpeed * 2f;
+            }
+            
             MovementPart(direction);
         }
     }//自動重復執行MovementPart

@@ -20,6 +20,10 @@ public class playerDataBase : MonoBehaviour {
     public int COINBounsPercent { get; set; }
     public int POINT { get; set; }
 
+    public int HPItemBounsPercent { get; set; }
+    public int SPItemBounsPercent { get; set; }
+    //public int 
+
     public int ResetTimes { get; set; }
     public int currentFloor { get; set; }
     public int maxFloor { get; set; }

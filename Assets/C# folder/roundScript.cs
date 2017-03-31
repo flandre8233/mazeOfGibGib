@@ -14,14 +14,27 @@ public class roundScript : MonoBehaviour {
     public bool isInExitLevel = false;
     bool NeedGenertorThings = false;
 
+    public bool isProcessingRound = false;
+
     public playerMainScript playerMainScript;
 
     public List<GameObject> enemyList; 
 
     public void pastRound() {
+        isProcessingRound = true;
         round++;
         roundSystem.Invoke();
         playerMainScript.deadAliveCheck();
+    }
+
+    public void RoundProcessingChecker() {
+        if (isProcessingRound) {
+            if (!chessMovement.Static.startLerpMovement) {
+                isProcessingRound = false;
+                // Processing is complete
+            }
+        }
+
     }
 
     public short currentArea = 1;
@@ -92,7 +105,7 @@ public class roundScript : MonoBehaviour {
             playerMainScript.GetComponent<chessMovement>().enabled = false;
             Debug.Log("lkdsalkjdalslk");
         }
-
+        RoundProcessingChecker();
     }
 
     public void Awake() {

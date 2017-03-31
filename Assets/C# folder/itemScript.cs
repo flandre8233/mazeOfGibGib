@@ -28,33 +28,34 @@ public class itemScript : MonoBehaviour
 
     public void setItemType() {
         if (IsAutoSetType) {
-            ItemType = itemGenerator.Static.selectType();
+            ItemType = selectType();
         }
-        setItemFunction();
 
     }
 
-    void setItemFunction() {
-        switch (ItemType) {
-            case itemType.hpItem:
+    public itemType selectType() {
+        switch (itemAndEnemyProcessor.randomSetThingsType(itemGenerator.Static.ProbabilityArray) ) {
+            case 1:
                 hpitemSetting();
-                break;
-            case itemType.spItem:
+                return itemType.hpItem;
+            case 2:
                 spitemSetting();
-                break;
-            case itemType.hpmaxItem:
+                return itemType.spItem;
+            case 3:
                 hpmaxitemSetting();
-                break;
-            case itemType.spmaxItem:
+                return itemType.hpmaxItem;
+            case 4:
                 spmaxitemSetting();
-                break;
-            case itemType.coinItem:
+                return itemType.spmaxItem;
+            case 5:
                 coinitemSetting();
-                break;
+                return itemType.coinItem;
             default:
                 defaultSetting();
                 break;
         }
+
+        return itemType.hpItem;
     }
 
     void defaultSetting() {

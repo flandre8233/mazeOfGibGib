@@ -79,23 +79,5 @@ public class itemGenerator : MonoBehaviour {
     }
     */
     #endregion
-    public itemType selectType() {
-        short type = itemAndEnemyProcessor.randomSetThingsType(ProbabilityArray);
-        switch (type) {
-            case 1:
-                return itemType.hpItem;
-            case 2:
-                return itemType.spItem;
-            case 3:
-                return itemType.hpmaxItem;
-            case 4:
-                return itemType.spmaxItem;
-            case 5:
-                return itemType.coinItem;
-            default:
-                break;
-        }
 
-        return itemType.hpItem;
-    }
 }

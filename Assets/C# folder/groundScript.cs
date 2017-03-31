@@ -21,6 +21,8 @@ public class groundScript : MonoBehaviour {
     public bool delByMapLimit;
     public GameObject myParent;
 
+    public bool alreadyLink;
+
     /*
     public bool canSpawnThings;
     public bool startPoint;

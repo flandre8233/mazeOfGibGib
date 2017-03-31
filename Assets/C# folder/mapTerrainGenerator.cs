@@ -183,7 +183,7 @@ public class mapTerrainGenerator : MonoBehaviour {
         for (int i = 0; i < terrainLength; i++) {
             //Debug.Log(i + " . " + count + " . " + thisLevelAllFloor.Count);
             if (i == 0) {
-                mapCenter = new Vector3(Random.Range(0, 16)-8, Random.Range(0, 16)-8, 0);
+                mapCenter = new Vector3(Random.Range(0, 12)-6, Random.Range(0, 16)-8, 0);
                 spawnObject = Instantiate(ThisLevelAllTerrainParts[0], mapCenter, Quaternion.identity); //startpoint
             }
             else {
@@ -205,6 +205,7 @@ public class mapTerrainGenerator : MonoBehaviour {
 
             }
             checkMapLimit(thisLevelAllFloor.Count - 1, count);
+            allTerrainPort[0].GetComponent<groundScript>().alreadyLink = true;
             //linkAllPort
             if (i != 0) {
                 for (int h = 0; h < allTerrainPortExit.Count; h++) {
@@ -212,6 +213,8 @@ public class mapTerrainGenerator : MonoBehaviour {
                     if (allTerrainPortExit[h].GetComponent<groundScript>().TerrainUID != i && !allTerrainPortExit[h].GetComponent<groundScript>().delByMapLimit) {
 
                         allTerrainPort[i].transform.position = allTerrainPortExit[h].transform.position;
+                        allTerrainPort[i].GetComponent<groundScript>().alreadyLink = true;
+
                         Debug.Log( (checkMapLimit(thisLevelAllFloor.Count - 1,count) + "   " + i ) );                        
                         if (checkMapLimit(thisLevelAllFloor.Count - 1, count) == false) { //檢查是否超出map限制
                             allTerrainPort[i].transform.parent = allTerrainPortExit[h].transform;
@@ -234,6 +237,19 @@ public class mapTerrainGenerator : MonoBehaviour {
             }
 
             count = thisLevelAllFloor.Count;
+        }
+
+        foreach (var item in allTerrainPort) {
+            if (!item.GetComponent<groundScript>().alreadyLink) {
+                for (int i = 0; i < thisLevelAllFloor.Count; i++) {
+                    if (item.GetComponent<groundScript>().TerrainUID == thisLevelAllFloor[i].GetComponent<groundScript>().TerrainUID && !thisLevelAllFloor[i].GetComponent<groundScript>().delByMapLimit) {
+                        //thisLevelAllFloor[i].GetComponent<groundScript>().delByMapLimit = true;
+                        Destroy(thisLevelAllFloor[i]);
+                        thisLevelAllFloor.RemoveAt(i);
+                    }
+                }
+            }
+
         }
 
     }
