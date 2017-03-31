@@ -24,6 +24,7 @@ public class roundScript : MonoBehaviour {
         playerMainScript.deadAliveCheck();
     }
 
+    public short currentArea = 1;
     public void OnEnterNextLevel() { // enter next level
 
         clearLevel();
@@ -32,6 +33,7 @@ public class roundScript : MonoBehaviour {
         playerDataBase.Static.currentFloor++;
         if (playerDataBase.Static.currentFloor % 5 == 0) { //到5,10,15,20......關卡
             playerDataBase.Static.POINT += 5;
+            currentArea++;
         }
 
         mapTerrainGenerator.Static.resetTerrain();

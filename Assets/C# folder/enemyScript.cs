@@ -13,6 +13,7 @@ public class enemyScript : MonoBehaviour {
     // Use this for initialization
     void Start () {
        DataBase = GetComponent<enemyDataBase>();
+        DataBase.testOnlySetUp(roundScript.Static.currentArea);
         setItemType();
         roundScript.Static.roundSystem += enemyAttackPlayerScript;
         roundScript.Static.roundSystem += enemyHPCheck;
