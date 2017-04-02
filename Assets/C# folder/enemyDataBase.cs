@@ -31,7 +31,7 @@ public class enemyDataBase : MonoBehaviour {
         ATK = 2 + (int)((Level - 1) * 1.2f);
         CD = 1;
         //DEF = 1;
-        COIN = 2;
+        COIN = 2 + (int)((Level - 1) * 1.2f);
     }
 
     public void normalSetUp(short monsterLevel) {
@@ -42,7 +42,7 @@ public class enemyDataBase : MonoBehaviour {
         ATK = 2 + (int)((Level - 1) * 1.2f);
         CD = 2;
         //DEF = 1;
-        COIN = 2;
+        COIN = 2 + (int)((Level - 1) * 1.2f);
     }
 
     public void tankSetUp(short monsterLevel) {
@@ -53,7 +53,7 @@ public class enemyDataBase : MonoBehaviour {
         ATK = 2 + (int)((Level - 1) * 1.2f);
         CD = 4;
         //DEF = 1;
-        COIN = 2;
+        COIN = 2 + (int)((Level - 1) * 1.2f);
     }
 
     public void patrolSetUp(short monsterLevel) {
@@ -64,7 +64,7 @@ public class enemyDataBase : MonoBehaviour {
         ATK = 2 + (int)((Level - 1) * 1.2f);
         CD = 4;
         //DEF = 1;
-        COIN = 2;
+        COIN = 2 + (int)((Level - 1) * 1.2f);
     }
 
     public void masksmanSetUp(short monsterLevel) {
@@ -75,7 +75,7 @@ public class enemyDataBase : MonoBehaviour {
         ATK = 2 + (int)((Level - 1) * 1.2f);
         CD = 2;
         //DEF = 1;
-        COIN = 2;
+        COIN = 2 + (int)((Level - 1) * 1.2f);
     }
 
     void Awake() {

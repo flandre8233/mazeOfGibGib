@@ -71,7 +71,7 @@ public class enemyScript : MonoBehaviour {
 
         }
     }
-
+    
     public void enemyHPCheck() {
         if (DataBase.HP <= 0 || killTest) {
             roundScript.Static.roundSystem -= enemyAttackPlayerScript;

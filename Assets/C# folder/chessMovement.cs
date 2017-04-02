@@ -21,13 +21,12 @@ public class chessMovement : MonoBehaviour {
     float normalLerpSpeed;
     // Use this for initialization
     void Start () {
+        normalLerpSpeed = lerpSpeed;
         Static = this;
         reset();
     }
 
     // Update is called once per frame
-
-    //你自己有能力就先控我部機研究啦
 
     void Update() {
         LerpMove();
@@ -43,26 +42,18 @@ public class chessMovement : MonoBehaviour {
             isHitNpc = false;
             thisFrameMoved = false;
         }
-
-        if (!ready) {
-            //faceDirection = movementInput(faceDirection);
-        }
-
         if (Input.GetKeyDown(KeyCode.E) ) {
             roundScript.Static.pastRound();
         }
 
 
         faceDirection = movementInput(faceDirection);
-        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D)) {
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) {
             if (!ready) { //autoMovementParts
                 downTime = 0;
                 
                 ready = true;
             }
-            else {
-                ready = false;
-            } //problem
             MovementPart(faceDirection);
             
         }
@@ -81,6 +72,7 @@ public class chessMovement : MonoBehaviour {
     }//一開頭設定
     string movementInput(string DefaultDirection) {
 
+        /*
         if (Input.GetKeyDown(KeyCode.W) && Input.GetKey(KeyCode.A)) {
             return "up/left";
         }
@@ -108,6 +100,7 @@ public class chessMovement : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.D) && Input.GetKey(KeyCode.S)) {
             return "down/right";
         }
+        */
 
 
         if (Input.GetKeyDown(KeyCode.W)) {
@@ -180,7 +173,7 @@ public class chessMovement : MonoBehaviour {
                 normalLerpSpeed = lerpSpeed;
                 lerpSpeed = normalLerpSpeed * 2f;
             }
-            
+            Debug.Log("lsadlklk");
             MovementPart(direction);
         }
     }//自動重復執行MovementPart
@@ -203,9 +196,10 @@ public class chessMovement : MonoBehaviour {
     Vector3 groundBoxPosition;
     GameObject groundBox = null;
     void LerpMove() {
+        //Debug.Log("pass" + groundBoxPosition + "  "  + startTime + " / " + Time.time);
         if (startLerpMovement) {
             transform.position = Vector3.Lerp(transform.position, groundBoxPosition, (Time.time - startTime) * lerpSpeed);
-            //Debug.Log(groundBoxPosition);
+            //Debug.Log((Time.time - startTime) * lerpSpeed);
             //Debug.Log(Vector3.Distance(transform.position, groundBoxPosition));
             if (Vector3.Distance(transform.position, groundBoxPosition) == 0) {
                 startLerpMovement = false;
@@ -213,6 +207,8 @@ public class chessMovement : MonoBehaviour {
             }
         }
     }
+
+    
 
     void moveCheck() { //正確是否正確移動
         Collider[] hitColliders = Physics.OverlapSphere(center, 0.25f);

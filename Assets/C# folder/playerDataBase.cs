@@ -47,6 +47,8 @@ public class playerDataBase : MonoBehaviour {
         maxFloor = 1;
     }
 
+
+
     void Awake() {
         //Debug.Log(GetComponent<Transform>().name);
         testOnlySetUp();
