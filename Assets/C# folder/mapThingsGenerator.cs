@@ -120,8 +120,8 @@ public class mapThingsGenerator : MonoBehaviour {
                         break;
 
                     case 1:
-
-                        Instantiate(enemy, randomPosition, Quaternion.identity);
+                    GameObject InstantiateEnemy = Instantiate(enemy, randomPosition, Quaternion.identity);
+                    enemyGenerator.Static.selectType(InstantiateEnemy);
                         break;
                     default:
                         break;
@@ -136,7 +136,7 @@ public class mapThingsGenerator : MonoBehaviour {
         if (mapTerrainGenerator.Static.thisLevelAllFloor.Count != 0) {
             
             foreach (var item in mapTerrainGenerator.Static.thisLevelAllFloor) {
-                if (item.GetComponent<groundScript>().isDeadEnd() && item.GetComponent<groundScript>().TerrainUID != 0) {
+                if (item.GetComponent<groundScript>().isDeadEnd() && (item.GetComponent<groundScript>().TerrainUID != 0) || (item.GetComponent<groundScript>().TerrainUID == 0 && item.GetComponent<groundScript>().type == groundType.isPortFloor ) ) {
                     item.GetComponent<groundScript>().type = groundType.canNOTSpawnThings ;
                     totalfloorCanBePlaceExit.Add(item);
                     Vector3 targetV3 = new Vector3(item.transform.position.x,item.transform.position.y,-1 );

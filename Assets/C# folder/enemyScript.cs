@@ -4,20 +4,25 @@ using UnityEngine;
 
 
 
-public class enemyScript : MonoBehaviour {
+public class enemyScript : enemyDataBase {
     public npcSensor sensor;
-    enemyDataBase DataBase;
     public bool IsAutoSetType = true;
     public bool killTest = false;
 
-    // Use this for initialization
-    void Start () {
-        DataBase = GetComponent<enemyDataBase>();
-        setItemType();
-        roundScript.Static.roundSystem += enemyAttackPlayerScript;
-        roundScript.Static.roundSystem += enemyHPCheck;
+    public virtual void SetUp(short monsterLevel) {
+
     }
 
+    // Use this for initialization
+    void Start () {
+        //setItemType();
+        sensor = GetComponentInChildren<npcSensor>();
+        roundScript.Static.roundSystem += enemyAttackPlayerScript;
+        roundScript.Static.roundSystem += enemyHPCheck;
+        SetUp( (short)playerDataBase.Static.currentFloor );
+    }
+
+    /*
     public void setItemType() {
         if (IsAutoSetType) {
             DataBase.type = enemyGenerator.Static.selectType();
@@ -47,6 +52,7 @@ public class enemyScript : MonoBehaviour {
         //setItemFunction();
 
     }
+    */
 
     public int findPlayerRoundNumber = -1;
     public void enemyAttackPlayerScript() {
@@ -55,10 +61,10 @@ public class enemyScript : MonoBehaviour {
                 findPlayerRoundNumber = roundScript.Static.round;
             }
 
-            if ( (roundScript.Static.round - findPlayerRoundNumber) % DataBase.CD == 0) {//是攻擊的回合才行動
-                if (playerDataBase.Static.DEF < DataBase.ATK) {
+            if ( (roundScript.Static.round - findPlayerRoundNumber) % CD == 0) {//是攻擊的回合才行動
+                if (playerDataBase.Static.DEF < ATK) {
                     Debug.Log("hit");
-                    playerDataBase.Static.HP -= (DataBase.ATK - playerDataBase.Static.DEF);
+                    playerDataBase.Static.HP -= (ATK - playerDataBase.Static.DEF);
                 }
             }
 
@@ -73,13 +79,13 @@ public class enemyScript : MonoBehaviour {
     }
     
     public void enemyHPCheck() {
-        if (DataBase.HP <= 0 || killTest) {
+        if (HP <= 0 || killTest) {
             roundScript.Static.roundSystem -= enemyAttackPlayerScript;
             roundScript.Static.roundSystem -= enemyHPCheck;
             //roundScript.Static.roundSystem -= roundScript.Static.enemyList[DataBase.UID].GetComponent<enemyScript>().enemyAttackPlayerScript;
             //roundScript.Static.roundSystem -= roundScript.Static.enemyList[DataBase.UID].GetComponent<enemyScript>().enemyHPCheck;
 
-            playerDataBase.Static.COIN += (DataBase.COIN * (playerDataBase.Static.COINBounsPercent/100) );
+            playerDataBase.Static.COIN += (COIN * (playerDataBase.Static.COINBounsPercent/100) );
             Destroy(gameObject);
         }
 

@@ -183,7 +183,7 @@ public class mapTerrainGenerator : MonoBehaviour {
         for (int i = 0; i < terrainLength; i++) {
             //Debug.Log(i + " . " + count + " . " + thisLevelAllFloor.Count);
             if (i == 0) {
-                mapCenter = new Vector3(Random.Range(0, 12)-6, Random.Range(0, 16)-8, 0);
+                mapCenter = new Vector3(Random.Range(0, (mapLimit.x-2)*2  ) - (mapLimit.x - 2) , Random.Range(0, (mapLimit.y - 2) * 2 ) - (mapLimit.y - 2) , 0);
                 spawnObject = Instantiate(ThisLevelAllTerrainParts[0], mapCenter, Quaternion.identity); //startpoint
             }
             else {
@@ -206,47 +206,53 @@ public class mapTerrainGenerator : MonoBehaviour {
             }
             checkMapLimit(thisLevelAllFloor.Count - 1, count);
             allTerrainPort[0].GetComponent<groundScript>().alreadyLink = true;
-            for (int n = count; n < thisLevelAllFloor.Count; n++) {
-                thisLevelAllFloor[n].GetComponent<groundScript>().alreadyLink = true;
-            }
-
-            //linkAllPort
-            if (i != 0) {
-                for (int h = 0; h < allTerrainPortExit.Count; h++) {
-
-                    if (allTerrainPortExit[h].GetComponent<groundScript>().TerrainUID != i && !allTerrainPortExit[h].GetComponent<groundScript>().delByMapLimit) {
-
-                        allTerrainPort[i].transform.position = allTerrainPortExit[h].transform.position;
-
-                        //Debug.Log( (checkMapLimit(thisLevelAllFloor.Count - 1,count) + "   " + i ) );                        
-                        if (checkMapLimit(thisLevelAllFloor.Count - 1, count) == false) { //檢查是否超出map限制
-                            allTerrainPort[i].transform.parent = allTerrainPortExit[h].transform;
-                            allTerrainPort[i].GetComponent<groundScript>().alreadyLink = true;
-                            for (int n = count; n < thisLevelAllFloor.Count; n++) {
-                                thisLevelAllFloor[n].GetComponent<groundScript>().alreadyLink = true;
-                            }
-                            allTerrainPortExit[h].GetComponent<groundScript>().delByMapLimit = true;
-                        }
-
-                        else {
-
-                            for (int k = 0 ; k < thisLevelAllFloor.Count; k++) { //回去最新一堆地板開始loop 進行刪除動作
-                                if (thisLevelAllFloor[k].GetComponent<groundScript>().TerrainUID == i) {
-                                    thisLevelAllFloor[k].GetComponent<groundScript>().delByMapLimit = true;
-                                }
-                            }
-                            allTerrainPortExit[h].GetComponent<groundScript>().delByMapLimit = true;
-                        }
-
-                        break;
-                    }
+            if (i == 0 ) {
+                for (int n = 0; n < thisLevelAllFloor.Count; n++) {
+                    thisLevelAllFloor[n].GetComponent<groundScript>().alreadyLink = true;
                 }
             }
+            else {
+                //linkAllPort
+                if (i != 0) {
+                    for (int h = 0; h < allTerrainPortExit.Count; h++) {
 
-            count = thisLevelAllFloor.Count;
+                        if (allTerrainPortExit[h].GetComponent<groundScript>().TerrainUID != i && !allTerrainPortExit[h].GetComponent<groundScript>().delByMapLimit) {
+
+                            allTerrainPort[i].transform.position = allTerrainPortExit[h].transform.position;
+
+                            //Debug.Log( (checkMapLimit(thisLevelAllFloor.Count - 1,count) + "   " + i ) );                        
+                            if (checkMapLimit(thisLevelAllFloor.Count - 1, count) == false) { //檢查是否超出map限制
+                                allTerrainPort[i].transform.parent = allTerrainPortExit[h].transform;
+                                allTerrainPort[i].GetComponent<groundScript>().alreadyLink = true;
+                                for (int n = count + 1; n < thisLevelAllFloor.Count; n++) {
+                                    thisLevelAllFloor[n].GetComponent<groundScript>().alreadyLink = true;
+                                }
+                                allTerrainPortExit[h].GetComponent<groundScript>().delByMapLimit = true;
+                            }
+
+                            else {
+
+                                for (int k = 0; k < thisLevelAllFloor.Count; k++) { //回去最新一堆地板開始loop 進行刪除動作
+                                    if (thisLevelAllFloor[k].GetComponent<groundScript>().TerrainUID == i) {
+                                        thisLevelAllFloor[k].GetComponent<groundScript>().delByMapLimit = true;
+                                    }
+                                }
+                                //allTerrainPortExit[h].GetComponent<groundScript>().delByMapLimit = true;
+                            }
+
+                            break;
+                        }
+                    }
+                }
+
+                count = thisLevelAllFloor.Count;
+            }
+
+
+           
         }
 
-        foreach (var item in thisLevelAllFloor) {
+        foreach (var item in thisLevelAllFloor) { //刪掉未連上的floor
             if (!item.GetComponent<groundScript>().alreadyLink) {
                 item.GetComponent<groundScript>().delByMapLimit = true;
             }
@@ -271,7 +277,7 @@ public class mapTerrainGenerator : MonoBehaviour {
 
     Vector3 randomRotation() {
         Vector3 rotation = new Vector3() ;
-        int randomNumber = Random.Range(0,4);
+        int randomNumber = Random.Range(0,3);
         switch (randomNumber) {
             case 0:
                 rotation = new Vector3(0,0,0);
@@ -280,10 +286,10 @@ public class mapTerrainGenerator : MonoBehaviour {
                 rotation = new Vector3(0, 0, 90);
                 break;
             case 2:
-                rotation = new Vector3(0, 0, 180);
+                rotation = new Vector3(0, 0, 270);
                 break;
             case 3:
-                rotation = new Vector3(0, 0, 270);
+                rotation = new Vector3(0, 0, 180);
                 break;
 
             default:
