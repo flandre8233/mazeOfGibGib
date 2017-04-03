@@ -28,6 +28,11 @@ public class playerDataBase : MonoBehaviour {
     public int currentFloor { get; set; }
     public int maxFloor { get; set; }
 
+    public float fifty { get; set; }
+    public float hundred { get; set; }
+    public float two_hundred { get; set; }
+    public float three_hundred { get; set; }
+
     public void testOnlySetUp() {
         //MaxHP = 10;
         //MaxSP = 7;
@@ -45,6 +50,12 @@ public class playerDataBase : MonoBehaviour {
         ResetTimes = 0;
         currentFloor = 1;
         maxFloor = 1;
+
+        fifty = 50;
+        hundred = 100;
+        two_hundred = 200;
+        three_hundred = 300;
+
     }
 
 

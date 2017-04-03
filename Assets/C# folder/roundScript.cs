@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class roundScript : MonoBehaviour {
     public static roundScript Static;
@@ -103,6 +104,7 @@ public class roundScript : MonoBehaviour {
         }
         if (IsDead) {
             playerMainScript.GetComponent<chessMovement>().enabled = false;
+            
             Debug.Log("lkdsalkjdalslk");
         }
         RoundProcessingChecker();
