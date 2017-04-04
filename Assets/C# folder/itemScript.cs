@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class itemScript : MonoBehaviour
 {
-    public bool IsAutoSetType = true;
 
     public int AddHP { get; set; }
     public int AddSP { get; set; }
@@ -24,14 +23,6 @@ public class itemScript : MonoBehaviour
         AddCOIN = 0;
     }
 
-
-
-
-
-
-
-
-
-
+    
 
 }
