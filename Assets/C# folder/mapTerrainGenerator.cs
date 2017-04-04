@@ -183,7 +183,7 @@ public class mapTerrainGenerator : MonoBehaviour {
         for (int i = 0; i < terrainLength; i++) {
             //Debug.Log(i + " . " + count + " . " + thisLevelAllFloor.Count);
             if (i == 0) {
-                mapCenter = new Vector3(Random.Range(0, (mapLimit.x-2)*2  ) - (mapLimit.x - 2) , Random.Range(0, (mapLimit.y - 2) * 2 ) - (mapLimit.y - 2) , 0);
+                mapCenter = new Vector3( (int)Random.Range(0, (mapLimit.x-2)*2  ) - (mapLimit.x - 2) , (int)Random.Range(0, (mapLimit.y - 2) * 2 ) - (mapLimit.y - 2) , 0);
                 spawnObject = Instantiate(ThisLevelAllTerrainParts[0], mapCenter, Quaternion.identity); //startpoint
             }
             else {
@@ -205,7 +205,7 @@ public class mapTerrainGenerator : MonoBehaviour {
 
             }
             checkMapLimit(thisLevelAllFloor.Count - 1, count);
-            allTerrainPort[0].GetComponent<groundScript>().alreadyLink = true;
+            //allTerrainPort[0].GetComponent<groundScript>().alreadyLink = true;
             if (i == 0 ) {
                 for (int n = 0; n < thisLevelAllFloor.Count; n++) {
                     thisLevelAllFloor[n].GetComponent<groundScript>().alreadyLink = true;
@@ -227,7 +227,7 @@ public class mapTerrainGenerator : MonoBehaviour {
                                 for (int n = count + 1; n < thisLevelAllFloor.Count; n++) {
                                     thisLevelAllFloor[n].GetComponent<groundScript>().alreadyLink = true;
                                 }
-                                allTerrainPortExit[h].GetComponent<groundScript>().delByMapLimit = true;
+                                //allTerrainPortExit[h].GetComponent<groundScript>().delByMapLimit = true;
                             }
 
                             else {
