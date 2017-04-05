@@ -23,6 +23,10 @@ public class itemScript : MonoBehaviour
         AddCOIN = 0;
     }
 
-    
+     public virtual void OnTriggerEnter(Collider other) {
+        if (other.gameObject.tag == "Player") { //hit Player
+            Debug.Log("playerHit");
+        }
+    }
 
 }

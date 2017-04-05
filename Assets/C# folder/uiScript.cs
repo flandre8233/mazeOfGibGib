@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class uiScript : MonoBehaviour {
     [SerializeField]
     Text testonlyText;
-    int[] intArray = { 0,3,6,2,4,7 };
 
     void Awake() {
     }

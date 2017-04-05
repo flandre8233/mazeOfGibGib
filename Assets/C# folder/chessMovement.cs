@@ -7,16 +7,19 @@ public class chessMovement : MonoBehaviour {
     [SerializeField]
     Vector3 center;
 
+    private float startTime;
+    public bool startLerpMovement = false;
+    public bool startAutoMovementFixed = false;
+
     public float downTime = 0;
     public float countDown = 0.5f;
-    public bool ready = false;
     public string faceDirection = "up";
 
     public bool thisFrameMoved=false;
     bool isHitNpc = false;
-    bool StartedOnce = false;
+    //bool StartedOnce = false;
 
-    [Range (1,5)]
+    [Range (0,5)]
     public float lerpSpeed = 1;
     float normalLerpSpeed;
     // Use this for initialization
@@ -26,10 +29,38 @@ public class chessMovement : MonoBehaviour {
         reset();
     }
 
+    void autoMovementFixed() {
+        if (startAutoMovementFixed) {
+            float moveSpeed = 5 * Time.deltaTime;
+            //MovementPart(faceDirection);
+            if (moveCheck()) {
+                switch (faceDirection) {
+                    default:
+                        break;
+
+                    case "up":
+                        transform.position += Vector3.up * moveSpeed; //W
+                        break;
+                    case "down":
+                        transform.position += Vector3.down * moveSpeed; //S
+                        break;
+                    case "left":
+                        transform.position += Vector3.left * moveSpeed; //A
+                        break;
+                    case "right":
+                        transform.position += Vector3.right * moveSpeed;
+                        break;
+                }
+
+            }
+        }
+    }
+    
     // Update is called once per frame
 
     void Update() {
         LerpMove();
+        autoMovementFixed();
         if (thisFrameMoved) {
             if (isHitNpc) { //這步會打中npc的話
                 roundScript.Static.roundSystem -= roundScript.Static.playerMainScript.subSP;
@@ -47,30 +78,28 @@ public class chessMovement : MonoBehaviour {
         }
 
 
-        faceDirection = movementInput(faceDirection);
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) {
-            if (!ready) { //autoMovementParts
-                downTime = 0;
-                
-                ready = true;
+        movementInput(ref faceDirection);//確定面對方向
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D)) {
+            MovementPart(faceDirection); 
+            if (moveCheck()) {
+                movePlayer();
             }
-            MovementPart(faceDirection);
-            
         }
 
-        if (ready) {
             autoMovement(faceDirection);
-        }
+
         // w係+ s係-   a係-  d係+
     }
 
     
     void reset() {
         center = Vector3.zero;
-        moveCheck();
+        if (moveCheck()) {
+            movePlayer();
+        }
         thisFrameMoved = false;
     }//一開頭設定
-    string movementInput(string DefaultDirection) {
+    void movementInput(ref string DefaultDirection) {
 
         /*
         if (Input.GetKeyDown(KeyCode.W) && Input.GetKey(KeyCode.A)) {
@@ -104,20 +133,19 @@ public class chessMovement : MonoBehaviour {
 
 
         if (Input.GetKeyDown(KeyCode.W)) {
-            return "up";
+            DefaultDirection = "up";
 
         }
         else if (Input.GetKeyDown(KeyCode.S)) {
-            return "down";
+            DefaultDirection ="down";
         }
         else if (Input.GetKeyDown(KeyCode.A)) {
-            return "left";
+            DefaultDirection ="left";
         }
         else if (Input.GetKeyDown(KeyCode.D)) {
-            return "right";
+            DefaultDirection ="right";
         }
 
-        return DefaultDirection;
     }//找出鍵盤輸入的方位是什麼 並string化輸入數值
     void MovementPart(string moveDirection) {
 
@@ -151,38 +179,136 @@ public class chessMovement : MonoBehaviour {
                     center = new Vector3(transform.position.x + 1, transform.position.y - 1, 0);
                     break;
             }
-            moveCheck();
+
         }
 
     }//把已string化的鍵盤方位數值解碼，指揮檢查用vector3先去鍵盤要求前住的那一格方位
 
+    void MovementPart2(string moveDirection) {
+
+        if (!roundScript.Static.isProcessingRound) {
+            switch (moveDirection) {
+                default:
+                    break;
+
+                case "up":
+                    center = new Vector3(transform.position.x + 0, transform.position.y + 0.5f, 0); //W
+                    break;
+                case "down":
+                    center = new Vector3(transform.position.x + 0, transform.position.y - 0.5f, 0); //S
+                    break;
+                case "left":
+                    center = new Vector3(transform.position.x - 0.5f, transform.position.y + 0, 0); //A
+                    break;
+                case "right":
+                    center = new Vector3(transform.position.x + 0.5f, transform.position.y + 0, 0);
+                    break;
+                case "up/left":
+                    center = new Vector3(transform.position.x - 0.5f, transform.position.y + 0.5f, 0);
+                    break;
+                case "up/right":
+                    center = new Vector3(transform.position.x + 0.5f, transform.position.y + 0.5f, 0);
+                    break;
+                case "down/left":
+                    center = new Vector3(transform.position.x - 0.5f, transform.position.y - 0.5f, 0);
+                    break;
+                case "down/right":
+                    center = new Vector3(transform.position.x + 0.5f, transform.position.y - 0.5f, 0);
+                    break;
+            }
+
+        }
+
+    }//把已string化的鍵盤方位數值解碼，指揮檢查用vector3先去鍵盤要求前住的那一格方位
+
+
     bool doOnce = false;
+    float moveSpeed;
     void autoMovement(string direction) {
+        moveSpeed = 5 * Time.deltaTime;
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) {
             downTime += Time.deltaTime;
         }
-        if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D)) {
-            downTime = 0;
-            lerpSpeed = normalLerpSpeed;
-            ready = false;
-            doOnce = false;
-        }
+
         if (downTime >= countDown) {
+            startLerpMovement = false;
+            if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D)) {
+                downTime = 0;
+                MovementPart2(faceDirection);
+
+                if (Physics.OverlapSphere(center, 0.25f).Length == 0) {
+                    center = new Vector3(transform.position.x, transform.position.y, 0);
+                }
+                Collider[] hitColliders = Physics.OverlapSphere(center, 0.25f);
+                hitObjectPosition = new Vector3(hitColliders[0].gameObject.transform.position.x, hitColliders[0].gameObject.transform.position.y, -1);
+
+                Debug.Log(hitColliders[0].gameObject.transform.position);
+                lerpSpeed =  ( Vector3.Distance(transform.position, hitObjectPosition) / moveSpeed );
+                Debug.Log(Vector3.Distance(transform.position, hitObjectPosition) );
+                Debug.Log(lerpSpeed);
+                startLerpMovement = true;
+                //startAutoMovementFixed = true;
+                //lerpSpeed = normalLerpSpeed;
+                doOnce = false;
+                return;
+            }
             if (!doOnce) {
                 doOnce = true;
-                normalLerpSpeed = lerpSpeed;
-                lerpSpeed = normalLerpSpeed * 2f;
+                //normalLerpSpeed = lerpSpeed;
+                //lerpSpeed = normalLerpSpeed * 2f;
             }
-            Debug.Log("lsadlklk");
-            MovementPart(direction);
+            Debug.Log("autoMovement");
+            //MovementPart(direction);
+            MovementPart(faceDirection);
+            if (moveCheck() ) {
+                switch (direction) {
+                    default:
+                        break;
+
+                    case "up":
+                        transform.position += Vector3.up * moveSpeed; //W
+                        break;
+                    case "down":
+                        transform.position += Vector3.down * moveSpeed; //S
+                        break;
+                    case "left":
+                        transform.position += Vector3.left * moveSpeed; //A
+                        break;
+                    case "right":
+                        transform.position += Vector3.right * moveSpeed;
+                        break;
+
+
+
+                        /*
+                    case "up/left":
+                        transform.position += new Vector3(transform.position.x - 1, transform.position.y + 1, 0);
+                        break;
+                    case "up/right":
+                        transform.position += new Vector3(transform.position.x + 1, transform.position.y + 1, 0);
+                        break;
+                    case "down/left":
+                        transform.position += new Vector3(transform.position.x - 1, transform.position.y - 1, 0);
+                        break;
+                    case "down/right":
+                        transform.position += new Vector3(transform.position.x + 1, transform.position.y - 1, 0);
+                        break;
+                        */
+                }
+
+
+            }
+            else {
+            }
+
+
         }
     }//自動重復執行MovementPart
 
-    void movePlayer(Collider[] hitColliders) { //真正移動
+    void movePlayer() { //真正移動
         //
         //transform.parent = groundBox.transform; //change object parent
-        groundBox = hitColliders[0].gameObject;
-        groundBoxPosition = new Vector3(groundBox.transform.position.x, groundBox.transform.position.y, -1);
+        //groundBox = hitColliders[0].gameObject;
         startLerpMovement = true;
         startTime = Time.time;
 
@@ -191,64 +317,76 @@ public class chessMovement : MonoBehaviour {
         thisFrameMoved = true;
     }
 
-    private float startTime;
-    public bool startLerpMovement=false;
-    Vector3 groundBoxPosition;
+
     GameObject groundBox = null;
     void LerpMove() {
         //Debug.Log("pass" + groundBoxPosition + "  "  + startTime + " / " + Time.time);
         if (startLerpMovement) {
-            transform.position = Vector3.Lerp(transform.position, groundBoxPosition, (Time.time - startTime) * lerpSpeed);
+            transform.position = Vector3.Lerp(transform.position, hitObjectPosition, (Time.time - startTime) * lerpSpeed);
             //Debug.Log((Time.time - startTime) * lerpSpeed);
             //Debug.Log(Vector3.Distance(transform.position, groundBoxPosition));
-            if (Vector3.Distance(transform.position, groundBoxPosition) == 0) {
+            if (Vector3.Distance(transform.position, hitObjectPosition) == 0) {
                 startLerpMovement = false;
-                
+                lerpSpeed = normalLerpSpeed;
             }
         }
     }
 
-    
+    Vector3 hitObjectPosition = new Vector3();
 
-    void moveCheck() { //正確是否正確移動
+    bool moveCheck() { //正確是否正確移動
         Collider[] hitColliders = Physics.OverlapSphere(center, 0.25f);
         Collider[] hitEnemyColliders = Physics.OverlapSphere(new Vector3(center.x,center.y,-1), 0.15f);
+
+        if (hitColliders.Length != 0 ) { 
+            hitObjectPosition = new Vector3(hitColliders[0].gameObject.transform.position.x, hitColliders[0].gameObject.transform.position.y, -1);
+        }
 
         if (hitColliders.Length >= 1) {
             if (hitEnemyColliders.Length >= 1) {
                
-
-                bool TouchEnemy = false;
                 GameObject touchEnemy=null;
                 foreach (var item in hitEnemyColliders) {
                     if (item.tag == "enemy") {
                         touchEnemy = item.gameObject;
-                        TouchEnemy = true;
+                        return false;
                     }
                 }
+                return true; // is Hititem
 
-
+                /*
                 if (!TouchEnemy) {
                     movePlayer(hitColliders);
                 }
                 else {
-                    //touch Enemy之後既行動
-                    if (playerDataBase.Static.DEF >= touchEnemy.GetComponent<enemyDataBase>().ATK) {
-                        touchEnemy.GetComponent<enemyDataBase>().HP = 0;
-                    }
-                    else {
-                        touchEnemy.GetComponent<enemyDataBase>().HP -= playerDataBase.Static.ATK;
-                    }
-                    isHitNpc = true;
-                    thisFrameMoved = true;
+                    attackNpc(touchEnemy);
+
                 }
+                */
 
             }
             else {
-                movePlayer(hitColliders);
+                
+                //movePlayer(hitColliders);
             }
-
-            
+            return true;
         }
+        return false;
     }//檢查 檢查用vector3 目前所在的方位是否存在方塊(已是說是否有路) 有就移動 無就取消移動動作
+
+
+    void attackNpc(GameObject touchEnemy) {
+        //touch Enemy之後既行動
+        if (playerDataBase.Static.DEF >= touchEnemy.GetComponent<enemyDataBase>().ATK) {
+            touchEnemy.GetComponent<enemyDataBase>().HP = 0;
+        }
+        else {
+            touchEnemy.GetComponent<enemyDataBase>().HP -= playerDataBase.Static.ATK;
+        }
+        isHitNpc = true;
+        thisFrameMoved = true;
+    }
+
 }
+
+

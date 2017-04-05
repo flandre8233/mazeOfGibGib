@@ -10,4 +10,10 @@ public class HPMax : itemScript {
         AddSPMax = 0;
         AddCOIN = 0;
     }
+
+    public override void OnTriggerEnter(Collider other) {
+        if (other.gameObject.tag == "Player") { //hit Player
+            Debug.Log("playerAHit");
+        }
+    }
 }
