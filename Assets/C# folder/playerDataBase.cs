@@ -10,8 +10,13 @@ public class playerDataBase : MonoBehaviour {
     public int SP { get; set; }
     public int MaxHP { get; set; }
     public int MaxSP { get; set; }
+    public int MaxHPInitial { get; set; }
+    public int MaxSPInitial { get; set; }
+
     public int ATK { get; set; }
     public int DEF { get; set; }
+    public int ATKInitial { get; set; }
+    public int DEFInitial { get; set; }
 
     public int ATKLevel { get; set; }
     public int DEFLevel { get; set; }
@@ -33,15 +38,30 @@ public class playerDataBase : MonoBehaviour {
     public float two_hundred { get; set; }
     public float three_hundred { get; set; }
 
+    public int abilityHPMax { get; set; }
+    public int abilitySPMax { get; set; }
+    public float abilityATKPercent { get; set; }
+    public float abilityDEFPercent { get; set; }
+
+    public float VolSet { get; set; }
+
     public void testOnlySetUp() {
+        MaxHPInitial = 32;
+        MaxSPInitial = 30;
+        ATKInitial = 5;
+        DEFInitial = 0;
+
         //MaxHP = 10;
         //MaxSP = 7;
-        MaxHP = 32;
-        MaxSP = 30;
+        abilityHPMax = 0;
+        abilitySPMax = 0;
+
+        MaxHP = MaxHPInitial + abilityHPMax;
+        MaxSP = MaxSPInitial + abilitySPMax;
         HP = MaxHP;
         SP = MaxSP;
-        ATK = 5;
-        DEF = 0;
+        ATK = ATKInitial + (int)(ATKInitial * (abilityATKPercent / 100));
+        DEF = DEFInitial + (int)(DEFInitial * (abilityDEFPercent / 100));
         ATKLevel = 1;
         DEFLevel = 1;
         COIN = 40;
@@ -55,6 +75,10 @@ public class playerDataBase : MonoBehaviour {
         hundred = 100;
         two_hundred = 200;
         three_hundred = 300;
+
+
+        abilityATKPercent = 100;
+        abilityDEFPercent = 100;
 
     }
 

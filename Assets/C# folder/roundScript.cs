@@ -28,9 +28,12 @@ public class roundScript : MonoBehaviour {
         playerMainScript.deadAliveCheck();
     }
 
+    public bool movementProcessingChecker = false;
+
+
     public void RoundProcessingChecker() {
         if (isProcessingRound) {
-            if (!chessMovement.Static.startLerpMovement) {
+            if (!movementProcessingChecker) {
                 isProcessingRound = false;
                 // Processing is complete
             }
@@ -44,6 +47,7 @@ public class roundScript : MonoBehaviour {
         clearLevel();
         //GameObject.FindGameObjectWithTag("Player").transform.position = new Vector3(0, 0, -1);
         chessMovement.Static.startLerpMovement = false;
+        movementProcessingChecker = false;
         playerDataBase.Static.currentFloor++;
         if (playerDataBase.Static.currentFloor % 5 == 0) { //到5,10,15,20......關卡
             playerDataBase.Static.POINT += 5;

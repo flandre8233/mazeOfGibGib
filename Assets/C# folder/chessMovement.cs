@@ -9,7 +9,6 @@ public class chessMovement : MonoBehaviour {
 
     private float startTime;
     public bool startLerpMovement = false;
-    public bool startAutoMovementFixed = false;
 
     public float downTime = 0;
     public float countDown = 0.5f;
@@ -18,6 +17,7 @@ public class chessMovement : MonoBehaviour {
     public bool thisFrameMoved=false;
     bool isHitNpc = false;
     //bool StartedOnce = false;
+    GameObject touchEnemy = null;
 
     [Range (0,5)]
     public float lerpSpeed = 1;
@@ -29,38 +29,10 @@ public class chessMovement : MonoBehaviour {
         reset();
     }
 
-    void autoMovementFixed() {
-        if (startAutoMovementFixed) {
-            float moveSpeed = 5 * Time.deltaTime;
-            //MovementPart(faceDirection);
-            if (moveCheck()) {
-                switch (faceDirection) {
-                    default:
-                        break;
-
-                    case "up":
-                        transform.position += Vector3.up * moveSpeed; //W
-                        break;
-                    case "down":
-                        transform.position += Vector3.down * moveSpeed; //S
-                        break;
-                    case "left":
-                        transform.position += Vector3.left * moveSpeed; //A
-                        break;
-                    case "right":
-                        transform.position += Vector3.right * moveSpeed;
-                        break;
-                }
-
-            }
-        }
-    }
-    
     // Update is called once per frame
 
     void Update() {
         LerpMove();
-        autoMovementFixed();
         if (thisFrameMoved) {
             if (isHitNpc) { //這步會打中npc的話
                 roundScript.Static.roundSystem -= roundScript.Static.playerMainScript.subSP;
@@ -76,7 +48,6 @@ public class chessMovement : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.E) ) {
             roundScript.Static.pastRound();
         }
-
 
         movementInput(ref faceDirection);//確定面對方向
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D)) {
@@ -184,190 +155,85 @@ public class chessMovement : MonoBehaviour {
 
     }//把已string化的鍵盤方位數值解碼，指揮檢查用vector3先去鍵盤要求前住的那一格方位
 
-    void MovementPart2(string moveDirection) {
-
-        if (!roundScript.Static.isProcessingRound) {
-            switch (moveDirection) {
-                default:
-                    break;
-
-                case "up":
-                    center = new Vector3(transform.position.x + 0, transform.position.y + 0.5f, 0); //W
-                    break;
-                case "down":
-                    center = new Vector3(transform.position.x + 0, transform.position.y - 0.5f, 0); //S
-                    break;
-                case "left":
-                    center = new Vector3(transform.position.x - 0.5f, transform.position.y + 0, 0); //A
-                    break;
-                case "right":
-                    center = new Vector3(transform.position.x + 0.5f, transform.position.y + 0, 0);
-                    break;
-                case "up/left":
-                    center = new Vector3(transform.position.x - 0.5f, transform.position.y + 0.5f, 0);
-                    break;
-                case "up/right":
-                    center = new Vector3(transform.position.x + 0.5f, transform.position.y + 0.5f, 0);
-                    break;
-                case "down/left":
-                    center = new Vector3(transform.position.x - 0.5f, transform.position.y - 0.5f, 0);
-                    break;
-                case "down/right":
-                    center = new Vector3(transform.position.x + 0.5f, transform.position.y - 0.5f, 0);
-                    break;
-            }
-
-        }
-
-    }//把已string化的鍵盤方位數值解碼，指揮檢查用vector3先去鍵盤要求前住的那一格方位
-
-
     bool doOnce = false;
-    float moveSpeed;
     void autoMovement(string direction) {
-        moveSpeed = 5 * Time.deltaTime;
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) {
             downTime += Time.deltaTime;
         }
 
         if (downTime >= countDown) {
-            startLerpMovement = false;
             if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D)) {
                 downTime = 0;
-                MovementPart2(faceDirection);
-
-                if (Physics.OverlapSphere(center, 0.25f).Length == 0) {
-                    center = new Vector3(transform.position.x, transform.position.y, 0);
-                }
-                Collider[] hitColliders = Physics.OverlapSphere(center, 0.25f);
-                hitObjectPosition = new Vector3(hitColliders[0].gameObject.transform.position.x, hitColliders[0].gameObject.transform.position.y, -1);
-
-                Debug.Log(hitColliders[0].gameObject.transform.position);
-                lerpSpeed =  ( Vector3.Distance(transform.position, hitObjectPosition) / moveSpeed );
-                Debug.Log(Vector3.Distance(transform.position, hitObjectPosition) );
-                Debug.Log(lerpSpeed);
-                startLerpMovement = true;
-                //startAutoMovementFixed = true;
-                //lerpSpeed = normalLerpSpeed;
                 doOnce = false;
+                lerpSpeed = normalLerpSpeed;
                 return;
             }
             if (!doOnce) {
                 doOnce = true;
-                //normalLerpSpeed = lerpSpeed;
-                //lerpSpeed = normalLerpSpeed * 2f;
+                normalLerpSpeed = lerpSpeed;
+                lerpSpeed = normalLerpSpeed * 2f;
             }
             Debug.Log("autoMovement");
-            //MovementPart(direction);
             MovementPart(faceDirection);
             if (moveCheck() ) {
-                switch (direction) {
-                    default:
-                        break;
-
-                    case "up":
-                        transform.position += Vector3.up * moveSpeed; //W
-                        break;
-                    case "down":
-                        transform.position += Vector3.down * moveSpeed; //S
-                        break;
-                    case "left":
-                        transform.position += Vector3.left * moveSpeed; //A
-                        break;
-                    case "right":
-                        transform.position += Vector3.right * moveSpeed;
-                        break;
-
-
-
-                        /*
-                    case "up/left":
-                        transform.position += new Vector3(transform.position.x - 1, transform.position.y + 1, 0);
-                        break;
-                    case "up/right":
-                        transform.position += new Vector3(transform.position.x + 1, transform.position.y + 1, 0);
-                        break;
-                    case "down/left":
-                        transform.position += new Vector3(transform.position.x - 1, transform.position.y - 1, 0);
-                        break;
-                    case "down/right":
-                        transform.position += new Vector3(transform.position.x + 1, transform.position.y - 1, 0);
-                        break;
-                        */
-                }
-
-
+                movePlayer();
             }
-            else {
-            }
-
 
         }
     }//自動重復執行MovementPart
 
     void movePlayer() { //真正移動
-        //
-        //transform.parent = groundBox.transform; //change object parent
-        //groundBox = hitColliders[0].gameObject;
-        startLerpMovement = true;
-        startTime = Time.time;
+        if (!roundScript.Static.isProcessingRound) {
+            if (touchEnemy != null ) {
+                Debug.Log(touchEnemy);
+                attackNpc(touchEnemy);
 
-        //transform.localPosition = Vector3.zero;
-        //ansform.localPosition = new Vector3(0, 0, -1); //"<--"
-        thisFrameMoved = true;
+                startLerpMovement = false;
+            }
+            else {
+                startLerpMovement = true;
+                roundScript.Static.movementProcessingChecker = true;
+                startTime = Time.time;
+                thisFrameMoved = true;
+            }
+        }
     }
-
 
     GameObject groundBox = null;
     void LerpMove() {
-        //Debug.Log("pass" + groundBoxPosition + "  "  + startTime + " / " + Time.time);
         if (startLerpMovement) {
             transform.position = Vector3.Lerp(transform.position, hitObjectPosition, (Time.time - startTime) * lerpSpeed);
-            //Debug.Log((Time.time - startTime) * lerpSpeed);
-            //Debug.Log(Vector3.Distance(transform.position, groundBoxPosition));
-            if (Vector3.Distance(transform.position, hitObjectPosition) == 0) {
+            Debug.Log(Mathf.Abs(Vector3.Distance(transform.position, hitObjectPosition)));
+            if ( Mathf.Abs(Vector3.Distance(transform.position, hitObjectPosition) ) == 0.0f) {
                 startLerpMovement = false;
                 lerpSpeed = normalLerpSpeed;
+            }
+            else if (Mathf.Abs(Vector3.Distance(transform.position, hitObjectPosition)) <= 0.1f) {
+                roundScript.Static.movementProcessingChecker = false;
             }
         }
     }
 
     Vector3 hitObjectPosition = new Vector3();
 
+
     bool moveCheck() { //正確是否正確移動
         Collider[] hitColliders = Physics.OverlapSphere(center, 0.25f);
-        Collider[] hitEnemyColliders = Physics.OverlapSphere(new Vector3(center.x,center.y,-1), 0.15f);
-
+        Collider[] hitEnemyColliders = Physics.OverlapSphere(new Vector3(center.x,center.y,-1), 0.35f);
+        touchEnemy = null;
         if (hitColliders.Length != 0 ) { 
             hitObjectPosition = new Vector3(hitColliders[0].gameObject.transform.position.x, hitColliders[0].gameObject.transform.position.y, -1);
         }
-
         if (hitColliders.Length >= 1) {
             if (hitEnemyColliders.Length >= 1) {
-               
-                GameObject touchEnemy=null;
                 foreach (var item in hitEnemyColliders) {
                     if (item.tag == "enemy") {
+                        Debug.Log("??");
                         touchEnemy = item.gameObject;
-                        return false;
+                        return true;
                     }
                 }
                 return true; // is Hititem
-
-                /*
-                if (!TouchEnemy) {
-                    movePlayer(hitColliders);
-                }
-                else {
-                    attackNpc(touchEnemy);
-
-                }
-                */
-
-            }
-            else {
-                
-                //movePlayer(hitColliders);
             }
             return true;
         }
