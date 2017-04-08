@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class shopCanvasScript : MonoBehaviour {
 
-    public float x = 0;
+    //public float x = 0;
 
     public void fifty_coin()
     {
