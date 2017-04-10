@@ -28,8 +28,8 @@ public class uiScript : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        //testonlyText.text = "HP : " + playerDataBase.Static.HP + " / " + playerDataBase.Static.MaxHP + "\n" + "SP : " +
-         //   playerDataBase.Static.SP + " / " + playerDataBase.Static.MaxSP + "\n" + "COIN : " + playerDataBase.Static.COIN + "\n" + "currentFloor : ";
+        testonlyText.text = "HP : " + playerDataBase.Static.HP + " / " + playerDataBase.Static.MaxHP + "\n" + "SP : " +
+            playerDataBase.Static.SP + " / " + playerDataBase.Static.MaxSP;
         //+
         //    playerDataBase.Static.currentFloor + "\n" ;
 
