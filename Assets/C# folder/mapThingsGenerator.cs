@@ -75,6 +75,9 @@ public class mapThingsGenerator : MonoBehaviour {
             case 5:
                 item.AddComponent<Coin>();
                 break;
+            case 6:
+                item.AddComponent<ATKBuff>();
+                break;
             default:
                 item.AddComponent<HP>();
                 break;

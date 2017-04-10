@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class playerMainScript : MonoBehaviour {
-    
+    public static playerMainScript Static;
 
 	// Use this for initialization
 	void Awake () {
+        Static = this;
 	}
 
     public void subSP() {
@@ -112,6 +113,58 @@ public class playerMainScript : MonoBehaviour {
         }
 
     }
+
+    int ATKcontinueRound = 3;
+    int DEFcontinueRound = 3;
+    int ATKbuffStartRound = 0;
+    int DEFbuffStartRound = 0;
+    public bool inATKBuff = false;
+    public bool inDEFBuff = false;
+    int originalATKNumber = 0;
+    int originalDEFNumber = 0;
+
+    public void ATKBuffSetUp(int conRound, int atkAddNumber) {
+        ATKbuffStartRound = roundScript.Static.round;
+        ATKcontinueRound = conRound;
+        originalATKNumber = playerDataBase.Static.ATK;
+        playerDataBase.Static.ATK += atkAddNumber;
+        inATKBuff = true;
+    }
+    public void DEFBuffSetUp(int conRound, int DEFAddNumber) {
+        DEFbuffStartRound = roundScript.Static.round;
+        DEFcontinueRound = conRound;
+        originalDEFNumber = playerDataBase.Static.DEF;
+        playerDataBase.Static.DEF += DEFAddNumber;
+        inDEFBuff = true;
+    }
+
+    public bool ATKBuff() {
+        if (!inATKBuff) {
+            return false;
+        }
+
+        if (roundScript.Static.round - ATKbuffStartRound < ATKcontinueRound) { // ok 
+            //per frame
+            return true;
+        }
+
+        playerDataBase.Static.ATK = originalATKNumber;
+        return false;
+    }
+    public bool DEFBuff() {
+        if (!inDEFBuff) {
+            return false;
+        }
+
+        if (roundScript.Static.round - DEFbuffStartRound < DEFcontinueRound) { // ok 
+            //per frame
+            return true;
+        }
+
+        playerDataBase.Static.DEF = originalDEFNumber;
+        return false;
+    }
+
 
     public GameObject hitItem;
     void OnTriggerEnter(Collider other) {

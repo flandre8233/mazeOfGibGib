@@ -35,9 +35,9 @@ public class chessMovement : MonoBehaviour {
         LerpMove();
         if (thisFrameMoved) {
             if (isHitNpc) { //這步會打中npc的話
-                roundScript.Static.roundSystem -= roundScript.Static.playerMainScript.subSP;
+                roundScript.Static.roundSystem -= playerMainScript.Static.subSP;
                 roundScript.Static.pastRound();
-                roundScript.Static.roundSystem += roundScript.Static.playerMainScript.subSP;
+                roundScript.Static.roundSystem += playerMainScript.Static.subSP;
             }
             else {//不是要打npc
                 roundScript.Static.pastRound();
@@ -174,7 +174,6 @@ public class chessMovement : MonoBehaviour {
     void movePlayer() { //真正移動
         if (!roundScript.Static.isProcessingRound) {
             if (touchEnemy != null ) {
-                Debug.Log(touchEnemy);
                 attackNpc(touchEnemy);
 
                 startLerpMovement = false;
@@ -216,7 +215,6 @@ public class chessMovement : MonoBehaviour {
             if (hitEnemyColliders.Length >= 1) {
                 foreach (var item in hitEnemyColliders) {
                     if (item.tag == "enemy") {
-                        Debug.Log("??");
                         touchEnemy = item.gameObject;
                         return true;
                     }

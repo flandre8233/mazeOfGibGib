@@ -17,16 +17,15 @@ public class roundScript : MonoBehaviour {
 
     public bool isProcessingRound = false;
 
-    public playerMainScript playerMainScript;
-
     public List<GameObject> enemyList; 
 
     public void pastRound() {
         isProcessingRound = true;
         round++;
         roundSystem.Invoke();
-        playerMainScript.deadAliveCheck();
+        playerMainScript.Static.deadAliveCheck();
     }
+
 
     public bool movementProcessingChecker = false;
 
@@ -81,6 +80,10 @@ public class roundScript : MonoBehaviour {
     public int selectionX, selectionY;
     int nextFrameLock = 0;
     public void Update() {
+        playerMainScript.Static.inATKBuff = playerMainScript.Static.ATKBuff();
+        playerMainScript.Static.inDEFBuff = playerMainScript.Static.DEFBuff();
+
+
         /*
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 50.0f )) {
@@ -107,7 +110,7 @@ public class roundScript : MonoBehaviour {
             OnEnterNextLevel();
         }
         if (IsDead) {
-            playerMainScript.GetComponent<chessMovement>().enabled = false;
+            playerMainScript.Static.GetComponent<chessMovement>().enabled = false;
             
             Debug.Log("lkdsalkjdalslk");
         }
@@ -115,15 +118,18 @@ public class roundScript : MonoBehaviour {
     }
 
     public void Awake() {
-
         if (Static != null) {
             Destroy(this);
         }
         else {
             Static = this;
         }
-        roundSystem += playerMainScript.subSP;
-        roundSystem += playerMainScript.checkLife;
+        
+    }
+
+    public void Start() {
+        roundSystem += playerMainScript.Static.subSP;
+        roundSystem += playerMainScript.Static.checkLife;
 
         //roundSystem += OnEnterNextLevel;
         //roundSystem += playerMainScript.getItemSet;
