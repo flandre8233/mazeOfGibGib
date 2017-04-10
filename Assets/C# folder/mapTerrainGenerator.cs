@@ -186,6 +186,7 @@ public class mapTerrainGenerator : MonoBehaviour {
                 mapCenter = new Vector3((int)Random.Range(0, (mapLimit.x - 2) * 2) - (mapLimit.x - 2), (int)Random.Range(0, (mapLimit.y - 2) * 2) - (mapLimit.y - 2), 0);
                 //mapCenter = new Vector3(0, 0, 0);
                 spawnObject = Instantiate(ThisLevelAllTerrainParts[0], mapCenter, Quaternion.identity); //startpoint
+                //spawnObject.GetComponent<groundScript>().type = groundType.startPoint;
             }
             else {
                 int randomNumber = Random.Range(0, gameAllTerrainParts.Count);
