@@ -28,7 +28,6 @@ public class fingerControlRotation : MonoBehaviour
 	// Update is called once per frame
 	void Update () {
         LerpMove();
-        Vector2 mousePosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
         float precent = Input.mousePosition.y / Screen.height;
         if (Input.GetMouseButtonDown(0) && Input.mousePosition.x > Screen.width * 0.8 ) { // - 向上  + 向下
             startLerpMovement = false;

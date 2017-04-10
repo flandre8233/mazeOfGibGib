@@ -6,7 +6,7 @@ public class HPMax : itemScript {
     public override void SetUp() {
         AddHP = 0;
         AddSP = 0;
-        AddHPMax = 5;
+        AddHPMax = 3;
         AddSPMax = 0;
         AddCOIN = 0;
     }

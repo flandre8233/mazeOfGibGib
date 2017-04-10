@@ -6,6 +6,7 @@ public class chessMovement : MonoBehaviour {
     public static chessMovement Static;
     [SerializeField]
     Vector3 center;
+    public GameObject model;
 
     private float startTime;
     public bool startLerpMovement = false;
@@ -122,15 +123,19 @@ public class chessMovement : MonoBehaviour {
 
                 case "up":
                     center = new Vector3(transform.position.x + 0, transform.position.y + 1, 0); //W
+                    model.transform.rotation = Quaternion.Euler(0, 0, 0);
                     break;
                 case "down":
                     center = new Vector3(transform.position.x + 0, transform.position.y - 1, 0); //S
+                    model.transform.rotation = Quaternion.Euler(0, 0, 180);
                     break;
                 case "left":
                     center = new Vector3(transform.position.x - 1, transform.position.y + 0, 0); //A
+                    model.transform.rotation = Quaternion.Euler(0, 0, 90);
                     break;
                 case "right":
                     center = new Vector3(transform.position.x + 1, transform.position.y + 0, 0);
+                    model.transform.rotation = Quaternion.Euler(0, 0, 270);
                     break;
                 case "up/left":
                     center = new Vector3(transform.position.x - 1, transform.position.y + 1, 0);
@@ -153,7 +158,6 @@ public class chessMovement : MonoBehaviour {
 
     }//把已string化的鍵盤方位數值解碼，指揮檢查用vector3先去鍵盤要求前住的那一格方位
 
-    bool doOnce = false;
     public void autoMovement(float time , string c) {
 
         if (time >= countDown) {
@@ -187,7 +191,6 @@ public class chessMovement : MonoBehaviour {
         }
     }
 
-    GameObject groundBox = null;
     void LerpMove() {
         if (startLerpMovement) {
             transform.position = Vector3.Lerp(transform.position, hitObjectPosition, (Time.time - startTime) * lerpSpeed);

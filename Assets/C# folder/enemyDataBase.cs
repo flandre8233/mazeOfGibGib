@@ -21,7 +21,7 @@ public class enemyDataBase : MonoBehaviour {
     public int MaxHP { get; set; }
     public int ATK { get; set; }
     public int CD { get; set; }
-    //public int DEF { get; set; }
+    public int DEF { get; set; }
 
     public float COIN { get; set; }
 

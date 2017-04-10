@@ -23,7 +23,7 @@ public class playerMainScript : MonoBehaviour {
             if (playerDataBase.Static.SP > 0) {
                 if (playerDataBase.Static.HP < playerDataBase.Static.MaxHP) {
                     if ( (int)(Mathf.Round(playerDataBase.Static.MaxHP / 100.0f * 5.0f)) > 1) {
-                        playerDataBase.Static.HP += (int)(Mathf.Round(playerDataBase.Static.MaxHP / 100.0f * 5.0f));
+                        playerDataBase.Static.HP += (int)(Mathf.Round(playerDataBase.Static.MaxHP / 100.0f * 10.0f));
                     }
                     else {
                         playerDataBase.Static.HP++;
@@ -33,7 +33,7 @@ public class playerMainScript : MonoBehaviour {
             else {
                 if (playerDataBase.Static.HP > 0) {
                     if ((int)(Mathf.Round(playerDataBase.Static.MaxHP / 100.0f * 10.0f)) > 1) {
-                        playerDataBase.Static.HP -= (int)(Mathf.Round(playerDataBase.Static.MaxHP / 100.0f * 10.0f));
+                        playerDataBase.Static.HP -= (int)(Mathf.Round(playerDataBase.Static.MaxHP / 100.0f * 15.0f));
                     }
                     else {
                         playerDataBase.Static.HP--;

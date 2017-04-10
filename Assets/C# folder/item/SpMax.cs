@@ -7,7 +7,7 @@ public class SpMax : itemScript {
         AddHP = 0;
         AddSP = 0;
         AddHPMax = 0;
-        AddSPMax = 2;
+        AddSPMax = 5;
         AddCOIN = 0;
     }
 

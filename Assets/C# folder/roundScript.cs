@@ -42,7 +42,8 @@ public class roundScript : MonoBehaviour {
 
     public short currentArea = 1;
     public void OnEnterNextLevel() { // enter next level
-
+        mapTerrainGenerator.Static.terrainLength++;
+        chessMovement.Static.model.transform.rotation = Quaternion.Euler(0, 0, 0);
         clearLevel();
         //GameObject.FindGameObjectWithTag("Player").transform.position = new Vector3(0, 0, -1);
         chessMovement.Static.startLerpMovement = false;

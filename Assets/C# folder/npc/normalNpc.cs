@@ -5,16 +5,15 @@ using UnityEngine;
 public class normalNpc : enemyScript {
 
     public override void SetUp(short monsterLevel) {
-
-
+        
         //type = enemyType.normal;
         Level = monsterLevel;
-        MaxHP = 20 + (int)((Level - 1) * 1.5f);
+        MaxHP = 1 * (1 + Level / 5) + Level; 
         HP = MaxHP;
-        ATK = 2 + (int)((Level - 1) * 1.2f);
+        ATK = 1 * (1 + Level / 10);
         CD = 2;
-        //DEF = 1;
-        COIN = 2 + (int)((Level - 1) * 1.2f);
+        DEF = 0*(1 + Level / 30);
+        COIN = 2 * (1 + Level / 5);
     }
 
 }

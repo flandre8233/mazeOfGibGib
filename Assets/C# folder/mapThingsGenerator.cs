@@ -78,6 +78,9 @@ public class mapThingsGenerator : MonoBehaviour {
             case 6:
                 item.AddComponent<ATKBuff>();
                 break;
+            case 7:
+                item.AddComponent<DEFBuff>();
+                break;
             default:
                 item.AddComponent<HP>();
                 break;
@@ -129,34 +132,42 @@ public class mapThingsGenerator : MonoBehaviour {
     public void spawnExitPoint() {
         totalfloorCanBePlaceExit.Clear();
         if (mapTerrainGenerator.Static.thisLevelAllFloor.Count != 0) {
-            
             foreach (var item in mapTerrainGenerator.Static.thisLevelAllFloor) {
                 if (item.GetComponent<groundScript>().isDeadEnd() && (item.GetComponent<groundScript>().TerrainUID != 0) || (item.GetComponent<groundScript>().TerrainUID == 0 && item.GetComponent<groundScript>().type == groundType.isPortFloor ) ) {
-                    
-                    createSpawnPoint(item);
+
+                    totalfloorCanBePlaceExit.Add(item);
                 }
             }
         }
 
         if (totalfloorCanBePlaceExit.Count == 0) {
             foreach (var item in mapTerrainGenerator.Static.thisLevelAllFloor) {
-                
-                if (item.GetComponent<groundScript>().passCount == 1 ) {
-                    Debug.Log("sadf");
-                    createSpawnPoint(item);
+
+                if (item.GetComponent<groundScript>().passCount == 1) {
+                    totalfloorCanBePlaceExit.Add(item);
                     // return;
                 }
+
             }
-            if (totalfloorCanBePlaceExit.Count == 0) {
-                foreach (var item in mapTerrainGenerator.Static.thisLevelAllFloor) {
-                    if (! item.GetComponent<groundScript>().haveSomethingInHere) {
-                        createSpawnPoint(item);
-                        return;
-                    }
+        }
+
+
+        if (totalfloorCanBePlaceExit.Count == 0) {
+            foreach (var item in mapTerrainGenerator.Static.thisLevelAllFloor) {
+
+                if (!item.GetComponent<groundScript>().haveSomethingInHere) {
+                    totalfloorCanBePlaceExit.Add(item);
+                    break;
                 }
             }
-
         }
+        
+
+
+        for (int i = 0; i < totalfloorCanBePlaceExit.Count; i+=2) {
+            createSpawnPoint(totalfloorCanBePlaceExit[i]);
+        }
+
 
     }
 

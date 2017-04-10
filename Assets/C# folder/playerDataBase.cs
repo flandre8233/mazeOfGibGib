@@ -45,16 +45,17 @@ public class playerDataBase : MonoBehaviour {
 
     public float VolSet { get; set; }
 
-    public void testOnlySetUp() {
-        MaxHPInitial = 32;
-        MaxSPInitial = 30;
+    public void serializeSetUp() { //玩家起始值
+        MaxHPInitial = 10;
+        MaxSPInitial = 20;
         ATKInitial = 5;
         DEFInitial = 0;
 
         //MaxHP = 10;
         //MaxSP = 7;
-        abilityHPMax = 0;
-        abilitySPMax = 0;
+        
+        //abilityHPMax = 0;
+        //abilitySPMax = 0;
 
         MaxHP = MaxHPInitial + abilityHPMax;
         MaxSP = MaxSPInitial + abilitySPMax;
@@ -64,9 +65,9 @@ public class playerDataBase : MonoBehaviour {
         DEF = DEFInitial + (int)(DEFInitial * (abilityDEFPercent / 100));
         ATKLevel = 1;
         DEFLevel = 1;
-        COIN = 40;
+        COIN = 0;
         COINBounsPercent = 100;
-        POINT = 20;
+        POINT = 5;
         ResetTimes = 0;
         currentFloor = 1;
         maxFloor = 1;
@@ -86,7 +87,7 @@ public class playerDataBase : MonoBehaviour {
 
     void Awake() {
         //Debug.Log(GetComponent<Transform>().name);
-        testOnlySetUp();
+        serializeSetUp();
         DontDestroyOnLoad(transform.gameObject);
         if (Static != null) {
             Destroy(this);
