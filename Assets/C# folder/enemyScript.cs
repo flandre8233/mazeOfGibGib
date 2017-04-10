@@ -63,7 +63,6 @@ public class enemyScript : enemyDataBase {
 
             if ( (roundScript.Static.round - findPlayerRoundNumber) % CD == 0) {//是攻擊的回合才行動
                 if (playerDataBase.Static.DEF < ATK) {
-                    Debug.Log("hit");
                     playerDataBase.Static.HP -= (ATK - playerDataBase.Static.DEF);
                 }
             }

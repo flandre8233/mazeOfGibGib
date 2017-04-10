@@ -183,7 +183,8 @@ public class mapTerrainGenerator : MonoBehaviour {
         for (int i = 0; i < terrainLength; i++) {
             //Debug.Log(i + " . " + count + " . " + thisLevelAllFloor.Count);
             if (i == 0) {
-                mapCenter = new Vector3( (int)Random.Range(0, (mapLimit.x-2)*2  ) - (mapLimit.x - 2) , (int)Random.Range(0, (mapLimit.y - 2) * 2 ) - (mapLimit.y - 2) , 0);
+                mapCenter = new Vector3((int)Random.Range(0, (mapLimit.x - 2) * 2) - (mapLimit.x - 2), (int)Random.Range(0, (mapLimit.y - 2) * 2) - (mapLimit.y - 2), 0);
+                //mapCenter = new Vector3(0, 0, 0);
                 spawnObject = Instantiate(ThisLevelAllTerrainParts[0], mapCenter, Quaternion.identity); //startpoint
             }
             else {

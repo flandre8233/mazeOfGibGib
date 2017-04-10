@@ -17,6 +17,8 @@ public class itemGenerator : MonoBehaviour {
     public float spmaxitemProbability;
     [Range(0, 100)]
     public float coinitemProbability;
+    [Range(0, 100)]
+    public float ATKBuffitemProbability;
 
     public List<float> ProbabilityArray = new List<float>();
 
@@ -33,6 +35,7 @@ public class itemGenerator : MonoBehaviour {
         hpmaxitemProbability = ProbabilityArray[2];
         spmaxitemProbability = ProbabilityArray[3];
         coinitemProbability = ProbabilityArray[4];
+        ATKBuffitemProbability = ProbabilityArray[5];
     }
     void upDateProbabilityArray() {
         ProbabilityArray.Clear();
@@ -42,6 +45,7 @@ public class itemGenerator : MonoBehaviour {
         ProbabilityArray.Add(hpmaxitemProbability);
         ProbabilityArray.Add(spmaxitemProbability);
         ProbabilityArray.Add(coinitemProbability);
+        ProbabilityArray.Add(ATKBuffitemProbability);
     }
 
     #region legacy randomSystem

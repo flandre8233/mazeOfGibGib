@@ -13,13 +13,10 @@ public class buttonHold : MonoBehaviour , IPointerDownHandler
     public string dir = "";
 
     public void OnPointerDown(PointerEventData eventData) {
-        Debug.Log("hitDOWNhit");
         mouseDown = true;
     }
     public void OnPointerUp(PointerEventData eventData) {
-        Debug.Log("hitUPhit");
         mouseDown = false;
-        Debug.Log(timeMouseDown);
         timeMouseDown = 0;
     }
 

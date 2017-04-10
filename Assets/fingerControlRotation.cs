@@ -6,6 +6,7 @@ public class fingerControlRotation : MonoBehaviour
 {
     public static fingerControlRotation Static;
     GameObject[] goArray;
+    public GameObject cameraGameObject;
     float onPressPrecent = 0.0f;
     float onPressZAngle = 0.0f;
     float closestAngle = 0.0f;
@@ -55,7 +56,6 @@ public class fingerControlRotation : MonoBehaviour
 
         for (int i = 0; i < array.Length; i++) {
             DistanceArray[i] = Mathf.Abs(number - array[i]);
-            //Debug.Log(DistanceArray[i]);
         }
 
         int smallestNumberIndex = 0;
@@ -65,7 +65,6 @@ public class fingerControlRotation : MonoBehaviour
                 smallestNumberIndex = i ;
             }
         }
-        //Debug.Log(smallestNumberIndex + "gg");
 
         return array[smallestNumberIndex];
     }
@@ -76,11 +75,6 @@ public class fingerControlRotation : MonoBehaviour
                 transform.rotation = Quaternion.Euler(0, 0, closestAngle);
                 startLerpMovement = false;
             }
-            /*
-            else if (Mathf.Abs(Vector3.Distance(transform.position, hitObjectPosition)) <= 0.1f) {
-                roundScript.Static.movementProcessingChecker = false;
-            }
-            */
 
         }
     }
@@ -93,7 +87,7 @@ public class fingerControlRotation : MonoBehaviour
         float[] DistanceArray = new float[goArray.Length];
 
         for (int i = 0; i < goArray.Length; i++) {
-            DistanceArray[i] = Mathf.Abs(Vector3.Distance(goArray[i].transform.position,transform.position) );
+            DistanceArray[i] = Mathf.Abs(Vector3.Distance(goArray[i].transform.position, cameraGameObject.transform.position) );
             //Debug.Log(DistanceArray[i]);
         }
         
@@ -110,7 +104,7 @@ public class fingerControlRotation : MonoBehaviour
             }
             else {
                 goArray[i].SetActive(true);
-                Debug.Log("???");
+
             }
         }
     
