@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class uiScript : MonoBehaviour {
     [SerializeField]
     Text testonlyText;
+    [SerializeField]
+    Text currentFloor;
 
     void Awake() {
     }
@@ -26,10 +28,11 @@ public class uiScript : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        testonlyText.text = "HP : " + playerDataBase.Static.HP + " / " + playerDataBase.Static.MaxHP + "\n" + "SP : " +
-            playerDataBase.Static.SP + " / " + playerDataBase.Static.MaxSP + "\n" + "COIN : " + playerDataBase.Static.COIN + "\n" + "currentFloor : " +
-            playerDataBase.Static.currentFloor + "\n" ;
+        //testonlyText.text = "HP : " + playerDataBase.Static.HP + " / " + playerDataBase.Static.MaxHP + "\n" + "SP : " +
+         //   playerDataBase.Static.SP + " / " + playerDataBase.Static.MaxSP + "\n" + "COIN : " + playerDataBase.Static.COIN + "\n" + "currentFloor : ";
+        //+
+        //    playerDataBase.Static.currentFloor + "\n" ;
 
-
+        currentFloor.text ="-Stage"+playerDataBase.Static.currentFloor+"-";
     }
 }
