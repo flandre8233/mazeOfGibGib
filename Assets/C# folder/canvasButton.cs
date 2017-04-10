@@ -19,6 +19,11 @@ public class canvasButton : MonoBehaviour {
         bigMapCamera.transform.position =new Vector3(mapTerrainGenerator.Static.center.x, mapTerrainGenerator.Static.center.y,bigMapCamera.transform.position.z)  ;
     }
 
+    public void moveButton(string dir) {
+        chessMovement.Static.MovementPart(dir);
+    }
+
+
     /*
 
     private void UpdateSelection()

@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class fingerControlRotation : MonoBehaviour {
+public class fingerControlRotation : MonoBehaviour
+{
     public static fingerControlRotation Static;
+    GameObject[] goArray;
     float onPressPrecent = 0.0f;
     float onPressZAngle = 0.0f;
     float closestAngle = 0.0f;
@@ -12,6 +14,8 @@ public class fingerControlRotation : MonoBehaviour {
     float startTime = 0.0f;
     // Use this for initialization
     void Start () {
+        goArray = GameObject.FindGameObjectsWithTag("wall");
+        hideWall();
         if (Static != null) {
             Destroy(this);
         }
@@ -19,34 +23,29 @@ public class fingerControlRotation : MonoBehaviour {
             Static = this;
         }
 	}
-
-    int i = 0;
-
+    
 	// Update is called once per frame
 	void Update () {
         LerpMove();
         Vector2 mousePosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
         float precent = Input.mousePosition.y / Screen.height;
-        if (Input.GetMouseButtonDown(0)) { // - 向上  + 向下
+        if (Input.GetMouseButtonDown(0) && Input.mousePosition.x > Screen.width * 0.8 ) { // - 向上  + 向下
             startLerpMovement = false;
             onPressPrecent = Input.mousePosition.y / Screen.height;
             onPressZAngle = transform.rotation.eulerAngles.z;
             onpress = true;
         }
-        if (Input.GetMouseButtonUp(0)) {
+        if (Input.GetMouseButtonUp(0) ) {
             closestAngle = calibration(transform.rotation.eulerAngles.z);
             startLerpMovement = true;
             startTime = Time.time;
-            Debug.Log(transform.rotation.eulerAngles.z);
             onPressPrecent = 0.0f;
             onpress = false;
         }
-        i++;
         if (onpress) {
+            hideWall();
             float holdHeightPrecent = onPressPrecent - precent;
-
             transform.rotation = Quaternion.Euler(0, 0,  onPressZAngle + (360 * holdHeightPrecent));
-
         }
 	}
     
@@ -70,7 +69,6 @@ public class fingerControlRotation : MonoBehaviour {
 
         return array[smallestNumberIndex];
     }
-
     void LerpMove() {
         if (startLerpMovement) {
             transform.rotation = Quaternion.Euler(0, 0,  Mathf.Lerp(transform.rotation.eulerAngles.z, closestAngle, (Time.time - startTime) * 1.75f) );
@@ -87,5 +85,35 @@ public class fingerControlRotation : MonoBehaviour {
         }
     }
 
+    void hideWall() {
+        
+        int smallestNumberIndex = 0;
+
+        
+        float[] DistanceArray = new float[goArray.Length];
+
+        for (int i = 0; i < goArray.Length; i++) {
+            DistanceArray[i] = Mathf.Abs(Vector3.Distance(goArray[i].transform.position,transform.position) );
+            //Debug.Log(DistanceArray[i]);
+        }
+        
+
+        for (int i = 0; i < goArray.Length; i++) {
+            if (i != smallestNumberIndex && DistanceArray[smallestNumberIndex] > DistanceArray[i]) {
+                smallestNumberIndex = i;
+            }
+        }
+
+        for (int i = 0; i < goArray.Length; i++) {
+            if (i == smallestNumberIndex) {
+                goArray[i].SetActive(false);
+            }
+            else {
+                goArray[i].SetActive(true);
+                Debug.Log("???");
+            }
+        }
+    
+    }
 
 }

@@ -52,13 +52,8 @@ public class chessMovement : MonoBehaviour {
         movementInput(ref faceDirection);//確定面對方向
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D)) {
             MovementPart(faceDirection); 
-            if (moveCheck()) {
-                movePlayer();
-            }
         }
-
-            autoMovement(faceDirection);
-
+        
         // w係+ s係-   a係-  d係+
     }
 
@@ -118,7 +113,7 @@ public class chessMovement : MonoBehaviour {
         }
 
     }//找出鍵盤輸入的方位是什麼 並string化輸入數值
-    void MovementPart(string moveDirection) {
+    public void MovementPart(string moveDirection) {
 
         if (!roundScript.Static.isProcessingRound) {
             switch (moveDirection) {
@@ -151,33 +146,27 @@ public class chessMovement : MonoBehaviour {
                     break;
             }
 
+            if (moveCheck()) {
+                movePlayer();
+            }
         }
 
     }//把已string化的鍵盤方位數值解碼，指揮檢查用vector3先去鍵盤要求前住的那一格方位
 
     bool doOnce = false;
-    void autoMovement(string direction) {
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)) {
-            downTime += Time.deltaTime;
-        }
+    public void autoMovement(float time , string c) {
 
-        if (downTime >= countDown) {
-            if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D)) {
-                downTime = 0;
-                doOnce = false;
-                lerpSpeed = normalLerpSpeed;
-                return;
-            }
+        if (time >= countDown) {
+            /*
             if (!doOnce) {
                 doOnce = true;
                 normalLerpSpeed = lerpSpeed;
                 lerpSpeed = normalLerpSpeed * 2f;
             }
+            */
+
             Debug.Log("autoMovement");
-            MovementPart(faceDirection);
-            if (moveCheck() ) {
-                movePlayer();
-            }
+            MovementPart(c);
 
         }
     }//自動重復執行MovementPart
@@ -203,7 +192,6 @@ public class chessMovement : MonoBehaviour {
     void LerpMove() {
         if (startLerpMovement) {
             transform.position = Vector3.Lerp(transform.position, hitObjectPosition, (Time.time - startTime) * lerpSpeed);
-            Debug.Log(Mathf.Abs(Vector3.Distance(transform.position, hitObjectPosition)));
             if ( Mathf.Abs(Vector3.Distance(transform.position, hitObjectPosition) ) == 0.0f) {
                 startLerpMovement = false;
                 lerpSpeed = normalLerpSpeed;
