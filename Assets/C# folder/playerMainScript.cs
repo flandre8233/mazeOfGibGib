@@ -145,24 +145,26 @@ public class playerMainScript : MonoBehaviour {
             return;
         }
 
-            itemArray.Add(hitItem.gameObject.GetComponent<itemScript>()); // this work
-            playerDataBase.Static.HP += hitItem.gameObject.GetComponent<itemScript>().AddHP;
-            playerDataBase.Static.SP += hitItem.gameObject.GetComponent<itemScript>().AddSP;
-            playerDataBase.Static.MaxHP += hitItem.gameObject.GetComponent<itemScript>().AddHPMax;
-            playerDataBase.Static.MaxSP += hitItem.gameObject.GetComponent<itemScript>().AddSPMax;
-            playerDataBase.Static.COIN += hitItem.gameObject.GetComponent<itemScript>().AddCOIN;
+        //itemArray.Add(hitItem.gameObject.GetComponent<itemScript>()); // this work
 
-            if (playerDataBase.Static.HP >= playerDataBase.Static.MaxHP) { //max check
-                playerDataBase.Static.HP = playerDataBase.Static.MaxHP;
-            }
-            if (playerDataBase.Static.SP >= playerDataBase.Static.MaxSP) {
-                playerDataBase.Static.SP = playerDataBase.Static.MaxSP;
-            }
-            Destroy(hitItem);
-            Debug.Log(itemArray[0].AddSP);
-            hitItem = null;
-        
 
+        playerDataBase.Static.HP += itemArray[number].gameObject.GetComponent<itemScript>().AddHP;
+        playerDataBase.Static.SP += itemArray[number].gameObject.GetComponent<itemScript>().AddSP;
+        playerDataBase.Static.MaxHP += itemArray[number].gameObject.GetComponent<itemScript>().AddHPMax;
+        playerDataBase.Static.MaxSP += itemArray[number].gameObject.GetComponent<itemScript>().AddSPMax;
+        playerDataBase.Static.COIN += itemArray[number].gameObject.GetComponent<itemScript>().AddCOIN;
+
+        if (itemArray[number].continueRound != 0) {
+
+        }
+
+        if (playerDataBase.Static.HP >= playerDataBase.Static.MaxHP) { //max check
+            playerDataBase.Static.HP = playerDataBase.Static.MaxHP;
+        }
+        if (playerDataBase.Static.SP >= playerDataBase.Static.MaxSP) {
+            playerDataBase.Static.SP = playerDataBase.Static.MaxSP;
+        }
+        itemArray.RemoveAt(number);
     }
 
     int ATKcontinueRound = 3;
