@@ -94,6 +94,7 @@ public class playerMainScript : MonoBehaviour {
         }
     }
 
+    /*
     public void getItemSet() {
         if (hitItem != null) {
             playerDataBase.Static.HP += hitItem.gameObject.GetComponent<itemScript>().AddHP;
@@ -111,6 +112,56 @@ public class playerMainScript : MonoBehaviour {
             Destroy(hitItem);
             hitItem = null;
         }
+
+    }
+    */
+
+    List<itemScript> itemArray = new List<itemScript>();
+
+    public void getItemSet() {
+        if (hitItem != null) {
+            itemArray.Add( hitItem.gameObject.GetComponent<itemScript>() ); // this work
+            playerDataBase.Static.HP += hitItem.gameObject.GetComponent<itemScript>().AddHP;
+            playerDataBase.Static.SP += hitItem.gameObject.GetComponent<itemScript>().AddSP;
+            playerDataBase.Static.MaxHP += hitItem.gameObject.GetComponent<itemScript>().AddHPMax;
+            playerDataBase.Static.MaxSP += hitItem.gameObject.GetComponent<itemScript>().AddSPMax;
+            playerDataBase.Static.COIN += hitItem.gameObject.GetComponent<itemScript>().AddCOIN;
+
+            if (playerDataBase.Static.HP >= playerDataBase.Static.MaxHP) { //max check
+                playerDataBase.Static.HP = playerDataBase.Static.MaxHP;
+            }
+            if (playerDataBase.Static.SP >= playerDataBase.Static.MaxSP) {
+                playerDataBase.Static.SP = playerDataBase.Static.MaxSP;
+            }
+            Destroy(hitItem);
+            Debug.Log(itemArray[0].AddSP);
+            hitItem = null;
+        }
+
+    }
+
+    public void useItem(int number) {
+        if (number > 1 || number < 0) {
+            return;
+        }
+
+            itemArray.Add(hitItem.gameObject.GetComponent<itemScript>()); // this work
+            playerDataBase.Static.HP += hitItem.gameObject.GetComponent<itemScript>().AddHP;
+            playerDataBase.Static.SP += hitItem.gameObject.GetComponent<itemScript>().AddSP;
+            playerDataBase.Static.MaxHP += hitItem.gameObject.GetComponent<itemScript>().AddHPMax;
+            playerDataBase.Static.MaxSP += hitItem.gameObject.GetComponent<itemScript>().AddSPMax;
+            playerDataBase.Static.COIN += hitItem.gameObject.GetComponent<itemScript>().AddCOIN;
+
+            if (playerDataBase.Static.HP >= playerDataBase.Static.MaxHP) { //max check
+                playerDataBase.Static.HP = playerDataBase.Static.MaxHP;
+            }
+            if (playerDataBase.Static.SP >= playerDataBase.Static.MaxSP) {
+                playerDataBase.Static.SP = playerDataBase.Static.MaxSP;
+            }
+            Destroy(hitItem);
+            Debug.Log(itemArray[0].AddSP);
+            hitItem = null;
+        
 
     }
 
