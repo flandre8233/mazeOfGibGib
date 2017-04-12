@@ -23,6 +23,14 @@ public class canvasButton : MonoBehaviour {
         chessMovement.Static.MovementPart(dir);
     }
 
+    public void useItemButton(int number ) {
+
+        if (playerMainScript.Static.itemArray[number] == null) {
+            return;
+        }
+
+        playerMainScript.Static.useItem(number);
+    }
 
     /*
 

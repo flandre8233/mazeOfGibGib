@@ -4,20 +4,18 @@ using UnityEngine;
 
 public class DEFBuff : itemScript {
     public override void SetUp() {
+        itemName = "DEFBuff";
         AddHP = 0;
         AddSP = 0;
         AddHPMax = 0;
         AddSPMax = 0;
         AddCOIN = 0;
-        
+        continueRound = 5;
+        AddDEF = 8;
     }
 
-    public override void OnTriggerEnter(Collider other) {
-        if (other.gameObject.tag == "Player") { //hit Player
-            Debug.Log("playerAHit");
-            continueRound = 5;
-            AddDEF = 8;
-            playerMainScript.Static.DEFBuffSetUp(continueRound,AddDEF);
-        }
+    public override void includeLevelSetUp() {
+            AddDEF += (int)((level + 2) / 100.0f * 10);
+            continueRound += 4 + level;
     }
 }

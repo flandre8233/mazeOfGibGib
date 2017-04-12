@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class HPMax : itemScript {
     public override void SetUp() {
+        itemName = "HPMax";
         AddHP = 0;
         AddSP = 0;
         AddHPMax = 3;
@@ -11,9 +12,5 @@ public class HPMax : itemScript {
         AddCOIN = 0;
     }
 
-    public override void OnTriggerEnter(Collider other) {
-        if (other.gameObject.tag == "Player") { //hit Player
-            Debug.Log("playerAHit");
-        }
-    }
+
 }

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class itemScript : MonoBehaviour
 {
-
+    public string itemName { get; set; }
+    public int level = 1;
     public int AddHP { get; set; }
     public int AddSP { get; set; }
     public int AddHPMax { get; set; }
@@ -16,6 +17,7 @@ public class itemScript : MonoBehaviour
 
     void Start() {
         SetUp();
+        includeLevelSetUp();
     }
 
     public virtual void SetUp() {
@@ -26,10 +28,7 @@ public class itemScript : MonoBehaviour
         AddCOIN = 0;
     }
 
-     public virtual void OnTriggerEnter(Collider other) {
-        if (other.gameObject.tag == "Player") { //hit Player
-            Debug.Log("playerHit");
-        }
+    public virtual void includeLevelSetUp() {
     }
 
 }

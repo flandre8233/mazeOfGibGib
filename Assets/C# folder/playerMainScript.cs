@@ -5,8 +5,12 @@ using UnityEngine;
 public class playerMainScript : MonoBehaviour {
     public static playerMainScript Static;
 
-	// Use this for initialization
-	void Awake () {
+    //public itemScript[] itemArray = new itemScript[2] { null, null };
+    public itemScript[] itemArray = new itemScript[2];
+    public itemScript[] itemArrayClone = new itemScript[2];
+
+    // Use this for initialization
+    void Awake () {
         Static = this;
 	}
 
@@ -94,8 +98,8 @@ public class playerMainScript : MonoBehaviour {
         }
     }
 
-    /*
-    public void getItemSet() {
+    
+    public void getItem() {
         if (hitItem != null) {
             playerDataBase.Static.HP += hitItem.gameObject.GetComponent<itemScript>().AddHP;
             playerDataBase.Static.SP += hitItem.gameObject.GetComponent<itemScript>().AddSP;
@@ -114,30 +118,32 @@ public class playerMainScript : MonoBehaviour {
         }
 
     }
-    */
 
-    List<itemScript> itemArray = new List<itemScript>();
 
-    public void getItemSet() {
-        if (hitItem != null) {
-            itemArray.Add( hitItem.gameObject.GetComponent<itemScript>() ); // this work
-            playerDataBase.Static.HP += hitItem.gameObject.GetComponent<itemScript>().AddHP;
-            playerDataBase.Static.SP += hitItem.gameObject.GetComponent<itemScript>().AddSP;
-            playerDataBase.Static.MaxHP += hitItem.gameObject.GetComponent<itemScript>().AddHPMax;
-            playerDataBase.Static.MaxSP += hitItem.gameObject.GetComponent<itemScript>().AddSPMax;
-            playerDataBase.Static.COIN += hitItem.gameObject.GetComponent<itemScript>().AddCOIN;
 
-            if (playerDataBase.Static.HP >= playerDataBase.Static.MaxHP) { //max check
-                playerDataBase.Static.HP = playerDataBase.Static.MaxHP;
-            }
-            if (playerDataBase.Static.SP >= playerDataBase.Static.MaxSP) {
-                playerDataBase.Static.SP = playerDataBase.Static.MaxSP;
-            }
-            Destroy(hitItem);
-            Debug.Log(itemArray[0].AddSP);
-            hitItem = null;
+
+    public void getItemSet(int saveIn) {
+        if (hitItem == null) {
+            return;
         }
+        itemArray[saveIn] = DeepCopyItem(hitItem.gameObject.GetComponent<itemScript>(), saveIn);
+        hitItem = null;
+    }
 
+
+
+    itemScript DeepCopyItem(itemScript original, int i ) {
+        itemScript clone = itemArrayClone[i];
+
+        clone.AddHP = original.AddHP;
+        clone.AddSP = original.AddSP;
+        clone.AddHPMax = original.AddHPMax;
+        clone.AddSPMax = original.AddSPMax;
+        clone.AddCOIN = original.AddCOIN;
+        clone.AddATK = original.AddATK;
+        clone.AddDEF = original.AddDEF;
+        clone.continueRound = original.continueRound;
+        return clone;
     }
 
     public void useItem(int number) {
@@ -148,13 +154,19 @@ public class playerMainScript : MonoBehaviour {
         //itemArray.Add(hitItem.gameObject.GetComponent<itemScript>()); // this work
 
 
-        playerDataBase.Static.HP += itemArray[number].gameObject.GetComponent<itemScript>().AddHP;
-        playerDataBase.Static.SP += itemArray[number].gameObject.GetComponent<itemScript>().AddSP;
-        playerDataBase.Static.MaxHP += itemArray[number].gameObject.GetComponent<itemScript>().AddHPMax;
-        playerDataBase.Static.MaxSP += itemArray[number].gameObject.GetComponent<itemScript>().AddSPMax;
-        playerDataBase.Static.COIN += itemArray[number].gameObject.GetComponent<itemScript>().AddCOIN;
+        playerDataBase.Static.HP += itemArray[number].AddHP;
+        playerDataBase.Static.SP += itemArray[number].AddSP;
+        playerDataBase.Static.MaxHP += itemArray[number].AddHPMax;
+        playerDataBase.Static.MaxSP += itemArray[number].AddSPMax;
+        playerDataBase.Static.COIN += itemArray[number].AddCOIN;
 
         if (itemArray[number].continueRound != 0) {
+            if (itemArray[number].AddATK != 0) { // atk buff item
+                ATKBuffSetUp(itemArray[number].continueRound, itemArray[number].AddATK);
+            }
+            else { // def buff item
+                DEFBuffSetUp(itemArray[number].continueRound, itemArray[number].AddDEF);
+            }
 
         }
 
@@ -164,7 +176,7 @@ public class playerMainScript : MonoBehaviour {
         if (playerDataBase.Static.SP >= playerDataBase.Static.MaxSP) {
             playerDataBase.Static.SP = playerDataBase.Static.MaxSP;
         }
-        itemArray.RemoveAt(number);
+        itemArray[number] = null;
     }
 
     int ATKcontinueRound = 3;
@@ -223,7 +235,24 @@ public class playerMainScript : MonoBehaviour {
     void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "item") { //hit item
             hitItem = other.gameObject;
-            getItemSet();
+
+            bool itemArrayHaveSpace = false;
+            for (int i = 0; i < itemArray.Length; i++) {
+                if (itemArray[i] == null) // this wor) 
+                    {
+                    getItemSet(i);
+                    itemArrayHaveSpace= true;
+                    break;
+                }
+            }
+
+            /*
+            if (!itemArrayHaveSpace) {  //滿包都可以用設定
+                getItem();
+            }
+            */
+
+            Destroy(other.gameObject);
         }
     }
 
