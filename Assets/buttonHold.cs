@@ -27,7 +27,7 @@ public class buttonHold : MonoBehaviour , IPointerDownHandler
 	
 	// Update is called once per frame
 	void Update () {
-        if (mouseDown) {
+        if (mouseDown && !roundScript.Static.isInExitLevel) {
             timeMouseDown += Time.deltaTime;
             chessMovement.Static.autoMovement(timeMouseDown, dir);
         }

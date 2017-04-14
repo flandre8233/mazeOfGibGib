@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class chessMovement : MonoBehaviour {
     public static chessMovement Static;
-    [SerializeField]
-    Vector3 center;
+    public Vector3 center;
     public GameObject model;
 
     private float startTime;
@@ -204,7 +203,7 @@ public class chessMovement : MonoBehaviour {
         }
     }
 
-    Vector3 hitObjectPosition = new Vector3();
+    public Vector3 hitObjectPosition = new Vector3();
 
 
     bool moveCheck() { //正確是否正確移動

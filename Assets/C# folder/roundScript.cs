@@ -42,12 +42,13 @@ public class roundScript : MonoBehaviour {
 
     public short currentArea = 1;
     public void OnEnterNextLevel() { // enter next level
+        isInExitLevel = true;
         mapTerrainGenerator.Static.terrainLength++; //新增地形
         chessMovement.Static.model.transform.rotation = Quaternion.Euler(0, 0, 0);
         
         clearLevel();
         //GameObject.FindGameObjectWithTag("Player").transform.position = new Vector3(0, 0, -1);
-        chessMovement.Static.startLerpMovement = false;
+        
         movementProcessingChecker = false;
         playerDataBase.Static.currentFloor++; //目前關卡+1
         if (playerDataBase.Static.currentFloor % 5 == 0) { //到5,10,15,20......關卡
@@ -60,10 +61,16 @@ public class roundScript : MonoBehaviour {
                 mapTerrainGenerator.Static.mapLimit.y++;
             }
         }
-        
+
+   
+
         wallControl.Static.syncBackgroundSize((int)mapTerrainGenerator.Static.mapLimit.x, (int)mapTerrainGenerator.Static.mapLimit.y);
         mapTerrainGenerator.Static.resetTerrain();
+
+
+
         NeedGenertorThings = true;
+
 
 
     }
@@ -107,9 +114,15 @@ public class roundScript : MonoBehaviour {
             mapThingsGenerator.Static.spawnExitPoint();
             mapThingsGenerator.Static.StartGeneratorTheThings();
             mapThingsGenerator.Static.SerializePlayerPositionToSpawnPoint();
+
+            //chessMovement.Static.startLerpMovement = false;
+            chessMovement.Static.center = chessMovement.Static.gameObject.transform.position;
+            chessMovement.Static.hitObjectPosition = new Vector3(chessMovement.Static.center.x, chessMovement.Static.center.y, -1);
+
             //mapTerrainGenerator.Static.findLeftGround();
             //mapTerrainGenerator.Static.findRightGround();
             //mapTerrainGenerator.Static.findCenter();
+            isInExitLevel = false;
         }
         if (NeedGenertorThings) {
             nextFrameLock ++;
@@ -133,7 +146,8 @@ public class roundScript : MonoBehaviour {
         else {
             Static = this;
         }
-        
+
+        wallControl.Static.syncBackgroundSize((int)mapTerrainGenerator.Static.mapLimit.x, (int)mapTerrainGenerator.Static.mapLimit.y);
     }
 
     public void Start() {

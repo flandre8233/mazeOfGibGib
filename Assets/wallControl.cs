@@ -23,7 +23,7 @@ public class wallControl : MonoBehaviour {
         rightWall.localScale = new Vector3(2*(mapWidth + 1), 1, 20);
         downWall.localScale = new Vector3(2*(mapHeight + 1), 1, 20);
 
-        floorBackground.localScale = new Vector3(2 * (mapWidth + 1), 2 * (mapHeight + 1), 1); ;
+        floorBackground.localScale = new Vector3(2 * (mapWidth + 2), 4 * (mapHeight + 2), 1); ;
 
     }
     
