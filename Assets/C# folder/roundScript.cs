@@ -28,11 +28,11 @@ public class roundScript : MonoBehaviour {
 
 
     public bool movementProcessingChecker = false;
-
+    public bool DoAttackAniProcessingChecker = false;
 
     public void RoundProcessingChecker() {
         if (isProcessingRound) {
-            if (!movementProcessingChecker) {
+            if (!movementProcessingChecker && !DoAttackAniProcessingChecker) {
                 isProcessingRound = false;
                 // Processing is complete
             }
@@ -70,9 +70,7 @@ public class roundScript : MonoBehaviour {
 
 
         NeedGenertorThings = true;
-
-
-
+        
     }
 
     public void clearLevel() {
@@ -118,6 +116,10 @@ public class roundScript : MonoBehaviour {
             //chessMovement.Static.startLerpMovement = false;
             chessMovement.Static.center = chessMovement.Static.gameObject.transform.position;
             chessMovement.Static.hitObjectPosition = new Vector3(chessMovement.Static.center.x, chessMovement.Static.center.y, -1);
+
+            //chessMovement.Static.gameObject.GetComponentInChildren<Animator>().Play("idle");
+            chessMovement.Static.gameObject.GetComponentInChildren<Animator>().SetBool("run", false);
+            chessMovement.Static.gameObject.GetComponentInChildren<Animator>().SetBool("idle", true);
 
             //mapTerrainGenerator.Static.findLeftGround();
             //mapTerrainGenerator.Static.findRightGround();

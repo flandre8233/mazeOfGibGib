@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class chessMovement : MonoBehaviour {
     public static chessMovement Static;
+    public Animator charactor_move;
     public Vector3 center;
     public GameObject model;
 
@@ -24,6 +25,7 @@ public class chessMovement : MonoBehaviour {
     float normalLerpSpeed;
     // Use this for initialization
     void Start () {
+        charactor_move = GetComponentInChildren<Animator>();
         normalLerpSpeed = lerpSpeed;
         Static = this;
         reset();
@@ -38,8 +40,10 @@ public class chessMovement : MonoBehaviour {
                 roundScript.Static.roundSystem -= playerMainScript.Static.subSP;
                 roundScript.Static.pastRound();
                 roundScript.Static.roundSystem += playerMainScript.Static.subSP;
+                roundScript.Static.DoAttackAniProcessingChecker = false;
             }
             else {//不是要打npc
+                //charactor_move.Play("run", -1, 0f) );
                 roundScript.Static.pastRound();
             }
             isHitNpc = false;
@@ -177,7 +181,13 @@ public class chessMovement : MonoBehaviour {
     void movePlayer() { //真正移動
         if (!roundScript.Static.isProcessingRound) {
             if (touchEnemy != null ) {
-                attackNpc(touchEnemy);
+                if (!roundScript.Static.DoAttackAniProcessingChecker && touchEnemy.GetComponent<enemyDataBase>().HP > 0 ) {
+                    charactor_move.SetTrigger("attack");
+                    roundScript.Static.DoAttackAniProcessingChecker = true;
+                    StartCoroutine(WaitForAnimation("attack"));
+                }
+                
+                
 
                 startLerpMovement = false;
             }
@@ -192,14 +202,23 @@ public class chessMovement : MonoBehaviour {
 
     void LerpMove() {
         if (startLerpMovement) {
+            
             transform.position = Vector3.Lerp(transform.position, hitObjectPosition, (Time.time - startTime) * lerpSpeed);
             if ( Mathf.Abs(Vector3.Distance(transform.position, hitObjectPosition) ) == 0.0f) {
                 startLerpMovement = false;
+                
                 lerpSpeed = normalLerpSpeed;
             }
             else if (Mathf.Abs(Vector3.Distance(transform.position, hitObjectPosition)) <= 0.1f) {
                 roundScript.Static.movementProcessingChecker = false;
+                charactor_move.SetBool("run", false);
+                charactor_move.SetBool("idle", true);
             }
+            else {
+                charactor_move.SetBool("run", true);
+                charactor_move.SetBool("idle", false);
+            }
+
         }
     }
 
@@ -229,8 +248,18 @@ public class chessMovement : MonoBehaviour {
     }//檢查 檢查用vector3 目前所在的方位是否存在方塊(已是說是否有路) 有就移動 無就取消移動動作
 
 
+    private IEnumerator WaitForAnimation(string animation) {
+        do {
+            yield return null;
+        } while (!charactor_move.GetCurrentAnimatorStateInfo(0).IsName(animation));
+        attackNpc(touchEnemy);
+        //dead here
+    }
+    
+
     void attackNpc(GameObject touchEnemy) {
         //touch Enemy之後既行動
+
         if (playerDataBase.Static.DEF >= touchEnemy.GetComponent<enemyDataBase>().ATK) {
             touchEnemy.GetComponent<enemyDataBase>().HP = 0;
         }
@@ -239,6 +268,9 @@ public class chessMovement : MonoBehaviour {
         }
         isHitNpc = true;
         thisFrameMoved = true;
+       
+
+
     }
 
 }

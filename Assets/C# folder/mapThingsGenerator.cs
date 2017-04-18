@@ -104,29 +104,29 @@ public class mapThingsGenerator : MonoBehaviour {
         }
 
 
-        for (int i = 0; i < thisLevelspawnTimes; i++) { 
-                int canPlaceThingsFloorNumber = totalfloorCanBePlaceThings.Count ;
-                int randomNumber = Random.Range(0, canPlaceThingsFloorNumber ); //在可放置東西的地板array上選出一個數字
+        for (int i = 0; i < thisLevelspawnTimes; i++) {
+            int canPlaceThingsFloorNumber = totalfloorCanBePlaceThings.Count;
+            int randomNumber = Random.Range(0, canPlaceThingsFloorNumber); //在可放置東西的地板array上選出一個數字
             int randomNumberThingsType = itemAndEnemyProcessor.randomSetThingsType(ProbabilityArray); //為這次spawn的物品決定出他的種類
             Vector3 randomPosition = new Vector3(totalfloorCanBePlaceThings[randomNumber].transform.position.x, totalfloorCanBePlaceThings[randomNumber].transform.position.y, -1); //放在那裡?
             switch (randomNumberThingsType) { //把結果分類
                 case 1:
 
-                        GameObject InstantiateItem = Instantiate(item, randomPosition, Quaternion.identity);
+                    GameObject InstantiateItem = Instantiate(item, randomPosition, Quaternion.identity);
                     //InstantiateItem.name = InstantiateItem.GetComponent<itemScript>().ItemType.ToString();
                     selectType(InstantiateItem);
-                        break;
+                    break;
 
-                    case 2:
+                case 2:
                     GameObject InstantiateEnemy = Instantiate(enemy, randomPosition, Quaternion.identity);
                     enemyGenerator.Static.selectType(InstantiateEnemy);
-                        break;
-                    default:
-                        break;
-                }
-                totalfloorCanBePlaceThings[randomNumber].GetComponent<groundScript>().haveSomethingInHere = true;
-            totalfloorCanBePlaceThings.Remove(totalfloorCanBePlaceThings[randomNumber]);
+                    break;
+                default:
+                    break;
             }
+            totalfloorCanBePlaceThings[randomNumber].GetComponent<groundScript>().haveSomethingInHere = true;
+            totalfloorCanBePlaceThings.Remove(totalfloorCanBePlaceThings[randomNumber]);
+        }
     }
 
     public void spawnExitPoint() {

@@ -14,7 +14,7 @@ public class charactor_animation : MonoBehaviour {
 	void Update () {
         if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.D))
         {
-            charactor_move.Play("run", -1, 0f);
+            //charactor_move.Play("run", -1, 0f);
         }
 
         if(Input.GetKeyDown(KeyCode.T))

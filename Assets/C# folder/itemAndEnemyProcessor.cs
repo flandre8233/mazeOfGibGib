@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public static class itemAndEnemyProcessor {
+public static class itemAndEnemyProcessor
+{
 
     public static void checkProbabilityOverflow(int SkipCheckProbabilityElementNumber, ref List<float> ProbabilityArray) {
         float sumProbability = 0;
@@ -37,6 +38,26 @@ public static class itemAndEnemyProcessor {
             }
         }
         return type;
+    }
+
+    public static short randomSetThingsType(List<GameObject> ObjectArray) {
+        List<float> ProbabilityArray = new List<float>();
+        float avgProbability = 100.0f / ObjectArray.Count;
+        foreach (var item in ObjectArray) {
+            ProbabilityArray.Add(avgProbability);
+        }
+
+        return randomSetThingsType(ProbabilityArray);
+    }
+
+    public static short randomSetThingsType(GameObject[] ObjectArray) {
+        List<float> ProbabilityArray = new List<float>();
+        float avgProbability = 100.0f / ObjectArray.Length;
+        foreach (var item in ObjectArray) {
+            ProbabilityArray.Add(avgProbability);
+        }
+
+        return randomSetThingsType(ProbabilityArray);
     }
 
 }
