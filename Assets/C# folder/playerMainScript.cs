@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class playerMainScript : MonoBehaviour {
+public class playerMainScript : MonoBehaviour
+{
     public static playerMainScript Static;
 
     //public itemScript[] itemArray = new itemScript[2] { null, null };
@@ -10,52 +11,69 @@ public class playerMainScript : MonoBehaviour {
     public itemScript[] itemArrayClone = new itemScript[2];
 
     // Use this for initialization
-    void Awake () {
+    void Awake()
+    {
         Static = this;
-	}
+    }
 
-    public void subSP() {
-        if (playerDataBase.Static.SP > 0 && !roundScript.Static.isExitTouchPlayer) {
+    public void subSP()
+    {
+        if (playerDataBase.Static.SP > 0 && !roundScript.Static.isExitTouchPlayer)
+        {
             playerDataBase.Static.SP--;
         }
     }
 
 
 
-    public void checkLife() {
-        if (!roundScript.Static.isExitTouchPlayer) {
-            if (playerDataBase.Static.SP > 0) {
-                if (playerDataBase.Static.HP < playerDataBase.Static.MaxHP) {
-                    if ( (int)(Mathf.Round(playerDataBase.Static.MaxHP / 100.0f * 5.0f)) > 1) {
+    public void checkLife()
+    {
+        if (!roundScript.Static.isExitTouchPlayer)
+        {
+            if (playerDataBase.Static.SP > 0)
+            {
+                if (playerDataBase.Static.HP < playerDataBase.Static.MaxHP)
+                {
+                    if ((int)(Mathf.Round(playerDataBase.Static.MaxHP / 100.0f * 5.0f)) > 1)
+                    {
                         playerDataBase.Static.HP += (int)(Mathf.Round(playerDataBase.Static.MaxHP / 100.0f * 10.0f));
                     }
-                    else {
+                    else
+                    {
                         playerDataBase.Static.HP++;
                     }
                 }
             }
-            else {
-                if (playerDataBase.Static.HP > 0) {
-                    if ((int)(Mathf.Round(playerDataBase.Static.MaxHP / 100.0f * 10.0f)) > 1) {
+            else
+            {
+                if (playerDataBase.Static.HP > 0)
+                {
+                    if ((int)(Mathf.Round(playerDataBase.Static.MaxHP / 100.0f * 10.0f)) > 1)
+                    {
                         playerDataBase.Static.HP -= (int)(Mathf.Round(playerDataBase.Static.MaxHP / 100.0f * 15.0f));
                     }
-                    else {
+                    else
+                    {
                         playerDataBase.Static.HP--;
                     }
                 }
             }
 
-            if (playerDataBase.Static.HP > playerDataBase.Static.MaxHP) {
+            if (playerDataBase.Static.HP > playerDataBase.Static.MaxHP)
+            {
                 playerDataBase.Static.HP = playerDataBase.Static.MaxHP;
             }
-            else if(playerDataBase.Static.HP < 0) {
+            else if (playerDataBase.Static.HP < 0)
+            {
                 playerDataBase.Static.HP = 0;
             }
 
-            if (playerDataBase.Static.SP > playerDataBase.Static.MaxSP) {
+            if (playerDataBase.Static.SP > playerDataBase.Static.MaxSP)
+            {
                 playerDataBase.Static.SP = playerDataBase.Static.MaxSP;
             }
-            else if (playerDataBase.Static.SP < 0) {
+            else if (playerDataBase.Static.SP < 0)
+            {
                 playerDataBase.Static.SP = 0;
             }
 
@@ -65,14 +83,17 @@ public class playerMainScript : MonoBehaviour {
 
     }
 
-    public void OnPlayerDead() {
-        if (playerDataBase.Static.maxFloor < playerDataBase.Static.currentFloor) {
+    public void OnPlayerDead()
+    {
+        if (playerDataBase.Static.maxFloor < playerDataBase.Static.currentFloor)
+        {
             playerDataBase.Static.maxFloor = playerDataBase.Static.currentFloor;
         }
 
     }
 
-    public void deadAliveCheck() {
+    public void deadAliveCheck()
+    {
         /*
         if (playerDataBase.Static.HP <= 0) {
             if (playerDataBase.Static.SP <= 0) {
@@ -81,36 +102,43 @@ public class playerMainScript : MonoBehaviour {
         }
         */
 
-        if (playerDataBase.Static.HP <= 0 ) {
+        if (playerDataBase.Static.HP <= 0)
+        {
             //event : hp = 0  gameover
             playerDataBase.Static.HP = 0;
             roundScript.Static.IsDead = true;
             OnPlayerDead();
             //GetComponent<chessMovement>().enabled = false; //youdead
-        } 
-        else {
+        }
+        else
+        {
             roundScript.Static.IsDead = false;
             //GetComponent<chessMovement>().enabled = true;
         }
 
-        if (playerDataBase.Static.SP == 0) {
+        if (playerDataBase.Static.SP == 0)
+        {
             //event : sp = 0
         }
     }
 
-    
-    public void getItem() {
-        if (hitItem != null) {
+
+    public void getItem()
+    {
+        if (hitItem != null)
+        {
             playerDataBase.Static.HP += hitItem.gameObject.GetComponent<itemScript>().AddHP;
             playerDataBase.Static.SP += hitItem.gameObject.GetComponent<itemScript>().AddSP;
             playerDataBase.Static.MaxHP += hitItem.gameObject.GetComponent<itemScript>().AddHPMax;
             playerDataBase.Static.MaxSP += hitItem.gameObject.GetComponent<itemScript>().AddSPMax;
             playerDataBase.Static.COIN += hitItem.gameObject.GetComponent<itemScript>().AddCOIN;
 
-            if (playerDataBase.Static.HP >= playerDataBase.Static.MaxHP) { //max check
+            if (playerDataBase.Static.HP >= playerDataBase.Static.MaxHP)
+            { //max check
                 playerDataBase.Static.HP = playerDataBase.Static.MaxHP;
             }
-            if (playerDataBase.Static.SP >= playerDataBase.Static.MaxSP) {
+            if (playerDataBase.Static.SP >= playerDataBase.Static.MaxSP)
+            {
                 playerDataBase.Static.SP = playerDataBase.Static.MaxSP;
             }
             Destroy(hitItem);
@@ -122,8 +150,10 @@ public class playerMainScript : MonoBehaviour {
 
 
 
-    public void getItemSet(int saveIn) {
-        if (hitItem == null) {
+    public void getItemSet(int saveIn)
+    {
+        if (hitItem == null)
+        {
             return;
         }
         itemArray[saveIn] = DeepCopyItem(hitItem.gameObject.GetComponent<itemScript>(), saveIn);
@@ -132,7 +162,8 @@ public class playerMainScript : MonoBehaviour {
 
 
 
-    itemScript DeepCopyItem(itemScript original, int i ) {
+    itemScript DeepCopyItem(itemScript original, int i)
+    {
         itemScript clone = itemArrayClone[i];
 
         clone.AddHP = original.AddHP;
@@ -146,8 +177,10 @@ public class playerMainScript : MonoBehaviour {
         return clone;
     }
 
-    public void useItem(int number) {
-        if (number > 1 || number < 0) {
+    public void useItem(int number)
+    {
+        if (number > 1 || number < 0)
+        {
             return;
         }
 
@@ -160,20 +193,25 @@ public class playerMainScript : MonoBehaviour {
         playerDataBase.Static.MaxSP += itemArray[number].AddSPMax;
         playerDataBase.Static.COIN += itemArray[number].AddCOIN;
 
-        if (itemArray[number].continueRound != 0) {
-            if (itemArray[number].AddATK != 0) { // atk buff item
+        if (itemArray[number].continueRound != 0)
+        {
+            if (itemArray[number].AddATK != 0)
+            { // atk buff item
                 ATKBuffSetUp(itemArray[number].continueRound, itemArray[number].AddATK);
             }
-            else { // def buff item
+            else
+            { // def buff item
                 DEFBuffSetUp(itemArray[number].continueRound, itemArray[number].AddDEF);
             }
 
         }
 
-        if (playerDataBase.Static.HP >= playerDataBase.Static.MaxHP) { //max check
+        if (playerDataBase.Static.HP >= playerDataBase.Static.MaxHP)
+        { //max check
             playerDataBase.Static.HP = playerDataBase.Static.MaxHP;
         }
-        if (playerDataBase.Static.SP >= playerDataBase.Static.MaxSP) {
+        if (playerDataBase.Static.SP >= playerDataBase.Static.MaxSP)
+        {
             playerDataBase.Static.SP = playerDataBase.Static.MaxSP;
         }
         itemArray[number] = null;
@@ -188,14 +226,16 @@ public class playerMainScript : MonoBehaviour {
     int originalATKNumber = 0;
     int originalDEFNumber = 0;
 
-    public void ATKBuffSetUp(int conRound, int atkAddNumber) {
+    public void ATKBuffSetUp(int conRound, int atkAddNumber)
+    {
         ATKbuffStartRound = roundScript.Static.round;
         ATKcontinueRound = conRound;
         originalATKNumber = playerDataBase.Static.ATK;
         playerDataBase.Static.ATK += atkAddNumber;
         inATKBuff = true;
     }
-    public void DEFBuffSetUp(int conRound, int DEFAddNumber) {
+    public void DEFBuffSetUp(int conRound, int DEFAddNumber)
+    {
         DEFbuffStartRound = roundScript.Static.round;
         DEFcontinueRound = conRound;
         originalDEFNumber = playerDataBase.Static.DEF;
@@ -203,12 +243,15 @@ public class playerMainScript : MonoBehaviour {
         inDEFBuff = true;
     }
 
-    public bool ATKBuff() {
-        if (!inATKBuff) {
+    public bool ATKBuff()
+    {
+        if (!inATKBuff)
+        {
             return false;
         }
 
-        if (roundScript.Static.round - ATKbuffStartRound < ATKcontinueRound) { // ok 
+        if (roundScript.Static.round - ATKbuffStartRound < ATKcontinueRound)
+        { // ok 
             //per frame
             return true;
         }
@@ -216,12 +259,15 @@ public class playerMainScript : MonoBehaviour {
         playerDataBase.Static.ATK = originalATKNumber;
         return false;
     }
-    public bool DEFBuff() {
-        if (!inDEFBuff) {
+    public bool DEFBuff()
+    {
+        if (!inDEFBuff)
+        {
             return false;
         }
 
-        if (roundScript.Static.round - DEFbuffStartRound < DEFcontinueRound) { // ok 
+        if (roundScript.Static.round - DEFbuffStartRound < DEFcontinueRound)
+        { // ok 
             //per frame
             return true;
         }
@@ -232,16 +278,21 @@ public class playerMainScript : MonoBehaviour {
 
 
     public GameObject hitItem;
-    void OnTriggerEnter(Collider other) {
-        if (other.gameObject.tag == "item") { //hit item
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "item")
+        { //hit item
             hitItem = other.gameObject;
 
             bool itemArrayHaveSpace = false;
-            for (int i = 0; i < itemArray.Length; i++) {
+            Debug.Log("get");
+            chessMovement.Static.charactor_move.SetTrigger("get");
+            for (int i = 0; i < itemArray.Length; i++)
+            {
                 if (itemArray[i] == null) // this wor) 
-                    {
+                {
                     getItemSet(i);
-                    itemArrayHaveSpace= true;
+                    itemArrayHaveSpace = true;
                     break;
                 }
             }

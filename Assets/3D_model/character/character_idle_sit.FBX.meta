@@ -1,176 +1,160 @@
 fileFormatVersion: 2
-guid: 2b4990a584ecaa749ba42c688f0b2f83
-timeCreated: 1492610267
+guid: 92f8e5994705086419118f743f31c41a
+timeCreated: 1492612810
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: bag01
     100002: Bip001
-    100004: Bip001 1
-    100006: Bip001 Footsteps
-    100008: Bip001 Head
-    100010: Bip001 HeadNub
-    100012: Bip001 HeadNub 1
-    100014: Bip001 L Calf
-    100016: Bip001 L Clavicle
-    100018: Bip001 L Finger0
-    100020: Bip001 L Finger01
-    100022: Bip001 L Finger0Nub
-    100024: Bip001 L Finger0Nub 1
-    100026: Bip001 L Finger1
-    100028: Bip001 L Finger11
-    100030: Bip001 L Finger1Nub
-    100032: Bip001 L Finger2
-    100034: Bip001 L Finger21
-    100036: Bip001 L Finger2Nub
-    100038: Bip001 L Foot
-    100040: Bip001 L Forearm
-    100042: Bip001 L Hand
-    100044: Bip001 L Thigh
-    100046: Bip001 L Toe0
-    100048: Bip001 L Toe01
-    100050: Bip001 L Toe02
-    100052: Bip001 L Toe0Nub
-    100054: Bip001 L Toe0Nub 1
-    100056: Bip001 L UpperArm
-    100058: Bip001 Neck
-    100060: Bip001 Pelvis
-    100062: Bip001 Ponytail2Nub
-    100064: Bip001 R Calf
-    100066: Bip001 R Clavicle
-    100068: Bip001 R Finger0
-    100070: Bip001 R Finger01
-    100072: Bip001 R Finger0Nub
-    100074: Bip001 R Finger0Nub 1
-    100076: Bip001 R Finger1
-    100078: Bip001 R Finger11
-    100080: Bip001 R Finger1Nub
-    100082: Bip001 R Finger2
-    100084: Bip001 R Finger21
-    100086: Bip001 R Finger2Nub
-    100088: Bip001 R Foot
-    100090: Bip001 R Forearm
-    100092: Bip001 R Hand
-    100094: Bip001 R Thigh
-    100096: Bip001 R Toe0
-    100098: Bip001 R Toe01
-    100100: Bip001 R Toe02
-    100102: Bip001 R Toe0Nub
-    100104: Bip001 R Toe0Nub 1
-    100106: Bip001 R UpperArm
-    100108: Bip001 Spine
-    100110: Bip001 Spine1
-    100112: Box001
-    100114: Box002
-    100116: Box003
-    100118: Box005
-    100120: Box010
-    100122: Box017
-    100124: //RootNode
-    100126: hair_left_01
-    100128: hair_left_02
-    100130: hair_middle_01
-    100132: hair_middle_02
-    100134: hair_right_01
-    100136: hair_right_02
-    100138: head_top_01
-    100140: head_top_02
-    100142: Plane005
-    100144: shield01
-    100146: Sphere001
-    100148: tape_left_01
-    100150: tape_left_01(mirrored)
-    100152: tape_left_02
-    100154: tape_left_02(mirrored)
-    100156: tape_left_03
-    100158: tape_left_03(mirrored)
-    100160: tape_left_04
-    100162: tape_left_04(mirrored)
-    100164: zipper01
+    100004: Bip001 Footsteps
+    100006: Bip001 Head
+    100008: Bip001 HeadNub
+    100010: Bip001 L Calf
+    100012: Bip001 L Clavicle
+    100014: Bip001 L Finger0
+    100016: Bip001 L Finger01
+    100018: Bip001 L Finger0Nub
+    100020: Bip001 L Finger1
+    100022: Bip001 L Finger11
+    100024: Bip001 L Finger1Nub
+    100026: Bip001 L Finger2
+    100028: Bip001 L Finger21
+    100030: Bip001 L Finger2Nub
+    100032: Bip001 L Foot
+    100034: Bip001 L Forearm
+    100036: Bip001 L Hand
+    100038: Bip001 L Thigh
+    100040: Bip001 L Toe0
+    100042: Bip001 L Toe01
+    100044: Bip001 L Toe02
+    100046: Bip001 L Toe0Nub
+    100048: Bip001 L UpperArm
+    100050: Bip001 Neck
+    100052: Bip001 Pelvis
+    100054: Bip001 R Calf
+    100056: Bip001 R Clavicle
+    100058: Bip001 R Finger0
+    100060: Bip001 R Finger01
+    100062: Bip001 R Finger0Nub
+    100064: Bip001 R Finger1
+    100066: Bip001 R Finger11
+    100068: Bip001 R Finger1Nub
+    100070: Bip001 R Finger2
+    100072: Bip001 R Finger21
+    100074: Bip001 R Finger2Nub
+    100076: Bip001 R Foot
+    100078: Bip001 R Forearm
+    100080: Bip001 R Hand
+    100082: Bip001 R Thigh
+    100084: Bip001 R Toe0
+    100086: Bip001 R Toe01
+    100088: Bip001 R Toe02
+    100090: Bip001 R Toe0Nub
+    100092: Bip001 R UpperArm
+    100094: Bip001 Spine
+    100096: Bip001 Spine1
+    100098: Box001
+    100100: Box002
+    100102: Box003
+    100104: Box005
+    100106: Box010
+    100108: Box017
+    100110: //RootNode
+    100112: hair_left_01
+    100114: hair_left_02
+    100116: hair_middle_01
+    100118: hair_middle_02
+    100120: hair_right_01
+    100122: hair_right_02
+    100124: head_top_01
+    100126: head_top_02
+    100128: shield01
+    100130: Sphere001
+    100132: tape_left_01
+    100134: tape_left_01(mirrored)
+    100136: tape_left_02
+    100138: tape_left_02(mirrored)
+    100140: tape_left_03
+    100142: tape_left_03(mirrored)
+    100144: tape_left_04
+    100146: tape_left_04(mirrored)
+    100148: zipper01
     400000: bag01
     400002: Bip001
-    400004: Bip001 1
-    400006: Bip001 Footsteps
-    400008: Bip001 Head
-    400010: Bip001 HeadNub
-    400012: Bip001 HeadNub 1
-    400014: Bip001 L Calf
-    400016: Bip001 L Clavicle
-    400018: Bip001 L Finger0
-    400020: Bip001 L Finger01
-    400022: Bip001 L Finger0Nub
-    400024: Bip001 L Finger0Nub 1
-    400026: Bip001 L Finger1
-    400028: Bip001 L Finger11
-    400030: Bip001 L Finger1Nub
-    400032: Bip001 L Finger2
-    400034: Bip001 L Finger21
-    400036: Bip001 L Finger2Nub
-    400038: Bip001 L Foot
-    400040: Bip001 L Forearm
-    400042: Bip001 L Hand
-    400044: Bip001 L Thigh
-    400046: Bip001 L Toe0
-    400048: Bip001 L Toe01
-    400050: Bip001 L Toe02
-    400052: Bip001 L Toe0Nub
-    400054: Bip001 L Toe0Nub 1
-    400056: Bip001 L UpperArm
-    400058: Bip001 Neck
-    400060: Bip001 Pelvis
-    400062: Bip001 Ponytail2Nub
-    400064: Bip001 R Calf
-    400066: Bip001 R Clavicle
-    400068: Bip001 R Finger0
-    400070: Bip001 R Finger01
-    400072: Bip001 R Finger0Nub
-    400074: Bip001 R Finger0Nub 1
-    400076: Bip001 R Finger1
-    400078: Bip001 R Finger11
-    400080: Bip001 R Finger1Nub
-    400082: Bip001 R Finger2
-    400084: Bip001 R Finger21
-    400086: Bip001 R Finger2Nub
-    400088: Bip001 R Foot
-    400090: Bip001 R Forearm
-    400092: Bip001 R Hand
-    400094: Bip001 R Thigh
-    400096: Bip001 R Toe0
-    400098: Bip001 R Toe01
-    400100: Bip001 R Toe02
-    400102: Bip001 R Toe0Nub
-    400104: Bip001 R Toe0Nub 1
-    400106: Bip001 R UpperArm
-    400108: Bip001 Spine
-    400110: Bip001 Spine1
-    400112: Box001
-    400114: Box002
-    400116: Box003
-    400118: Box005
-    400120: Box010
-    400122: Box017
-    400124: //RootNode
-    400126: hair_left_01
-    400128: hair_left_02
-    400130: hair_middle_01
-    400132: hair_middle_02
-    400134: hair_right_01
-    400136: hair_right_02
-    400138: head_top_01
-    400140: head_top_02
-    400142: Plane005
-    400144: shield01
-    400146: Sphere001
-    400148: tape_left_01
-    400150: tape_left_01(mirrored)
-    400152: tape_left_02
-    400154: tape_left_02(mirrored)
-    400156: tape_left_03
-    400158: tape_left_03(mirrored)
-    400160: tape_left_04
-    400162: tape_left_04(mirrored)
-    400164: zipper01
+    400004: Bip001 Footsteps
+    400006: Bip001 Head
+    400008: Bip001 HeadNub
+    400010: Bip001 L Calf
+    400012: Bip001 L Clavicle
+    400014: Bip001 L Finger0
+    400016: Bip001 L Finger01
+    400018: Bip001 L Finger0Nub
+    400020: Bip001 L Finger1
+    400022: Bip001 L Finger11
+    400024: Bip001 L Finger1Nub
+    400026: Bip001 L Finger2
+    400028: Bip001 L Finger21
+    400030: Bip001 L Finger2Nub
+    400032: Bip001 L Foot
+    400034: Bip001 L Forearm
+    400036: Bip001 L Hand
+    400038: Bip001 L Thigh
+    400040: Bip001 L Toe0
+    400042: Bip001 L Toe01
+    400044: Bip001 L Toe02
+    400046: Bip001 L Toe0Nub
+    400048: Bip001 L UpperArm
+    400050: Bip001 Neck
+    400052: Bip001 Pelvis
+    400054: Bip001 R Calf
+    400056: Bip001 R Clavicle
+    400058: Bip001 R Finger0
+    400060: Bip001 R Finger01
+    400062: Bip001 R Finger0Nub
+    400064: Bip001 R Finger1
+    400066: Bip001 R Finger11
+    400068: Bip001 R Finger1Nub
+    400070: Bip001 R Finger2
+    400072: Bip001 R Finger21
+    400074: Bip001 R Finger2Nub
+    400076: Bip001 R Foot
+    400078: Bip001 R Forearm
+    400080: Bip001 R Hand
+    400082: Bip001 R Thigh
+    400084: Bip001 R Toe0
+    400086: Bip001 R Toe01
+    400088: Bip001 R Toe02
+    400090: Bip001 R Toe0Nub
+    400092: Bip001 R UpperArm
+    400094: Bip001 Spine
+    400096: Bip001 Spine1
+    400098: Box001
+    400100: Box002
+    400102: Box003
+    400104: Box005
+    400106: Box010
+    400108: Box017
+    400110: //RootNode
+    400112: hair_left_01
+    400114: hair_left_02
+    400116: hair_middle_01
+    400118: hair_middle_02
+    400120: hair_right_01
+    400122: hair_right_02
+    400124: head_top_01
+    400126: head_top_02
+    400128: shield01
+    400130: Sphere001
+    400132: tape_left_01
+    400134: tape_left_01(mirrored)
+    400136: tape_left_02
+    400138: tape_left_02(mirrored)
+    400140: tape_left_03
+    400142: tape_left_03(mirrored)
+    400144: tape_left_04
+    400146: tape_left_04(mirrored)
+    400148: zipper01
     2300000: Box010
     2300002: shield01
     3300000: Box010
@@ -180,10 +164,10 @@ ModelImporter:
     4300004: Box005
     4300006: Box017
     4300008: shield01
-    4300010: Box010
-    4300012: Sphere001
-    4300014: Box002
-    7400000: attack01
+    4300010: Sphere001
+    4300012: Box002
+    4300014: Box010
+    7400000: idle_sit
     9500000: //RootNode
     13700000: Box001
     13700002: Box002
@@ -215,10 +199,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: attack01
+      name: idle_sit
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 20
+      lastFrame: 60
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -268,7 +252,7 @@ ModelImporter:
           L Foot/Bip001 L Toe0/Bip001 L Toe01/Bip001 L Toe02
         weight: 1
       - path: Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 L Thigh/Bip001 L Calf/Bip001
-          L Foot/Bip001 L Toe0/Bip001 L Toe01/Bip001 L Toe02/Bip001 L Toe0Nub 1
+          L Foot/Bip001 L Toe0/Bip001 L Toe01/Bip001 L Toe02/Bip001 L Toe0Nub
         weight: 1
       - path: Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 R Thigh
         weight: 1
@@ -287,7 +271,7 @@ ModelImporter:
           R Foot/Bip001 R Toe0/Bip001 R Toe01/Bip001 R Toe02
         weight: 1
       - path: Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 R Thigh/Bip001 R Calf/Bip001
-          R Foot/Bip001 R Toe0/Bip001 R Toe01/Bip001 R Toe02/Bip001 R Toe0Nub 1
+          R Foot/Bip001 R Toe0/Bip001 R Toe01/Bip001 R Toe02/Bip001 R Toe0Nub
         weight: 1
       - path: Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Spine1
         weight: 1
@@ -296,7 +280,7 @@ ModelImporter:
       - path: Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Spine1/Bip001 Neck/Bip001 Head
         weight: 1
       - path: Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Spine1/Bip001 Neck/Bip001 Head/Bip001
-          HeadNub 1
+          HeadNub
         weight: 1
       - path: Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Spine1/Bip001 Neck/Bip001 Head/hair_left_01
         weight: 1
@@ -353,7 +337,7 @@ ModelImporter:
         weight: 1
       - path: Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Spine1/Bip001 Neck/Bip001 L
           Clavicle/Bip001 L UpperArm/Bip001 L Forearm/Bip001 L Hand/Bip001 L Finger0/Bip001
-          L Finger01/Bip001 L Finger0Nub 1
+          L Finger01/Bip001 L Finger0Nub
         weight: 1
       - path: Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Spine1/Bip001 Neck/Bip001 L
           Clavicle/Bip001 L UpperArm/Bip001 L Forearm/Bip001 L Hand/Bip001 L Finger1
@@ -401,7 +385,7 @@ ModelImporter:
         weight: 1
       - path: Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Spine1/Bip001 Neck/Bip001 R
           Clavicle/Bip001 R UpperArm/Bip001 R Forearm/Bip001 R Hand/Bip001 R Finger0/Bip001
-          R Finger01/Bip001 R Finger0Nub 1
+          R Finger01/Bip001 R Finger0Nub
         weight: 1
       - path: Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Spine1/Bip001 Neck/Bip001 R
           Clavicle/Bip001 R UpperArm/Bip001 R Forearm/Bip001 R Hand/Bip001 R Finger1
@@ -425,24 +409,7 @@ ModelImporter:
           Clavicle/Bip001 R UpperArm/Bip001 R Forearm/Bip001 R Hand/Bip001 R Finger2/Bip001
           R Finger21/Bip001 R Finger2Nub
         weight: 1
-      - path: Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Spine1/Bip001 Neck/Bip001 R
-          Clavicle/Bip001 R UpperArm/Bip001 R Forearm/Bip001 R Hand/Box010
-        weight: 1
       - path: Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Spine1/zipper01
-        weight: 1
-      - path: Bip001 1
-        weight: 1
-      - path: Bip001 HeadNub
-        weight: 1
-      - path: Bip001 L Finger0Nub
-        weight: 1
-      - path: Bip001 L Toe0Nub
-        weight: 1
-      - path: Bip001 Ponytail2Nub
-        weight: 1
-      - path: Bip001 R Finger0Nub
-        weight: 1
-      - path: Bip001 R Toe0Nub
         weight: 1
       - path: Box001
         weight: 1
@@ -452,9 +419,9 @@ ModelImporter:
         weight: 1
       - path: Box005
         weight: 1
-      - path: Box017
+      - path: Box010
         weight: 1
-      - path: Plane005
+      - path: Box017
         weight: 1
       maskType: 3
       maskSource: {instanceID: 0}

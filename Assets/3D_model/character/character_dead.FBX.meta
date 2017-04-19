@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 2b4990a584ecaa749ba42c688f0b2f83
-timeCreated: 1492610267
+guid: ea082f6d4f1993c47bdac0806b70fbce
+timeCreated: 1492612811
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -179,11 +179,11 @@ ModelImporter:
     4300002: Box003
     4300004: Box005
     4300006: Box017
-    4300008: shield01
-    4300010: Box010
-    4300012: Sphere001
-    4300014: Box002
-    7400000: attack01
+    4300008: Sphere001
+    4300010: Box002
+    4300012: Box010
+    4300014: shield01
+    7400000: dead
     9500000: //RootNode
     13700000: Box001
     13700002: Box002
@@ -215,10 +215,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: attack01
+      name: dead
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 20
+      lastFrame: 80
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -377,9 +377,6 @@ ModelImporter:
           Clavicle/Bip001 L UpperArm/Bip001 L Forearm/Bip001 L Hand/Bip001 L Finger2/Bip001
           L Finger21/Bip001 L Finger2Nub
         weight: 1
-      - path: Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Spine1/Bip001 Neck/Bip001 L
-          Clavicle/Bip001 L UpperArm/Bip001 L Forearm/Bip001 L Hand/shield01
-        weight: 1
       - path: Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Spine1/Bip001 Neck/Bip001 R
           Clavicle
         weight: 1
@@ -425,9 +422,6 @@ ModelImporter:
           Clavicle/Bip001 R UpperArm/Bip001 R Forearm/Bip001 R Hand/Bip001 R Finger2/Bip001
           R Finger21/Bip001 R Finger2Nub
         weight: 1
-      - path: Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Spine1/Bip001 Neck/Bip001 R
-          Clavicle/Bip001 R UpperArm/Bip001 R Forearm/Bip001 R Hand/Box010
-        weight: 1
       - path: Bip001/Bip001 Pelvis/Bip001 Spine/Bip001 Spine1/zipper01
         weight: 1
       - path: Bip001 1
@@ -452,9 +446,13 @@ ModelImporter:
         weight: 1
       - path: Box005
         weight: 1
+      - path: Box010
+        weight: 1
       - path: Box017
         weight: 1
       - path: Plane005
+        weight: 1
+      - path: shield01
         weight: 1
       maskType: 3
       maskSource: {instanceID: 0}

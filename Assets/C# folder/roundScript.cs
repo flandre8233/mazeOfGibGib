@@ -139,10 +139,13 @@ public class roundScript : MonoBehaviour {
             isExitTouchPlayer = false;
             OnEnterNextLevel();
         }
-        if (IsDead) {
+
+        if (IsDead) {//dead
             playerMainScript.Static.GetComponent<chessMovement>().enabled = false;
-            
-            Debug.Log("lkdsalkjdalslk");
+            Debug.Log("dead");
+            //chessMovement.Static.gameObject.GetComponentInChildren<Animator>().SetBool("dead_bool", true);
+            chessMovement.Static.charactor_move.SetTrigger("dead");
+            IsDead = false;
         }
         RoundProcessingChecker();
     }
