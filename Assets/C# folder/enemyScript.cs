@@ -153,6 +153,8 @@ public class enemyScript : enemyDataBase {
 
 
     public int findPlayerRoundNumber = -1;
+    public GameObject damageDisplayObject;
+
     public void enemyAttackPlayerScript() {
         if (sensor.isFindPlayer) {
             if (findPlayerRoundNumber < 0) {
@@ -161,6 +163,8 @@ public class enemyScript : enemyDataBase {
 
             if ( (roundScript.Static.round - findPlayerRoundNumber) % CD == 0) {//是攻擊的回合才行動
                 if (playerDataBase.Static.DEF < ATK) {
+                    GameObject go = Instantiate(chessMovement.Static.damageDisplayObject, chessMovement.Static.gameObject.transform.position, Quaternion.identity);
+                    go.GetComponent<damageDisplay>().spawnDamageDisplay(ATK);
                     playerDataBase.Static.HP -= (ATK - playerDataBase.Static.DEF);
                 }
             }

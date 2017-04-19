@@ -148,6 +148,16 @@ public class mapTerrainGenerator : MonoBehaviour {
         //findCenter();
     }
 
+     public void checkPointTerrain() {
+        ThisLevelAllTerrainParts.RemoveRange(1, ThisLevelAllTerrainParts.Count - 1);
+        allTerrainPort.Clear();
+        allTerrainPortExit.Clear();
+
+        createCheckPointTerrain();
+        canelFloorMesh();
+        createNewFloorMesh();
+    }
+
     void allFloorDetach() {
 
         foreach (var item in thisLevelAllFloor) {
@@ -188,7 +198,7 @@ public class mapTerrainGenerator : MonoBehaviour {
     public GameObject floorModel;
     public GameObject[] floorModelDust;
 
-    void createNewFloorMesh() {
+     void createNewFloorMesh() {
         foreach (var item in thisLevelAllFloor) { //地塊設定
             GameObject spawnObj = Instantiate(floorModel, Vector3.zero, Quaternion.identity); //生成
             spawnObj.transform.parent = item.transform; //把地塊黏在當前的地形上
@@ -211,7 +221,21 @@ public class mapTerrainGenerator : MonoBehaviour {
         }
     }
 
-    
+    public GameObject checkPoint;
+    void createCheckPointTerrain() {
+        GameObject spawnObject = null;
+        mapCenter = Vector3.zero;
+        spawnObject = Instantiate(checkPoint, mapCenter, Quaternion.identity);
+
+        allTerrainPort.Add(spawnObject);
+        thisLevelAllFloor.Add(spawnObject);
+        spawnObject.GetComponent<groundScript>().TerrainUID = 0;
+        foreach (Transform child in spawnObject.transform) { //依個work
+            thisLevelAllFloor.Add(child.gameObject);
+            child.gameObject.GetComponent<groundScript>().TerrainUID = 0;
+        }
+
+    }
 
 
     public void OLDcreateTerrain() {

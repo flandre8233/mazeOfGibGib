@@ -63,9 +63,15 @@ public class roundScript : MonoBehaviour {
         }
 
    
-
-        wallControl.Static.syncBackgroundSize((int)mapTerrainGenerator.Static.mapLimit.x, (int)mapTerrainGenerator.Static.mapLimit.y);
-        mapTerrainGenerator.Static.resetTerrain();
+        if(wallControl.Static != null)
+            wallControl.Static.syncBackgroundSize((int)mapTerrainGenerator.Static.mapLimit.x, (int)mapTerrainGenerator.Static.mapLimit.y);
+        //playerDataBase.Static.currentFloor % 10 == 0 || 
+        if (playerDataBase.Static.currentFloor % 5 == 0) { //到5,10,15,20......關卡
+            mapTerrainGenerator.Static.checkPointTerrain();
+        }
+        else {
+            mapTerrainGenerator.Static.resetTerrain();
+        }
 
 
 
@@ -149,7 +155,7 @@ public class roundScript : MonoBehaviour {
             Static = this;
         }
 
-        wallControl.Static.syncBackgroundSize((int)mapTerrainGenerator.Static.mapLimit.x, (int)mapTerrainGenerator.Static.mapLimit.y);
+        if (wallControl.Static != null)  wallControl.Static.syncBackgroundSize((int)mapTerrainGenerator.Static.mapLimit.x, (int)mapTerrainGenerator.Static.mapLimit.y);
     }
 
     public void Start() {

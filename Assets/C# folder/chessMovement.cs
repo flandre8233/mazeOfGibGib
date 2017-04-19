@@ -7,6 +7,7 @@ public class chessMovement : MonoBehaviour {
     public Animator charactor_move;
     public Vector3 center;
     public GameObject model;
+    public GameObject damageDisplayObject;
 
     private float startTime;
     public bool startLerpMovement = false;
@@ -264,6 +265,8 @@ public class chessMovement : MonoBehaviour {
             touchEnemy.GetComponent<enemyDataBase>().HP = 0;
         }
         else {
+            GameObject go = Instantiate(damageDisplayObject, touchEnemy.transform.position,Quaternion.identity);
+            go.GetComponent<damageDisplay>().spawnDamageDisplay(playerDataBase.Static.ATK);
             touchEnemy.GetComponent<enemyDataBase>().HP -= playerDataBase.Static.ATK;
         }
         isHitNpc = true;

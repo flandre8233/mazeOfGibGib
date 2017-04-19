@@ -6,13 +6,40 @@ public class damageDisplay : MonoBehaviour {
     public SpriteRenderer myImage;
     public Sprite[] mySprites;
     public Texture2D texture;
+    public float textDistance = 0.75f;
     // Use this for initialization
     void Start () {
 
-        ChangeSprite(2,3);
+        //ChangeSprite(2,3);
+        //spawnDamageDisplay(1345);
     }
 
-    void ChangeSprite(int number , int type) {
+    public void spawnDamageDisplay(int damage) {
+        short digits = (short)getDigits(damage,0);
+        float spawnXAxisLimit = ( (textDistance * digits)/ 2 )- (textDistance / 2);
+        Debug.Log(spawnXAxisLimit);
+        int number = damage;
+        for (int i = 0; i < digits; i++) {
+            GameObject emptyGameObject = new GameObject();
+            //Instantiate(emptyGameObject,transform.position,Quaternion.identity);
+            myImage = emptyGameObject.AddComponent<SpriteRenderer>();
+            emptyGameObject.transform.parent = transform;
+            emptyGameObject.transform.localPosition = new Vector3( spawnXAxisLimit-(textDistance * i ),0,0);
+            Debug.Log(emptyGameObject.transform.localPosition);
+            ChangeSprite(number % 10, 0);
+            number  /= 10;
+        }
+    }
+
+    public static int getDigits(int n1, int nodigits) {
+        if (n1 == 0)
+            return nodigits;
+
+        return getDigits(n1 / 10, ++nodigits);
+    }
+
+
+public void ChangeSprite(int number , int type) {
         myImage.sprite = mySprites[ number+(type*10) ];
     }
 
