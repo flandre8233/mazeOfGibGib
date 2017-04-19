@@ -13,10 +13,10 @@ public class wallControl : MonoBehaviour {
     public Transform downWall;
 
     public void syncBackgroundSize(int mapWidth,int mapHeight) {
-        upWall.transform.position = new Vector3(0, mapHeight + 1, 5);
-        leftWall.transform.position = new Vector3( -(mapWidth + 1), 0, 5);
-        rightWall.transform.position = new Vector3(mapWidth +1, 0, 5);
-        downWall.transform.position = new Vector3(0,  -(mapHeight + 1), 5);
+        upWall.transform.position = new Vector3(0, mapHeight + 2, 5);
+        leftWall.transform.position = new Vector3( -(mapWidth + 2), 0, 5);
+        rightWall.transform.position = new Vector3(mapWidth +2, 0, 5);
+        downWall.transform.position = new Vector3(0,  -(mapHeight + 2), 5);
 
         upWall.localScale = new Vector3(2*(mapHeight + 1), 1, 20);
         leftWall.localScale = new Vector3(2*(mapWidth + 1), 1, 20);

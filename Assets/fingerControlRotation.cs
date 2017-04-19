@@ -7,6 +7,7 @@ public class fingerControlRotation : MonoBehaviour
     public static fingerControlRotation Static;
     GameObject[] goArray;
     public GameObject cameraGameObject;
+    public Transform miniCameraTransform;
     float onPressPrecent = 0.0f;
     float onPressZAngle = 0.0f;
     float closestAngle = 0.0f;
@@ -28,6 +29,8 @@ public class fingerControlRotation : MonoBehaviour
 	// Update is called once per frame
 	void Update () {
         LerpMove();
+        miniCameraTransform.rotation = transform.rotation;
+
         float precent = Input.mousePosition.y / Screen.height;
         if (Input.GetMouseButtonDown(0) && Input.mousePosition.x > Screen.width * 0.8 ) { // - 向上  + 向下
             startLerpMovement = false;

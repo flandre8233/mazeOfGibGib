@@ -9,6 +9,8 @@ public class enemyScript : enemyDataBase {
     public bool IsAutoSetType = true;
     public bool killTest = false;
 
+    public Transform playerTransform;
+
     public virtual void SetUp(short monsterLevel) {
 
     }
@@ -16,6 +18,7 @@ public class enemyScript : enemyDataBase {
     // Use this for initialization
     void Start () {
         //setItemType();
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         sensor = GetComponentInChildren<npcSensor>();
         roundScript.Static.roundSystem += enemyAttackPlayerScript;
         roundScript.Static.roundSystem += enemyHPCheck;
@@ -148,6 +151,7 @@ public class enemyScript : enemyDataBase {
     }
 
 
+
     public int findPlayerRoundNumber = -1;
     public void enemyAttackPlayerScript() {
         if (sensor.isFindPlayer) {
@@ -170,7 +174,24 @@ public class enemyScript : enemyDataBase {
 
         }
     }
-    
+
+    private void Update() {
+        allwayFaceAtPlayer();
+    }
+
+    public Quaternion ImageLookAt2D(Vector3 from, Vector3 to) {
+        Vector3 difference = to - from;
+        float rotationZ = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
+        Quaternion rotation = (Quaternion.Euler(0.0f, 0.0f, rotationZ));
+        return rotation;
+    }
+
+    public void allwayFaceAtPlayer() {
+        float Angle = ImageLookAt2D(transform.position, playerTransform.position).eulerAngles.z;
+        transform.rotation = ImageLookAt2D(transform.position, playerTransform.position) ;
+        //transform.LookAt(playerTransform);
+    }
+
     public void enemyHPCheck() {
         if (HP <= 0 || killTest) {
             roundScript.Static.roundSystem -= enemyAttackPlayerScript;
