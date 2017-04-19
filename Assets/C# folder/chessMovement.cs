@@ -300,31 +300,24 @@ public class chessMovement : MonoBehaviour
     }
 
 
-    void attackNpc(GameObject touchEnemy)
-    {
+    void attackNpc(GameObject touchEnemy) {
         //touch Enemy之後既行動
 
-        if (playerDataBase.Static.DEF >= touchEnemy.GetComponent<enemyDataBase>().ATK)
-        {
+        if (playerDataBase.Static.DEF >= touchEnemy.GetComponent<enemyDataBase>().ATK) {
             touchEnemy.GetComponent<enemyDataBase>().HP = 0;
         }
-<<<<<<< HEAD
         else {
-            GameObject go = Instantiate(damageDisplayObject, touchEnemy.transform.position,Quaternion.identity);
+            GameObject go = Instantiate(damageDisplayObject, touchEnemy.transform.position, Quaternion.identity);
             go.GetComponent<damageDisplay>().spawnDamageDisplay(playerDataBase.Static.ATK);
-=======
-        else
-        {
->>>>>>> 7f2ce75f8ee1f95d8417a7d9dbd4695145319e81
-            touchEnemy.GetComponent<enemyDataBase>().HP -= playerDataBase.Static.ATK;
-        }
-        isHitNpc = true;
-        thisFrameMoved = true;
+                touchEnemy.GetComponent<enemyDataBase>().HP -= playerDataBase.Static.ATK;
+            }
+            isHitNpc = true;
+            thisFrameMoved = true;
 
 
 
+        
     }
-
 }
 
 
