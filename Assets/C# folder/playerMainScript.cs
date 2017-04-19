@@ -285,7 +285,7 @@ public class playerMainScript : MonoBehaviour
             hitItem = other.gameObject;
 
             bool itemArrayHaveSpace = false;
-            Debug.Log("sadgdfhgf");
+            Debug.Log("get");
             chessMovement.Static.charactor_move.SetTrigger("get");
             for (int i = 0; i < itemArray.Length; i++)
             {

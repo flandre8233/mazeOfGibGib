@@ -210,7 +210,7 @@ public class chessMovement : MonoBehaviour
                     charactor_move.SetTrigger("attack");
                     //Random.Range(0,4);
                     //Debug.Log(Random.Range(0, 4));
-                    charactor_move.SetInteger("attack_no.", Random.Range(0, 3));
+                    charactor_move.SetInteger("attack_no.", Random.Range(0, 4));
                     roundScript.Static.DoAttackAniProcessingChecker = true;
                     StartCoroutine(WaitForAnimation("attackAni"));
                 }
