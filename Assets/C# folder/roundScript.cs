@@ -67,6 +67,7 @@ public class roundScript : MonoBehaviour {
             wallControl.Static.syncBackgroundSize((int)mapTerrainGenerator.Static.mapLimit.x, (int)mapTerrainGenerator.Static.mapLimit.y);
         //playerDataBase.Static.currentFloor % 10 == 0 || 
         if (playerDataBase.Static.currentFloor % 5 == 0) { //到5,10,15,20......關卡
+            playerDataBase.Static.fullHPSP();
             mapTerrainGenerator.Static.checkPointTerrain();
         }
         else {
@@ -95,6 +96,18 @@ public class roundScript : MonoBehaviour {
         foreach (var item in GameObject.FindGameObjectsWithTag("exit")) {
             Destroy(item);
         }
+        /*
+        foreach (var item in GameObject.FindGameObjectsWithTag("enemy")) {
+            Destroy(item);
+        }
+        foreach (var item in GameObject.FindGameObjectsWithTag("enemy")) {
+            Destroy(item);
+        }
+        foreach (var item in GameObject.FindGameObjectsWithTag("enemy")) {
+            Destroy(item);
+        }
+        */
+
 
     }
     public int selectionX, selectionY;
@@ -119,9 +132,9 @@ public class roundScript : MonoBehaviour {
             mapThingsGenerator.Static.StartGeneratorTheThings();
             mapThingsGenerator.Static.SerializePlayerPositionToSpawnPoint();
 
-            //chessMovement.Static.startLerpMovement = false;
-            chessMovement.Static.center = chessMovement.Static.gameObject.transform.position;
+            chessMovement.Static.center = new Vector3(chessMovement.Static.gameObject.transform.position.x, chessMovement.Static.gameObject.transform.position.y, 0);
             chessMovement.Static.hitObjectPosition = new Vector3(chessMovement.Static.center.x, chessMovement.Static.center.y, -1);
+            chessMovement.Static.startLerpMovement = true;
 
             //chessMovement.Static.gameObject.GetComponentInChildren<Animator>().Play("idle");
             chessMovement.Static.gameObject.GetComponentInChildren<Animator>().SetBool("run", false);

@@ -185,9 +185,11 @@ public class mapThingsGenerator : MonoBehaviour {
     }
 
     public void SerializePlayerPositionToSpawnPoint() {
+        Debug.Log(playerDataBase.Static.currentFloor);
         if (playerDataBase.Static.currentFloor % 5 == 0) { //到5,10,15,20......關卡  休息關重生點
             Vector3 targetV3 = new Vector3(1,1 -1);
             player.transform.position = targetV3;
+
             return;
         }
         /*
