@@ -18,7 +18,7 @@ public class playerMainScript : MonoBehaviour
 
     public void subSP()
     {
-        if (playerDataBase.Static.currentFloor % 5 == 0) {
+        if (playerDataBase.Static.currentFloor % roundScript.Static.checkPoint == 0) {
             return;
         }
 
@@ -37,25 +37,31 @@ public class playerMainScript : MonoBehaviour
             return;
         }
 
+        int hpNumber=0;
+
         if (playerDataBase.Static.SP > 0) {
             if (playerDataBase.Static.HP < playerDataBase.Static.MaxHP) {
                 if ((int)(Mathf.Round(playerDataBase.Static.MaxHP / 100.0f * 5.0f)) > 1) {
-                    playerDataBase.Static.HP += (int)(Mathf.Round(playerDataBase.Static.MaxHP / 100.0f * 10.0f));
+                    hpNumber = (int)(Mathf.Round(playerDataBase.Static.MaxHP / 100.0f * 10.0f)); ;
                 }
                 else {
-                    playerDataBase.Static.HP++;
+                    hpNumber = 1;
                 }
             }
+            playerDataBase.Static.HP += hpNumber ;
+            gamemanager.Static.spawnNumberDisplay(transform.position,hpNumber,3);
         }
         else {
             if (playerDataBase.Static.HP > 0) {
                 if ((int)(Mathf.Round(playerDataBase.Static.MaxHP / 100.0f * 10.0f)) > 1) {
-                    playerDataBase.Static.HP -= (int)(Mathf.Round(playerDataBase.Static.MaxHP / 100.0f * 15.0f));
+                    hpNumber =  (int)(Mathf.Round(playerDataBase.Static.MaxHP / 100.0f * 15.0f));
                 }
                 else {
-                    playerDataBase.Static.HP--;
+                    hpNumber = 1;
                 }
             }
+            playerDataBase.Static.HP -= hpNumber;
+            gamemanager.Static.spawnNumberDisplay(transform.position, hpNumber, 5);
         }
 
         if (playerDataBase.Static.HP > playerDataBase.Static.MaxHP) {
@@ -132,6 +138,15 @@ public class playerMainScript : MonoBehaviour
         if (playerDataBase.Static.SP >= playerDataBase.Static.MaxSP) {
             playerDataBase.Static.SP = playerDataBase.Static.MaxSP;
         }
+
+        if (hitItem.gameObject.GetComponent<itemScript>().AddHP > 0) {
+            gamemanager.Static.spawnNumberDisplay(transform.position, hitItem.gameObject.GetComponent<itemScript>().AddHP, 3);
+        }
+
+        if (hitItem.gameObject.GetComponent<itemScript>().AddSP > 0) {
+            gamemanager.Static.spawnNumberDisplay(transform.position, hitItem.gameObject.GetComponent<itemScript>().AddSP, 3);
+        }
+
         Destroy(hitItem);
         hitItem = null;
     }
@@ -197,6 +212,15 @@ public class playerMainScript : MonoBehaviour
             }
 
         }
+
+        if (itemArray[number].AddHP > 0) {
+            gamemanager.Static.spawnNumberDisplay(transform.position, itemArray[number].AddHP, 3);
+        }
+
+        if (itemArray[number].AddSP > 0) {
+            gamemanager.Static.spawnNumberDisplay(transform.position, itemArray[number].AddSP, 3);
+        }
+
 
         if (playerDataBase.Static.HP >= playerDataBase.Static.MaxHP)
         { //max check

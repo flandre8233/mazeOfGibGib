@@ -307,8 +307,7 @@ public class chessMovement : MonoBehaviour
             touchEnemy.GetComponent<enemyDataBase>().HP = 0;
         }
         else {
-            GameObject go = Instantiate(damageDisplayObject, touchEnemy.transform.position, Quaternion.identity);
-            go.GetComponent<damageDisplay>().spawnDamageDisplay(playerDataBase.Static.ATK);
+            gamemanager.Static.spawnNumberDisplay(touchEnemy.transform.position,playerDataBase.Static.ATK , 0);
                 touchEnemy.GetComponent<enemyDataBase>().HP -= playerDataBase.Static.ATK;
             }
             isHitNpc = true;
