@@ -32,6 +32,7 @@ public class chessMovement : MonoBehaviour
         normalLerpSpeed = lerpSpeed;
         Static = this;
         reset();
+
     }
 
     // Update is called once per frame
@@ -67,10 +68,14 @@ public class chessMovement : MonoBehaviour
             MovementPart(faceDirection);
         }
 
-        // w係+ s係-   a係-  d係+
+        // w係+ s係-   a係-  d係+        
+        //idling();
     }
-
-
+    /*void idling()
+    {
+        player_idle_check();
+    }
+    */
     void reset()
     {
         center = Vector3.zero;
@@ -199,6 +204,24 @@ public class chessMovement : MonoBehaviour
 
         }
     }//自動重復執行MovementPart
+
+   /* void player_idle_check()
+    {
+        if (!roundScript.Static.isProcessingRound)
+        {
+            //if (touchEnemy != null)
+            //{
+                playerDataBase.Static.idle_time -= Time.deltaTime;
+                Debug.Log(playerDataBase.Static.idle_time);
+                if(playerDataBase.Static.idle_time <= 0)
+                {
+                //charactor_move.SetTrigger("idle_sit");
+                charactor_move.SetBool("idle", false);
+                charactor_move.SetBool("idle_sit_bool", true);
+                }
+            //}
+        }
+    }*/
 
     void movePlayer()
     { //真正移動

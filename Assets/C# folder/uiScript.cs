@@ -8,6 +8,15 @@ public class uiScript : MonoBehaviour {
     Text testonlyText;
     [SerializeField]
     Text currentFloor;
+    [SerializeField]
+    Image HPpic;
+    [SerializeField]
+    Image SPpic;
+
+    float HPBar;
+    float SPBar;
+
+
 
     void Awake() {
     }
@@ -28,11 +37,29 @@ public class uiScript : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        HPBAR_script();
+        SPBAR_script();
+
+        Debug.Log(HPBar);
         testonlyText.text = "HP : " + playerDataBase.Static.HP + " / " + playerDataBase.Static.MaxHP + "\n" + "SP : " +
             playerDataBase.Static.SP + " / " + playerDataBase.Static.MaxSP;
         //+
         //    playerDataBase.Static.currentFloor + "\n" ;
 
         currentFloor.text ="-Stage"+playerDataBase.Static.currentFloor+"-";
+
+
+    }
+
+    void HPBAR_script()
+    {
+        HPBar = (1.0f / playerDataBase.Static.MaxHP) * playerDataBase.Static.HP;
+        HPpic.fillAmount = Mathf.Lerp(HPpic.fillAmount, HPBar, 0.05f);
+    }
+
+    void SPBAR_script()
+    {
+        SPBar = (1.0f / playerDataBase.Static.MaxSP) * playerDataBase.Static.SP;
+        SPpic.fillAmount = Mathf.Lerp(SPpic.fillAmount, SPBar, 0.05f);
     }
 }

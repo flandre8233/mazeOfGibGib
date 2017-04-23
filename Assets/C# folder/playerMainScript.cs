@@ -305,6 +305,8 @@ public class playerMainScript : MonoBehaviour
 
             Destroy(other.gameObject);
         }
-    }
 
+
+    }
 }
+

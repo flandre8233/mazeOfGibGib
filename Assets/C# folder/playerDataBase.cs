@@ -43,6 +43,8 @@ public class playerDataBase : MonoBehaviour {
     public float abilityATKPercent { get; set; }
     public float abilityDEFPercent { get; set; }
 
+    public float idle_time { get; set; }
+
     public float VolSet { get; set; }
 
     public void serializeSetUp() { //玩家起始值
@@ -71,6 +73,8 @@ public class playerDataBase : MonoBehaviour {
         ResetTimes = 0;
         currentFloor = 1;
         maxFloor = 1;
+
+        idle_time = 10;
 
         fifty = 50;
         hundred = 100;
