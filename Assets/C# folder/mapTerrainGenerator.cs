@@ -231,8 +231,10 @@ public class mapTerrainGenerator : MonoBehaviour {
         thisLevelAllFloor.Add(spawnObject);
         spawnObject.GetComponent<groundScript>().TerrainUID = 0;
         foreach (Transform child in spawnObject.transform) { //依個work
-            thisLevelAllFloor.Add(child.gameObject);
-            child.gameObject.GetComponent<groundScript>().TerrainUID = 0;
+            if (child.GetComponent<groundScript>()) {
+                thisLevelAllFloor.Add(child.gameObject);
+                child.gameObject.GetComponent<groundScript>().TerrainUID = 0;
+            }
         }
 
     }

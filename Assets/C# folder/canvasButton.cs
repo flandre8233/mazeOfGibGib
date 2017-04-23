@@ -32,6 +32,19 @@ public class canvasButton : MonoBehaviour {
         playerMainScript.Static.useItem(number);
     }
 
+    public void returnTestButton() {
+        if (playerDataBase.Static.currentFloor - roundScript.Static.checkPoint < 0 ) {
+            playerDataBase.Static.currentFloor = 0;
+        }
+        else {
+            playerDataBase.Static.currentFloor -= 11;
+        }
+        roundScript.Static.OnEnterNextLevel();
+    }
+    public void crystalTestButton() {
+
+    }
+
     /*
 
     private void UpdateSelection()

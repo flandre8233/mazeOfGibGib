@@ -164,8 +164,7 @@ public class enemyScript : enemyDataBase {
             if ( (roundScript.Static.round - findPlayerRoundNumber) % CD == 0) {//是攻擊的回合才行動
                 
                 if (playerDataBase.Static.DEF < ATK) {
-                    GameObject go = Instantiate(chessMovement.Static.damageDisplayObject, chessMovement.Static.gameObject.transform.position, Quaternion.identity);
-                    go.GetComponent<damageDisplay>().spawnDamageDisplay(ATK);
+                    gamemanager.Static.spawnNumberDisplay(chessMovement.Static.gameObject.transform.position, ATK , 0);
                     playerDataBase.Static.HP -= (ATK - playerDataBase.Static.DEF);
                 }
             }

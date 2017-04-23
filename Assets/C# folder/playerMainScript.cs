@@ -18,6 +18,10 @@ public class playerMainScript : MonoBehaviour
 
     public void subSP()
     {
+        if (playerDataBase.Static.currentFloor % roundScript.Static.checkPoint == 0) {
+            return;
+        }
+
         if (playerDataBase.Static.SP > 0 && !roundScript.Static.isExitTouchPlayer)
         {
             playerDataBase.Static.SP--;
@@ -28,55 +32,50 @@ public class playerMainScript : MonoBehaviour
 
     public void checkLife()
     {
-        if (!roundScript.Static.isExitTouchPlayer)
+        if (roundScript.Static.isExitTouchPlayer)
         {
-            if (playerDataBase.Static.SP > 0)
-            {
-                if (playerDataBase.Static.HP < playerDataBase.Static.MaxHP)
-                {
-                    if ((int)(Mathf.Round(playerDataBase.Static.MaxHP / 100.0f * 5.0f)) > 1)
-                    {
-                        playerDataBase.Static.HP += (int)(Mathf.Round(playerDataBase.Static.MaxHP / 100.0f * 10.0f));
-                    }
-                    else
-                    {
-                        playerDataBase.Static.HP++;
-                    }
+            return;
+        }
+
+        int hpNumber=0;
+
+        if (playerDataBase.Static.SP > 0) {
+            if (playerDataBase.Static.HP < playerDataBase.Static.MaxHP) {
+                if ((int)(Mathf.Round(playerDataBase.Static.MaxHP / 100.0f * 5.0f)) > 1) {
+                    hpNumber = (int)(Mathf.Round(playerDataBase.Static.MaxHP / 100.0f * 10.0f)); ;
+                }
+                else {
+                    hpNumber = 1;
                 }
             }
-            else
-            {
-                if (playerDataBase.Static.HP > 0)
-                {
-                    if ((int)(Mathf.Round(playerDataBase.Static.MaxHP / 100.0f * 10.0f)) > 1)
-                    {
-                        playerDataBase.Static.HP -= (int)(Mathf.Round(playerDataBase.Static.MaxHP / 100.0f * 15.0f));
-                    }
-                    else
-                    {
-                        playerDataBase.Static.HP--;
-                    }
+            playerDataBase.Static.HP += hpNumber ;
+            gamemanager.Static.spawnNumberDisplay(transform.position,hpNumber,3);
+        }
+        else {
+            if (playerDataBase.Static.HP > 0) {
+                if ((int)(Mathf.Round(playerDataBase.Static.MaxHP / 100.0f * 10.0f)) > 1) {
+                    hpNumber =  (int)(Mathf.Round(playerDataBase.Static.MaxHP / 100.0f * 15.0f));
+                }
+                else {
+                    hpNumber = 1;
                 }
             }
+            playerDataBase.Static.HP -= hpNumber;
+            gamemanager.Static.spawnNumberDisplay(transform.position, hpNumber, 5);
+        }
 
-            if (playerDataBase.Static.HP > playerDataBase.Static.MaxHP)
-            {
-                playerDataBase.Static.HP = playerDataBase.Static.MaxHP;
-            }
-            else if (playerDataBase.Static.HP < 0)
-            {
-                playerDataBase.Static.HP = 0;
-            }
+        if (playerDataBase.Static.HP > playerDataBase.Static.MaxHP) {
+            playerDataBase.Static.HP = playerDataBase.Static.MaxHP;
+        }
+        else if (playerDataBase.Static.HP < 0) {
+            playerDataBase.Static.HP = 0;
+        }
 
-            if (playerDataBase.Static.SP > playerDataBase.Static.MaxSP)
-            {
-                playerDataBase.Static.SP = playerDataBase.Static.MaxSP;
-            }
-            else if (playerDataBase.Static.SP < 0)
-            {
-                playerDataBase.Static.SP = 0;
-            }
-
+        if (playerDataBase.Static.SP > playerDataBase.Static.MaxSP) {
+            playerDataBase.Static.SP = playerDataBase.Static.MaxSP;
+        }
+        else if (playerDataBase.Static.SP < 0) {
+            playerDataBase.Static.SP = 0;
         }
 
         //deadAliveCheck();
@@ -123,29 +122,36 @@ public class playerMainScript : MonoBehaviour
     }
 
 
-    public void getItem()
-    {
-        if (hitItem != null)
-        {
-            playerDataBase.Static.HP += hitItem.gameObject.GetComponent<itemScript>().AddHP;
-            playerDataBase.Static.SP += hitItem.gameObject.GetComponent<itemScript>().AddSP;
-            playerDataBase.Static.MaxHP += hitItem.gameObject.GetComponent<itemScript>().AddHPMax;
-            playerDataBase.Static.MaxSP += hitItem.gameObject.GetComponent<itemScript>().AddSPMax;
-            playerDataBase.Static.COIN += hitItem.gameObject.GetComponent<itemScript>().AddCOIN;
+    public void getItem() {
+        if (hitItem == null) {
+            return;
+        }
+        playerDataBase.Static.HP += hitItem.gameObject.GetComponent<itemScript>().AddHP;
+        playerDataBase.Static.SP += hitItem.gameObject.GetComponent<itemScript>().AddSP;
+        playerDataBase.Static.MaxHP += hitItem.gameObject.GetComponent<itemScript>().AddHPMax;
+        playerDataBase.Static.MaxSP += hitItem.gameObject.GetComponent<itemScript>().AddSPMax;
+        playerDataBase.Static.COIN += hitItem.gameObject.GetComponent<itemScript>().AddCOIN;
 
-            if (playerDataBase.Static.HP >= playerDataBase.Static.MaxHP)
-            { //max check
-                playerDataBase.Static.HP = playerDataBase.Static.MaxHP;
-            }
-            if (playerDataBase.Static.SP >= playerDataBase.Static.MaxSP)
-            {
-                playerDataBase.Static.SP = playerDataBase.Static.MaxSP;
-            }
-            Destroy(hitItem);
-            hitItem = null;
+        if (playerDataBase.Static.HP >= playerDataBase.Static.MaxHP) { //max check
+            playerDataBase.Static.HP = playerDataBase.Static.MaxHP;
+        }
+        if (playerDataBase.Static.SP >= playerDataBase.Static.MaxSP) {
+            playerDataBase.Static.SP = playerDataBase.Static.MaxSP;
         }
 
+        if (hitItem.gameObject.GetComponent<itemScript>().AddHP > 0) {
+            gamemanager.Static.spawnNumberDisplay(transform.position, hitItem.gameObject.GetComponent<itemScript>().AddHP, 3);
+        }
+
+        if (hitItem.gameObject.GetComponent<itemScript>().AddSP > 0) {
+            gamemanager.Static.spawnNumberDisplay(transform.position, hitItem.gameObject.GetComponent<itemScript>().AddSP, 3);
+        }
+
+        Destroy(hitItem);
+        hitItem = null;
     }
+
+    
 
 
 
@@ -156,6 +162,7 @@ public class playerMainScript : MonoBehaviour
         {
             return;
         }
+
         itemArray[saveIn] = DeepCopyItem(hitItem.gameObject.GetComponent<itemScript>(), saveIn);
         hitItem = null;
     }
@@ -205,6 +212,15 @@ public class playerMainScript : MonoBehaviour
             }
 
         }
+
+        if (itemArray[number].AddHP > 0) {
+            gamemanager.Static.spawnNumberDisplay(transform.position, itemArray[number].AddHP, 3);
+        }
+
+        if (itemArray[number].AddSP > 0) {
+            gamemanager.Static.spawnNumberDisplay(transform.position, itemArray[number].AddSP, 3);
+        }
+
 
         if (playerDataBase.Static.HP >= playerDataBase.Static.MaxHP)
         { //max check

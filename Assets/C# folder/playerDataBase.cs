@@ -47,6 +47,11 @@ public class playerDataBase : MonoBehaviour {
 
     public float VolSet { get; set; }
 
+    public void fullHPSP() {
+        HP = MaxHP;
+        SP = MaxSP;
+    }
+
     public void serializeSetUp() { //玩家起始值
         MaxHPInitial = 10;
         MaxSPInitial = 20;

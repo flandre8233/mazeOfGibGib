@@ -14,7 +14,7 @@ public class damageDisplay : MonoBehaviour {
         //spawnDamageDisplay(1345);
     }
 
-    public void spawnDamageDisplay(int damage) {
+    public void spawnDamageDisplay(int damage,int type) {
         short digits = (short)getDigits(damage,0);
         float spawnXAxisLimit = ( (textDistance * digits)/ 2 )- (textDistance / 2);
         Debug.Log(spawnXAxisLimit);
@@ -26,7 +26,7 @@ public class damageDisplay : MonoBehaviour {
             emptyGameObject.transform.parent = transform;
             emptyGameObject.transform.localPosition = new Vector3( spawnXAxisLimit-(textDistance * i ),0,0);
             Debug.Log(emptyGameObject.transform.localPosition);
-            ChangeSprite(number % 10, 0);
+            ChangeSprite(number % 10, type );
             number  /= 10;
         }
     }
