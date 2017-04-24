@@ -198,25 +198,39 @@ public class mapTerrainGenerator : MonoBehaviour {
     public GameObject floorModel;
     public GameObject[] floorModelDust;
 
+    public GameObject floorCheckpointModel;
+
      void createNewFloorMesh() {
         foreach (var item in thisLevelAllFloor) { //地塊設定
-            GameObject spawnObj = Instantiate(floorModel, Vector3.zero, Quaternion.identity); //生成
+            GameObject spawnObj;
+            if (playerDataBase.Static.currentFloor % roundScript.Static.checkPoint != 0) {
+                spawnObj = Instantiate(floorModel, Vector3.zero, Quaternion.identity); //生成
+            }
+            else {
+                spawnObj = Instantiate(floorCheckpointModel, Vector3.zero, Quaternion.identity); //生成
+            }
             spawnObj.transform.parent = item.transform; //把地塊黏在當前的地形上
             spawnObj.transform.rotation = Quaternion.Euler(180, 0, 0);
             //spawnObj.transform.localPosition = Vector3.zero;
-            spawnObj.transform.localPosition = new Vector3(0,0,-0.5f);
+            spawnObj.transform.localPosition = new Vector3(0, 0, -0.5f);
+
+            if (playerDataBase.Static.currentFloor % roundScript.Static.checkPoint == 0) {
+                break;
+            }
 
             for (int i = 0; i < floorModelDust.Length; i++) { //泥土設定
                 if (itemAndEnemyProcessor.randomSetThingsType(floorModelDust) == i) {
                     GameObject InstantiateItem = Instantiate(floorModelDust[i], Vector3.zero, Quaternion.identity);
                     InstantiateItem.transform.parent = item.transform;
-                    InstantiateItem.transform.rotation = Quaternion.Euler(180, 0, randomRotation().z );
+                    InstantiateItem.transform.rotation = Quaternion.Euler(180, 0, randomRotation().z);
                     //InstantiateItem.transform.localPosition = Vector3.zero;
                     InstantiateItem.transform.localPosition = new Vector3(0, 0, -0.5f);
                 }
 
             }
-            
+
+
+
 
         }
     }
