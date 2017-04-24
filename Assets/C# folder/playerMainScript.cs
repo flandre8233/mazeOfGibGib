@@ -210,11 +210,11 @@ public class playerMainScript : MonoBehaviour
         {
             if (itemArray[number].AddATK != 0)
             { // atk buff item
-                ATKBuffSetUp(itemArray[number].continueRound, itemArray[number].AddATK);
+                inATKBuff = ATKBuffSetUp(itemArray[number].continueRound, itemArray[number].AddATK);
             }
             else
             { // def buff item
-                DEFBuffSetUp(itemArray[number].continueRound, itemArray[number].AddDEF);
+                inDEFBuff = DEFBuffSetUp(itemArray[number].continueRound, itemArray[number].AddDEF);
             }
 
         }
@@ -255,13 +255,13 @@ public class playerMainScript : MonoBehaviour
 
     }
 
-    public void ATKBuffSetUp(int conRound, int atkAddNumber)
+    public bool ATKBuffSetUp(int conRound, int atkAddNumber)
     {
         ATKbuffStartRound = roundScript.Static.round;
         ATKcontinueRound = conRound;
         originalATKNumber = playerDataBase.Static.ATK;
         playerDataBase.Static.ATK += atkAddNumber;
-        inATKBuff = true;
+        return true;
     }
 
 
@@ -285,13 +285,13 @@ public class playerMainScript : MonoBehaviour
 
     */
 
-    public void DEFBuffSetUp(int conRound, int DEFAddNumber)
+    public bool DEFBuffSetUp(int conRound, int DEFAddNumber)
     {
         DEFbuffStartRound = roundScript.Static.round;
         DEFcontinueRound = conRound;
         originalDEFNumber = playerDataBase.Static.DEF;
         playerDataBase.Static.DEF += DEFAddNumber;
-        inDEFBuff = true;
+        return true;
     }
 
     public bool ATKBuff()
