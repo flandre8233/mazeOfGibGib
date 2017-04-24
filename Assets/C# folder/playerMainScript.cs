@@ -181,6 +181,7 @@ public class playerMainScript : MonoBehaviour
         clone.AddATK = original.AddATK;
         clone.AddDEF = original.AddDEF;
         clone.continueRound = original.continueRound;
+        clone.SPNoCostTime = original.SPNoCostTime;
         return clone;
     }
 
@@ -199,6 +200,11 @@ public class playerMainScript : MonoBehaviour
         playerDataBase.Static.MaxHP += itemArray[number].AddHPMax;
         playerDataBase.Static.MaxSP += itemArray[number].AddSPMax;
         playerDataBase.Static.COIN += itemArray[number].AddCOIN;
+
+        if (itemArray[number].SPNoCostTime != 0) {
+            // spnocost buff item
+            StartCoroutine(NoCostSpItem() );
+        }
 
         if (itemArray[number].continueRound != 0)
         {
@@ -241,6 +247,11 @@ public class playerMainScript : MonoBehaviour
     public bool inDEFBuff = false;
     int originalATKNumber = 0;
     int originalDEFNumber = 0;
+
+    private IEnumerator NoCostSpItem( ) {
+            yield return new WaitForSeconds(waitTime);
+
+    }
 
     public void ATKBuffSetUp(int conRound, int atkAddNumber)
     {

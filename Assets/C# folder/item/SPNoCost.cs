@@ -11,6 +11,8 @@ public class SPNoCost : itemScript
         AddHPMax = 0;
         AddSPMax = 0;
         AddCOIN = 0;
+        SPNoCostTime = 5;
+
     }
 
 }

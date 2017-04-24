@@ -13,6 +13,7 @@ public class itemScript : MonoBehaviour
     public int AddCOIN { get; set; }
     public int AddATK { get; set; }
     public int AddDEF { get; set; }
+    public int SPNoCostTime { get; set; }
     public int continueRound { get; set; }
 
     void Start() {

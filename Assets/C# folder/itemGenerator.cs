@@ -53,6 +53,7 @@ public class itemGenerator : MonoBehaviour {
         ProbabilityArray.Add(coinitemProbability);
         ProbabilityArray.Add(ATKBuffitemProbability);
         ProbabilityArray.Add(DEFBuffitemProbability);
+        ProbabilityArray.Add(SPNoCostBuffitemProbability);
     }
 
     #region legacy randomSystem
