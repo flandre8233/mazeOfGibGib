@@ -21,6 +21,8 @@ public class itemGenerator : MonoBehaviour {
     public float ATKBuffitemProbability;
     [Range(0, 100)]
     public float DEFBuffitemProbability;
+    [Range(0, 100)]
+    public float SPNoCostBuffitemProbability;
 
     public List<float> ProbabilityArray = new List<float>();
 
@@ -39,6 +41,7 @@ public class itemGenerator : MonoBehaviour {
         coinitemProbability = ProbabilityArray[4];
         ATKBuffitemProbability = ProbabilityArray[5];
         DEFBuffitemProbability = ProbabilityArray[6];
+        SPNoCostBuffitemProbability = ProbabilityArray[7];
     }
     void upDateProbabilityArray() {
         ProbabilityArray.Clear();

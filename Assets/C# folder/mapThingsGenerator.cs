@@ -81,6 +81,9 @@ public class mapThingsGenerator : MonoBehaviour {
             case 7:
                 item.AddComponent<DEFBuff>();
                 break;
+            case 8:
+                item.AddComponent<SPNoCost>();
+                break;
             default:
                 item.AddComponent<HP>();
                 break;

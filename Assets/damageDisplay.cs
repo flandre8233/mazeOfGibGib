@@ -7,6 +7,9 @@ public class damageDisplay : MonoBehaviour {
     public Sprite[] mySprites;
     public Texture2D texture;
     public float textDistance = 0.75f;
+
+    public Transform damageNumberParent;
+
     // Use this for initialization
     void Start () {
 
@@ -23,7 +26,7 @@ public class damageDisplay : MonoBehaviour {
             GameObject emptyGameObject = new GameObject();
             //Instantiate(emptyGameObject,transform.position,Quaternion.identity);
             myImage = emptyGameObject.AddComponent<SpriteRenderer>();
-            emptyGameObject.transform.parent = transform;
+            emptyGameObject.transform.parent = damageNumberParent;
             emptyGameObject.transform.localPosition = new Vector3( spawnXAxisLimit-(textDistance * i ),0,0);
             Debug.Log(emptyGameObject.transform.localPosition);
             ChangeSprite(number % 10, type );
@@ -43,11 +46,28 @@ public void ChangeSprite(int number , int type) {
         myImage.sprite = mySprites[ number+(type*10) ];
     }
 
+    void allSpriteAlpha(float alpha) {
+
+        foreach (var item in damageNumberParent.GetComponentsInChildren<SpriteRenderer>() ) {
+            item.color = new Color(item.color.r, item.color.g, item.color.b, alpha);
+        }
+        
+    }
+
+    public float allSpriteAlphaFloat=0.0f;
+
     // Update is called once per frame
     void Update () {
+        allSpriteAlpha(allSpriteAlphaFloat);
         //transform.rotation = Quaternion.LookRotation(-Camera.main.transform.forward);
         //transform.LookAt(Camera.main.transform.position, -Vector3.up);
 
-        
+
     }
+
+    public void aniDestroy() {
+        //Debug.Log("saff");
+        Destroy(gameObject);
+    }
+
 }

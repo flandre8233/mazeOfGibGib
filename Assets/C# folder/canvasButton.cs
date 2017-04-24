@@ -16,6 +16,7 @@ public class canvasButton : MonoBehaviour {
         normalGameCanvas.SetActive(!Bool);
         bigMapCanvas.SetActive(Bool);
         bigMapCamera.SetActive(Bool);
+        mapTerrainGenerator.Static.findCenter();
         bigMapCamera.transform.position =new Vector3(mapTerrainGenerator.Static.center.x, mapTerrainGenerator.Static.center.y,bigMapCamera.transform.position.z)  ;
     }
 
