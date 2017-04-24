@@ -203,7 +203,7 @@ public class playerMainScript : MonoBehaviour
 
         if (itemArray[number].SPNoCostTime != 0) {
             // spnocost buff item
-            StartCoroutine(NoCostSpItem() );
+            StartCoroutine(NoCostSpItem(itemArray[number].SPNoCostTime ) );
         }
 
         if (itemArray[number].continueRound != 0)
@@ -248,7 +248,7 @@ public class playerMainScript : MonoBehaviour
     int originalATKNumber = 0;
     int originalDEFNumber = 0;
 
-    private IEnumerator NoCostSpItem( ) {
+    private IEnumerator NoCostSpItem(int waitTime) {
             yield return new WaitForSeconds(waitTime);
 
     }
