@@ -214,20 +214,20 @@ public class mapTerrainGenerator : MonoBehaviour {
             //spawnObj.transform.localPosition = Vector3.zero;
             spawnObj.transform.localPosition = new Vector3(0, 0, -0.5f);
 
-            if (playerDataBase.Static.currentFloor % roundScript.Static.checkPoint == 0) {
-                break;
-            }
+            if (playerDataBase.Static.currentFloor % roundScript.Static.checkPoint != 0) {
+                for (int i = 0; i < floorModelDust.Length; i++) { //泥土設定
+                    if (itemAndEnemyProcessor.randomSetThingsType(floorModelDust) == i) {
+                        GameObject InstantiateItem = Instantiate(floorModelDust[i], Vector3.zero, Quaternion.identity);
+                        InstantiateItem.transform.parent = item.transform;
+                        InstantiateItem.transform.rotation = Quaternion.Euler(180, 0, randomRotation().z);
+                        //InstantiateItem.transform.localPosition = Vector3.zero;
+                        InstantiateItem.transform.localPosition = new Vector3(0, 0, -0.5f);
+                    }
 
-            for (int i = 0; i < floorModelDust.Length; i++) { //泥土設定
-                if (itemAndEnemyProcessor.randomSetThingsType(floorModelDust) == i) {
-                    GameObject InstantiateItem = Instantiate(floorModelDust[i], Vector3.zero, Quaternion.identity);
-                    InstantiateItem.transform.parent = item.transform;
-                    InstantiateItem.transform.rotation = Quaternion.Euler(180, 0, randomRotation().z);
-                    //InstantiateItem.transform.localPosition = Vector3.zero;
-                    InstantiateItem.transform.localPosition = new Vector3(0, 0, -0.5f);
                 }
-
             }
+
+            
 
 
 

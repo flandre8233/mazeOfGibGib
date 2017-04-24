@@ -282,6 +282,15 @@ public class chessMovement : MonoBehaviour
 
     public Vector3 hitObjectPosition = new Vector3();
 
+    public void returnToBeforeCheckPoint() {
+        if (playerDataBase.Static.currentFloor - roundScript.Static.checkPoint < 0) {
+            playerDataBase.Static.currentFloor = 0;
+        }
+        else {
+            playerDataBase.Static.currentFloor -= 11;
+        }
+        roundScript.Static.OnEnterNextLevel();
+    }
 
     bool moveCheck()
     { //正確是否正確移動
@@ -291,6 +300,9 @@ public class chessMovement : MonoBehaviour
         if (hitColliders.Length != 0)
         {
             hitObjectPosition = new Vector3(hitColliders[0].gameObject.transform.position.x, hitColliders[0].gameObject.transform.position.y, -1);
+            if (hitColliders[0].gameObject.tag == "returnCheckPoint") {
+                returnToBeforeCheckPoint();
+            }
         }
         if (hitColliders.Length >= 1)
         {

@@ -184,7 +184,10 @@ public class mapThingsGenerator : MonoBehaviour {
         item.GetComponent<groundScript>().type = groundType.canNOTSpawnThings;
         totalfloorCanBePlaceExit.Add(item);
         Vector3 targetV3 = new Vector3(item.transform.position.x, item.transform.position.y, -1);
-        Instantiate(exitGoal, targetV3, Quaternion.identity);
+        Vector3 exitPassV3 = new Vector3(item.GetComponent<groundScript>().passV3.x, item.GetComponent<groundScript>().passV3.y,0);
+
+        GameObject go = Instantiate(exitGoal, targetV3, Quaternion.identity);
+        go.transform.LookAt(exitPassV3);
     }
 
     public void SerializePlayerPositionToSpawnPoint() {

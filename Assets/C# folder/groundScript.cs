@@ -40,6 +40,8 @@ public class groundScript : MonoBehaviour {
         
     }
 
+    public Vector3 passV3;
+
     public bool isDeadEnd() {
         Vector3 left = transform.position + Vector3.left;
         Vector3 right = transform.position + Vector3.right;
@@ -47,21 +49,26 @@ public class groundScript : MonoBehaviour {
         Vector3 down = transform.position + Vector3.down;
         //int passCount = 0;
         if (Physics.OverlapSphere(left, 0.5f).Length > 0) {
+            passV3 = left;
             passCount++;
         }
         if (Physics.OverlapSphere(right, 0.5f).Length > 0) {
+            passV3 = right;
             passCount++;
         }
         if (Physics.OverlapSphere(up, 0.5f).Length > 0) {
+            passV3 = up;
             passCount++;
         }
         if (Physics.OverlapSphere(down, 0.5f).Length > 0) {
+            passV3 = down;
             passCount++;
         }
 
         if (passCount == 1) {
             return true;
         }
+        passV3 = Vector3.zero;
         return false;
         
     }
