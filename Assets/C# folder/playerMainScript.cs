@@ -249,7 +249,9 @@ public class playerMainScript : MonoBehaviour
     int originalDEFNumber = 0;
 
     private IEnumerator NoCostSpItem(int waitTime) {
+        roundScript.Static.roundSystem -= subSP;
             yield return new WaitForSeconds(waitTime);
+        roundScript.Static.roundSystem += subSP;
 
     }
 
@@ -261,6 +263,28 @@ public class playerMainScript : MonoBehaviour
         playerDataBase.Static.ATK += atkAddNumber;
         inATKBuff = true;
     }
+
+
+    /*
+     
+        (´◓Д◔`) 哇幹!!
+        (っค้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้c )
+
+
+
+
+
+
+
+
+
+
+
+        (´◓Д◔`) 哇幹!!
+        (っค้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้้c )
+
+    */
+
     public void DEFBuffSetUp(int conRound, int DEFAddNumber)
     {
         DEFbuffStartRound = roundScript.Static.round;
