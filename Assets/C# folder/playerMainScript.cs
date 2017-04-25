@@ -49,7 +49,11 @@ public class playerMainScript : MonoBehaviour
                 }
             }
             playerDataBase.Static.HP += hpNumber ;
-            gamemanager.Static.spawnNumberDisplay(transform.position,hpNumber,3);
+            if (hpNumber > 0)
+            {
+                gamemanager.Static.spawnNumberDisplay(transform.position, hpNumber, 3);
+
+            }
         }
         else {
             if (playerDataBase.Static.HP > 0) {

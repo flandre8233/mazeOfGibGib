@@ -7,7 +7,7 @@ public class SPNoCost : itemScript
     public override void SetUp() {
         itemName = "SPNoCost";
         AddHP = 0;
-        AddSP = 0;
+        AddSP = 1;
         AddHPMax = 0;
         AddSPMax = 0;
         AddCOIN = 0;

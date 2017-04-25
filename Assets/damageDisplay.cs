@@ -18,17 +18,26 @@ public class damageDisplay : MonoBehaviour {
     }
 
     public void spawnDamageDisplay(int damage,int type) {
-        short digits = (short)getDigits(damage,0);
+        short digits = 0;
+        if (damage != 0)
+        {
+            digits = (short)getDigits(damage, 0);
+        }
+        else
+        {
+            digits = 1;
+        }
         float spawnXAxisLimit = ( (textDistance * digits)/ 2 )- (textDistance / 2);
-        Debug.Log(spawnXAxisLimit);
+        Debug.Log(digits + " / " + damage);
         int number = damage;
         for (int i = 0; i < digits; i++) {
-            GameObject emptyGameObject = new GameObject();
-            //Instantiate(emptyGameObject,transform.position,Quaternion.identity);
+            //GameObject emptyGameObject = new GameObject();
+            GameObject emptyGameObject = Instantiate(new GameObject(),transform,damageNumberParent);
+            //Instantiate(emptyGameObject,.position,Quaternion.identity);
             myImage = emptyGameObject.AddComponent<SpriteRenderer>();
             emptyGameObject.transform.parent = damageNumberParent;
             emptyGameObject.transform.localPosition = new Vector3( spawnXAxisLimit-(textDistance * i ),0,0);
-            Debug.Log(emptyGameObject.transform.localPosition);
+            //Debug.Log(emptyGameObject.transform.localPosition);
             ChangeSprite(number % 10, type );
             number  /= 10;
         }

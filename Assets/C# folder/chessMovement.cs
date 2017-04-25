@@ -335,22 +335,33 @@ public class chessMovement : MonoBehaviour
     }
 
 
-    void attackNpc(GameObject touchEnemy) {
+    void attackNpc(GameObject touchEnemy)
+    {
         //touch Enemy之後既行動
 
-        if (playerDataBase.Static.DEF >= touchEnemy.GetComponent<enemyDataBase>().ATK) {
+        /*
+        if (playerDataBase.Static.DEF >= touchEnemy.GetComponent<enemyDataBase>().ATK)
+        {
             touchEnemy.GetComponent<enemyDataBase>().HP = 0;
+            gamemanager.Static.spawnNumberDisplay(touchEnemy.transform.position, 0, 0);
         }
-        else {
-            gamemanager.Static.spawnNumberDisplay(touchEnemy.transform.position,playerDataBase.Static.ATK , 0);
-                touchEnemy.GetComponent<enemyDataBase>().HP -= playerDataBase.Static.ATK;
-            }
-            isHitNpc = true;
-            thisFrameMoved = true;
+        else
+        {
+            gamemanager.Static.spawnNumberDisplay(touchEnemy.transform.position, playerDataBase.Static.ATK, 0);
+            touchEnemy.GetComponent<enemyDataBase>().HP -= playerDataBase.Static.ATK;
+        }
+        isHitNpc = true;
+        thisFrameMoved = true;
+        */
 
 
 
-        
+        gamemanager.Static.spawnNumberDisplay(touchEnemy.transform.position, playerDataBase.Static.ATK, 0);
+        touchEnemy.GetComponent<enemyDataBase>().HP -= playerDataBase.Static.ATK;
+
+        isHitNpc = true;
+        thisFrameMoved = true;
+
     }
 }
 

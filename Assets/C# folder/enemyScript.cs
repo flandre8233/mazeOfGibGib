@@ -163,8 +163,8 @@ public class enemyScript : enemyDataBase {
 
             if ( (roundScript.Static.round - findPlayerRoundNumber) % CD == 0) {//是攻擊的回合才行動
                 
-                if (playerDataBase.Static.DEF < ATK) {
-                    gamemanager.Static.spawnNumberDisplay(chessMovement.Static.gameObject.transform.position, ATK , 0);
+                if (playerDataBase.Static.DEF <= ATK) {
+                    gamemanager.Static.spawnNumberDisplay(chessMovement.Static.gameObject.transform.position, (ATK - playerDataBase.Static.DEF), 5);
                     playerDataBase.Static.HP -= (ATK - playerDataBase.Static.DEF);
                 }
             }
