@@ -51,7 +51,7 @@ public class roundScript : MonoBehaviour {
         clearLevel();
         //GameObject.FindGameObjectWithTag("Player").transform.position = new Vector3(0, 0, -1);
         
-        movementProcessingChecker = false;
+        //
         playerDataBase.Static.currentFloor++; //目前關卡+1
         if (playerDataBase.Static.currentFloor % (checkPoint/2) == 0) { //到5,10,15,20......關卡
             playerDataBase.Static.POINT += 5;
@@ -139,6 +139,7 @@ public class roundScript : MonoBehaviour {
             //chessMovement.Static.gameObject.GetComponentInChildren<Animator>().Play("idle");
             chessMovement.Static.gameObject.GetComponentInChildren<Animator>().SetBool("run", false);
             chessMovement.Static.gameObject.GetComponentInChildren<Animator>().SetBool("idle", true);
+            movementProcessingChecker = false;
 
             //mapTerrainGenerator.Static.findLeftGround();
             //mapTerrainGenerator.Static.findRightGround();
@@ -177,7 +178,7 @@ public class roundScript : MonoBehaviour {
     public void Start() {
         roundSystem += playerMainScript.Static.subSP;
         roundSystem += playerMainScript.Static.checkLife;
-
+        //roundSystem += RoundProcessingChecker;
         //roundSystem += OnEnterNextLevel;
         //roundSystem += playerMainScript.getItemSet;
     }
