@@ -39,7 +39,7 @@ public class uiScript : MonoBehaviour {
     void Update () {
         HPBAR_script();
         SPBAR_script();
-
+        
 
         testonlyText.text = "HP : " + playerDataBase.Static.HP + " / " + playerDataBase.Static.MaxHP + "\n" + "SP : " +
             playerDataBase.Static.SP + " / " + playerDataBase.Static.MaxSP;
