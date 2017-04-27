@@ -8,21 +8,25 @@ public class itemGenerator : MonoBehaviour {
 
     [Header("ProbabilitySetting")]
     [Range(0, 100)]
-    public float hpitemProbability;
-    [Range(0, 100)]
-    public float spitemProbability;
-    [Range(0, 100)]
-    public float hpmaxitemProbability;
-    [Range(0, 100)]
-    public float spmaxitemProbability;
-    [Range(0, 100)]
-    public float coinitemProbability;
-    [Range(0, 100)]
     public float ATKBuffitemProbability;
     [Range(0, 100)]
     public float DEFBuffitemProbability;
     [Range(0, 100)]
+    public float spitemProbability;
+    [Range(0, 100)]
     public float SPNoCostBuffitemProbability;
+    
+    //[Range(0, 100)]
+    //public float hpitemProbability;
+
+    //[Range(0, 100)]
+    //public float hpmaxitemProbability;
+    //[Range(0, 100)]
+    //public float spmaxitemProbability;
+    //[Range(0, 100)]
+    //public float coinitemProbability;
+
+
 
     public List<float> ProbabilityArray = new List<float>();
 
@@ -34,26 +38,28 @@ public class itemGenerator : MonoBehaviour {
     }
     
     void upDateProbabilityVar() {
-        hpitemProbability = ProbabilityArray[0];
-        spitemProbability = ProbabilityArray[1];
-        hpmaxitemProbability = ProbabilityArray[2];
-        spmaxitemProbability = ProbabilityArray[3];
-        coinitemProbability = ProbabilityArray[4];
-        ATKBuffitemProbability = ProbabilityArray[5];
-        DEFBuffitemProbability = ProbabilityArray[6];
-        SPNoCostBuffitemProbability = ProbabilityArray[7];
+        ATKBuffitemProbability = ProbabilityArray[0];
+        DEFBuffitemProbability = ProbabilityArray[1];
+        spitemProbability = ProbabilityArray[2];
+        SPNoCostBuffitemProbability = ProbabilityArray[3];
+        //hpitemProbability = ProbabilityArray[0];
+        //hpmaxitemProbability = ProbabilityArray[2];
+        //spmaxitemProbability = ProbabilityArray[3];
+        //coinitemProbability = ProbabilityArray[4];
+
     }
     void upDateProbabilityArray() {
         ProbabilityArray.Clear();
 
-        ProbabilityArray.Add(hpitemProbability);
-        ProbabilityArray.Add(spitemProbability);
-        ProbabilityArray.Add(hpmaxitemProbability);
-        ProbabilityArray.Add(spmaxitemProbability);
-        ProbabilityArray.Add(coinitemProbability);
         ProbabilityArray.Add(ATKBuffitemProbability);
         ProbabilityArray.Add(DEFBuffitemProbability);
+        ProbabilityArray.Add(spitemProbability);
         ProbabilityArray.Add(SPNoCostBuffitemProbability);
+        //ProbabilityArray.Add(hpitemProbability);
+        //ProbabilityArray.Add(hpmaxitemProbability);
+        //ProbabilityArray.Add(spmaxitemProbability);
+        //ProbabilityArray.Add(coinitemProbability);
+
     }
 
     #region legacy randomSystem

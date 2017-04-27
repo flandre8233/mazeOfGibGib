@@ -10,6 +10,8 @@ public class playerMainScript : MonoBehaviour
     public itemScript[] itemArray = new itemScript[2];
     public itemScript[] itemArrayClone = new itemScript[2];
 
+    public GameObject[] itemV3;
+
     // Use this for initialization
     void Awake()
     {
@@ -241,6 +243,7 @@ public class playerMainScript : MonoBehaviour
             playerDataBase.Static.SP = playerDataBase.Static.MaxSP;
         }
         itemArray[number] = null;
+        Destroy(itemV3[number].GetComponentInChildren<Animator>().gameObject) ; // <- item destroy in 3d ui
     }
 
     int ATKcontinueRound = 3;
@@ -347,6 +350,10 @@ public class playerMainScript : MonoBehaviour
                 if (itemArray[i] == null) // this wor) 
                 {
                     getItemSet(i);
+                    GameObject itemObject = Instantiate(other.gameObject, itemV3[i].transform);
+                    itemObject.transform.localPosition = Vector3.zero;
+                    itemObject.transform.rotation = Quaternion.Euler(0,180,0);
+                    itemObject.GetComponentInChildren<Animator>().SetTrigger("get");
                     itemArrayHaveSpace = true;
                     break;
                 }
@@ -357,8 +364,9 @@ public class playerMainScript : MonoBehaviour
                 getItem();
             }
             */
-
+            
             Destroy(other.gameObject);
+            
         }
 
 

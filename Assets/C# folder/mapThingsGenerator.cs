@@ -13,8 +13,8 @@ public class mapThingsGenerator : MonoBehaviour {
     [HideInInspector]
     public GameObject enemy;
 
-    [HideInInspector]
-    public GameObject item;
+    //[HideInInspector]
+    //public GameObject item;
 
     [HideInInspector]
     public GameObject exitGoal;
@@ -58,37 +58,44 @@ public class mapThingsGenerator : MonoBehaviour {
         enemySpawnProbability = ProbabilityArray[1];
     }
 
-    public void selectType(GameObject item) {
-        switch (itemAndEnemyProcessor.randomSetThingsType(itemGenerator.Static.ProbabilityArray)) {
+    public GameObject[] itemArray;
+
+    public GameObject  selectType() {
+        return itemArray[itemAndEnemyProcessor.randomSetThingsType(itemGenerator.Static.ProbabilityArray)-1];
+
+        /*
+        switch () {
             case 1:
-                item.AddComponent<HP>();
+                
+                //item.AddComponent<HP>();
                 break;
             case 2:
-                item.AddComponent<SP>();
+                //item.AddComponent<SP>();
                 break;
             case 3:
-                item.AddComponent<HPMax>();
+                //item.AddComponent<HPMax>();
                 break;
             case 4:
-                item.AddComponent<SpMax>();
+                //item.AddComponent<SpMax>();
                 break;
             case 5:
-                item.AddComponent<Coin>();
+                //item.AddComponent<Coin>();
                 break;
             case 6:
-                item.AddComponent<ATKBuff>();
+                //item.AddComponent<ATKBuff>();
                 break;
             case 7:
-                item.AddComponent<DEFBuff>();
+                //item.AddComponent<DEFBuff>();
                 break;
             case 8:
-                item.AddComponent<SPNoCost>();
+                //item.AddComponent<SPNoCost>();
                 break;
             default:
-                item.AddComponent<HP>();
+                //item.AddComponent<HP>();
                 break;
         }
-        
+        */
+
     }
 
     public void StartGeneratorTheThings() {
@@ -115,9 +122,10 @@ public class mapThingsGenerator : MonoBehaviour {
             switch (randomNumberThingsType) { //把結果分類
                 case 1:
 
-                    GameObject InstantiateItem = Instantiate(item, randomPosition, Quaternion.identity);
+                    GameObject InstantiateItem = Instantiate(selectType() , randomPosition, Quaternion.Euler(-90,0,0) );
+                    InstantiateItem.transform.position = new Vector3(InstantiateItem.transform.position.x, InstantiateItem.transform.position.y,-0.2f);
                     //InstantiateItem.name = InstantiateItem.GetComponent<itemScript>().ItemType.ToString();
-                    selectType(InstantiateItem);
+                    //selectType(InstantiateItem);
                     break;
 
                 case 2:
