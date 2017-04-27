@@ -1,20 +1,15 @@
 fileFormatVersion: 2
-guid: b9f2cb8fbf5fe9445b7580b2f8524b69
-timeCreated: 1493225904
+guid: 7ba776315ba31b04ba5938792ec0c63e
+timeCreated: 1493306594
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
-    100002: sp_time
     400000: //RootNode
-    400002: sp_time
     2300000: //RootNode
-    2300002: sp_time
     3300000: //RootNode
-    3300002: sp_time
     4300000: coin
-    4300002: sp_time
     7400000: Take 001
     9500000: //RootNode
   materials:

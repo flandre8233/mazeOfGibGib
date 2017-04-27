@@ -1,20 +1,15 @@
 fileFormatVersion: 2
-guid: 00faa684f62bc914ba32b6c9263cc584
-timeCreated: 1493225903
+guid: 5903adc4848407340a03058b561ade3b
+timeCreated: 1493306594
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: defense
-    100002: //RootNode
-    400000: defense
-    400002: //RootNode
-    2300000: defense
-    2300002: //RootNode
-    3300000: defense
-    3300002: //RootNode
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
     4300000: coin
-    4300002: defense
     7400000: Take 001
     9500000: //RootNode
   materials:
