@@ -26,7 +26,7 @@ public class canvasButton : MonoBehaviour {
 
     public void useItemButton(int number ) {
 
-        if (playerMainScript.Static.itemArray[number] == null) {
+        if (playerMainScript.Static.itemArrayClone[number] == null) {
             return;
         }
 

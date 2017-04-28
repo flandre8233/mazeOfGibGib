@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class itemScript : MonoBehaviour
 {
+
     public string itemName { get; set; }
-    public int level = 1;
+    public int level { get; set; }
     public int AddHP { get; set; }
     public int AddSP { get; set; }
     public int AddHPMax { get; set; }
@@ -17,8 +18,9 @@ public class itemScript : MonoBehaviour
     public int continueRound { get; set; }
 
     void Start() {
+        level = 1;
         SetUp();
-        includeLevelSetUp();
+        includeLevelSetUp( );
     }
 
     public virtual void SetUp() {
@@ -30,6 +32,7 @@ public class itemScript : MonoBehaviour
     }
 
     public virtual void includeLevelSetUp() {
+
     }
 
 }

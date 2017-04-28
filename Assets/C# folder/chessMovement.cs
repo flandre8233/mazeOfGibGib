@@ -44,9 +44,17 @@ public class chessMovement : MonoBehaviour
         {
             if (isHitNpc)
             { //這步會打中npc的話
-                roundScript.Static.roundSystem -= playerMainScript.Static.subSP;
-                roundScript.Static.pastRound();
-                roundScript.Static.roundSystem += playerMainScript.Static.subSP;
+                if (playerMainScript.Static.inSPBuffStatus)
+                {
+                    roundScript.Static.pastRound();
+                }
+                else
+                {
+                    roundScript.Static.roundSystem -= playerMainScript.Static.subSP;
+                    roundScript.Static.pastRound();
+                    roundScript.Static.roundSystem += playerMainScript.Static.subSP;
+                }
+                
                 roundScript.Static.DoAttackAniProcessingChecker = false;
             }
             else

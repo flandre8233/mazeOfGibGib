@@ -6,11 +6,22 @@ public class playerMainScript : MonoBehaviour
 {
     public static playerMainScript Static;
 
+    public bool inATKBuffStatus;
+    public bool inDEFBuffStatus;
+    public bool inSPBuffStatus;
+
     //public itemScript[] itemArray = new itemScript[2] { null, null };
-    public itemScript[] itemArray = new itemScript[2];
+    // public itemScript[] itemArray = new itemScript[2];
     public itemScript[] itemArrayClone = new itemScript[2];
 
     public GameObject[] itemV3;
+
+    int ATKcontinueRound = 3;
+    int DEFcontinueRound = 3;
+    int ATKbuffStartRound = 0;
+    int DEFbuffStartRound = 0;
+    int originalATKNumber = 0;
+    int originalDEFNumber = 0;
 
     // Use this for initialization
     void Awake()
@@ -169,16 +180,43 @@ public class playerMainScript : MonoBehaviour
             return;
         }
 
-        itemArray[saveIn] = DeepCopyItem(hitItem.gameObject.GetComponent<itemScript>(), saveIn);
+
+        itemArrayClone[saveIn] = DeepCopyType(hitItem.GetComponent<itemScript>().itemName, saveIn);
+        itemArrayClone[saveIn] = DeepCopyItem(hitItem.gameObject.GetComponent<itemScript>(), saveIn);
+        //itemArray[saveIn] = DeepCopyItem(hitItem.gameObject.GetComponent<itemScript>(), saveIn);
         hitItem = null;
     }
 
 
+    itemScript DeepCopyType(string name, int saveIn)
+    {
+        switch (name)
+        {
+            case "SP":
+                return gameObject.AddComponent<SP>();
+
+            case "SPNoCost":
+                return gameObject.AddComponent<SPNoCost>();
+
+            case "DEFBuff":
+                return gameObject.AddComponent<DEFBuff>();
+
+            case "ATKBuff":
+                return gameObject.AddComponent<ATKBuff>();
+        }
+        return gameObject.AddComponent<SP>();
+    }
 
     itemScript DeepCopyItem(itemScript original, int i)
     {
         itemScript clone = itemArrayClone[i];
 
+        clone.level = original.level;
+        //clone.SetUp();
+        //clone.includeLevelSetUp();
+        
+        /*
+        clone.itemName = original.itemName;
         clone.AddHP = original.AddHP;
         clone.AddSP = original.AddSP;
         clone.AddHPMax = original.AddHPMax;
@@ -188,8 +226,12 @@ public class playerMainScript : MonoBehaviour
         clone.AddDEF = original.AddDEF;
         clone.continueRound = original.continueRound;
         clone.SPNoCostTime = original.SPNoCostTime;
+        */
+
         return clone;
     }
+
+
 
     public void useItem(int number)
     {
@@ -201,36 +243,37 @@ public class playerMainScript : MonoBehaviour
         //itemArray.Add(hitItem.gameObject.GetComponent<itemScript>()); // this work
 
 
-        playerDataBase.Static.HP += itemArray[number].AddHP;
-        playerDataBase.Static.SP += itemArray[number].AddSP;
-        playerDataBase.Static.MaxHP += itemArray[number].AddHPMax;
-        playerDataBase.Static.MaxSP += itemArray[number].AddSPMax;
-        playerDataBase.Static.COIN += itemArray[number].AddCOIN;
+        playerDataBase.Static.HP += itemArrayClone[number].AddHP;
+        playerDataBase.Static.SP += itemArrayClone[number].AddSP;
+        playerDataBase.Static.MaxHP += itemArrayClone[number].AddHPMax;
+        playerDataBase.Static.MaxSP += itemArrayClone[number].AddSPMax;
+        playerDataBase.Static.COIN += itemArrayClone[number].AddCOIN;
 
-        if (itemArray[number].SPNoCostTime != 0) {
-            // spnocost buff item
-            StartCoroutine(NoCostSpItem(itemArray[number].SPNoCostTime ) );
+        if (itemArrayClone[number].SPNoCostTime != 0) {
+            // spnocost buff item          
+            inSPBuffStatus = true;
+            StartCoroutine(NoCostSpItem(itemArrayClone[number].SPNoCostTime ) );
         }
 
-        if (itemArray[number].continueRound != 0)
+        if (itemArrayClone[number].continueRound != 0)
         {
-            if (itemArray[number].AddATK != 0)
+            if (itemArrayClone[number].AddATK != 0)
             { // atk buff item
-                inATKBuff = ATKBuffSetUp(itemArray[number].continueRound, itemArray[number].AddATK);
+                inATKBuffStatus = ATKBuffSetUp(itemArrayClone[number].continueRound, itemArrayClone[number].AddATK);
             }
             else
             { // def buff item
-                inDEFBuff = DEFBuffSetUp(itemArray[number].continueRound, itemArray[number].AddDEF);
+                inDEFBuffStatus = DEFBuffSetUp(itemArrayClone[number].continueRound, itemArrayClone[number].AddDEF);
             }
 
         }
 
-        if (itemArray[number].AddHP > 0) {
-            gamemanager.Static.spawnNumberDisplay(transform.position, itemArray[number].AddHP, 3);
+        if (itemArrayClone[number].AddHP > 0) {
+            gamemanager.Static.spawnNumberDisplay(transform.position, itemArrayClone[number].AddHP, 3);
         }
 
-        if (itemArray[number].AddSP > 0) {
-            gamemanager.Static.spawnNumberDisplay(transform.position, itemArray[number].AddSP, 3);
+        if (itemArrayClone[number].AddSP > 0) {
+            gamemanager.Static.spawnNumberDisplay(transform.position, itemArrayClone[number].AddSP, 3);
         }
 
 
@@ -242,34 +285,15 @@ public class playerMainScript : MonoBehaviour
         {
             playerDataBase.Static.SP = playerDataBase.Static.MaxSP;
         }
-        itemArray[number] = null;
+        //itemArrayClone[number] = null;
+        Destroy(itemArrayClone[number] );
+        itemArrayClone[number] = null;
         Destroy(itemV3[number].GetComponentInChildren<Animator>().gameObject) ; // <- item destroy in 3d ui
     }
 
-    int ATKcontinueRound = 3;
-    int DEFcontinueRound = 3;
-    int ATKbuffStartRound = 0;
-    int DEFbuffStartRound = 0;
-    public bool inATKBuff = false;
-    public bool inDEFBuff = false;
-    int originalATKNumber = 0;
-    int originalDEFNumber = 0;
 
-    private IEnumerator NoCostSpItem(int waitTime) {
-        roundScript.Static.roundSystem -= subSP;
-            yield return new WaitForSeconds(waitTime);
-        roundScript.Static.roundSystem += subSP;
 
-    }
 
-    public bool ATKBuffSetUp(int conRound, int atkAddNumber)
-    {
-        ATKbuffStartRound = roundScript.Static.round;
-        ATKcontinueRound = conRound;
-        originalATKNumber = playerDataBase.Static.ATK;
-        playerDataBase.Static.ATK += atkAddNumber;
-        return true;
-    }
 
 
     /*
@@ -292,18 +316,36 @@ public class playerMainScript : MonoBehaviour
 
     */
 
+#region itemBuff Set
     public bool DEFBuffSetUp(int conRound, int DEFAddNumber)
     {
         DEFbuffStartRound = roundScript.Static.round;
         DEFcontinueRound = conRound;
         originalDEFNumber = playerDataBase.Static.DEF;
-        playerDataBase.Static.DEF += DEFAddNumber;
+        if (originalDEFNumber > 0)
+        {
+            playerDataBase.Static.DEF += (int)(playerDataBase.Static.DEF / (100 / DEFAddNumber) );
+        }
+        return true;
+    }
+
+    public bool ATKBuffSetUp(int conRound, int atkAddNumber)
+    {
+        ATKbuffStartRound = roundScript.Static.round;
+        ATKcontinueRound = conRound;
+        originalATKNumber = playerDataBase.Static.ATK;
+        Debug.Log((100.0f / originalATKNumber));
+        if (originalATKNumber > 0)
+        {
+            Debug.Log((100.0f / atkAddNumber));
+            playerDataBase.Static.ATK += (int)(playerDataBase.Static.ATK / (100.0f / atkAddNumber) );
+        }
         return true;
     }
 
     public bool ATKBuff()
     {
-        if (!inATKBuff)
+        if (!inATKBuffStatus)
         {
             return false;
         }
@@ -319,7 +361,7 @@ public class playerMainScript : MonoBehaviour
     }
     public bool DEFBuff()
     {
-        if (!inDEFBuff)
+        if (!inDEFBuffStatus)
         {
             return false;
         }
@@ -334,6 +376,52 @@ public class playerMainScript : MonoBehaviour
         return false;
     }
 
+    private IEnumerator NoCostSpItem(int waitTime)
+    {
+        roundScript.Static.roundSystem -= subSP;
+        yield return new WaitForSeconds(waitTime);
+        inSPBuffStatus = false;
+        roundScript.Static.roundSystem += subSP;
+
+    }
+
+
+
+    #endregion
+
+    bool checkIsAlreadyGetItem(string itemName)
+    {
+
+        for (int i = 0; i < itemArrayClone.Length; i++)
+        {
+
+            Debug.Log("dsd");
+            if (itemArrayClone[i] != null && itemArrayClone[i].itemName == itemName )
+            {
+                levelUpItem(itemArrayClone[i]);
+                itemV3[i].GetComponentInChildren<Animator>().SetTrigger("get");
+                return true;
+            }
+        }
+
+            
+        return false;
+    }
+
+    void levelUpItem(itemScript item)
+    {
+        item.level++;
+        item.includeLevelSetUp();
+    }
+
+    void spawnItemIn3DUI(GameObject item,Transform UI3DitemPos)
+    {
+        GameObject itemObject = Instantiate(item.gameObject, UI3DitemPos );
+        itemObject.transform.localPosition = Vector3.zero;
+        itemObject.transform.rotation = Quaternion.Euler(0, 180, 0);
+        itemObject.GetComponentInChildren<Animator>().SetTrigger("get");
+        itemObject.tag = "3DUI";
+    }
 
     public GameObject hitItem;
     void OnTriggerEnter(Collider other)
@@ -343,17 +431,14 @@ public class playerMainScript : MonoBehaviour
             hitItem = other.gameObject;
 
             bool itemArrayHaveSpace = false;
-            Debug.Log("get");
+            bool alreadyHaveThisItem = checkIsAlreadyGetItem(other.gameObject.GetComponent<itemScript>().itemName);
             chessMovement.Static.charactor_move.SetTrigger("get");
-            for (int i = 0; i < itemArray.Length; i++)
+            for (int i = 0; i < itemArrayClone.Length; i++)
             {
-                if (itemArray[i] == null) // this wor) 
+                if (itemArrayClone[i] == null && !alreadyHaveThisItem) // this wor) 
                 {
                     getItemSet(i);
-                    GameObject itemObject = Instantiate(other.gameObject, itemV3[i].transform);
-                    itemObject.transform.localPosition = Vector3.zero;
-                    itemObject.transform.rotation = Quaternion.Euler(0,180,0);
-                    itemObject.GetComponentInChildren<Animator>().SetTrigger("get");
+                    spawnItemIn3DUI(other.gameObject,itemV3[i].transform);
                     itemArrayHaveSpace = true;
                     break;
                 }

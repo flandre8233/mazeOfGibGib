@@ -11,11 +11,11 @@ public class DEFBuff : itemScript {
         AddSPMax = 0;
         AddCOIN = 0;
         continueRound = 5;
-        AddDEF = 8;
+        AddDEF = 30;
     }
 
     public override void includeLevelSetUp() {
-            AddDEF += (int)((level + 2) / 100.0f * 10);
-            continueRound += 4 + level;
+            AddDEF = (level + 2) * 10;
+            continueRound = 4 + level;
     }
 }

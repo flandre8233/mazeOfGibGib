@@ -113,8 +113,8 @@ public class roundScript : MonoBehaviour {
     public int selectionX, selectionY;
     int nextFrameLock = 0;
     public void Update() {
-        playerMainScript.Static.inATKBuff = playerMainScript.Static.ATKBuff();
-        playerMainScript.Static.inDEFBuff = playerMainScript.Static.DEFBuff();
+        playerMainScript.Static.inATKBuffStatus = playerMainScript.Static.ATKBuff();
+        playerMainScript.Static.inDEFBuffStatus = playerMainScript.Static.DEFBuff();
 
 
         /*

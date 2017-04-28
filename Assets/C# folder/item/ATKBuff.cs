@@ -11,10 +11,10 @@ public class ATKBuff : itemScript {
         AddSPMax = 0;
         AddCOIN = 0;
         continueRound = 5;
-        AddATK = 8;
+        AddATK = 30;
     }
     public override void includeLevelSetUp() {
-            AddATK += (int)((level + 2) / 100.0f * 10);
-            continueRound += 4 + level;
+            AddATK = ((level + 2)  * 10);
+            continueRound = 4 + level;
     }
 }

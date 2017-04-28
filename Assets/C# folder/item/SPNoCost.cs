@@ -15,4 +15,10 @@ public class SPNoCost : itemScript
 
     }
 
+    public override void includeLevelSetUp()
+    {
+        SPNoCostTime *= level;
+    }
+
+
 }
