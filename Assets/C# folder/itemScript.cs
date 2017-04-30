@@ -7,32 +7,72 @@ public class itemScript : MonoBehaviour
 
     public string itemName { get; set; }
     public int level { get; set; }
-    public int AddHP { get; set; }
-    public int AddSP { get; set; }
-    public int AddHPMax { get; set; }
-    public int AddSPMax { get; set; }
-    public int AddCOIN { get; set; }
-    public int AddATK { get; set; }
-    public int AddDEF { get; set; }
-    public int SPNoCostTime { get; set; }
-    public int continueRound { get; set; }
+    protected int addHP;
+    protected int addSP;
+    protected int addHPMax;
+    protected int addSPMax;
+    protected int addCOIN;
+    protected int addATK;
+    protected int addDEF;
+    protected int sPNoCostTime;
+    protected int continueRound;
+
+#region item
+    public virtual int AddHP {
+        get {
+            return addHP;
+        }
+    }
+    public virtual int AddSP {
+        get {
+            return addSP;
+        }
+    }
+    public virtual int AddHPMax {
+        get {
+            return addHPMax;
+        }
+    }
+    public virtual int AddSPMax {
+        get {
+            return addSPMax;
+        }
+    }
+    public virtual int AddCOIN {
+        get {
+            return addCOIN;
+        }
+    }
+    public virtual int AddATK {
+        get {
+            return addATK;
+        }
+    }
+    public virtual int AddDEF {
+        get {
+            return addDEF;
+        }
+    }
+    public virtual int SPNoCostTime {
+        get {
+            return sPNoCostTime;
+        }
+    }
+    public virtual int ContinueRound {
+        get {
+            return continueRound;
+        }
+    }
+#endregion
 
     void Start() {
         level = 1;
         SetUp();
-        includeLevelSetUp( );
     }
 
     public virtual void SetUp() {
-        AddHP = 0;
-        AddSP = 0;
-        AddHPMax = 0;
-        AddSPMax = 0;
-        AddCOIN = 0;
-    }
-
-    public virtual void includeLevelSetUp() {
 
     }
+
 
 }

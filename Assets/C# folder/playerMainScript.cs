@@ -16,8 +16,8 @@ public class playerMainScript : MonoBehaviour
 
     public GameObject[] itemV3;
 
-    int ATKcontinueRound = 3;
-    int DEFcontinueRound = 3;
+    int ATKContinueRound = 3;
+    int DEFContinueRound = 3;
     int ATKbuffStartRound = 0;
     int DEFbuffStartRound = 0;
     int originalATKNumber = 0;
@@ -224,7 +224,7 @@ public class playerMainScript : MonoBehaviour
         clone.AddCOIN = original.AddCOIN;
         clone.AddATK = original.AddATK;
         clone.AddDEF = original.AddDEF;
-        clone.continueRound = original.continueRound;
+        clone.ContinueRound = original.ContinueRound;
         clone.SPNoCostTime = original.SPNoCostTime;
         */
 
@@ -255,15 +255,15 @@ public class playerMainScript : MonoBehaviour
             StartCoroutine(NoCostSpItem(itemArrayClone[number].SPNoCostTime ) );
         }
 
-        if (itemArrayClone[number].continueRound != 0)
+        if (itemArrayClone[number].ContinueRound != 0)
         {
             if (itemArrayClone[number].AddATK != 0)
             { // atk buff item
-                inATKBuffStatus = ATKBuffSetUp(itemArrayClone[number].continueRound, itemArrayClone[number].AddATK);
+                inATKBuffStatus = ATKBuffSetUp(itemArrayClone[number].ContinueRound, itemArrayClone[number].AddATK);
             }
             else
             { // def buff item
-                inDEFBuffStatus = DEFBuffSetUp(itemArrayClone[number].continueRound, itemArrayClone[number].AddDEF);
+                inDEFBuffStatus = DEFBuffSetUp(itemArrayClone[number].ContinueRound, itemArrayClone[number].AddDEF);
             }
 
         }
@@ -320,7 +320,7 @@ public class playerMainScript : MonoBehaviour
     public bool DEFBuffSetUp(int conRound, int DEFAddNumber)
     {
         DEFbuffStartRound = roundScript.Static.round;
-        DEFcontinueRound = conRound;
+        DEFContinueRound = conRound;
         originalDEFNumber = playerDataBase.Static.DEF;
         if (originalDEFNumber > 0)
         {
@@ -332,7 +332,7 @@ public class playerMainScript : MonoBehaviour
     public bool ATKBuffSetUp(int conRound, int atkAddNumber)
     {
         ATKbuffStartRound = roundScript.Static.round;
-        ATKcontinueRound = conRound;
+        ATKContinueRound = conRound;
         originalATKNumber = playerDataBase.Static.ATK;
         Debug.Log((100.0f / originalATKNumber));
         if (originalATKNumber > 0)
@@ -350,7 +350,7 @@ public class playerMainScript : MonoBehaviour
             return false;
         }
 
-        if (roundScript.Static.round - ATKbuffStartRound < ATKcontinueRound)
+        if (roundScript.Static.round - ATKbuffStartRound < ATKContinueRound)
         { // ok 
             //per frame
             return true;
@@ -366,7 +366,7 @@ public class playerMainScript : MonoBehaviour
             return false;
         }
 
-        if (roundScript.Static.round - DEFbuffStartRound < DEFcontinueRound)
+        if (roundScript.Static.round - DEFbuffStartRound < DEFContinueRound)
         { // ok 
             //per frame
             return true;
@@ -411,7 +411,6 @@ public class playerMainScript : MonoBehaviour
     void levelUpItem(itemScript item)
     {
         item.level++;
-        item.includeLevelSetUp();
     }
 
     void spawnItemIn3DUI(GameObject item,Transform UI3DitemPos)

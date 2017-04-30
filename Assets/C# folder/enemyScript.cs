@@ -5,28 +5,27 @@ using UnityEngine;
 
 
 public class enemyScript : enemyDataBase {
-    public npcSensor sensor;
+    npcSensor sensor;
     public bool IsAutoSetType = true;
     public bool killTest = false;
 
     public Transform playerTransform;
 
     public virtual void SetUp(short monsterLevel) {
-
+        
     }
 
     // Use this for initialization
     void Start () {
         //setItemType();
+        Level = 4;
+        HP = MaxHP;
+        Debug.Log(MaxHP);
+        cOIN += (int)(COIN / 100.0f * (Random.Range(0, 40) - 20));
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         sensor = GetComponentInChildren<npcSensor>();
         roundScript.Static.roundSystem += enemyAttackPlayerScript;
         roundScript.Static.roundSystem += enemyHPCheck;
-        SetUp( (short)playerDataBase.Static.currentFloor );
-        includeLevelHPMax();
-        includeLevelDEF();
-        includeLevelCOIN();
-        includeLevelATK();
     }
 
     /*
@@ -61,99 +60,8 @@ public class enemyScript : enemyDataBase {
     }
     */
 
-    int includeLevelHPMax() {
-        int HPMax = 0;
-        switch (Level) {
-            case 1:
-                HPMax = 3;
-                break;
-            case 2:
-                HPMax = 6;
-                break;
-            case 3:
-                HPMax = 12;
-                break;
-            case 4:
-                HPMax = 18;
-                break;
-
-            default:
-                break;
-        }
-        return HPMax;
-    }
-
-    int includeLevelATK() {
-        int ATK = 0;
-        switch (Level) {
-            case 1:
-                ATK = 1;
-                break;
-            case 2:
-                ATK = 2;
-                break;
-            case 3:
-                ATK = 4;
-                break;
-            case 4:
-                ATK = 6;
-                break;
-
-            default:
-                break;
-        }
-        return ATK;
-    }
-
-    int includeLevelDEF() {
-        int DEF = 0;
-        switch (Level) {
-            case 1:
-                DEF = 0;
-                break;
-            case 2:
-                DEF = 0;
-                break;
-            case 3:
-                DEF = 0;
-                break;
-            case 4:
-                DEF = 0;
-                break;
-
-            default:
-                break;
-        }
-        return DEF;
-    }
-
-    int includeLevelCOIN() {
-        int COIN = 0;
-        switch (Level) {
-            case 1:
-                COIN = 11;
-                break;
-            case 2:
-                COIN = 56;
-                break;
-            case 3:
-                COIN = 304;
-                break;
-            case 4:
-                COIN = 936;
-                break;
-
-            default:
-                break;
-        }
-        COIN += (int)(COIN / 100.0f * (Random.Range(0, 40)-20) );
-        return COIN;
-    }
-
-
-
     public int findPlayerRoundNumber = -1;
-    public GameObject damageDisplayObject;
+    //public GameObject damageDisplayObject;
 
     public void enemyAttackPlayerScript() {
         if (sensor.isFindPlayer) {

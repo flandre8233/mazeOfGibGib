@@ -5,11 +5,7 @@ using UnityEngine;
 public class HP : itemScript {
     public override void SetUp() {
         itemName = "HP";
-        AddHP = 10;
-        AddSP = 0;
-        AddHPMax = 0;
-        AddSPMax = 0;
-        AddCOIN = 0;
+        addHP = 10;
     }
 
 

@@ -18,6 +18,8 @@ public class enemyGenerator : MonoBehaviour {
 
     public List<float> ProbabilityArray = new List<float>();
 
+    public GameObject[] enemyPrefabArray;
+
     void Awake() {
         Static = this;
         upDateProbabilityArray();
@@ -40,29 +42,9 @@ public class enemyGenerator : MonoBehaviour {
         ProbabilityArray.Add(masksmanProbability);
     }
 
-    public void selectType(GameObject enemy) {
+    public GameObject selectType() {
         short type = itemAndEnemyProcessor.randomSetThingsType(ProbabilityArray);
-        switch (type) {
-            case 1:
-                enemy.AddComponent<normalNpc>();
-                break;
-                //return enemyType.normal;
-            case 2:
-                enemy.AddComponent<tankNpc>();
-                break;
-            //return enemyType.tank;
-            case 3:
-                enemy.AddComponent<patrolNpc>();
-                break;
-            //return enemyType.patrol;
-            case 4:
-                enemy.AddComponent<masksmanNpc>();
-                break;
-            //return enemyType.masksman;
-            default:
-                break;
-        }
-        
+        return enemyPrefabArray[type - 1];
     }
 
 }

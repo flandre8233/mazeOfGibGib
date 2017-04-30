@@ -10,7 +10,6 @@ public class mapThingsGenerator : MonoBehaviour {
 
 
 
-    [HideInInspector]
     public GameObject enemy;
 
     //[HideInInspector]
@@ -129,8 +128,7 @@ public class mapThingsGenerator : MonoBehaviour {
                     break;
 
                 case 2:
-                    GameObject InstantiateEnemy = Instantiate(enemy, randomPosition, Quaternion.identity);
-                    enemyGenerator.Static.selectType(InstantiateEnemy);
+                    GameObject InstantiateEnemy = Instantiate(enemyGenerator.Static.selectType() , randomPosition, Quaternion.identity);
                     break;
                 default:
                     break;
