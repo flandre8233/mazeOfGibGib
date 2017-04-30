@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class abilityCanvasScript : MonoBehaviour {
+    public Text Ability_point;
     public Text ATK;
     public Text Hpmax;
     public Text Spmax;
@@ -16,6 +17,7 @@ public class abilityCanvasScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         //Debug.Log(playerDataBase.Static.ATK);
+        Ability_point.text = "Ability_point " + playerDataBase.Static.ability_point;
         ATK.text = "ATK+" + playerDataBase.Static.ATK;
         Hpmax.text = "HPmax:" + playerDataBase.Static.MaxHP;
         Spmax.text = "Spmax:" + playerDataBase.Static.MaxSP;

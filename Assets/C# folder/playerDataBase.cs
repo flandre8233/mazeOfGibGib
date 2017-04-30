@@ -32,6 +32,7 @@ public class playerDataBase : MonoBehaviour {
     public int ResetTimes { get; set; }
     public int currentFloor { get; set; }
     public int maxFloor { get; set; }
+    public int ability_point { get; set; }
 
     public float fifty { get; set; }
     public float hundred { get; set; }
@@ -90,6 +91,7 @@ public class playerDataBase : MonoBehaviour {
         abilityATKPercent = 100;
         abilityDEFPercent = 100;
 
+        ability_point = 1;
     }
 
 
