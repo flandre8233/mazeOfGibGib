@@ -9,6 +9,7 @@ public class mapThingsGenerator : MonoBehaviour {
     public List<GameObject> totalfloorCanBePlaceExit;
 
 
+    public List<GameObject> allEnemyArray = new List<GameObject>();
 
     public GameObject enemy;
 
@@ -112,7 +113,6 @@ public class mapThingsGenerator : MonoBehaviour {
             thisLevelspawnTimes = totalfloorCanBePlaceThings.Count;
         }
 
-
         for (int i = 0; i < thisLevelspawnTimes; i++) {
             int canPlaceThingsFloorNumber = totalfloorCanBePlaceThings.Count;
             int randomNumber = Random.Range(0, canPlaceThingsFloorNumber); //在可放置東西的地板array上選出一個數字
@@ -129,6 +129,8 @@ public class mapThingsGenerator : MonoBehaviour {
 
                 case 2:
                     GameObject InstantiateEnemy = Instantiate(enemyGenerator.Static.selectType() , randomPosition, Quaternion.identity);
+                    InstantiateEnemy.GetComponent<enemyDataBase>().UID = allEnemyArray.Count;
+                    allEnemyArray.Add(InstantiateEnemy);
                     break;
                 default:
                     break;

@@ -18,7 +18,7 @@ public class enemyScript : enemyDataBase {
     // Use this for initialization
     void Start () {
         //setItemType();
-        Level = 4;
+        Level = 1;
         HP = MaxHP;
         Debug.Log(MaxHP);
         cOIN += (int)(COIN / 100.0f * (Random.Range(0, 40) - 20));
@@ -26,44 +26,129 @@ public class enemyScript : enemyDataBase {
         sensor = GetComponentInChildren<npcSensor>();
         roundScript.Static.roundSystem += enemyAttackPlayerScript;
         roundScript.Static.roundSystem += enemyHPCheck;
+        roundScript.Static.roundSystem += move;
     }
 
-    /*
-    public void setItemType() {
-        if (IsAutoSetType) {
-            DataBase.type = enemyGenerator.Static.selectType();
+    void move()
+    {
 
-            switch (DataBase.type) {
-                case enemyType.normal:
-                    DataBase.normalSetUp(roundScript.Static.currentArea);
-                    break;
-                case enemyType.tank:
-                    DataBase.tankSetUp(roundScript.Static.currentArea);
-                    break;
-                case enemyType.patrol:
-                    DataBase.patrolSetUp(roundScript.Static.currentArea);
-                    break;
-                case enemyType.masksman:
-                    DataBase.masksmanSetUp(roundScript.Static.currentArea);
-                    break;
-                default:
-                    DataBase.normalSetUp(roundScript.Static.currentArea);
-                    break;
+
+            Collider[] hitColliders = Physics.OverlapSphere(new Vector3(transform.position.x, transform.position.y, 0) , 0.25f);
+        if (hitColliders.Length <= 0)
+        {
+            return;
+        }
+
+        switch (hitColliders[0].GetComponent<groundScript>().pathdirection)
+        {
+            case pathDirection.notyet:
+                
+                targetPos = new Vector3(transform.position.x, transform.position.y, -1);
+                break;
+            case pathDirection.up:
+                targetPos = new Vector3(transform.position.x, transform.position.y+1, -1);
+                break;
+            case pathDirection.down:
+                targetPos = new Vector3(transform.position.x, transform.position.y - 1, -1);
+                break;
+            case pathDirection.left:
+                targetPos = new Vector3(transform.position.x -1, transform.position.y, -1);
+                break;
+            case pathDirection.right:
+                targetPos = new Vector3(transform.position.x +1, transform.position.y, -1);
+                break;
+            case pathDirection.playerPoint:
+                break;
+            default:
+                break;
+        }
+
+        if (Vector3.Distance(chessMovement.Static.hitObjectPosition, targetPos) <= 0.25f)
+        {
+            targetPos = new Vector3(transform.position.x, transform.position.y, -1);
+            return;
+        }
+        for (int i = 0; i < mapThingsGenerator.Static.allEnemyArray.Count; i++)
+        {
+            if (i != UID)
+            {
+                if (Vector3.Distance(mapThingsGenerator.Static.allEnemyArray[i].GetComponent<enemyScript>().targetPos, targetPos) <= 0.25f && mapThingsGenerator.Static.allEnemyArray[i].GetComponent<enemyScript>().startLerpMovement == true)
+                {
+                    targetPos = new Vector3(transform.position.x, transform.position.y, -1);
+                    return;
+                }
+            }
+        }
+
+        Collider[] hitSomethingColliders = Physics.OverlapSphere(targetPos, 0.35f);
+        Debug.Log(chessMovement.Static.hitObjectPosition+"   "+ targetPos + startLerpMovement);
+
+
+        
+        if (hitSomethingColliders.Length >= 0 )
+        {
+            foreach (var item in hitSomethingColliders)
+            {
+                if (item.gameObject.tag == "Player" && chessMovement.Static.startLerpMovement == false)
+                {
+                    targetPos = new Vector3(transform.position.x, transform.position.y, -1);
+                    Debug.Log("ff");
+                    return;
+                }
+                if (item.gameObject.tag == "enemy" && item.GetComponent<enemyScript>().startLerpMovement == false)
+                {
+                    targetPos = new Vector3(transform.position.x, transform.position.y, -1);
+                    Debug.Log("cc");
+                    return;
+                }
+
             }
 
         }
+        
 
-
-
-        //setItemFunction();
-
+        startLerpMovement = true;
+        startTime = Time.time;
     }
-    */
+
+    public bool startLerpMovement = false;
+    Vector3 targetPos;
+    float startTime;
+    void LerpMove(ref bool isInLerpMovement,Vector3 targetPosition , float startTime,float lerpSpeed)
+    {
+        if (isInLerpMovement)
+        {
+
+            transform.position = Vector3.Lerp(transform.position, targetPosition, (Time.time - startTime) * lerpSpeed);
+            if (Mathf.Abs(Vector3.Distance(transform.position, targetPosition)) == 0.0f)
+            {
+                isInLerpMovement = false;
+
+            }
+            else if (Mathf.Abs(Vector3.Distance(transform.position, targetPosition)) <= 0.1f)
+            {
+                transform.position = targetPosition;
+                //charactor_move.SetBool("run", false);
+                //charactor_move.SetBool("idle", true);
+            }
+            else
+            {
+                //charactor_move.SetBool("run", true);
+                //charactor_move.SetBool("idle", false);
+            }
+
+        }
+    }
 
     public int findPlayerRoundNumber = -1;
     //public GameObject damageDisplayObject;
 
     public void enemyAttackPlayerScript() {
+        if (chessMovement.Static.startLerpMovement)
+        {
+            return;
+        }
+
         if (sensor.isFindPlayer) {
             if (findPlayerRoundNumber < 0) {
                 findPlayerRoundNumber = roundScript.Static.round;
@@ -89,6 +174,7 @@ public class enemyScript : enemyDataBase {
 
     private void Update() {
         allwayFaceAtPlayer();
+        LerpMove(ref startLerpMovement, targetPos, startTime,1.5f);
     }
 
     public Quaternion ImageLookAt2D(Vector3 from, Vector3 to) {
@@ -106,8 +192,7 @@ public class enemyScript : enemyDataBase {
 
     public void enemyHPCheck() {
         if (HP <= 0 || killTest) {
-            roundScript.Static.roundSystem -= enemyAttackPlayerScript;
-            roundScript.Static.roundSystem -= enemyHPCheck;
+            
             //roundScript.Static.roundSystem -= roundScript.Static.enemyList[DataBase.UID].GetComponent<enemyScript>().enemyAttackPlayerScript;
             //roundScript.Static.roundSystem -= roundScript.Static.enemyList[DataBase.UID].GetComponent<enemyScript>().enemyHPCheck;
 
@@ -117,4 +202,11 @@ public class enemyScript : enemyDataBase {
 
     }
 
+    private void OnDestroy()
+    {
+        mapThingsGenerator.Static.allEnemyArray.Remove(gameObject);
+        roundScript.Static.roundSystem -= move;
+        roundScript.Static.roundSystem -= enemyAttackPlayerScript;
+        roundScript.Static.roundSystem -= enemyHPCheck;
+    }
 }

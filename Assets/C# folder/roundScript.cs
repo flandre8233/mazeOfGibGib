@@ -34,13 +34,27 @@ public class roundScript : MonoBehaviour {
 
     public void RoundProcessingChecker() {
         if (isProcessingRound) {
-            if (!movementProcessingChecker && !DoAttackAniProcessingChecker) {
+            if (!movementProcessingChecker && !DoAttackAniProcessingChecker && checkallEnemy() ) {
                 isProcessingRound = false;
                 // Processing is complete
             }
         }
 
     }
+
+    bool checkallEnemy()
+    {
+        foreach (var item in mapThingsGenerator.Static.allEnemyArray)
+        {
+            if (item.GetComponent<enemyScript>().startLerpMovement)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
 
     public short currentArea = 1;
     public void OnEnterNextLevel() { // enter next level

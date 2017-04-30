@@ -12,6 +12,8 @@ public enum groundType
     isPortExitFloor
 }
 
+
+
 public class groundScript : MonoBehaviour {
     public int TerrainUID;
     public int passCount;
@@ -22,6 +24,9 @@ public class groundScript : MonoBehaviour {
     public GameObject myParent;
 
     public bool alreadyLink;
+
+    public pathDirection pathdirection;
+    public bool alreadyFindAllNeighbor;
 
     /*
     public bool canSpawnThings;

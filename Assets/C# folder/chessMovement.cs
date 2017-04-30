@@ -30,6 +30,8 @@ public class chessMovement : MonoBehaviour
     {
         charactor_move = GetComponentInChildren<Animator>();
         normalLerpSpeed = lerpSpeed;
+        center = new Vector3(transform.position.x,transform.position.y,0);
+        moveCheck();
         Static = this;
         reset();
 
@@ -39,7 +41,7 @@ public class chessMovement : MonoBehaviour
 
     void Update()
     {
-        LerpMove();
+        LerpMove(ref startLerpMovement, hitObjectPosition,startTime,lerpSpeed);
         if (thisFrameMoved)
         {
             if (isHitNpc)
@@ -261,15 +263,15 @@ public class chessMovement : MonoBehaviour
         }
     }
 
-    void LerpMove()
+    void LerpMove(ref bool isInLerpMovement, Vector3 targetPosition, float startTime, float lerpSpeed)
     {
-        if (startLerpMovement)
+        if (isInLerpMovement)
         {
 
-            transform.position = Vector3.Lerp(transform.position, hitObjectPosition, (Time.time - startTime) * lerpSpeed);
-            if (Mathf.Abs(Vector3.Distance(transform.position, hitObjectPosition)) == 0.0f)
+            transform.position = Vector3.Lerp(transform.position, targetPosition, (Time.time - startTime) * lerpSpeed);
+            if (Mathf.Abs(Vector3.Distance(transform.position, targetPosition)) == 0.0f)
             {
-                startLerpMovement = false;
+                isInLerpMovement = false;
 
                 lerpSpeed = normalLerpSpeed;
             }
@@ -300,6 +302,8 @@ public class chessMovement : MonoBehaviour
         roundScript.Static.OnEnterNextLevel();
     }
 
+    public groundScript playerCenterGround;
+
     bool moveCheck()
     { //正確是否正確移動
         Collider[] hitColliders = Physics.OverlapSphere(center, 0.25f);
@@ -307,6 +311,7 @@ public class chessMovement : MonoBehaviour
         touchEnemy = null;
         if (hitColliders.Length != 0)
         {
+            playerCenterGround = hitColliders[0].gameObject.GetComponent<groundScript>();
             hitObjectPosition = new Vector3(hitColliders[0].gameObject.transform.position.x, hitColliders[0].gameObject.transform.position.y, -1);
             if (hitColliders[0].gameObject.tag == "returnCheckPoint") {
                 returnToBeforeCheckPoint();
