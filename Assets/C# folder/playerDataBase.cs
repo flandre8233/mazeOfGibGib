@@ -20,6 +20,8 @@ public class playerDataBase : MonoBehaviour {
 
     public int ATKLevel { get; set; }
     public int DEFLevel { get; set; }
+    public int HpmaxLevel { get; set; }
+    public int SpmaxLevel { get; set; }
 
     public float COIN { get; set; }
     public int COINBounsPercent { get; set; }
@@ -71,8 +73,12 @@ public class playerDataBase : MonoBehaviour {
         SP = MaxSP;
         ATK = ATKInitial + (int)(ATKInitial * (abilityATKPercent / 100));
         DEF = DEFInitial + (int)(DEFInitial * (abilityDEFPercent / 100));
+
         ATKLevel = 1;
         DEFLevel = 1;
+        HpmaxLevel = 1;
+        SpmaxLevel = 1;
+
         COIN = 0;
         COINBounsPercent = 100;
         POINT = 5;
