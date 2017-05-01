@@ -144,18 +144,19 @@ public class mapTerrainGenerator : MonoBehaviour {
         OLDcreateTerrain();
         allFloorDetach();
         canelFloorMesh();
-        createNewFloorMesh();
-        //findCenter();
+
+        classificationFloorType();
     }
 
-     public void checkPointTerrain() {
+    public void checkPointTerrain()
+    {
         ThisLevelAllTerrainParts.RemoveRange(1, ThisLevelAllTerrainParts.Count - 1);
         allTerrainPort.Clear();
         allTerrainPortExit.Clear();
 
         createCheckPointTerrain();
         canelFloorMesh();
-        createNewFloorMesh();
+        classificationFloorType();
     }
 
     void allFloorDetach() {
@@ -195,18 +196,31 @@ public class mapTerrainGenerator : MonoBehaviour {
         }
     }
 
-    public GameObject floorModel;
-    public GameObject[] floorModelDust;
+    public GameObject[] floorModel;
+    public GameObject[] grassModelDust;
+    public GameObject[] iceModelDust;
 
     public GameObject floorCheckpointModel;
 
-     void createNewFloorMesh() {
+    void classificationFloorType()
+    {
+        if (playerDataBase.Static.currentFloor > 10)
+        {
+            createNewFloorMesh(floorModel[1], iceModelDust);
+        }
+        else
+        {
+            createNewFloorMesh(floorModel[0], grassModelDust);
+        }
+    }
+
+     void createNewFloorMesh(GameObject model ,GameObject[] modelDust) {
         foreach (var item in thisLevelAllFloor)
         { //地塊設定
             GameObject spawnObj;
             if (!roundScript.Static.isEnterCheckPoint())
             {
-                spawnObj = Instantiate(floorModel, Vector3.zero, Quaternion.identity); //生成
+                spawnObj = Instantiate(model, Vector3.zero, Quaternion.identity); //生成
             }
             else
             {
@@ -219,19 +233,15 @@ public class mapTerrainGenerator : MonoBehaviour {
             spawnObj.transform.localPosition = new Vector3(0, 0, -0.5f);
 
             if (!roundScript.Static.isEnterCheckPoint())
-            {
-                for (int i = 0; i < floorModelDust.Length; i++)
-                { //泥土設定
-                    if (itemAndEnemyProcessor.randomSetThingsType(floorModelDust) == i)
-                    {
-                        GameObject InstantiateItem = Instantiate(floorModelDust[i], Vector3.zero, Quaternion.identity);
-                        InstantiateItem.transform.parent = item.transform;
-                        InstantiateItem.transform.rotation = Quaternion.Euler(180, 0, randomRotation() );
-                        //InstantiateItem.transform.localPosition = Vector3.zero;
-                        InstantiateItem.transform.localPosition = new Vector3(0, 0, -0.5f);
-                    }
+            { //泥土設定
+                GameObject InstantiateItem = Instantiate(modelDust[itemAndEnemyProcessor.randomSetThingsType(modelDust) -1], Vector3.zero, Quaternion.identity);
+                InstantiateItem.transform.parent = item.transform;
+                InstantiateItem.transform.rotation = Quaternion.Euler(180, 0, randomRotation());
+                //InstantiateItem.transform.localPosition = Vector3.zero;
+                InstantiateItem.transform.localPosition = new Vector3(0, 0, -0.5f);
 
-                }
+
+
             }
 
         }
