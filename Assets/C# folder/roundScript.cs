@@ -202,7 +202,7 @@ public class roundScript : MonoBehaviour {
             nextFrameLock = 0;
             NeedGenertorThings = false;
             mapThingsGenerator.Static.spawnExitPoint();
-            mapThingsGenerator.Static.StartGeneratorTheThings();
+            mapThingsGenerator.Static.spawnItemAndEnemy();
             mapThingsGenerator.Static.SerializePlayerPositionToSpawnPoint();
 
             chessMovement.Static.center = new Vector3(chessMovement.Static.gameObject.transform.position.x, chessMovement.Static.gameObject.transform.position.y, 0);
