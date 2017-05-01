@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class SPNoCost : itemScript
 {
+    /// <summary>
+    ///  fuck u bitch
+    /// </summary>
     public override int SPNoCostTime {
         get {
             sPNoCostTime *= level;

@@ -5,6 +5,7 @@ using UnityEngine;
 public class playerDataBase : MonoBehaviour {
     public static playerDataBase Static;
 
+    public playerDataBaseJson playerDataJson = new playerDataBaseJson();
 
     public int HP { get; set; }
     public int SP { get; set; }
@@ -104,6 +105,11 @@ public class playerDataBase : MonoBehaviour {
 
     void Awake() {
         //Debug.Log(GetComponent<Transform>().name);
+
+        string jsonString = playerDataJson.toJson();
+
+        playerDataJson = JsonUtility.FromJson<playerDataBaseJson>(jsonString);
+
         serializeSetUp();
         DontDestroyOnLoad(transform.gameObject);
         if (Static != null) {
