@@ -31,7 +31,7 @@ public class playerMainScript : MonoBehaviour
 
     public void subSP()
     {
-        if (playerDataBase.Static.currentFloor % roundScript.Static.checkPoint == 0) {
+        if (roundScript.Static.isEnterCheckPoint() ) {
             return;
         }
 

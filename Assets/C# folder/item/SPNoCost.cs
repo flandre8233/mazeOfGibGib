@@ -9,7 +9,7 @@ public class SPNoCost : itemScript
     /// </summary>
     public override int SPNoCostTime {
         get {
-            sPNoCostTime *= level;
+            sPNoCostTime = 5 * level;
             return sPNoCostTime;
         }
     }

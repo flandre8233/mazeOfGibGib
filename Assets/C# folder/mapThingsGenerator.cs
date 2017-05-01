@@ -199,33 +199,18 @@ public class mapThingsGenerator : MonoBehaviour {
     }
 
     public void SerializePlayerPositionToSpawnPoint() {
-        //Debug.Log(playerDataBase.Static.currentFloor);
-        if (playerDataBase.Static.currentFloor % roundScript.Static.checkPoint == 0) { //到5,10,15,20......關卡  休息關重生點
+        if (roundScript.Static.isEnterCheckPoint() ) { //到5,10,15,20......關卡  休息關重生點
             Vector3 targetV3 = new Vector3(1,1 -1);
             player.transform.position = targetV3;
-
             return;
         }
-        /*
-        if (mapTerrainGenerator.Static.thisLevelAllFloor.Count != 0) {
-            foreach (var item in mapTerrainGenerator.Static.thisLevelAllFloor) {
-                if (item.GetComponent<groundScript>().type == groundType.startPoint) {
-                    Vector3 targetV3 = new Vector3(item.transform.position.x, item.transform.position.y, -1);
-                    player.transform.position = targetV3;
-                }
-            }
-        }
-        groundType.isPortFloor
-        */
 
         if (mapTerrainGenerator.Static.thisLevelAllFloor.Count != 0) {
-            foreach (var item in mapTerrainGenerator.Static.thisLevelAllFloor) {
-                if (item.GetComponent<groundScript>().type == groundType.startPoint) {
-                    Vector3 targetV3 = new Vector3(item.transform.position.x, item.transform.position.y, -1);
+            Debug.Log(mapTerrainGenerator.Static.thisLevelAllFloor[0] );
+                    Vector3 targetV3 = new Vector3(mapTerrainGenerator.Static.thisLevelAllFloor[0].transform.position.x, mapTerrainGenerator.Static.thisLevelAllFloor[0].transform.position.y, -1);
                     player.transform.position = targetV3;
+            Debug.Log(player.transform.position);
                     return;
-                }
-            }
         }
     }
 
@@ -233,8 +218,8 @@ public class mapThingsGenerator : MonoBehaviour {
         if (!doOnce) {
             doOnce = true;
             spawnExitPoint();
-            StartGeneratorTheThings();
             SerializePlayerPositionToSpawnPoint();
+            StartGeneratorTheThings();
 
             //mapTerrainGenerator.Static.findLeftGround();
             //mapTerrainGenerator.Static.findRightGround();

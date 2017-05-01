@@ -96,15 +96,7 @@ public class groundScript : MonoBehaviour {
             }
             Destroy(gameObject);
         }
-        
 
-        /*
-        if (myParent != null) {
-            if (myParent.GetComponent<groundScript>().delByMapLimit) {
-                Destroy(gameObject);
-            }
-        }
-        */
     }
 
     void OnTriggerEnter(Collider other) {

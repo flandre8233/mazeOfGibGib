@@ -203,7 +203,7 @@ public class mapTerrainGenerator : MonoBehaviour {
      void createNewFloorMesh() {
         foreach (var item in thisLevelAllFloor) { //地塊設定
             GameObject spawnObj;
-            if (playerDataBase.Static.currentFloor % roundScript.Static.checkPoint != 0) {
+            if (!roundScript.Static.isEnterCheckPoint() ) {
                 spawnObj = Instantiate(floorModel, Vector3.zero, Quaternion.identity); //生成
             }
             else {
@@ -214,7 +214,7 @@ public class mapTerrainGenerator : MonoBehaviour {
             //spawnObj.transform.localPosition = Vector3.zero;
             spawnObj.transform.localPosition = new Vector3(0, 0, -0.5f);
 
-            if (playerDataBase.Static.currentFloor % roundScript.Static.checkPoint != 0) {
+            if (!roundScript.Static.isEnterCheckPoint()) {
                 for (int i = 0; i < floorModelDust.Length; i++) { //泥土設定
                     if (itemAndEnemyProcessor.randomSetThingsType(floorModelDust) == i) {
                         GameObject InstantiateItem = Instantiate(floorModelDust[i], Vector3.zero, Quaternion.identity);

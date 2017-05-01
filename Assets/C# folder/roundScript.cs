@@ -79,7 +79,7 @@ public class roundScript : MonoBehaviour {
         if (wallControl.Static != null)
             wallControl.Static.syncBackgroundSize((int)mapTerrainGenerator.Static.mapLimit.x, (int)mapTerrainGenerator.Static.mapLimit.y);
         //playerDataBase.Static.currentFloor % 10 == 0 || 
-        if (playerDataBase.Static.currentFloor % checkPoint == 0) { //到5,10,15,20......關卡
+        if (isEnterCheckPoint() ) { //到5,10,15,20......關卡
 
             playerDataBase.Static.fullHPSP();
             mapTerrainGenerator.Static.checkPointTerrain();
@@ -92,6 +92,18 @@ public class roundScript : MonoBehaviour {
 
         NeedGenertorThings = true;
         
+    }
+    
+    public bool isEnterCheckPoint()
+    {
+        if (playerDataBase.Static.currentFloor % checkPoint == 0)//到  休息關重生點
+        { 
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public void clearLevel() {
