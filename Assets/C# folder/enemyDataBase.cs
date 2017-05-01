@@ -17,7 +17,6 @@ public class enemyDataBase : MonoBehaviour {
     public int UID = 0;
     public short Level { get; set; }
     
-    protected int hP;
     protected int maxHP;
     protected int aTK;
     protected int dEF;

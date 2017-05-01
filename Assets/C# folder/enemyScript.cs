@@ -11,6 +11,10 @@ public class enemyScript : enemyDataBase {
 
     public Transform playerTransform;
 
+    public bool startLerpMovement = false;
+    Vector3 targetPos;
+    float startTime;
+
     public virtual void SetUp(short monsterLevel) {
         
     }
@@ -20,19 +24,28 @@ public class enemyScript : enemyDataBase {
         //setItemType();
         Level = 1;
         HP = MaxHP;
-        Debug.Log(MaxHP);
+
         cOIN += (int)(COIN / 100.0f * (Random.Range(0, 40) - 20));
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         sensor = GetComponentInChildren<npcSensor>();
         roundScript.Static.roundSystem += enemyAttackPlayerScript;
         roundScript.Static.roundSystem += enemyHPCheck;
-        roundScript.Static.roundSystem += move;
+        //roundScript.Static.roundSystem += move;
+        
     }
 
-    void move()
+    private void OnDestroy()
     {
+        
+    }
 
+    public void testFunction()
+    {
+        Debug.Log(Vector3.Distance(chessMovement.Static.transform.position,gameObject.transform.position) );
+    }
 
+    public void move()
+    {
             Collider[] hitColliders = Physics.OverlapSphere(new Vector3(transform.position.x, transform.position.y, 0) , 0.25f);
         if (hitColliders.Length <= 0)
         {
@@ -63,12 +76,12 @@ public class enemyScript : enemyDataBase {
                 break;
         }
 
-        if (Vector3.Distance(chessMovement.Static.hitObjectPosition, targetPos) <= 0.25f)
+        if (Vector3.Distance(chessMovement.Static.hitObjectPosition, targetPos) <= 0.25f)//玩家優先
         {
-            targetPos = new Vector3(transform.position.x, transform.position.y, -1);
+            targetPos = new Vector3(transform.position.x, transform.position.y, -1); //還原
             return;
         }
-        for (int i = 0; i < mapThingsGenerator.Static.allEnemyArray.Count; i++)
+        for (int i = 0; i < mapThingsGenerator.Static.allEnemyArray.Count; i++) //處理兩隻怪物之間衝突
         {
             if (i != UID)
             {
@@ -81,7 +94,7 @@ public class enemyScript : enemyDataBase {
         }
 
         Collider[] hitSomethingColliders = Physics.OverlapSphere(targetPos, 0.35f);
-        Debug.Log(chessMovement.Static.hitObjectPosition+"   "+ targetPos + startLerpMovement);
+        //Debug.Log(chessMovement.Static.hitObjectPosition+"   "+ targetPos + startLerpMovement);
 
 
         
@@ -89,16 +102,15 @@ public class enemyScript : enemyDataBase {
         {
             foreach (var item in hitSomethingColliders)
             {
-                if (item.gameObject.tag == "Player" && chessMovement.Static.startLerpMovement == false)
+                if (item.gameObject.tag == "Player" && chessMovement.Static.startLerpMovement == false) //撞到玩家
                 {
                     targetPos = new Vector3(transform.position.x, transform.position.y, -1);
                     Debug.Log("ff");
                     return;
                 }
-                if (item.gameObject.tag == "enemy" && item.GetComponent<enemyScript>().startLerpMovement == false)
+                if (item.gameObject.tag == "enemy" && item.GetComponent<enemyScript>().startLerpMovement == false && item.GetComponent<enemyScript>().HP > 0)//撞到另一隻怪物
                 {
                     targetPos = new Vector3(transform.position.x, transform.position.y, -1);
-                    Debug.Log("cc");
                     return;
                 }
 
@@ -111,9 +123,6 @@ public class enemyScript : enemyDataBase {
         startTime = Time.time;
     }
 
-    public bool startLerpMovement = false;
-    Vector3 targetPos;
-    float startTime;
     void LerpMove(ref bool isInLerpMovement,Vector3 targetPosition , float startTime,float lerpSpeed)
     {
         if (isInLerpMovement)
@@ -192,21 +201,23 @@ public class enemyScript : enemyDataBase {
 
     public void enemyHPCheck() {
         if (HP <= 0 || killTest) {
-            
+
             //roundScript.Static.roundSystem -= roundScript.Static.enemyList[DataBase.UID].GetComponent<enemyScript>().enemyAttackPlayerScript;
             //roundScript.Static.roundSystem -= roundScript.Static.enemyList[DataBase.UID].GetComponent<enemyScript>().enemyHPCheck;
 
-            playerDataBase.Static.COIN += (COIN * (playerDataBase.Static.COINBounsPercent/100) );
-            Destroy(gameObject);
+
+            playerDataBase.Static.COIN += (COIN * (playerDataBase.Static.COINBounsPercent / 100));
+            delEnemy();
         }
 
     }
 
-    private void OnDestroy()
+    public void delEnemy()
     {
         mapThingsGenerator.Static.allEnemyArray.Remove(gameObject);
-        roundScript.Static.roundSystem -= move;
         roundScript.Static.roundSystem -= enemyAttackPlayerScript;
         roundScript.Static.roundSystem -= enemyHPCheck;
+        Destroy(gameObject);
     }
+
 }

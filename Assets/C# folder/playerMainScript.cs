@@ -395,7 +395,7 @@ public class playerMainScript : MonoBehaviour
         for (int i = 0; i < itemArrayClone.Length; i++)
         {
 
-            Debug.Log("dsd");
+
             if (itemArrayClone[i] != null && itemArrayClone[i].itemName == itemName )
             {
                 levelUpItem(itemArrayClone[i]);

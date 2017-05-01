@@ -30,6 +30,11 @@ public class pathfinding : MonoBehaviour {
 
     public void BakeAllFloor(Vector3 playerGoundVector3,groundScript playerCenterGround)
     {
+        if (roundScript.Static.isEnterCheckPoint())
+        {
+            return;
+        }
+
         resetAllFloorPathMark();
         playerCenterGround.pathdirection = pathDirection.playerPoint;
 
@@ -123,10 +128,7 @@ public class pathfinding : MonoBehaviour {
 
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.O))
-        {
-            
-        }
+
     }
 
     void RoundUseOnly()
