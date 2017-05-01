@@ -291,7 +291,12 @@ public class playerMainScript : MonoBehaviour
         Destroy(itemV3[number].GetComponentInChildren<Animator>().gameObject) ; // <- item destroy in 3d ui
     }
 
-
+    public void useItemMaxOnly(itemScript item)
+    {
+        playerDataBase.Static.MaxHP += item.AddHPMax;
+        playerDataBase.Static.MaxSP += item.AddSPMax;
+        Destroy(item.gameObject);
+    }
 
 
 
@@ -316,7 +321,7 @@ public class playerMainScript : MonoBehaviour
 
     */
 
-#region itemBuff Set
+    #region itemBuff Set
     public bool DEFBuffSetUp(int conRound, int DEFAddNumber)
     {
         DEFbuffStartRound = roundScript.Static.round;
@@ -428,6 +433,13 @@ public class playerMainScript : MonoBehaviour
         if (other.gameObject.tag == "item")
         { //hit item
             hitItem = other.gameObject;
+
+            if (hitItem.GetComponent<itemScript>().itemName == "HPMax" || hitItem.GetComponent<itemScript>().itemName == "SpMax") //果實
+            {
+                useItemMaxOnly(hitItem.GetComponent<itemScript>());
+                chessMovement.Static.charactor_move.SetTrigger("get");
+                return;
+            }
 
             bool itemArrayHaveSpace = false;
             bool alreadyHaveThisItem = checkIsAlreadyGetItem(other.gameObject.GetComponent<itemScript>().itemName);

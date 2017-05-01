@@ -70,6 +70,8 @@ public class mapThingsGenerator : MonoBehaviour {
     }
 
     public GameObject[] itemArray;
+    public GameObject hpmaxPrefab;
+    public GameObject spmaxPrefab;
 
     public GameObject  selectType() {
         return itemArray[itemAndEnemyProcessor.randomSetThingsType(itemGenerator.Static.ProbabilityArray)-1];
@@ -151,6 +153,21 @@ public class mapThingsGenerator : MonoBehaviour {
                     //selectType(InstantiateItem);
                     return;
 
+                case "hpmax":
+
+                    GameObject InstantiateHpmax = Instantiate(hpmaxPrefab, randomPosition, Quaternion.Euler(0, 0, 0));
+                    InstantiateHpmax.transform.position = new Vector3(InstantiateHpmax.transform.position.x, InstantiateHpmax.transform.position.y, -0.75f);
+                    //InstantiateItem.name = InstantiateItem.GetComponent<itemScript>().ItemType.ToString();
+                    //selectType(InstantiateItem);
+                    return;
+                case "spmax":
+
+                    GameObject InstantiateSpmax = Instantiate(spmaxPrefab, randomPosition, Quaternion.Euler(0, 0, 0));
+                    InstantiateSpmax.transform.position = new Vector3(InstantiateSpmax.transform.position.x, InstantiateSpmax.transform.position.y, -0.75f);
+                    //InstantiateItem.name = InstantiateItem.GetComponent<itemScript>().ItemType.ToString();
+                    //selectType(InstantiateItem);
+                    return;
+
                 case "enemy":
                     GameObject InstantiateEnemy = Instantiate(enemyGenerator.Static.selectType(), randomPosition, Quaternion.identity);
                     InstantiateEnemy.GetComponent<enemyDataBase>().UID = allEnemyArray.Count;
@@ -164,8 +181,27 @@ public class mapThingsGenerator : MonoBehaviour {
 
     public void spawnItemAndEnemy()
     {
+        if (sampleRandom())
+        {
+            StartGeneratorTheThings(1, "hpmax");
+        }
+        if (sampleRandom())
+        {
+            StartGeneratorTheThings(1, "spmax");
+        }
+
         StartGeneratorTheThings(levelSpawnItemTimes, "item");
         StartGeneratorTheThings(levelSpawnEnemyTimes, "enemy");
+    }
+
+    bool sampleRandom()
+    {
+        int number = Random.Range(0,100) ;
+        if (number <= 100)
+        {
+            return true;
+        }
+        return false;
     }
 
     public void spawnExitPoint() {
