@@ -113,7 +113,8 @@ public class mapThingsGenerator : MonoBehaviour {
 
     void StartGeneratorTheThings(int times, string type)
     {
-        
+        Debug.Log(times + "  " + type);
+
         if (mapTerrainGenerator.Static.thisLevelAllFloor.Count == 0)
         {
             return;
@@ -132,7 +133,7 @@ public class mapThingsGenerator : MonoBehaviour {
         { //鎖住spawntimes上限 別超出上限
             times = totalfloorCanBePlaceThings.Count;
         }
-
+        
 
         for (int i = 0; i < times; i++)
         {
@@ -151,7 +152,7 @@ public class mapThingsGenerator : MonoBehaviour {
                     InstantiateItem.transform.position = new Vector3(InstantiateItem.transform.position.x, InstantiateItem.transform.position.y, -0.2f);
                     //InstantiateItem.name = InstantiateItem.GetComponent<itemScript>().ItemType.ToString();
                     //selectType(InstantiateItem);
-                    return;
+                    break;
 
                 case "hpmax":
 
@@ -159,22 +160,22 @@ public class mapThingsGenerator : MonoBehaviour {
                     InstantiateHpmax.transform.position = new Vector3(InstantiateHpmax.transform.position.x, InstantiateHpmax.transform.position.y, -0.75f);
                     //InstantiateItem.name = InstantiateItem.GetComponent<itemScript>().ItemType.ToString();
                     //selectType(InstantiateItem);
-                    return;
+                    break;
                 case "spmax":
 
                     GameObject InstantiateSpmax = Instantiate(spmaxPrefab, randomPosition, Quaternion.Euler(0, 0, 0));
                     InstantiateSpmax.transform.position = new Vector3(InstantiateSpmax.transform.position.x, InstantiateSpmax.transform.position.y, -0.75f);
                     //InstantiateItem.name = InstantiateItem.GetComponent<itemScript>().ItemType.ToString();
                     //selectType(InstantiateItem);
-                    return;
+                    break;
 
                 case "enemy":
                     GameObject InstantiateEnemy = Instantiate(enemyGenerator.Static.selectType(), randomPosition, Quaternion.identity);
                     InstantiateEnemy.GetComponent<enemyDataBase>().UID = allEnemyArray.Count;
                     allEnemyArray.Add(InstantiateEnemy);
-                    return;
+                    break;
                 default:
-                    return;
+                    break;
             }
         }
     }
@@ -197,7 +198,7 @@ public class mapThingsGenerator : MonoBehaviour {
     bool sampleRandom()
     {
         int number = Random.Range(0,100) ;
-        if (number <= 100)
+        if (number <= 5)
         {
             return true;
         }
