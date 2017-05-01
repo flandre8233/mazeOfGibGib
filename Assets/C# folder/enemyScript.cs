@@ -15,14 +15,15 @@ public class enemyScript : enemyDataBase {
     Vector3 targetPos;
     float startTime;
 
-    public virtual void SetUp(short monsterLevel) {
+    public virtual void SetUp() {
         
     }
 
     // Use this for initialization
     void Start () {
         //setItemType();
-        Level = 1;
+        //Level = 1;
+        SetUp();
         HP = MaxHP;
 
         cOIN += (int)(COIN / 100.0f * (Random.Range(0, 40) - 20));

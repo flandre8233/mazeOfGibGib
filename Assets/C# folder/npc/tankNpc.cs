@@ -5,7 +5,8 @@ using UnityEngine;
 public class tankNpc : enemyScript
 {
 
-    public override void SetUp(short curLevel) {
+    public override void SetUp() {
+        Level = 4;
     }
 
 }

@@ -10,11 +10,11 @@ public class enemyGenerator : MonoBehaviour {
     [Range(0, 100)]
     public float normalProbability;
     [Range(0, 100)]
-    public float tankProbability;
-    [Range(0, 100)]
     public float patrolbability;
     [Range(0, 100)]
     public float masksmanProbability;
+    [Range(0, 100)]
+    public float tankProbability;
 
     public List<float> ProbabilityArray = new List<float>();
 
@@ -29,17 +29,17 @@ public class enemyGenerator : MonoBehaviour {
 
    void  upDateProbabilityVar() {
         normalProbability = ProbabilityArray[0];
-        tankProbability = ProbabilityArray[1];
-        patrolbability = ProbabilityArray[2];
-        masksmanProbability = ProbabilityArray[3];
+        patrolbability = ProbabilityArray[1];
+        masksmanProbability = ProbabilityArray[2];
+        tankProbability = ProbabilityArray[3];
     }
     void upDateProbabilityArray() {
         ProbabilityArray.Clear();
 
         ProbabilityArray.Add(normalProbability);
-        ProbabilityArray.Add(tankProbability);
         ProbabilityArray.Add(patrolbability);
         ProbabilityArray.Add(masksmanProbability);
+        ProbabilityArray.Add(tankProbability);
     }
 
     public GameObject selectType() {
