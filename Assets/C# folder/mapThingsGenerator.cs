@@ -22,8 +22,19 @@ public class mapThingsGenerator : MonoBehaviour {
     public GameObject player;
 
     bool doOnce = false;
-    public int spawnTimes = 15;
-    public int thisLevelspawnTimes = 5;
+    //public int spawnTimes = 15;
+    //public int thisLevelspawnTimes = 5;
+
+    public int levelSpawnItemTimes {
+        get {
+            return 1 + (playerDataBase.Static.currentFloor / 4);
+        }
+    }
+    public int levelSpawnEnemyTimes {
+        get {
+            return 1 + (playerDataBase.Static.currentFloor / 4);
+        }
+    }
 
     [Header("ProbabilitySetting")]
     [Range(0,100)]
@@ -59,6 +70,8 @@ public class mapThingsGenerator : MonoBehaviour {
     }
 
     public GameObject[] itemArray;
+    public GameObject hpmaxPrefab;
+    public GameObject spmaxPrefab;
 
     public GameObject  selectType() {
         return itemArray[itemAndEnemyProcessor.randomSetThingsType(itemGenerator.Static.ProbabilityArray)-1];
@@ -98,46 +111,98 @@ public class mapThingsGenerator : MonoBehaviour {
 
     }
 
-    public void StartGeneratorTheThings() {
-        thisLevelspawnTimes = spawnTimes;
+    void StartGeneratorTheThings(int times, string type)
+    {
+        Debug.Log(times + "  " + type);
+
+        if (mapTerrainGenerator.Static.thisLevelAllFloor.Count == 0)
+        {
+            return;
+        }
+
         totalfloorCanBePlaceThings.Clear();
-        if (mapTerrainGenerator.Static.thisLevelAllFloor.Count != 0) {
-            foreach (var item in mapTerrainGenerator.Static.thisLevelAllFloor) {
-                if (item.GetComponent<groundScript>().type == groundType.canSpawnThings) {
-                    totalfloorCanBePlaceThings.Add(item);
-                }
+
+        foreach (var item in mapTerrainGenerator.Static.thisLevelAllFloor)
+        { // count 有幾多個地版可以spawn物件
+            if (item.GetComponent<groundScript>().type == groundType.canSpawnThings && !item.GetComponent<groundScript>().haveSomethingInHere)
+            {
+                totalfloorCanBePlaceThings.Add(item);
             }
         }
-
-        if (thisLevelspawnTimes > totalfloorCanBePlaceThings.Count) { //鎖住spawntimes上限 別超出上限
-            thisLevelspawnTimes = totalfloorCanBePlaceThings.Count;
+        if (times > totalfloorCanBePlaceThings.Count)
+        { //鎖住spawntimes上限 別超出上限
+            times = totalfloorCanBePlaceThings.Count;
         }
+        
 
-        for (int i = 0; i < thisLevelspawnTimes; i++) {
+        for (int i = 0; i < times; i++)
+        {
             int canPlaceThingsFloorNumber = totalfloorCanBePlaceThings.Count;
             int randomNumber = Random.Range(0, canPlaceThingsFloorNumber); //在可放置東西的地板array上選出一個數字
-            int randomNumberThingsType = itemAndEnemyProcessor.randomSetThingsType(ProbabilityArray); //為這次spawn的物品決定出他的種類
+            //int randomNumberThingsType = itemAndEnemyProcessor.randomSetThingsType(ProbabilityArray); //為這次spawn的物品決定出他的種類
             Vector3 randomPosition = new Vector3(totalfloorCanBePlaceThings[randomNumber].transform.position.x, totalfloorCanBePlaceThings[randomNumber].transform.position.y, -1); //放在那裡?
-            switch (randomNumberThingsType) { //把結果分類
-                case 1:
+            totalfloorCanBePlaceThings[randomNumber].GetComponent<groundScript>().haveSomethingInHere = true;
+            totalfloorCanBePlaceThings.Remove(totalfloorCanBePlaceThings[randomNumber]);
 
-                    GameObject InstantiateItem = Instantiate(selectType() , randomPosition, Quaternion.Euler(-90,0,0) );
-                    InstantiateItem.transform.position = new Vector3(InstantiateItem.transform.position.x, InstantiateItem.transform.position.y,-0.2f);
+            switch (type)
+            { //把結果分類
+                case "item":
+
+                    GameObject InstantiateItem = Instantiate(selectType(), randomPosition, Quaternion.Euler(-90, 0, 0));
+                    InstantiateItem.transform.position = new Vector3(InstantiateItem.transform.position.x, InstantiateItem.transform.position.y, -0.2f);
                     //InstantiateItem.name = InstantiateItem.GetComponent<itemScript>().ItemType.ToString();
                     //selectType(InstantiateItem);
                     break;
 
-                case 2:
-                    GameObject InstantiateEnemy = Instantiate(enemyGenerator.Static.selectType() , randomPosition, Quaternion.identity);
+                case "hpmax":
+
+                    GameObject InstantiateHpmax = Instantiate(hpmaxPrefab, randomPosition, Quaternion.Euler(0, 0, 0));
+                    InstantiateHpmax.transform.position = new Vector3(InstantiateHpmax.transform.position.x, InstantiateHpmax.transform.position.y, -0.75f);
+                    //InstantiateItem.name = InstantiateItem.GetComponent<itemScript>().ItemType.ToString();
+                    //selectType(InstantiateItem);
+                    break;
+                case "spmax":
+
+                    GameObject InstantiateSpmax = Instantiate(spmaxPrefab, randomPosition, Quaternion.Euler(0, 0, 0));
+                    InstantiateSpmax.transform.position = new Vector3(InstantiateSpmax.transform.position.x, InstantiateSpmax.transform.position.y, -0.75f);
+                    //InstantiateItem.name = InstantiateItem.GetComponent<itemScript>().ItemType.ToString();
+                    //selectType(InstantiateItem);
+                    break;
+
+                case "enemy":
+                    GameObject InstantiateEnemy = Instantiate(enemyGenerator.Static.selectType(), randomPosition, Quaternion.identity);
                     InstantiateEnemy.GetComponent<enemyDataBase>().UID = allEnemyArray.Count;
                     allEnemyArray.Add(InstantiateEnemy);
                     break;
                 default:
                     break;
             }
-            totalfloorCanBePlaceThings[randomNumber].GetComponent<groundScript>().haveSomethingInHere = true;
-            totalfloorCanBePlaceThings.Remove(totalfloorCanBePlaceThings[randomNumber]);
         }
+    }
+
+    public void spawnItemAndEnemy()
+    {
+        if (sampleRandom())
+        {
+            StartGeneratorTheThings(1, "hpmax");
+        }
+        if (sampleRandom())
+        {
+            StartGeneratorTheThings(1, "spmax");
+        }
+
+        StartGeneratorTheThings(levelSpawnItemTimes, "item");
+        StartGeneratorTheThings(levelSpawnEnemyTimes, "enemy");
+    }
+
+    bool sampleRandom()
+    {
+        int number = Random.Range(0,100) ;
+        if (number <= 5)
+        {
+            return true;
+        }
+        return false;
     }
 
     public void spawnExitPoint() {
@@ -219,8 +284,7 @@ public class mapThingsGenerator : MonoBehaviour {
             doOnce = true;
             spawnExitPoint();
             SerializePlayerPositionToSpawnPoint();
-            StartGeneratorTheThings();
-
+            spawnItemAndEnemy();
             //mapTerrainGenerator.Static.findLeftGround();
             //mapTerrainGenerator.Static.findRightGround();
             //mapTerrainGenerator.Static.findCenter();
