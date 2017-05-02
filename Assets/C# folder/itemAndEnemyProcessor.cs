@@ -12,7 +12,7 @@ public static class itemAndEnemyProcessor
             }
 
         }
-        if (sumProbability + ProbabilityArray[SkipCheckProbabilityElementNumber] >= 100) { //overflow 100
+        if (sumProbability + ProbabilityArray[SkipCheckProbabilityElementNumber] > 100) { //overflow 100
             sumProbability = (100 - ProbabilityArray[SkipCheckProbabilityElementNumber]);
             for (int i = 0; i < ProbabilityArray.Count; i++) {
                 if (i != SkipCheckProbabilityElementNumber) {

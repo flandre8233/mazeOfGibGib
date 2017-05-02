@@ -8,6 +8,7 @@ public class roundScript : MonoBehaviour {
     public static roundScript Static;
     public delegate void roundSystemFunction();
     public roundSystemFunction roundSystem;
+    public roundSystemFunction enemyMovement;
     [Range(1, 100)]
     public short checkPoint;
 
@@ -24,10 +25,56 @@ public class roundScript : MonoBehaviour {
     public void pastRound() {
         isProcessingRound = true;
         round++;
-        roundSystem.Invoke();
+        sortEnemyList();
+        sortEnemyMove();
+        if (roundSystem != null)
+        {
+            roundSystem.Invoke();
+        }
+        if (enemyMovement != null)
+        {
+            enemyMovement.Invoke();
+        }
         playerMainScript.Static.deadAliveCheck();
     }
 
+    public void sortEnemyList()
+    {
+        GameObject save;
+        for (int i = 0; i < mapThingsGenerator.Static.allEnemyArray.Count; i++)
+        {
+            for (int j = 0; j < mapThingsGenerator.Static.allEnemyArray.Count - 1; j++)
+            {
+
+                //Vector3.Distance(chessMovement.Static.transform.position,mapThingsGenerator.Static.allEnemyArray[j].transform.position)
+                if (Vector3.Distance(chessMovement.Static.transform.position, mapThingsGenerator.Static.allEnemyArray[j].transform.position) > Vector3.Distance(chessMovement.Static.transform.position, mapThingsGenerator.Static.allEnemyArray[j + 1].transform.position) && i != j)
+                {
+                    save = mapThingsGenerator.Static.allEnemyArray[j];
+                    mapThingsGenerator.Static.allEnemyArray[j] = mapThingsGenerator.Static.allEnemyArray[j + 1];
+                    mapThingsGenerator.Static.allEnemyArray[j + 1] = save;
+                }
+            }
+
+        }
+
+        for (int i = 0; i < mapThingsGenerator.Static.allEnemyArray.Count; i++) //重發uid
+        {
+            mapThingsGenerator.Static.allEnemyArray[i].GetComponent<enemyScript>().UID = i;
+        }
+
+    }
+
+    public void sortEnemyMove() //work
+    {
+        enemyMovement = null;
+       
+
+        foreach (var item in mapThingsGenerator.Static.allEnemyArray)
+        {
+            enemyMovement += item.GetComponent<enemyScript>().move;
+        }
+
+    }
 
     public bool movementProcessingChecker = false;
     public bool DoAttackAniProcessingChecker = false;
@@ -117,7 +164,7 @@ public class roundScript : MonoBehaviour {
             Destroy(item);
         }
         foreach (var item in GameObject.FindGameObjectsWithTag("enemy")) {
-            Destroy(item);
+            item.GetComponent<enemyScript>().delEnemy();
         }
         foreach (var item in GameObject.FindGameObjectsWithTag("exit")) {
             Destroy(item);
@@ -155,11 +202,11 @@ public class roundScript : MonoBehaviour {
             nextFrameLock = 0;
             NeedGenertorThings = false;
             mapThingsGenerator.Static.spawnExitPoint();
-            mapThingsGenerator.Static.StartGeneratorTheThings();
+            mapThingsGenerator.Static.spawnItemAndEnemy();
             mapThingsGenerator.Static.SerializePlayerPositionToSpawnPoint();
 
             chessMovement.Static.center = new Vector3(chessMovement.Static.gameObject.transform.position.x, chessMovement.Static.gameObject.transform.position.y, 0);
-            chessMovement.Static.hitObjectPosition = new Vector3(chessMovement.Static.center.x, chessMovement.Static.center.y, -1);
+            chessMovement.Static.moveCheck();
             chessMovement.Static.startLerpMovement = true;
 
             //chessMovement.Static.gameObject.GetComponentInChildren<Animator>().Play("idle");

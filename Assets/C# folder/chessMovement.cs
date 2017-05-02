@@ -304,7 +304,7 @@ public class chessMovement : MonoBehaviour
 
     public groundScript playerCenterGround;
 
-    bool moveCheck()
+    public bool moveCheck()
     { //正確是否正確移動
         Collider[] hitColliders = Physics.OverlapSphere(center, 0.25f);
         Collider[] hitEnemyColliders = Physics.OverlapSphere(new Vector3(center.x, center.y, -1), 0.35f);
@@ -325,6 +325,9 @@ public class chessMovement : MonoBehaviour
                 {
                     if (item.tag == "enemy")
                     {
+                        hitColliders = Physics.OverlapSphere(new Vector3(transform.position.x, transform.position.y, 0), 0.25f); //還原center
+                        playerCenterGround = hitColliders[0].gameObject.GetComponent<groundScript>();
+                        hitObjectPosition = new Vector3(hitColliders[0].gameObject.transform.position.x, hitColliders[0].gameObject.transform.position.y, -1);
                         touchEnemy = item.gameObject;
                         return true;
                     }
