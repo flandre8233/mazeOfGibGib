@@ -31,7 +31,7 @@ public class mapTerrainGenerator : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        resetTerrain();
+        
     }
 
     float Toppest;
@@ -154,7 +154,19 @@ public class mapTerrainGenerator : MonoBehaviour {
         allTerrainPort.Clear();
         allTerrainPortExit.Clear();
 
-        createCheckPointTerrain();
+        specificTerrain(checkPoint);
+        canelFloorMesh();
+        classificationFloorType();
+    }
+
+    public void startPointTerrain()
+    {
+        Debug.Log("diu");
+        ThisLevelAllTerrainParts.RemoveRange(1, ThisLevelAllTerrainParts.Count - 1);
+        allTerrainPort.Clear();
+        allTerrainPortExit.Clear();
+
+        specificTerrain(startPoint);
         canelFloorMesh();
         classificationFloorType();
     }
@@ -234,7 +246,13 @@ public class mapTerrainGenerator : MonoBehaviour {
 
             if (!roundScript.Static.isEnterCheckPoint())
             { //泥土設定
-                GameObject InstantiateItem = Instantiate(modelDust[itemAndEnemyProcessor.randomSetThingsType(modelDust) -1], Vector3.zero, Quaternion.identity);
+                int Randnumber = Random.Range(0,modelDust.Length+1);
+                if (Randnumber == modelDust.Length)
+                {
+                    continue;
+                }
+                //Randnumber -= 2;
+                GameObject InstantiateItem = Instantiate(modelDust[Randnumber], Vector3.zero, Quaternion.identity);
                 InstantiateItem.transform.parent = item.transform;
                 InstantiateItem.transform.rotation = Quaternion.Euler(180, 0, randomRotation());
                 //InstantiateItem.transform.localPosition = Vector3.zero;
@@ -247,11 +265,12 @@ public class mapTerrainGenerator : MonoBehaviour {
         }
     }
 
+    public GameObject startPoint;
     public GameObject checkPoint;
-    void createCheckPointTerrain() {
+    void specificTerrain(GameObject go) {
         GameObject spawnObject = null;
         mapCenter = Vector3.zero;
-        spawnObject = Instantiate(checkPoint, mapCenter, Quaternion.identity);
+        spawnObject = Instantiate(go, mapCenter, Quaternion.identity);
 
         allTerrainPort.Add(spawnObject);
         thisLevelAllFloor.Add(spawnObject);

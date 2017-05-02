@@ -264,8 +264,15 @@ public class mapThingsGenerator : MonoBehaviour {
     }
 
     public void SerializePlayerPositionToSpawnPoint() {
+        if (roundScript.Static.isEnterStartPoint())
+        {
+            Vector3 targetV3 = new Vector3(0, -5 , -1);
+            player.transform.position = targetV3;
+            return;
+        }
+
         if (roundScript.Static.isEnterCheckPoint() ) { //到5,10,15,20......關卡  休息關重生點
-            Vector3 targetV3 = new Vector3(1,1 -1);
+            Vector3 targetV3 = new Vector3(1, 1 - 1);
             player.transform.position = targetV3;
             return;
         }
@@ -284,6 +291,7 @@ public class mapThingsGenerator : MonoBehaviour {
             doOnce = true;
             spawnExitPoint();
             SerializePlayerPositionToSpawnPoint();
+            chessMovement.Static.moveCheck();
             spawnItemAndEnemy();
             //mapTerrainGenerator.Static.findLeftGround();
             //mapTerrainGenerator.Static.findRightGround();

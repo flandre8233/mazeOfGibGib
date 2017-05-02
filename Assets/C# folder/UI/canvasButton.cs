@@ -46,6 +46,11 @@ public class canvasButton : MonoBehaviour {
 
     }
 
+    public void passRound()
+    {
+        roundScript.Static.pastRound();
+    }
+
     /*
 
     private void UpdateSelection()

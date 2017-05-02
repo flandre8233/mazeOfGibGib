@@ -88,8 +88,8 @@ public class playerDataBase : MonoBehaviour {
         COINBounsPercent = 100;
         POINT = 5;
         ResetTimes = 0;
-        currentFloor = 1;
-        maxFloor = 1;
+        currentFloor = 0;
+        maxFloor = 0;
 
         idle_time = 10;
 

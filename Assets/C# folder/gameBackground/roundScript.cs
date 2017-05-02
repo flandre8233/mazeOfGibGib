@@ -125,22 +125,48 @@ public class roundScript : MonoBehaviour {
 
         if (wallControl.Static != null)
             wallControl.Static.syncBackgroundSize((int)mapTerrainGenerator.Static.mapLimit.x, (int)mapTerrainGenerator.Static.mapLimit.y);
-        //playerDataBase.Static.currentFloor % 10 == 0 || 
-        if (isEnterCheckPoint() ) { //到5,10,15,20......關卡
 
-            playerDataBase.Static.fullHPSP();
-            mapTerrainGenerator.Static.checkPointTerrain();
-        }
-        else {
-            mapTerrainGenerator.Static.resetTerrain();
-        }
-
+        enterLevel();
 
 
         NeedGenertorThings = true;
         
     }
     
+    public void enterLevel()
+    {
+        if (isEnterStartPoint())
+        {
+            playerDataBase.Static.fullHPSP();
+            mapTerrainGenerator.Static.startPointTerrain();
+            return;
+        }
+
+        //playerDataBase.Static.currentFloor % 10 == 0 || 
+        if (isEnterCheckPoint())
+        { //到5,10,15,20......關卡
+
+            playerDataBase.Static.fullHPSP();
+            mapTerrainGenerator.Static.checkPointTerrain();
+        }
+        else
+        {
+            mapTerrainGenerator.Static.resetTerrain();
+        }
+    }
+
+    public bool isEnterStartPoint()
+    {
+        if (playerDataBase.Static.currentFloor <= 0)//到  休息關重生點
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public bool isEnterCheckPoint()
     {
         if (playerDataBase.Static.currentFloor % checkPoint == 0)//到  休息關重生點
@@ -251,6 +277,7 @@ public class roundScript : MonoBehaviour {
     public void Start() {
         roundSystem += playerMainScript.Static.subSP;
         roundSystem += playerMainScript.Static.checkLife;
+        enterLevel();
         //roundSystem += RoundProcessingChecker;
         //roundSystem += OnEnterNextLevel;
         //roundSystem += playerMainScript.getItemSet;

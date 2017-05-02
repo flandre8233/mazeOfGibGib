@@ -30,10 +30,7 @@ public class chessMovement : MonoBehaviour
     {
         charactor_move = GetComponentInChildren<Animator>();
         normalLerpSpeed = lerpSpeed;
-        center = new Vector3(transform.position.x,transform.position.y,0);
-        moveCheck();
         Static = this;
-        reset();
 
     }
 
@@ -86,6 +83,8 @@ public class chessMovement : MonoBehaviour
         player_idle_check();
     }
     */
+
+    /*
     void reset()
     {
         center = Vector3.zero;
@@ -94,7 +93,9 @@ public class chessMovement : MonoBehaviour
             movePlayer();
         }
         thisFrameMoved = false;
-    }//一開頭設定
+    }
+    */
+    //一開頭設定
     void movementInput(ref string DefaultDirection)
     {
 
