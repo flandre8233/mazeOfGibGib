@@ -4,11 +4,13 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
+
 public class roundScript : MonoBehaviour {
     public static roundScript Static;
     public delegate void roundSystemFunction();
     public roundSystemFunction roundSystem;
     public roundSystemFunction enemyMovement;
+    public roundSystemFunction enemyAttack;
     [Range(1, 100)]
     public short checkPoint;
 
@@ -35,8 +37,24 @@ public class roundScript : MonoBehaviour {
         {
             enemyMovement.Invoke();
         }
+        if (enemyAttack != null)
+        {
+            Debug.Log("do");
+            StartCoroutine(waitPlayerMove() );
+            //enemyAttack.Invoke();
+        }
         playerMainScript.Static.deadAliveCheck();
     }
+
+    private IEnumerator waitPlayerMove( )
+    {
+        do
+        {
+            yield return null;
+        } while (movementProcessingChecker);
+            enemyAttack.Invoke();
+    }
+    
 
     public void sortEnemyList()
     {

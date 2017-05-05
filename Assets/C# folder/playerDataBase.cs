@@ -76,7 +76,7 @@ public class playerDataBase : MonoBehaviour {
         abilityDEFPercent = 100;
         //ATK = ATKInitial + (int)(ATKInitial * (100/abilityATKPercent));
         ATK = 10;
-        DEF = 10;
+        DEF = 0;
         //DEF = DEFInitial + (int)(DEFInitial * (100/abilityDEFPercent));
 
         ATKLevel = 0;

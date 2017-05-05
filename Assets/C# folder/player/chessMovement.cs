@@ -330,6 +330,7 @@ public class chessMovement : MonoBehaviour
                         playerCenterGround = hitColliders[0].gameObject.GetComponent<groundScript>();
                         hitObjectPosition = new Vector3(hitColliders[0].gameObject.transform.position.x, hitColliders[0].gameObject.transform.position.y, -1);
                         touchEnemy = item.gameObject;
+                        center = new Vector3(transform.position.x, transform.position.y, 0);
                         return true;
                     }
                 }
@@ -337,6 +338,7 @@ public class chessMovement : MonoBehaviour
             }
             return true;
         }
+        center = new Vector3(transform.position.x,transform.position.y,0);
         return false;
     }//檢查 檢查用vector3 目前所在的方位是否存在方塊(已是說是否有路) 有就移動 無就取消移動動作
 

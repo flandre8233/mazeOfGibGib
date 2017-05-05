@@ -5,7 +5,6 @@ using UnityEngine;
 
 
 public class enemyScript : enemyDataBase {
-    npcSensor sensor;
     public bool IsAutoSetType = true;
     public bool killTest = false;
 
@@ -28,11 +27,11 @@ public class enemyScript : enemyDataBase {
 
         cOIN += (int)(COIN / 100.0f * (Random.Range(0, 40) - 20));
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        sensor = GetComponentInChildren<npcSensor>();
-        roundScript.Static.roundSystem += enemyAttackPlayerScript;
+        //sensor = GetComponentInChildren<npcSensor>();
         roundScript.Static.roundSystem += enemyHPCheck;
+        roundScript.Static.enemyAttack += enemyAttackPlayerScript;
         //roundScript.Static.roundSystem += move;
-        
+
     }
 
     private void OnDestroy()
@@ -153,13 +152,41 @@ public class enemyScript : enemyDataBase {
     public int findPlayerRoundNumber = -1;
     //public GameObject damageDisplayObject;
 
+        public bool checkPlayerCenterIsInAttackPoint()
+    {
+        Vector2 enemyPoint = transform.position;
+        Vector2[] checkPlayerPointArray = {
+            new Vector2(enemyPoint.x+1 ,enemyPoint.y ),
+            new Vector2(enemyPoint.x-1 ,enemyPoint.y ),
+            new Vector2(enemyPoint.x ,enemyPoint.y+1 ),
+            new Vector2(enemyPoint.x ,enemyPoint.y-1 )
+        };
+
+        Debug.Log(enemyPoint+"   "+chessMovement.Static.center);
+
+        foreach (var item in checkPlayerPointArray)
+        {
+
+            //Debug.Log(Mathf.Abs(Vector3.Distance(new Vector3(enemyPoint.x, enemyPoint.y, 0), chessMovement.Static.center))  );
+            if (Mathf.Abs(Vector3.Distance(new Vector3(item.x, item.y,0), chessMovement.Static.center)) <= 0.1f )
+            {
+                Debug.Log("find");
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public void enemyAttackPlayerScript() {
+        /*
         if (chessMovement.Static.startLerpMovement)
         {
             return;
         }
+        */
 
-        if (sensor.isFindPlayer) {
+        if (checkPlayerCenterIsInAttackPoint() ) {
             if (findPlayerRoundNumber < 0) {
                 findPlayerRoundNumber = roundScript.Static.round;
             }
@@ -216,8 +243,8 @@ public class enemyScript : enemyDataBase {
     public void delEnemy()
     {
         mapThingsGenerator.Static.allEnemyArray.Remove(gameObject);
-        roundScript.Static.roundSystem -= enemyAttackPlayerScript;
         roundScript.Static.roundSystem -= enemyHPCheck;
+        roundScript.Static.enemyAttack -= enemyAttackPlayerScript;
         Destroy(gameObject);
     }
 
