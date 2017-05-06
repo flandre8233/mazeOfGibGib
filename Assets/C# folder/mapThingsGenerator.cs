@@ -19,7 +19,7 @@ public class mapThingsGenerator : MonoBehaviour {
     [HideInInspector]
     public GameObject exitGoal;
 
-    public GameObject player;
+    GameObject player;
 
     bool doOnce = false;
     //public int spawnTimes = 15;
@@ -51,6 +51,8 @@ public class mapThingsGenerator : MonoBehaviour {
         else {
             Static = this;
         }
+
+        player = GameObject.FindGameObjectWithTag("Player");
 
         upDateProbabilityArray();
         itemAndEnemyProcessor.checkProbabilityOverflow(0, ref ProbabilityArray);
@@ -172,6 +174,8 @@ public class mapThingsGenerator : MonoBehaviour {
                 case "enemy":
                     GameObject InstantiateEnemy = Instantiate(enemyGenerator.Static.selectType(), randomPosition, Quaternion.identity);
                     InstantiateEnemy.GetComponent<enemyDataBase>().UID = allEnemyArray.Count;
+
+                    InstantiateEnemy.GetComponent<enemyDataBase>().center = new Vector3(Mathf.Round(randomPosition.x), Mathf.Round(randomPosition.y) ,0); 
                     allEnemyArray.Add(InstantiateEnemy);
                     break;
                 default:
@@ -268,12 +272,19 @@ public class mapThingsGenerator : MonoBehaviour {
         {
             Vector3 targetV3 = new Vector3(0, -5 , -1);
             player.transform.position = targetV3;
+
+            chessMovement.Static.CenterGround = chessMovement.Static.getGround();
+            chessMovement.Static.center = chessMovement.Static.resetCenterV3(chessMovement.Static.CenterGround);
             return;
         }
 
         if (roundScript.Static.isEnterCheckPoint() ) { //到5,10,15,20......關卡  休息關重生點
-            Vector3 targetV3 = new Vector3(1, 1 - 1);
+            Vector3 targetV3 = new Vector3(1, 1 ,- 1);
             player.transform.position = targetV3;
+
+            chessMovement.Static.CenterGround = chessMovement.Static.getGround();
+            chessMovement.Static.center = chessMovement.Static.resetCenterV3(chessMovement.Static.CenterGround); // <--
+
             return;
         }
 

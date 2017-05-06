@@ -4,14 +4,13 @@ using UnityEngine;
 
 
 
-public class enemyScript : enemyDataBase {
+public class enemyScript : enemyDataBase
+{
     public bool IsAutoSetType = true;
     public bool killTest = false;
 
     public Transform playerTransform;
 
-    public bool startLerpMovement = false;
-    Vector3 targetPos;
     float startTime;
 
     public virtual void SetUp() {
@@ -27,7 +26,9 @@ public class enemyScript : enemyDataBase {
 
         cOIN += (int)(COIN / 100.0f * (Random.Range(0, 40) - 20));
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        Debug.Log("ddddff  " + transform.position);
         //sensor = GetComponentInChildren<npcSensor>();
+        roundScript.Static.roundSystem += resetNumberOfActions;
         roundScript.Static.roundSystem += enemyHPCheck;
         roundScript.Static.enemyAttack += enemyAttackPlayerScript;
         //roundScript.Static.roundSystem += move;
@@ -39,36 +40,37 @@ public class enemyScript : enemyDataBase {
         
     }
 
-    public void testFunction()
+    public void resetNumberOfActions()
     {
-        Debug.Log(Vector3.Distance(chessMovement.Static.transform.position,gameObject.transform.position) );
+        NumberOfActions = 1;
     }
-
+    
     public void move()
     {
-            Collider[] hitColliders = Physics.OverlapSphere(new Vector3(transform.position.x, transform.position.y, 0) , 0.25f);
-        if (hitColliders.Length <= 0)
+        Debug.Log("gfsd");
+        CenterGround = getGround();
+        if (CenterGround == null)
         {
             return;
         }
 
-        switch (hitColliders[0].GetComponent<groundScript>().pathdirection)
+        switch (CenterGround.pathdirection)
         {
             case pathDirection.notyet:
                 
-                targetPos = new Vector3(transform.position.x, transform.position.y, -1);
+                center = new Vector3(center.x, center.y, 0);
                 break;
             case pathDirection.up:
-                targetPos = new Vector3(transform.position.x, transform.position.y+1, -1);
+                center = new Vector3(center.x, center.y+1, 0);
                 break;
             case pathDirection.down:
-                targetPos = new Vector3(transform.position.x, transform.position.y - 1, -1);
+                center = new Vector3(center.x, center.y - 1, 0);
                 break;
             case pathDirection.left:
-                targetPos = new Vector3(transform.position.x -1, transform.position.y, -1);
+                center = new Vector3(center.x -1, center.y, 0);
                 break;
             case pathDirection.right:
-                targetPos = new Vector3(transform.position.x +1, transform.position.y, -1);
+                center = new Vector3(center.x +1, center.y, 0);
                 break;
             case pathDirection.playerPoint:
                 break;
@@ -76,25 +78,28 @@ public class enemyScript : enemyDataBase {
                 break;
         }
 
-        if (Vector3.Distance(chessMovement.Static.hitObjectPosition, targetPos) <= 0.25f)//玩家優先
+        Debug.Log(equalVector3(chessMovement.Static.center, center));
+
+        //Vector3.Distance(chessMovement.Static.center, center) <= 0.25f
+        if (equalVector3(chessMovement.Static.center,center) )//玩家優先
         {
-            targetPos = new Vector3(transform.position.x, transform.position.y, -1); //還原
+            center = resetCenterV3(CenterGround);
             return;
         }
         for (int i = 0; i < mapThingsGenerator.Static.allEnemyArray.Count; i++) //處理兩隻怪物之間衝突
         {
             if (i != UID)
             {
-                if (Vector3.Distance(mapThingsGenerator.Static.allEnemyArray[i].GetComponent<enemyScript>().targetPos, targetPos) <= 0.25f && mapThingsGenerator.Static.allEnemyArray[i].GetComponent<enemyScript>().startLerpMovement == true)
+                if (equalVector3(mapThingsGenerator.Static.allEnemyArray[i].GetComponent<enemyScript>().center, center) && mapThingsGenerator.Static.allEnemyArray[i].GetComponent<enemyScript>().startLerpMovement == true)
                 {
-                    targetPos = new Vector3(transform.position.x, transform.position.y, -1);
+                    center = resetCenterV3(CenterGround);
                     return;
                 }
             }
         }
 
-        Collider[] hitSomethingColliders = Physics.OverlapSphere(targetPos, 0.35f);
-        //Debug.Log(chessMovement.Static.hitObjectPosition+"   "+ targetPos + startLerpMovement);
+        Collider[] hitSomethingColliders = Physics.OverlapSphere(new Vector3(center.x,center.y,-1) , 0.35f);
+        Debug.Log("ddd");
 
 
         
@@ -104,13 +109,13 @@ public class enemyScript : enemyDataBase {
             {
                 if (item.gameObject.tag == "Player" && chessMovement.Static.startLerpMovement == false) //撞到玩家
                 {
-                    targetPos = new Vector3(transform.position.x, transform.position.y, -1);
+                    center = resetCenterV3(CenterGround);
                     Debug.Log("ff");
                     return;
                 }
                 if (item.gameObject.tag == "enemy" && item.GetComponent<enemyScript>().startLerpMovement == false && item.GetComponent<enemyScript>().HP > 0)//撞到另一隻怪物
                 {
-                    targetPos = new Vector3(transform.position.x, transform.position.y, -1);
+                    center = resetCenterV3(CenterGround);
                     return;
                 }
 
@@ -120,23 +125,24 @@ public class enemyScript : enemyDataBase {
         
 
         startLerpMovement = true;
+        NumberOfActions--;
         startTime = Time.time;
     }
 
-    void LerpMove(ref bool isInLerpMovement,Vector3 targetPosition , float startTime,float lerpSpeed)
+    void LerpMove(ref bool isInLerpMovement,Vector3 centerition , float startTime,float lerpSpeed)
     {
         if (isInLerpMovement)
         {
 
-            transform.position = Vector3.Lerp(transform.position, targetPosition, (Time.time - startTime) * lerpSpeed);
-            if (Mathf.Abs(Vector3.Distance(transform.position, targetPosition)) == 0.0f)
+            transform.position = Vector3.Lerp(transform.position, centerition, (Time.time - startTime) * lerpSpeed);
+            if (Mathf.Abs(Vector3.Distance(transform.position, centerition)) == 0.0f)
             {
                 isInLerpMovement = false;
 
             }
-            else if (Mathf.Abs(Vector3.Distance(transform.position, targetPosition)) <= 0.1f)
+            else if (Mathf.Abs(Vector3.Distance(transform.position, centerition)) <= 0.1f)
             {
-                transform.position = targetPosition;
+                transform.position = centerition;
                 //charactor_move.SetBool("run", false);
                 //charactor_move.SetBool("idle", true);
             }
@@ -154,21 +160,18 @@ public class enemyScript : enemyDataBase {
 
         public bool checkPlayerCenterIsInAttackPoint()
     {
-        Vector2 enemyPoint = transform.position;
-        Vector2[] checkPlayerPointArray = {
-            new Vector2(enemyPoint.x+1 ,enemyPoint.y ),
-            new Vector2(enemyPoint.x-1 ,enemyPoint.y ),
-            new Vector2(enemyPoint.x ,enemyPoint.y+1 ),
-            new Vector2(enemyPoint.x ,enemyPoint.y-1 )
+        Vector3[] checkPlayerPointArray = {
+            new Vector3(center.x+1 ,center.y ,0),
+            new Vector3(center.x-1 ,center.y ,0),
+            new Vector3(center.x ,center.y+1 ,0),
+            new Vector3(center.x ,center.y-1 ,0)
         };
-
-        Debug.Log(enemyPoint+"   "+chessMovement.Static.center);
 
         foreach (var item in checkPlayerPointArray)
         {
 
             //Debug.Log(Mathf.Abs(Vector3.Distance(new Vector3(enemyPoint.x, enemyPoint.y, 0), chessMovement.Static.center))  );
-            if (Mathf.Abs(Vector3.Distance(new Vector3(item.x, item.y,0), chessMovement.Static.center)) <= 0.1f )
+            if (equalVector3(item, chessMovement.Static.center))
             {
                 Debug.Log("find");
                 return true;
@@ -186,23 +189,36 @@ public class enemyScript : enemyDataBase {
         }
         */
 
-        if (checkPlayerCenterIsInAttackPoint() ) {
+        if (NumberOfActions <= 0)
+        {
+            return;
+        }
+
+        if (!checkPlayerCenterIsInAttackPoint())
+        {
+            return;
+        }
+
             if (findPlayerRoundNumber < 0) {
                 findPlayerRoundNumber = roundScript.Static.round;
             }
 
-            if ( (roundScript.Static.round - findPlayerRoundNumber) % CD == 0) {//是攻擊的回合才行動
-                
-                if (playerDataBase.Static.DEF <= ATK) {
-                    gamemanager.Static.spawnNumberDisplay(chessMovement.Static.gameObject.transform.position, (ATK - playerDataBase.Static.DEF), 5);
-                    playerDataBase.Static.HP -= (ATK - playerDataBase.Static.DEF);
-                }
+        if ((roundScript.Static.round - findPlayerRoundNumber) % CD == 0)
+        {//是攻擊的回合才行動
+
+            if (playerDataBase.Static.DEF <= ATK)
+            {
+                gamemanager.Static.spawnNumberDisplay(chessMovement.Static.gameObject.transform.position, (ATK - playerDataBase.Static.DEF), 5);
+                playerDataBase.Static.HP -= (ATK - playerDataBase.Static.DEF);
             }
 
 
+
         }
-        else {
-            if (findPlayerRoundNumber >= 0) {
+        else
+        {
+            if (findPlayerRoundNumber >= 0)
+            {
                 findPlayerRoundNumber = -1;
             }
 
@@ -211,7 +227,7 @@ public class enemyScript : enemyDataBase {
 
     private void Update() {
         allwayFaceAtPlayer();
-        LerpMove(ref startLerpMovement, targetPos, startTime,1.5f);
+        LerpMove(ref startLerpMovement, new Vector3(center.x, center.y,-1) , startTime,1.5f);
     }
 
     public Quaternion ImageLookAt2D(Vector3 from, Vector3 to) {
@@ -243,6 +259,7 @@ public class enemyScript : enemyDataBase {
     public void delEnemy()
     {
         mapThingsGenerator.Static.allEnemyArray.Remove(gameObject);
+        roundScript.Static.roundSystem -= resetNumberOfActions;
         roundScript.Static.roundSystem -= enemyHPCheck;
         roundScript.Static.enemyAttack -= enemyAttackPlayerScript;
         Destroy(gameObject);

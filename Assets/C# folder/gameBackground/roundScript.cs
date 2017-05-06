@@ -171,6 +171,8 @@ public class roundScript : MonoBehaviour {
         {
             mapTerrainGenerator.Static.resetTerrain();
         }
+
+
     }
 
     public bool isEnterStartPoint()
@@ -195,6 +197,8 @@ public class roundScript : MonoBehaviour {
         {
             return false;
         }
+
+
     }
 
     public void clearLevel() {

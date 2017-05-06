@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿
 
 /*
 public enum enemyType
@@ -12,7 +10,8 @@ public enum enemyType
 };
 */
 
-public class enemyDataBase : MonoBehaviour {
+public class enemyDataBase : GeneralMovementSystem
+{
     //public enemyType type;
     public int UID = 0;
     public short Level { get; set; }
@@ -24,6 +23,8 @@ public class enemyDataBase : MonoBehaviour {
 
     public int HP { get; set; }
     public int CD = 1;
+
+    public int NumberOfActions = 1;
 
     #region abSetting
     public int MaxHP {

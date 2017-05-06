@@ -2,16 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class chessMovement : MonoBehaviour
+public class chessMovement : GeneralMovementSystem
 {
     public static chessMovement Static;
     public Animator charactor_move;
-    public Vector3 center;
     public GameObject model;
     public GameObject damageDisplayObject;
 
     private float startTime;
-    public bool startLerpMovement = false;
 
     public float downTime = 0;
     public float countDown = 0.5f;
@@ -160,32 +158,32 @@ public class chessMovement : MonoBehaviour
                     break;
 
                 case "up":
-                    center = new Vector3(transform.position.x + 0, transform.position.y + 1, 0); //W
+                    center = new Vector3(center.x + 0, center.y + 1, 0); //W
                     model.transform.rotation = Quaternion.Euler(0, 0, 0);
                     break;
                 case "down":
-                    center = new Vector3(transform.position.x + 0, transform.position.y - 1, 0); //S
+                    center = new Vector3(center.x + 0, center.y - 1, 0); //S
                     model.transform.rotation = Quaternion.Euler(0, 0, 180);
                     break;
                 case "left":
-                    center = new Vector3(transform.position.x - 1, transform.position.y + 0, 0); //A
+                    center = new Vector3(center.x - 1, center.y + 0, 0); //A
                     model.transform.rotation = Quaternion.Euler(0, 0, 90);
                     break;
                 case "right":
-                    center = new Vector3(transform.position.x + 1, transform.position.y + 0, 0);
+                    center = new Vector3(center.x + 1, center.y + 0, 0);
                     model.transform.rotation = Quaternion.Euler(0, 0, 270);
                     break;
                 case "up/left":
-                    center = new Vector3(transform.position.x - 1, transform.position.y + 1, 0);
+                    center = new Vector3(center.x - 1, center.y + 1, 0);
                     break;
                 case "up/right":
-                    center = new Vector3(transform.position.x + 1, transform.position.y + 1, 0);
+                    center = new Vector3(center.x + 1, center.y + 1, 0);
                     break;
                 case "down/left":
-                    center = new Vector3(transform.position.x - 1, transform.position.y - 1, 0);
+                    center = new Vector3(center.x - 1, center.y - 1, 0);
                     break;
                 case "down/right":
-                    center = new Vector3(transform.position.x + 1, transform.position.y - 1, 0);
+                    center = new Vector3(center.x + 1, center.y - 1, 0);
                     break;
             }
 
@@ -238,6 +236,7 @@ public class chessMovement : MonoBehaviour
     { //真正移動
         if (!roundScript.Static.isProcessingRound)
         {
+            roundScript.Static.isProcessingRound = true;
             if (touchEnemy != null)
             {
                 if (!roundScript.Static.DoAttackAniProcessingChecker && touchEnemy.GetComponent<enemyDataBase>().HP > 0)
@@ -303,7 +302,6 @@ public class chessMovement : MonoBehaviour
         roundScript.Static.OnEnterNextLevel();
     }
 
-    public groundScript playerCenterGround;
 
     public bool moveCheck()
     { //正確是否正確移動
@@ -312,7 +310,7 @@ public class chessMovement : MonoBehaviour
         touchEnemy = null;
         if (hitColliders.Length != 0)
         {
-            playerCenterGround = hitColliders[0].gameObject.GetComponent<groundScript>();
+            CenterGround = hitColliders[0].gameObject.GetComponent<groundScript>();
             hitObjectPosition = new Vector3(hitColliders[0].gameObject.transform.position.x, hitColliders[0].gameObject.transform.position.y, -1);
             if (hitColliders[0].gameObject.tag == "returnCheckPoint") {
                 returnToBeforeCheckPoint();
@@ -327,10 +325,10 @@ public class chessMovement : MonoBehaviour
                     if (item.tag == "enemy")
                     {
                         hitColliders = Physics.OverlapSphere(new Vector3(transform.position.x, transform.position.y, 0), 0.25f); //還原center
-                        playerCenterGround = hitColliders[0].gameObject.GetComponent<groundScript>();
+                        CenterGround = hitColliders[0].gameObject.GetComponent<groundScript>();
                         hitObjectPosition = new Vector3(hitColliders[0].gameObject.transform.position.x, hitColliders[0].gameObject.transform.position.y, -1);
                         touchEnemy = item.gameObject;
-                        center = new Vector3(transform.position.x, transform.position.y, 0);
+                        center = resetCenterV3(CenterGround);
                         return true;
                     }
                 }
@@ -338,9 +336,10 @@ public class chessMovement : MonoBehaviour
             }
             return true;
         }
-        center = new Vector3(transform.position.x,transform.position.y,0);
+        center = resetCenterV3(CenterGround);
         return false;
     }//檢查 檢查用vector3 目前所在的方位是否存在方塊(已是說是否有路) 有就移動 無就取消移動動作
+
 
 
     private IEnumerator WaitForAnimation(string animationTag)

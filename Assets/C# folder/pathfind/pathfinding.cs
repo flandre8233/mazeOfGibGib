@@ -133,7 +133,7 @@ public class pathfinding : MonoBehaviour {
 
     void RoundUseOnly()
     {
-        BakeAllFloor(chessMovement.Static.center, chessMovement.Static.playerCenterGround);
+        BakeAllFloor(chessMovement.Static.center, chessMovement.Static.CenterGround);
     }
 
 }
