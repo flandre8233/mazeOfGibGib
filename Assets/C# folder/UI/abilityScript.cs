@@ -9,12 +9,12 @@ public class abilityScript : MonoBehaviour {
         //Hpmax_btn.onClick.AddListener();
     }
 
-    public void Hpmax_add(int Hpmax_add)
+    public void Hpmax_add()
     {
         //playerDataBase.Static.ability_point--;
         if(playerDataBase.Static.ability_point >= 1)
         { 
-            Hpmax_add = playerDataBase.Static.HpmaxLevel++;
+            playerDataBase.Static.HpmaxLevel++;
             playerDataBase.Static.abilityHPMax = playerDataBase.Static.abilityHPMax + 3;
             playerDataBase.Static.MaxHP = playerDataBase.Static.MaxHPInitial + playerDataBase.Static.abilityHPMax;
             //Debug.Log(Hpmax_add);
@@ -22,12 +22,12 @@ public class abilityScript : MonoBehaviour {
         }
     }
 
-    public void Spmax_add(int Spmax_add)
+    public void Spmax_add()
     {
         //playerDataBase.Static.ability_point--;
         if (playerDataBase.Static.ability_point >= 1)
         {
-            Spmax_add = playerDataBase.Static.SpmaxLevel++;
+            playerDataBase.Static.SpmaxLevel++;
             playerDataBase.Static.abilitySPMax = playerDataBase.Static.abilitySPMax + 5;
             playerDataBase.Static.MaxSP = playerDataBase.Static.MaxSPInitial + playerDataBase.Static.abilitySPMax;
             //Debug.Log(Spmax_add);
@@ -35,12 +35,12 @@ public class abilityScript : MonoBehaviour {
         }
     }
 
-    public void ATK_add(int ATK_add)
+    public void ATK_add()
     {
         //playerDataBase.Static.ability_point--;
         if (playerDataBase.Static.ability_point >= 1)
         {
-            ATK_add = playerDataBase.Static.ATKLevel++;
+            playerDataBase.Static.abilityATKPercent++;
             playerDataBase.Static.abilityATKPercent = playerDataBase.Static.abilityATKPercent + 20;
             playerDataBase.Static.ATK = (int)(playerDataBase.Static.ATKInitial / 100f * playerDataBase.Static.abilityATKPercent);
             //Debug.Log(playerDataBase.Static.ATK);
@@ -49,12 +49,12 @@ public class abilityScript : MonoBehaviour {
         }
     }
 
-    public void DEF_add(int DEF_add)
+    public void DEF_add()
     {
         //playerDataBase.Static.ability_point--;
         if (playerDataBase.Static.ability_point >= 1)
         {
-            DEF_add = playerDataBase.Static.DEFLevel++;
+            playerDataBase.Static.abilityDEFPercent++;
             playerDataBase.Static.abilityDEFPercent = playerDataBase.Static.abilityDEFPercent + 20;
             playerDataBase.Static.DEF = (int)(playerDataBase.Static.DEFInitial / 100f * playerDataBase.Static.abilityDEFPercent);
             //Debug.Log(DEF_add);

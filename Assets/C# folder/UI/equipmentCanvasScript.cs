@@ -5,57 +5,38 @@ using UnityEngine.UI;
 public class equipmentCanvasScript : MonoBehaviour {
     public Text ATK;
     public Text ATKLevel;
-    public Text ATKCostText;
+    public Text ATKnext;
+    //public Text ATKCostText;
 
     public Text DEF;
     public Text DEFLevel;
-    public Text DEFCostText;
+    public Text DEFnext;
+    //public Text DEFCostText;
 
-    public Text money;
-
-    public Button ATKUpgradeButton;
-    public Button DEFUpgradeButton;
-
-    public int ATKCost;
-    public int DEFCost;
+    public Text ATK_money;
+    public Text DEF_money;
     // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        ATKLevel.text = "ATK LEVEL : " + playerDataBase.Static.ATKLevel;
-        DEFLevel.text = "DEF  LEVEL : " + playerDataBase.Static.DEFLevel;
-
-        ATK.text = "ATK + " + playerDataBase.Static.ATK;
-        DEF.text = "Damage -  " + playerDataBase.Static.DEF;
-
-        ATKCostText.text = "Cost : " + ATKCost;
-        DEFCostText.text = "Cost : " + DEFCost;
-
-        money.text = "COIN : " + playerDataBase.Static.COIN;
+    void Start() {
     }
 
-    public void clickATKButton() {
-        if (playerDataBase.Static.COIN - ATKCost >= 0) {
-            playerDataBase.Static.COIN -= ATKCost;
-            ATKCost++;
-            playerDataBase.Static.ATKLevel++;
-            playerDataBase.Static.ATK++;
-        }
-
-    }
-    public void clickDEFButton() {
-        if (playerDataBase.Static.COIN - DEFCost >= 0) {
-            playerDataBase.Static.COIN -= DEFCost;
-            DEFCost++;
-            playerDataBase.Static.DEFLevel++;
-            playerDataBase.Static.DEF++;
-        }
-
+    // Update is called once per frame
+    void Update() {
+        ATKupdate();
+        DEFupdate();
     }
 
+    public void ATKupdate()
+    {
+        ATKLevel.text = "Level" + playerDataBase.Static.ATKLevel;
+        ATK_money.text = playerDataBase.Static.equipment_ATKcost + "";
+        ATKnext.text = playerDataBase.Static.ATKInitial + "";
+    }
 
-
+    public void DEFupdate()
+    {
+        DEFLevel.text = "Level" + playerDataBase.Static.DEFLevel;
+        DEF_money.text = playerDataBase.Static.equipment_DEFcost + "";
+        DEFnext.text = playerDataBase.Static.ATKInitial + "";
+    }
 }
+
