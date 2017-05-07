@@ -44,10 +44,10 @@ public class abilityCanvasScript : MonoBehaviour {
     }
     public void data_level()
     {
-        ATK_level.text = "Level " + playerDataBase.Static.ATKLevel;
+        ATK_level.text = "Level " + playerDataBase.Static.abilityATKPercent;
         Hpmax_level.text = "Level " + playerDataBase.Static.HpmaxLevel;
         Spmax_level.text ="Level " + playerDataBase.Static.SpmaxLevel;
-        DEF_level.text = "Level " + playerDataBase.Static.DEFLevel;
+        DEF_level.text = "Level " + playerDataBase.Static.abilityDEFPercent;
     }
     /*public void data_previous()
     {

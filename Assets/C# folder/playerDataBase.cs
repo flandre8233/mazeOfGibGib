@@ -19,6 +19,8 @@ public class playerDataBase : MonoBehaviour {
     public int ATKInitial { get; set; }
     public int DEFInitial { get; set; }
 
+    public int ATKlevelpercent { get;set; }
+    public int DEFlevelpercent { get; set; }
     public int ATKLevel { get; set; }
     public int DEFLevel { get; set; }
     public int HpmaxLevel { get; set; }
@@ -47,9 +49,14 @@ public class playerDataBase : MonoBehaviour {
     public float abilityATKPercent { get; set; }
     public float abilityDEFPercent { get; set; }
 
+    public int equipment_ATKcost { get; set; }
+    public int equipment_DEFcost { get; set; }
+
     public float idle_time { get; set; }
 
     public float VolSet { get; set; }
+
+    public int equipment { get; set; }
 
     public void fullHPSP() {
         HP = MaxHP;
@@ -75,10 +82,12 @@ public class playerDataBase : MonoBehaviour {
         abilityATKPercent = 100;
         abilityDEFPercent = 100;
         //ATK = ATKInitial + (int)(ATKInitial * (100/abilityATKPercent));
-        ATK = 10;
-        DEF = 0;
+        ATK = 1;
+        DEF = 1;
         //DEF = DEFInitial + (int)(DEFInitial * (100/abilityDEFPercent));
 
+        ATKlevelpercent = 0;
+        DEFlevelpercent = 0;
         ATKLevel = 0;
         DEFLevel = 0;
         HpmaxLevel = 0;
@@ -99,6 +108,8 @@ public class playerDataBase : MonoBehaviour {
         three_hundred = 300;
 
         ability_point = 5;
+        equipment_ATKcost = 500;
+        equipment_DEFcost = 500;
     }
 
 
