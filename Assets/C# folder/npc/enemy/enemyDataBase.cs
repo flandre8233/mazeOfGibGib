@@ -47,6 +47,7 @@ public class enemyDataBase : GeneralMovementSystem
                     maxHP = 0;
                     break;
             }
+            maxHP = (maxHP * (1 + playerDataBase.Static.currentFloor / 5) ) + playerDataBase.Static.currentFloor;
             return maxHP;
         }
     }
@@ -70,6 +71,7 @@ public class enemyDataBase : GeneralMovementSystem
                     aTK = 0;
                     break;
             }
+            aTK =(aTK * (1 + playerDataBase.Static.currentFloor / 10) );
             return aTK;
         }
     }
@@ -93,6 +95,7 @@ public class enemyDataBase : GeneralMovementSystem
                     dEF = 0;
                     break;
             }
+            dEF = (dEF * (1 + playerDataBase.Static.currentFloor / 30));
             return dEF;
         }
     }
@@ -116,6 +119,7 @@ public class enemyDataBase : GeneralMovementSystem
                     cOIN = 0;
                     break;
             }
+            cOIN =( cOIN* (1 + playerDataBase.Static.currentFloor / 5) );
             return cOIN;
         }
         set {

@@ -35,11 +35,6 @@ public class enemyScript : enemyDataBase
 
     }
 
-    private void OnDestroy()
-    {
-        
-    }
-
     public void resetNumberOfActions()
     {
         NumberOfActions = 1;
@@ -47,7 +42,6 @@ public class enemyScript : enemyDataBase
     
     public void move()
     {
-        Debug.Log("gfsd");
         CenterGround = getGround();
         if (CenterGround == null)
         {
@@ -158,7 +152,7 @@ public class enemyScript : enemyDataBase
     public int findPlayerRoundNumber = -1;
     //public GameObject damageDisplayObject;
 
-        public bool checkPlayerCenterIsInAttackPoint()
+    public bool checkPlayerCenterIsInAttackPoint()
     {
         Vector3[] checkPlayerPointArray = {
             new Vector3(center.x+1 ,center.y ,0),
@@ -245,15 +239,9 @@ public class enemyScript : enemyDataBase
 
     public void enemyHPCheck() {
         if (HP <= 0 || killTest) {
-
-            //roundScript.Static.roundSystem -= roundScript.Static.enemyList[DataBase.UID].GetComponent<enemyScript>().enemyAttackPlayerScript;
-            //roundScript.Static.roundSystem -= roundScript.Static.enemyList[DataBase.UID].GetComponent<enemyScript>().enemyHPCheck;
-
-
             playerDataBase.Static.COIN += (COIN * (playerDataBase.Static.COINBounsPercent / 100));
             delEnemy();
         }
-
     }
 
     public void delEnemy()

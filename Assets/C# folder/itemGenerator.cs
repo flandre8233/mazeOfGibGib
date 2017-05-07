@@ -15,7 +15,9 @@ public class itemGenerator : MonoBehaviour {
     public float spitemProbability;
     [Range(0, 100)]
     public float SPNoCostBuffitemProbability;
-    
+    [Range(0, 100)]
+    public float chestProbability;
+
     //[Range(0, 100)]
     //public float hpitemProbability;
 
@@ -42,6 +44,7 @@ public class itemGenerator : MonoBehaviour {
         DEFBuffitemProbability = ProbabilityArray[1];
         spitemProbability = ProbabilityArray[2];
         SPNoCostBuffitemProbability = ProbabilityArray[3];
+        chestProbability = ProbabilityArray[4];
         //hpitemProbability = ProbabilityArray[0];
         //hpmaxitemProbability = ProbabilityArray[2];
         //spmaxitemProbability = ProbabilityArray[3];
@@ -55,6 +58,7 @@ public class itemGenerator : MonoBehaviour {
         ProbabilityArray.Add(DEFBuffitemProbability);
         ProbabilityArray.Add(spitemProbability);
         ProbabilityArray.Add(SPNoCostBuffitemProbability);
+        ProbabilityArray.Add(chestProbability);
         //ProbabilityArray.Add(hpitemProbability);
         //ProbabilityArray.Add(hpmaxitemProbability);
         //ProbabilityArray.Add(spmaxitemProbability);

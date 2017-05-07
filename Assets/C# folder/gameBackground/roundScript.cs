@@ -85,11 +85,13 @@ public class roundScript : MonoBehaviour {
     public void sortEnemyMove() //work
     {
         enemyMovement = null;
-       
 
         foreach (var item in mapThingsGenerator.Static.allEnemyArray)
         {
-            enemyMovement += item.GetComponent<enemyScript>().move;
+            if (item.GetComponent<enemyScript>().Level == 2)
+            {
+                enemyMovement += item.GetComponent<enemyScript>().move;
+            }
         }
 
     }
@@ -201,20 +203,29 @@ public class roundScript : MonoBehaviour {
 
     }
 
-    public void clearLevel() {
+    public void clearLevel()
+    {
         mapTerrainGenerator.Static.thisLevelAllFloor.Clear();
-        foreach (var item in GameObject.FindGameObjectsWithTag("floor") ) { //看來GameObject.FindGameObjectsWithTag("floor")不太靈活
+        foreach (var item in GameObject.FindGameObjectsWithTag("floor"))
+        { //看來GameObject.FindGameObjectsWithTag("floor")不太靈活
+            //item.transform.position = new Vector3(item.transform.position.x, item.transform.position.y, item.transform.position.z + 5);
             Destroy(item);
             //Debug.Log(GameObject.FindGameObjectsWithTag("floor").Length);
             //item.GetComponent<groundScript>().haveSomethingInHere = false;
         }
-        foreach (var item in GameObject.FindGameObjectsWithTag("item") ) {
+        foreach (var item in GameObject.FindGameObjectsWithTag("item"))
+        {
+            //item.transform.position = new Vector3(item.transform.position.x, item.transform.position.y, item.transform.position.z + 3);
             Destroy(item);
         }
-        foreach (var item in GameObject.FindGameObjectsWithTag("enemy")) {
+        foreach (var item in GameObject.FindGameObjectsWithTag("enemy"))
+        {
+            //item.transform.position = new Vector3(item.transform.position.x, item.transform.position.y, item.transform.position.z + 3);
             item.GetComponent<enemyScript>().delEnemy();
         }
-        foreach (var item in GameObject.FindGameObjectsWithTag("exit")) {
+        foreach (var item in GameObject.FindGameObjectsWithTag("exit"))
+        {
+            //item.transform.position = new Vector3(item.transform.position.x, item.transform.position.y, item.transform.position.z + 5);
             Destroy(item);
         }
         /*

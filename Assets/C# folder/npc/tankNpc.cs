@@ -7,6 +7,7 @@ public class tankNpc : enemyScript
 
     public override void SetUp() {
         Level = 4;
+        CD = 2;
     }
 
 }

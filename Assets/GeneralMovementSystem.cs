@@ -25,7 +25,14 @@ public class GeneralMovementSystem : MonoBehaviour {
 
     public bool equalVector3(Vector3 v3a, Vector3 v3b)
     { // is ok
-        return !(( Mathf.Round(v3a.x) != Mathf.Round(v3b.x) )  || (Mathf.Round(v3a.y) != Mathf.Round(v3b.y)) || (Mathf.Round(v3a.z) != Mathf.Round(v3b.z)) );
+        v3a = roundTheVector3(v3a);
+        v3b = roundTheVector3(v3b);
+        return !(( v3a.x != v3b.x )  || (v3a.y != v3b.y) || (v3a.z != v3b.z) );
+    }
+
+    public Vector3 roundTheVector3(Vector3 v3)
+    {
+        return new Vector3(Mathf.Round(v3.x), Mathf.Round(v3.y), Mathf.Round(v3.z) );
     }
 
 }

@@ -211,12 +211,17 @@ public class mapTerrainGenerator : MonoBehaviour {
     public GameObject[] floorModel;
     public GameObject[] grassModelDust;
     public GameObject[] iceModelDust;
+    public GameObject[] lavaModelDust;
 
     public GameObject floorCheckpointModel;
 
     void classificationFloorType()
     {
-        if (playerDataBase.Static.currentFloor > 10)
+        if (playerDataBase.Static.currentFloor > 20)
+        {
+            createNewFloorMesh(floorModel[2], lavaModelDust);
+        }
+        else if (playerDataBase.Static.currentFloor > 10)
         {
             createNewFloorMesh(floorModel[1], iceModelDust);
         }
