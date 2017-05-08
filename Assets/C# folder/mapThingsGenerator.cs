@@ -115,7 +115,7 @@ public class mapThingsGenerator : MonoBehaviour {
 
     void StartGeneratorTheThings(int times, string type)
     {
-        Debug.Log(times + "  " + type);
+        //Debug.Log(times + "  " + type);
 
         if (mapTerrainGenerator.Static.thisLevelAllFloor.Count == 0)
         {

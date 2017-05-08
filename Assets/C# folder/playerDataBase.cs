@@ -93,9 +93,9 @@ public class playerDataBase : MonoBehaviour {
         HpmaxLevel = 0;
         SpmaxLevel = 0;
 
-        COIN = 0;
+        COIN = 10000;
         COINBounsPercent = 100;
-        POINT = 5;
+        POINT = 1;
         ResetTimes = 0;
         currentFloor = 0;
         maxFloor = 0;
@@ -107,7 +107,6 @@ public class playerDataBase : MonoBehaviour {
         two_hundred = 200;
         three_hundred = 300;
 
-        ability_point = 5;
         equipment_ATKcost = 500;
         equipment_DEFcost = 500;
     }

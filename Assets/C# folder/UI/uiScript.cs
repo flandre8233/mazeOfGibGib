@@ -4,6 +4,9 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 public class uiScript : MonoBehaviour {
+
+    public RectTransform equipment_canvas;
+    public RectTransform ability_canvas;
     [SerializeField]
     Text testonlyText;
     [SerializeField]
@@ -39,7 +42,9 @@ public class uiScript : MonoBehaviour {
     void Update () {
         HPBAR_script();
         SPBAR_script();
-        
+
+
+
 
         testonlyText.text = "HP : " + playerDataBase.Static.HP + " / " + playerDataBase.Static.MaxHP + "\n" + "SP : " +
             playerDataBase.Static.SP + " / " + playerDataBase.Static.MaxSP;
@@ -61,5 +66,29 @@ public class uiScript : MonoBehaviour {
     {
         SPBar = (1.0f / playerDataBase.Static.MaxSP) * playerDataBase.Static.SP;
         SPpic.fillAmount = Mathf.Lerp(SPpic.fillAmount, SPBar, 0.05f);
+    }
+
+    public void canvas_equ()
+    {
+        if (equipment_canvas.gameObject.activeInHierarchy == false)
+        {
+            equipment_canvas.gameObject.SetActive(true);
+        }
+        else
+        {
+            equipment_canvas.gameObject.SetActive(false);
+        }
+    }
+
+    public void canvas_abi()
+    {
+        if (ability_canvas.gameObject.activeSelf == false)
+        {
+            ability_canvas.gameObject.SetActive(true);
+        }
+        else
+        {
+            ability_canvas.gameObject.SetActive(false);
+        }
     }
 }
