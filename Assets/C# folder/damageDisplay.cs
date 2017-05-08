@@ -32,7 +32,7 @@ public class damageDisplay : MonoBehaviour {
         int number = damage;
         for (int i = 0; i < digits; i++) {
             //GameObject emptyGameObject = new GameObject();
-            GameObject emptyGameObject = Instantiate(new GameObject(),transform,damageNumberParent);
+            GameObject emptyGameObject = new GameObject();
             //Instantiate(emptyGameObject,.position,Quaternion.identity);
             myImage = emptyGameObject.AddComponent<SpriteRenderer>();
             emptyGameObject.transform.parent = damageNumberParent;
@@ -76,6 +76,7 @@ public void ChangeSprite(int number , int type) {
 
     public void aniDestroy() {
         //Debug.Log("saff");
+
         Destroy(gameObject);
     }
 

@@ -64,8 +64,8 @@ public class playerDataBase : MonoBehaviour {
     }
 
     public void serializeSetUp() { //玩家起始值
-        MaxHPInitial = 10;
-        MaxSPInitial = 20;
+        MaxHPInitial = 1000000;
+        MaxSPInitial = 200000;
         ATKInitial = 10;
         DEFInitial = 10;
 
@@ -82,8 +82,8 @@ public class playerDataBase : MonoBehaviour {
         abilityATKPercent = 100;
         abilityDEFPercent = 100;
         //ATK = ATKInitial + (int)(ATKInitial * (100/abilityATKPercent));
-        ATK = 1;
-        DEF = 1;
+        ATK = 0;
+        DEF = 0;
         //DEF = DEFInitial + (int)(DEFInitial * (100/abilityDEFPercent));
 
         ATKlevelpercent = 0;

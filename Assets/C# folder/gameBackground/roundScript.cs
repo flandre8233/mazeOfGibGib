@@ -100,6 +100,7 @@ public class roundScript : MonoBehaviour {
     public bool DoAttackAniProcessingChecker = false;
 
     public void RoundProcessingChecker() {
+        Debug.Log(!movementProcessingChecker +" "+ !DoAttackAniProcessingChecker + " " + checkallEnemy());
         if (isProcessingRound) {
             if (!movementProcessingChecker && !DoAttackAniProcessingChecker && checkallEnemy() ) {
                 isProcessingRound = false;
@@ -228,6 +229,12 @@ public class roundScript : MonoBehaviour {
             //item.transform.position = new Vector3(item.transform.position.x, item.transform.position.y, item.transform.position.z + 5);
             Destroy(item);
         }
+        foreach (var item in GameObject.FindGameObjectsWithTag("chest"))
+        {
+            //item.transform.position = new Vector3(item.transform.position.x, item.transform.position.y, item.transform.position.z + 5);
+            Destroy(item);
+        }
+
         /*
         foreach (var item in GameObject.FindGameObjectsWithTag("enemy")) {
             Destroy(item);

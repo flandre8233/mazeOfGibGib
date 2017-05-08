@@ -18,7 +18,7 @@ public class chessMovement : GeneralMovementSystem
     public bool thisFrameMoved = false;
     bool isHitNpc = false;
     //bool StartedOnce = false;
-    GameObject touchEnemy = null;
+    public GameObject touchEnemy = null;
 
     [Range(0, 5)]
     public float lerpSpeed = 1;
@@ -36,6 +36,7 @@ public class chessMovement : GeneralMovementSystem
 
     void Update()
     {
+        Debug.Log(roundScript.Static.DoAttackAniProcessingChecker + " " + thisFrameMoved);
         LerpMove(ref startLerpMovement, hitObjectPosition,startTime,lerpSpeed);
         if (thisFrameMoved)
         {
@@ -214,36 +215,48 @@ public class chessMovement : GeneralMovementSystem
         }
     }//自動重復執行MovementPart
 
-   /* void player_idle_check()
-    {
-        if (!roundScript.Static.isProcessingRound)
-        {
-            //if (touchEnemy != null)
-            //{
-                playerDataBase.Static.idle_time -= Time.deltaTime;
-                Debug.Log(playerDataBase.Static.idle_time);
-                if(playerDataBase.Static.idle_time <= 0)
-                {
-                //charactor_move.SetTrigger("idle_sit");
-                charactor_move.SetBool("idle", false);
-                charactor_move.SetBool("idle_sit_bool", true);
-                }
-            //}
-        }
-    }*/
+    /* void player_idle_check()
+     {
+         if (!roundScript.Static.isProcessingRound)
+         {
+             //if (touchEnemy != null)
+             //{
+                 playerDataBase.Static.idle_time -= Time.deltaTime;
+                 Debug.Log(playerDataBase.Static.idle_time);
+                 if(playerDataBase.Static.idle_time <= 0)
+                 {
+                 //charactor_move.SetTrigger("idle_sit");
+                 charactor_move.SetBool("idle", false);
+                 charactor_move.SetBool("idle_sit_bool", true);
+                 }
+             //}
+         }
+     }*/
+    GameObject TouchChest = null;
 
     void movePlayer()
     { //真正移動
         if (!roundScript.Static.isProcessingRound)
         {
             roundScript.Static.isProcessingRound = true;
+
+            if (TouchChest != null)
+            {
+                if (roundScript.Static.DoAttackAniProcessingChecker == false)
+                {
+                    charactor_move.SetTrigger("attack");
+                    charactor_move.SetInteger("attack_no.", Random.Range(0, 4));
+                    roundScript.Static.DoAttackAniProcessingChecker = true;
+                    StartCoroutine(WaitForAnimationForChest("attackAni"));
+                }
+                return;
+            }
+
             if (touchEnemy != null)
             {
                 if (!roundScript.Static.DoAttackAniProcessingChecker && touchEnemy.GetComponent<enemyDataBase>().HP > 0)
                 {
                     charactor_move.SetTrigger("attack");
-                    //Random.Range(0,4);
-                    //Debug.Log(Random.Range(0, 4));
                     charactor_move.SetInteger("attack_no.", Random.Range(0, 4));
                     roundScript.Static.DoAttackAniProcessingChecker = true;
                     StartCoroutine(WaitForAnimation("attackAni"));
@@ -255,6 +268,7 @@ public class chessMovement : GeneralMovementSystem
             }
             else
             {
+                Debug.Log("gdfgdh");
                 startLerpMovement = true;
                 roundScript.Static.movementProcessingChecker = true;
                 startTime = Time.time;
@@ -308,6 +322,7 @@ public class chessMovement : GeneralMovementSystem
         Collider[] hitColliders = Physics.OverlapSphere(center, 0.25f);
         Collider[] hitEnemyColliders = Physics.OverlapSphere(new Vector3(center.x, center.y, -1), 0.35f);
         touchEnemy = null;
+        TouchChest = null;
         if (hitColliders.Length != 0)
         {
             CenterGround = hitColliders[0].gameObject.GetComponent<groundScript>();
@@ -324,11 +339,23 @@ public class chessMovement : GeneralMovementSystem
                 {
                     if (item.tag == "enemy")
                     {
+                        touchEnemy = item.gameObject;
+
                         hitColliders = Physics.OverlapSphere(new Vector3(transform.position.x, transform.position.y, 0), 0.25f); //還原center
                         CenterGround = hitColliders[0].gameObject.GetComponent<groundScript>();
                         hitObjectPosition = new Vector3(hitColliders[0].gameObject.transform.position.x, hitColliders[0].gameObject.transform.position.y, -1);
-                        touchEnemy = item.gameObject;
                         center = resetCenterV3(CenterGround);
+                        return true;
+                    }
+                    if (item.tag == "chest")
+                    {
+                        TouchChest = item.gameObject;
+
+                        hitColliders = Physics.OverlapSphere(new Vector3(transform.position.x, transform.position.y, 0), 0.25f); //還原center
+                        CenterGround = hitColliders[0].gameObject.GetComponent<groundScript>();
+                        hitObjectPosition = new Vector3(hitColliders[0].gameObject.transform.position.x, hitColliders[0].gameObject.transform.position.y, -1);
+                        center = resetCenterV3(CenterGround);
+
                         return true;
                     }
                 }
@@ -352,28 +379,24 @@ public class chessMovement : GeneralMovementSystem
         //dead here
     }
 
+    private IEnumerator WaitForAnimationForChest(string animationTag)
+    {
+        do
+        {
+            yield return null;
+        } while (!charactor_move.GetCurrentAnimatorStateInfo(0).IsTag(animationTag));
+
+        TouchChest.GetComponent<box>().allwayFaceAtPlayer();
+        TouchChest.GetComponent<box>().openChest();
+        roundScript.Static.DoAttackAniProcessingChecker = false;
+        thisFrameMoved = true;
+        //dead here
+    }
+
 
     void attackNpc(GameObject touchEnemy)
     {
         //touch Enemy之後既行動
-
-        /*
-        if (playerDataBase.Static.DEF >= touchEnemy.GetComponent<enemyDataBase>().ATK)
-        {
-            touchEnemy.GetComponent<enemyDataBase>().HP = 0;
-            gamemanager.Static.spawnNumberDisplay(touchEnemy.transform.position, 0, 0);
-        }
-        else
-        {
-            gamemanager.Static.spawnNumberDisplay(touchEnemy.transform.position, playerDataBase.Static.ATK, 0);
-            touchEnemy.GetComponent<enemyDataBase>().HP -= playerDataBase.Static.ATK;
-        }
-        isHitNpc = true;
-        thisFrameMoved = true;
-        */
-
-
-
         gamemanager.Static.spawnNumberDisplay(touchEnemy.transform.position, playerDataBase.Static.ATK, 0);
         touchEnemy.GetComponent<enemyDataBase>().HP -= playerDataBase.Static.ATK;
 
