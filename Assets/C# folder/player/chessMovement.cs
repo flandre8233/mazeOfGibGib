@@ -36,7 +36,7 @@ public class chessMovement : GeneralMovementSystem
 
     void Update()
     {
-        Debug.Log(roundScript.Static.DoAttackAniProcessingChecker + " " + thisFrameMoved);
+        //Debug.Log(roundScript.Static.DoAttackAniProcessingChecker + " " + thisFrameMoved);
         LerpMove(ref startLerpMovement, hitObjectPosition,startTime,lerpSpeed);
         if (thisFrameMoved)
         {

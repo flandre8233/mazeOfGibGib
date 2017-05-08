@@ -33,21 +33,21 @@ public class abilityCanvasScript : MonoBehaviour {
     void Update () {
         //Debug.Log(playerDataBase.Static.ATK);
         //Debug.Log(playerDataBase.Static.MaxHP);
-        Ability_point.text = playerDataBase.Static.ability_point + " Pt";
+        Ability_point.text = playerDataBase.Static.POINT + " Pt";
         data_level();
         data_now();
         data_next();
         //data_previous();
-
+        //.Log(playerDataBase.Static.DEF);
 
         //data_next_pv();
     }
     public void data_level()
     {
-        ATK_level.text = "Level " + playerDataBase.Static.abilityATKPercent;
+        ATK_level.text = "Level " + playerDataBase.Static.ATKlevelpercent;
         Hpmax_level.text = "Level " + playerDataBase.Static.HpmaxLevel;
         Spmax_level.text ="Level " + playerDataBase.Static.SpmaxLevel;
-        DEF_level.text = "Level " + playerDataBase.Static.abilityDEFPercent;
+        DEF_level.text = "Level " + playerDataBase.Static.DEFlevelpercent;
     }
     /*public void data_previous()
     {
