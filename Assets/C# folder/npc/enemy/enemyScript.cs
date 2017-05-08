@@ -8,7 +8,7 @@ public class enemyScript : enemyDataBase
 {
     public bool IsAutoSetType = true;
     public bool killTest = false;
-
+    public bool IsUnderAttack = false;
     public Transform playerTransform;
 
     float startTime;
@@ -167,7 +167,7 @@ public class enemyScript : enemyDataBase
             //Debug.Log(Mathf.Abs(Vector3.Distance(new Vector3(enemyPoint.x, enemyPoint.y, 0), chessMovement.Static.center))  );
             if (equalVector3(item, chessMovement.Static.center))
             {
-                Debug.Log("find");
+
                 return true;
             }
         }
@@ -175,13 +175,7 @@ public class enemyScript : enemyDataBase
         return false;
     }
 
-    public void enemyAttackPlayerScript() {
-        /*
-        if (chessMovement.Static.startLerpMovement)
-        {
-            return;
-        }
-        */
+    public virtual void enemyAttackPlayerScript() {
 
         if (NumberOfActions <= 0)
         {
@@ -193,7 +187,13 @@ public class enemyScript : enemyDataBase
             return;
         }
 
-            if (findPlayerRoundNumber < 0) {
+        if (!IsUnderAttack)
+        {
+            return;
+        }
+        IsUnderAttack = false;
+
+        if (findPlayerRoundNumber < 0) {
                 findPlayerRoundNumber = roundScript.Static.round;
             }
 

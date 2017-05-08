@@ -20,7 +20,16 @@ public class roundScript : MonoBehaviour {
     public bool isInExitLevel = false;
     bool NeedGenertorThings = false;
 
-    public bool isProcessingRound = false;
+    private bool isProcessingRound;
+    public bool IsProcessingRound {
+        set {
+            isProcessingRound = value;
+        }
+        get {
+            isProcessingRound = RoundProcessingChecker();
+            return isProcessingRound;
+        }
+    }
 
     public List<GameObject> enemyList; 
 
@@ -29,6 +38,7 @@ public class roundScript : MonoBehaviour {
         round++;
         sortEnemyList();
         sortEnemyMove();
+
         if (roundSystem != null)
         {
             roundSystem.Invoke();
@@ -41,8 +51,8 @@ public class roundScript : MonoBehaviour {
         {
             Debug.Log("do");
             StartCoroutine(waitPlayerMove() );
-            //enemyAttack.Invoke();
         }
+        //resetEnemyUnderAttack();
         playerMainScript.Static.deadAliveCheck();
     }
 
@@ -52,9 +62,19 @@ public class roundScript : MonoBehaviour {
         {
             yield return null;
         } while (movementProcessingChecker);
+        if (enemyAttack != null)
+        {
             enemyAttack.Invoke();
+        }
     }
     
+    void resetEnemyUnderAttack()
+    {
+        foreach (var item in mapThingsGenerator.Static.allEnemyArray)
+        {
+            item.GetComponent<enemyScript>().IsUnderAttack = false;
+        }
+    }
 
     public void sortEnemyList()
     {
@@ -98,16 +118,16 @@ public class roundScript : MonoBehaviour {
 
     public bool movementProcessingChecker = false;
     public bool DoAttackAniProcessingChecker = false;
+    public bool IsOpeningChest = false;
 
-    public void RoundProcessingChecker() {
-        Debug.Log(!movementProcessingChecker +" "+ !DoAttackAniProcessingChecker + " " + checkallEnemy());
-        if (isProcessingRound) {
-            if (!movementProcessingChecker && !DoAttackAniProcessingChecker && checkallEnemy() ) {
-                isProcessingRound = false;
-                // Processing is complete
-            }
+    public bool RoundProcessingChecker()
+    {
+        if ( (!movementProcessingChecker && !DoAttackAniProcessingChecker && checkallEnemy() && !IsOpeningChest ) )
+        {
+            return false;
+            // Processing is complete
         }
-
+        return true;
     }
 
     bool checkallEnemy()
@@ -293,14 +313,14 @@ public class roundScript : MonoBehaviour {
             OnEnterNextLevel();
         }
 
-        if (IsDead) {//dead
+        if (IsDead)
+        {//dead
             playerMainScript.Static.GetComponent<chessMovement>().enabled = false;
             Debug.Log("dead");
             //chessMovement.Static.gameObject.GetComponentInChildren<Animator>().SetBool("dead_bool", true);
             chessMovement.Static.charactor_move.SetTrigger("dead");
             IsDead = false;
         }
-        RoundProcessingChecker();
     }
 
     public void Awake() {

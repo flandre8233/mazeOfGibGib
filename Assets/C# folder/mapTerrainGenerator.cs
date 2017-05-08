@@ -219,16 +219,26 @@ public class mapTerrainGenerator : MonoBehaviour {
     {
         if (playerDataBase.Static.currentFloor > 20)
         {
+            skyboxSetting(2);
             createNewFloorMesh(floorModel[2], lavaModelDust);
         }
         else if (playerDataBase.Static.currentFloor > 10)
         {
+            skyboxSetting(0);
             createNewFloorMesh(floorModel[1], iceModelDust);
         }
         else
         {
+            skyboxSetting(1);
             createNewFloorMesh(floorModel[0], grassModelDust);
         }
+    }
+
+    public Material[] skyboxMaterialArray;
+
+    void skyboxSetting(int type)
+    {
+        RenderSettings.skybox = skyboxMaterialArray[type];
     }
 
      void createNewFloorMesh(GameObject model ,GameObject[] modelDust) {

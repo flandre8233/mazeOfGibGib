@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class box : MonoBehaviour {
-    public bool isClose = true;
     public int itemProbability;
     Animator ani;
+
     private void Awake()
     {
         ani = GetComponentInChildren<Animator>();
@@ -15,15 +15,35 @@ public class box : MonoBehaviour {
     public void openChest()
     {
         //spawn Item
-        if (Random.Range(1,100) <= itemProbability )
+        if (Random.Range(0,100) <= itemProbability )
         {
             spawnExItem();
         }
 
         //open chest ani
-        ani.SetTrigger("open");
+        roundScript.Static.IsOpeningChest = true;
+        ani.Play("open");
+        StartCoroutine(WaitForAnimation("openChest"));
 
+        GetCoin();
+    }
 
+    private IEnumerator WaitForAnimation(string animationTag)
+    {
+        do
+        {
+            yield return null;
+        } while (ani.GetCurrentAnimatorStateInfo(0).IsTag(animationTag));
+
+        roundScript.Static.IsOpeningChest = false;
+        Destroy(gameObject);
+        //dead here
+    }
+
+    public void GetCoin()
+    {
+        playerDataBase.Static.COIN +=
+            ((11 + 56 + 304) * (1 + playerDataBase.Static.currentFloor / 5));
     }
 
     public void spawnExItem()

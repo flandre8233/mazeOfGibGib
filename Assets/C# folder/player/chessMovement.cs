@@ -36,9 +36,9 @@ public class chessMovement : GeneralMovementSystem
 
     void Update()
     {
-        Debug.Log(roundScript.Static.DoAttackAniProcessingChecker + " " + thisFrameMoved);
+
         LerpMove(ref startLerpMovement, hitObjectPosition,startTime,lerpSpeed);
-        if (thisFrameMoved)
+        if (thisFrameMoved && !roundScript.Static.IsProcessingRound )
         {
             if (isHitNpc)
             { //這步會打中npc的話
@@ -53,7 +53,6 @@ public class chessMovement : GeneralMovementSystem
                     roundScript.Static.roundSystem += playerMainScript.Static.subSP;
                 }
                 
-                roundScript.Static.DoAttackAniProcessingChecker = false;
             }
             else
             {//不是要打npc
@@ -150,9 +149,11 @@ public class chessMovement : GeneralMovementSystem
     }//找出鍵盤輸入的方位是什麼 並string化輸入數值
     public void MovementPart(string moveDirection)
     {
-
-        if (!roundScript.Static.isProcessingRound)
+        if (roundScript.Static.IsProcessingRound)
         {
+            return;
+        }
+
             switch (moveDirection)
             {
                 default:
@@ -192,7 +193,7 @@ public class chessMovement : GeneralMovementSystem
             {
                 movePlayer();
             }
-        }
+        
 
     }//把已string化的鍵盤方位數值解碼，指揮檢查用vector3先去鍵盤要求前住的那一格方位
 
@@ -236,30 +237,39 @@ public class chessMovement : GeneralMovementSystem
 
     void movePlayer()
     { //真正移動
-        if (!roundScript.Static.isProcessingRound)
+        if (roundScript.Static.IsProcessingRound)
         {
-            roundScript.Static.isProcessingRound = true;
+            return;
+        }
+            roundScript.Static.IsProcessingRound = true;
 
-            if (TouchChest != null)
+
+        if (!roundScript.Static.DoAttackAniProcessingChecker  && TouchChest != null)
+        {
+
+            charactor_move.SetTrigger("attack");
+            charactor_move.SetInteger("attack_no.", Random.Range(0, 4));
+            roundScript.Static.DoAttackAniProcessingChecker = true;
+
+            StartCoroutine(WaitForAnimationForChest("attackAni"));
+
+            return;
+        }
+            
+
+
+
+                if (touchEnemy != null)
             {
-                if (roundScript.Static.DoAttackAniProcessingChecker == false)
+
+
+            Debug.Log("lksai fuck u jgfhlkajfhs     dlkjh   " + roundScript.Static.DoAttackAniProcessingChecker);
+            if (!roundScript.Static.DoAttackAniProcessingChecker && touchEnemy.GetComponent<enemyDataBase>().HP > 0)
                 {
                     charactor_move.SetTrigger("attack");
                     charactor_move.SetInteger("attack_no.", Random.Range(0, 4));
                     roundScript.Static.DoAttackAniProcessingChecker = true;
-                    StartCoroutine(WaitForAnimationForChest("attackAni"));
-                }
-                return;
-            }
-
-            if (touchEnemy != null)
-            {
-                if (!roundScript.Static.DoAttackAniProcessingChecker && touchEnemy.GetComponent<enemyDataBase>().HP > 0)
-                {
-                    charactor_move.SetTrigger("attack");
-                    charactor_move.SetInteger("attack_no.", Random.Range(0, 4));
-                    roundScript.Static.DoAttackAniProcessingChecker = true;
-                    StartCoroutine(WaitForAnimation("attackAni"));
+                    StartCoroutine(AnimationBuffZone("attackAni"));
                 }
 
 
@@ -274,7 +284,7 @@ public class chessMovement : GeneralMovementSystem
                 startTime = Time.time;
                 thisFrameMoved = true;
             }
-        }
+        
     }
 
     void LerpMove(ref bool isInLerpMovement, Vector3 targetPosition, float startTime, float lerpSpeed)
@@ -340,6 +350,7 @@ public class chessMovement : GeneralMovementSystem
                     if (item.tag == "enemy")
                     {
                         touchEnemy = item.gameObject;
+                        touchEnemy.GetComponent<enemyScript>().IsUnderAttack = true;
 
                         hitColliders = Physics.OverlapSphere(new Vector3(transform.position.x, transform.position.y, 0), 0.25f); //還原center
                         CenterGround = hitColliders[0].gameObject.GetComponent<groundScript>();
@@ -367,15 +378,36 @@ public class chessMovement : GeneralMovementSystem
         return false;
     }//檢查 檢查用vector3 目前所在的方位是否存在方塊(已是說是否有路) 有就移動 無就取消移動動作
 
-
-
-    private IEnumerator WaitForAnimation(string animationTag)
+    private IEnumerator AnimationBuffZone(string animationTag)
     {
         do
         {
             yield return null;
         } while (!charactor_move.GetCurrentAnimatorStateInfo(0).IsTag(animationTag));
+        StartCoroutine(WaitForAnimation(animationTag));
+        //dead here
+    }
+
+    private IEnumerator AnimationBuffZone2(string animationTag)
+    {
+        do
+        {
+            yield return null;
+        } while (!charactor_move.GetCurrentAnimatorStateInfo(0).IsTag(animationTag));
+        StartCoroutine(AnimationBuffZone2(animationTag));
+        //dead here
+    }
+
+    private IEnumerator WaitForAnimation(string animationTag)
+    {
+        do
+        {
+            Debug.Log("lksafhdlkajgfhlkajfhs     dlkjh   " + roundScript.Static.DoAttackAniProcessingChecker );
+            yield return null;
+        } while (charactor_move.GetCurrentAnimatorStateInfo(0).IsTag(animationTag));
         attackNpc(touchEnemy);
+        Debug.Log("lksafhdlkajgfhlkajfhsdlkjh");
+        roundScript.Static.DoAttackAniProcessingChecker = false;
         //dead here
     }
 
@@ -384,7 +416,7 @@ public class chessMovement : GeneralMovementSystem
         do
         {
             yield return null;
-        } while (!charactor_move.GetCurrentAnimatorStateInfo(0).IsTag(animationTag));
+        } while (charactor_move.GetCurrentAnimatorStateInfo(0).IsTag(animationTag));
 
         TouchChest.GetComponent<box>().allwayFaceAtPlayer();
         TouchChest.GetComponent<box>().openChest();
