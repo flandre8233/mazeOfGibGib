@@ -6,9 +6,10 @@ using UnityEngine.UI;
 public class coin_UI : MonoBehaviour {
     public Text Text_coin;
     public Text Text_equ_coin;
+    public Text Text_shop_coin;
     void Start () {
-        coinUI();
-        coinUI_equ();
+
+        //coinUI_equ();
     }
 	
 	void Update () {
@@ -22,13 +23,11 @@ public class coin_UI : MonoBehaviour {
         //coinUI();
     }
 
-    void coinUI()
+    public void coinUI()
     {
         Text_coin.text = playerDataBase.Static.COIN.ToString();
+        Text_equ_coin.text = playerDataBase.Static.COIN.ToString();
+        Text_shop_coin.text = playerDataBase.Static.COIN.ToString();
     }
 
-    void coinUI_equ()
-    {
-        Text_equ_coin.text = playerDataBase.Static.COIN.ToString();
-    }
 }

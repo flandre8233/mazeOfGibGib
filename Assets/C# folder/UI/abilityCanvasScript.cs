@@ -63,8 +63,8 @@ public class abilityCanvasScript : MonoBehaviour {
     {
         Hpmax_now.text = playerDataBase.Static.MaxHPInitial + "";
         Spmax_now.text = playerDataBase.Static.MaxSPInitial + "";
-        ATK_now.text = playerDataBase.Static.ATKInitial + "";
-        DEF_now.text = playerDataBase.Static.DEFInitial + "";
+        ATK_now.text = playerDataBase.Static.ATK + "";
+        DEF_now.text = playerDataBase.Static.DEF + "";
     }
 
     /*public void data_next_pv()

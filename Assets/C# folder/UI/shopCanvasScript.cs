@@ -5,7 +5,32 @@ using UnityEngine.UI;
 
 public class shopCanvasScript : MonoBehaviour {
 
+    public RectTransform shop_menu;
     //public float x = 0;
+
+    public void canvas_equ()
+    {
+        if (shop_menu.gameObject.activeInHierarchy == false)
+        {
+            shop_menu.gameObject.SetActive(true);
+        }
+        else
+        {
+            shop_menu.gameObject.SetActive(false);
+        }
+    }
+
+    public void canvas_equ_off()
+    {
+        if (shop_menu.gameObject.activeInHierarchy == true)
+        {
+            shop_menu.gameObject.SetActive(false);
+        }
+        else
+        {
+            shop_menu.gameObject.SetActive(true);
+        }
+    }
 
     public void fifty_coin()
     {

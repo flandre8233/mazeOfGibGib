@@ -37,7 +37,6 @@ public class playerDataBase : MonoBehaviour {
     public int ResetTimes { get; set; }
     public int currentFloor { get; set; }
     public int maxFloor { get; set; }
-    public int ability_point { get; set; }
 
     public float fifty { get; set; }
     public float hundred { get; set; }
@@ -57,6 +56,8 @@ public class playerDataBase : MonoBehaviour {
     public float VolSet { get; set; }
 
     public int equipment { get; set; }
+
+    public bool revive_value { get; set; }
 
     public void fullHPSP() {
         HP = MaxHP;
@@ -82,8 +83,8 @@ public class playerDataBase : MonoBehaviour {
         abilityATKPercent = 100;
         abilityDEFPercent = 100;
         //ATK = ATKInitial + (int)(ATKInitial * (100/abilityATKPercent));
-        ATK = 5;
-        DEF = 0;
+        ATK = 1;
+        DEF = 1;
         //DEF = DEFInitial + (int)(DEFInitial * (100/abilityDEFPercent));
 
         ATKlevelpercent = 0;
@@ -93,9 +94,9 @@ public class playerDataBase : MonoBehaviour {
         HpmaxLevel = 0;
         SpmaxLevel = 0;
 
-        COIN = 10000;
+        COIN = 1000;
         COINBounsPercent = 100;
-        POINT = 1;
+        POINT = 5;
         ResetTimes = 0;
         currentFloor = 0;
         maxFloor = 0;
@@ -109,6 +110,8 @@ public class playerDataBase : MonoBehaviour {
 
         equipment_ATKcost = 500;
         equipment_DEFcost = 500;
+
+        revive_value = false;
     }
 
 

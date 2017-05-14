@@ -7,6 +7,10 @@ public class uiScript : MonoBehaviour {
 
     public RectTransform equipment_canvas;
     public RectTransform ability_canvas;
+    public RectTransform equipment_canvas_off;
+    public RectTransform ability_canvas_off;
+
+
     [SerializeField]
     Text testonlyText;
     [SerializeField]
@@ -89,6 +93,30 @@ public class uiScript : MonoBehaviour {
         else
         {
             ability_canvas.gameObject.SetActive(false);
+        }
+    }
+
+    public void canvas_equ_off()
+    {
+        if (equipment_canvas.gameObject.activeInHierarchy == true)
+        {
+            equipment_canvas.gameObject.SetActive(false);
+        }
+        else
+        {
+            equipment_canvas.gameObject.SetActive(true);
+        }
+    }
+
+    public void canvas_abi_off()
+    {
+        if (ability_canvas.gameObject.activeSelf == true)
+        {
+            ability_canvas.gameObject.SetActive(false);
+        }
+        else
+        {
+            ability_canvas.gameObject.SetActive(true);
         }
     }
 }
