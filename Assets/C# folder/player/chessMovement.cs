@@ -402,11 +402,9 @@ public class chessMovement : GeneralMovementSystem
     {
         do
         {
-            Debug.Log("lksafhdlkajgfhlkajfhs     dlkjh   " + roundScript.Static.DoAttackAniProcessingChecker );
+
             yield return null;
         } while (charactor_move.GetCurrentAnimatorStateInfo(0).IsTag(animationTag));
-        attackNpc(touchEnemy);
-        Debug.Log("lksafhdlkajgfhlkajfhsdlkjh");
         roundScript.Static.DoAttackAniProcessingChecker = false;
         //dead here
     }
@@ -426,11 +424,18 @@ public class chessMovement : GeneralMovementSystem
     }
 
 
-    void attackNpc(GameObject touchEnemy)
+
+    public void attackNpc(GameObject touchEnemy)
     {
+        if (touchEnemy == null)
+        {
+            return;
+        }
+
         //touch Enemy之後既行動
         gamemanager.Static.spawnNumberDisplay(touchEnemy.transform.position, playerDataBase.Static.ATK, 0);
         touchEnemy.GetComponent<enemyDataBase>().HP -= playerDataBase.Static.ATK;
+        touchEnemy.GetComponent<enemyScript>().enemyHPCheck();
 
         isHitNpc = true;
         thisFrameMoved = true;

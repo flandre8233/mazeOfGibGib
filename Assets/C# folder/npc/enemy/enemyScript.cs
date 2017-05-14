@@ -13,6 +13,10 @@ public class enemyScript : enemyDataBase
 
     float startTime;
 
+    public bool inDead = false;
+
+    Animator enemyAni;
+
     public virtual void SetUp() {
         
     }
@@ -28,6 +32,7 @@ public class enemyScript : enemyDataBase
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         Debug.Log("ddddff  " + transform.position);
         //sensor = GetComponentInChildren<npcSensor>();
+        enemyAni = GetComponentInChildren<Animator>();
         roundScript.Static.roundSystem += resetNumberOfActions;
         roundScript.Static.roundSystem += enemyHPCheck;
         roundScript.Static.enemyAttack += enemyAttackPlayerScript;
@@ -42,6 +47,11 @@ public class enemyScript : enemyDataBase
     
     public void move()
     {
+        if (HP <= 0)
+        {
+            return;
+        }
+
         CenterGround = getGround();
         if (CenterGround == null)
         {
@@ -125,16 +135,23 @@ public class enemyScript : enemyDataBase
 
     void LerpMove(ref bool isInLerpMovement,Vector3 centerition , float startTime,float lerpSpeed)
     {
+        if (HP <= 0)
+        {
+            return;
+        }
+
         if (isInLerpMovement)
         {
+            float distance = Mathf.Abs(Vector3.Distance(transform.position, centerition));
+            enemyAni.SetFloat("runFloat", distance);
 
             transform.position = Vector3.Lerp(transform.position, centerition, (Time.time - startTime) * lerpSpeed);
-            if (Mathf.Abs(Vector3.Distance(transform.position, centerition)) == 0.0f)
+            if (distance == 0.0f)
             {
                 isInLerpMovement = false;
-
+                enemyAni.SetFloat("runFloat", 0.0f);
             }
-            else if (Mathf.Abs(Vector3.Distance(transform.position, centerition)) <= 0.1f)
+            else if (distance <= 0.1f)
             {
                 transform.position = centerition;
                 //charactor_move.SetBool("run", false);
@@ -154,6 +171,11 @@ public class enemyScript : enemyDataBase
 
     public bool checkPlayerCenterIsInAttackPoint()
     {
+        if (HP <= 0)
+        {
+            return false;
+        }
+
         Vector3[] checkPlayerPointArray = {
             new Vector3(center.x+1 ,center.y ,0),
             new Vector3(center.x-1 ,center.y ,0),
@@ -198,16 +220,8 @@ public class enemyScript : enemyDataBase
             }
 
         if ((roundScript.Static.round - findPlayerRoundNumber) % CD == 0)
-        {//是攻擊的回合才行動
-
-            if (playerDataBase.Static.DEF <= ATK)
-            {
-                gamemanager.Static.spawnNumberDisplay(chessMovement.Static.gameObject.transform.position, (ATK - playerDataBase.Static.DEF), 5);
-                playerDataBase.Static.HP -= (ATK - playerDataBase.Static.DEF);
-            }
-
-
-
+        {//是攻擊的回合才行動 attack
+            attackFunction();
         }
         else
         {
@@ -219,9 +233,25 @@ public class enemyScript : enemyDataBase
         }
     }
 
+    public void attackFunction()
+    {
+        enemyAni.SetTrigger("attack");
+        roundScript.Static.enemyAttackAniProcessingChecker = true;
+        StartCoroutine(AnimationBuffZone("attackAni"));
+    }
+
+    public void enemyAttack()
+    {
+        if (playerDataBase.Static.DEF <= ATK)
+        {
+            gamemanager.Static.spawnNumberDisplay(chessMovement.Static.gameObject.transform.position, (ATK - playerDataBase.Static.DEF), 5);
+            playerDataBase.Static.HP -= (ATK - playerDataBase.Static.DEF);
+        }
+    }
+
     private void Update() {
         allwayFaceAtPlayer();
-        LerpMove(ref startLerpMovement, new Vector3(center.x, center.y,-1) , startTime,1.5f);
+        LerpMove(ref startLerpMovement, new Vector3(center.x, center.y,-1) , startTime,0.75f);
     }
 
     public Quaternion ImageLookAt2D(Vector3 from, Vector3 to) {
@@ -238,9 +268,17 @@ public class enemyScript : enemyDataBase
     }
 
     public void enemyHPCheck() {
+        if (inDead)
+        {
+            return;
+        }
+
         if (HP <= 0 || killTest) {
             playerDataBase.Static.COIN += (COIN * (playerDataBase.Static.COINBounsPercent / 100));
-            delEnemy();
+
+            inDead = true;
+            enemyAni.SetTrigger("died");
+            //delEnemy();
         }
     }
 
@@ -251,6 +289,26 @@ public class enemyScript : enemyDataBase
         roundScript.Static.roundSystem -= enemyHPCheck;
         roundScript.Static.enemyAttack -= enemyAttackPlayerScript;
         Destroy(gameObject);
+    }
+
+    private IEnumerator AnimationBuffZone(string animationTag)
+    {
+        do
+        {
+            yield return null;
+        } while (!enemyAni.GetCurrentAnimatorStateInfo(0).IsTag(animationTag));
+        StartCoroutine(WaitForAnimation(animationTag));
+        //dead here
+    }
+
+    private IEnumerator WaitForAnimation(string animationTag)
+    {
+        do
+        {
+            yield return null;
+        } while (enemyAni.GetCurrentAnimatorStateInfo(0).IsTag(animationTag));
+        roundScript.Static.enemyAttackAniProcessingChecker = false;
+        //dead here
     }
 
 }

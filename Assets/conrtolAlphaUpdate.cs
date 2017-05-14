@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class conrtolAlpha : MonoBehaviour {
+public class conrtolAlphaUpdate : MonoBehaviour {
     [Range (0,100)]
     public float alpha = 0.0f;
     

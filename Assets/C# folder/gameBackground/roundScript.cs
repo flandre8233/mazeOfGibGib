@@ -120,9 +120,11 @@ public class roundScript : MonoBehaviour {
     public bool DoAttackAniProcessingChecker = false;
     public bool IsOpeningChest = false;
 
+    public bool enemyAttackAniProcessingChecker = false;
+
     public bool RoundProcessingChecker()
     {
-        if ( (!movementProcessingChecker && !DoAttackAniProcessingChecker && checkallEnemy() && !IsOpeningChest ) )
+        if ( (!movementProcessingChecker && !DoAttackAniProcessingChecker && checkallEnemy() && !enemyAttackAniProcessingChecker  && !IsOpeningChest ) )
         {
             return false;
             // Processing is complete
