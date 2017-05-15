@@ -19,6 +19,9 @@ public class playerDataBase : MonoBehaviour {
     public int ATKInitial { get; set; }
     public int DEFInitial { get; set; }
 
+    public int HPAbility = 3;
+    public int SPAbility = 5;
+
     public int ATKlevelpercent { get;set; }
     public int DEFlevelpercent { get; set; }
     public int ATKLevel { get; set; }

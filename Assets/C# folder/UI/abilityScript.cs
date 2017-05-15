@@ -15,8 +15,9 @@ public class abilityScript : MonoBehaviour {
         if(playerDataBase.Static.POINT >= 1)
         { 
             playerDataBase.Static.HpmaxLevel++;
-            playerDataBase.Static.abilityHPMax = playerDataBase.Static.abilityHPMax + 3;
-            playerDataBase.Static.MaxHP = playerDataBase.Static.MaxHPInitial + playerDataBase.Static.abilityHPMax;
+            playerDataBase.Static.abilityHPMax += playerDataBase.Static.HPAbility;
+            playerDataBase.Static.MaxHP += playerDataBase.Static.abilityHPMax;
+            playerDataBase.Static.fullHPSP();
             //Debug.Log(Hpmax_add);
             playerDataBase.Static.POINT--;
         }
@@ -28,8 +29,9 @@ public class abilityScript : MonoBehaviour {
         if (playerDataBase.Static.POINT >= 1)
         {
             playerDataBase.Static.SpmaxLevel++;
-            playerDataBase.Static.abilitySPMax = playerDataBase.Static.abilitySPMax + 5;
-            playerDataBase.Static.MaxSP = playerDataBase.Static.MaxSPInitial + playerDataBase.Static.abilitySPMax;
+            playerDataBase.Static.abilitySPMax += playerDataBase.Static.SPAbility;
+            playerDataBase.Static.MaxSP += playerDataBase.Static.abilitySPMax;
+            playerDataBase.Static.fullHPSP();
             //Debug.Log(Spmax_add);
             playerDataBase.Static.POINT--;
         }

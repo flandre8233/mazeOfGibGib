@@ -61,8 +61,8 @@ public class abilityCanvasScript : MonoBehaviour {
     }*/
     public void data_now()
     {
-        Hpmax_now.text = playerDataBase.Static.MaxHPInitial + "";
-        Spmax_now.text = playerDataBase.Static.MaxSPInitial + "";
+        Hpmax_now.text = playerDataBase.Static.MaxHP + "";
+        Spmax_now.text = playerDataBase.Static.MaxSP + "";
         ATK_now.text = playerDataBase.Static.ATK + "";
         DEF_now.text = playerDataBase.Static.DEF + "";
     }
@@ -77,9 +77,10 @@ public class abilityCanvasScript : MonoBehaviour {
 
     public void data_next()
     {
-        Hpmax_result.text = playerDataBase.Static.MaxHP + "";
-        Spmax_result.text = playerDataBase.Static.MaxSP + "";
-        ATK_result.text = playerDataBase.Static.ATK + "";
-        DEF_result.text = playerDataBase.Static.DEF + "";
+        
+        Hpmax_result.text = (playerDataBase.Static.MaxHP+ playerDataBase.Static.HPAbility) + "";
+        Spmax_result.text = (playerDataBase.Static.MaxSP + playerDataBase.Static.SPAbility) + "";
+        ATK_result.text = ( (int)(playerDataBase.Static.ATK / 100f * (playerDataBase.Static.abilityATKPercent + 20) ) )+ "";
+        DEF_result.text = ( (int)(playerDataBase.Static.DEF / 100f * playerDataBase.Static.abilityDEFPercent + 20) ) + "";
     }
 }

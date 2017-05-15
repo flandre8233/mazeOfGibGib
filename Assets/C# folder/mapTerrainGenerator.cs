@@ -212,12 +212,24 @@ public class mapTerrainGenerator : MonoBehaviour {
     public GameObject[] grassModelDust;
     public GameObject[] iceModelDust;
     public GameObject[] lavaModelDust;
+    public GameObject[] desertModelDust;
+    public GameObject[] swampModelDust;
 
     public GameObject floorCheckpointModel;
 
     void classificationFloorType()
     {
-        if (playerDataBase.Static.currentFloor > 20)
+        if (playerDataBase.Static.currentFloor > 40)
+        {
+            skyboxSetting(4);
+            createNewFloorMesh(floorModel[4], swampModelDust);
+        }
+        else if (playerDataBase.Static.currentFloor > 30)
+        {
+            skyboxSetting(3);
+            createNewFloorMesh(floorModel[3], desertModelDust);
+        }
+        else if (playerDataBase.Static.currentFloor > 20)
         {
             skyboxSetting(2);
             createNewFloorMesh(floorModel[2], lavaModelDust);
@@ -248,11 +260,20 @@ public class mapTerrainGenerator : MonoBehaviour {
             if (!roundScript.Static.isEnterCheckPoint())
             {
                 spawnObj = Instantiate(model, Vector3.zero, Quaternion.identity); //生成
+
+                if (Random.Range(0, 100) < 10) //尖刺生成
+                {
+                    addSpikeFunction(spawnObj);
+                }
+
             }
             else
             {
                 spawnObj = Instantiate(floorCheckpointModel, Vector3.zero, Quaternion.identity); //生成
             }
+
+
+
             spawnObj.transform.parent = item.transform; //把地塊黏在當前的地形上
             spawnObj.transform.rotation = Quaternion.Euler(180, 0, randomRotation()  );
         // spawnObj.transform.rotation = randomRotation();
@@ -278,6 +299,16 @@ public class mapTerrainGenerator : MonoBehaviour {
             }
 
         }
+    }
+
+    public GameObject spikePrefab;
+    void addSpikeFunction(GameObject parent)
+    {
+        Destroy(parent.GetComponent<groundScript>() );
+        parent.AddComponent<Spike>();
+        GameObject go = Instantiate(spikePrefab,parent.transform);
+        go.transform.localPosition = Vector3.zero;
+
     }
 
     public GameObject startPoint;
