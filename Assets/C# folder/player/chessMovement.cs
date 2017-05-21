@@ -197,6 +197,8 @@ public class chessMovement : GeneralMovementSystem
 
     }//把已string化的鍵盤方位數值解碼，指揮檢查用vector3先去鍵盤要求前住的那一格方位
 
+    public bool isInAutoMovement = false;
+
     public void autoMovement(float time, string c)
     {
 
@@ -296,20 +298,20 @@ public class chessMovement : GeneralMovementSystem
             if (Mathf.Abs(Vector3.Distance(transform.position, targetPosition)) == 0.0f)
             {
                 isInLerpMovement = false;
+                Debug.Log("passhere");
 
                 lerpSpeed = normalLerpSpeed;
             }
-            else if (Mathf.Abs(Vector3.Distance(transform.position, hitObjectPosition)) <= 0.1f)
+            else if (Mathf.Abs(Vector3.Distance(transform.position, hitObjectPosition)) <= 0.15f)
             {
+                if (!isInAutoMovement)
+                {
+                    charactor_move.SetBool("run", false);
+                    charactor_move.SetBool("idle", true);
+                }
                 roundScript.Static.movementProcessingChecker = false;
-                charactor_move.SetBool("run", false);
-                charactor_move.SetBool("idle", true);
             }
-            else
-            {
-                charactor_move.SetBool("run", true);
-                charactor_move.SetBool("idle", false);
-            }
+
 
         }
     }
@@ -368,6 +370,16 @@ public class chessMovement : GeneralMovementSystem
                         center = resetCenterV3(CenterGround);
 
                         return true;
+                    }
+                    if (item.tag == "crystal")
+                    {
+                        revive_script.Static.crystal_menu();
+
+                        hitColliders = Physics.OverlapSphere(new Vector3(transform.position.x, transform.position.y, 0), 0.25f); //還原center
+                        CenterGround = hitColliders[0].gameObject.GetComponent<groundScript>();
+                        hitObjectPosition = new Vector3(hitColliders[0].gameObject.transform.position.x, hitColliders[0].gameObject.transform.position.y, -1);
+                        center = resetCenterV3(CenterGround);
+                        return false;
                     }
                 }
                 return true; // is Hititem

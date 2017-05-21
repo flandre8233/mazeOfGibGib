@@ -55,9 +55,6 @@ public class mapThingsGenerator : MonoBehaviour {
         player = GameObject.FindGameObjectWithTag("Player");
 
         upDateProbabilityArray();
-        itemAndEnemyProcessor.checkProbabilityOverflow(0, ref ProbabilityArray);
-        upDateProbabilityVar();
-        
     }
 
     void upDateProbabilityArray() {
@@ -66,17 +63,13 @@ public class mapThingsGenerator : MonoBehaviour {
         ProbabilityArray.Add(itemSpawnProbability);
         ProbabilityArray.Add(enemySpawnProbability);
     } //becareful
-    void upDateProbabilityVar() {
-        itemSpawnProbability = ProbabilityArray[0];
-        enemySpawnProbability = ProbabilityArray[1];
-    }
 
     public GameObject[] itemArray;
     public GameObject hpmaxPrefab;
     public GameObject spmaxPrefab;
 
     public GameObject  selectType() {
-        return itemArray[itemAndEnemyProcessor.randomSetThingsType(itemGenerator.Static.ProbabilityArray)-1];
+        return itemArray[itemAndEnemyProcessor.RandomProbabilitySystem(ref itemGenerator.Static.ProbabilityArray) -1];
 
         /*
         switch () {
@@ -288,12 +281,13 @@ public class mapThingsGenerator : MonoBehaviour {
             return;
         }
 
-        if (mapTerrainGenerator.Static.thisLevelAllFloor.Count != 0) {
-            Debug.Log(mapTerrainGenerator.Static.thisLevelAllFloor[0] );
-                    Vector3 targetV3 = new Vector3(mapTerrainGenerator.Static.thisLevelAllFloor[0].transform.position.x, mapTerrainGenerator.Static.thisLevelAllFloor[0].transform.position.y, -1);
-                    player.transform.position = targetV3;
-            Debug.Log(player.transform.position);
-                    return;
+        if (mapTerrainGenerator.Static.thisLevelAllFloor.Count != 0)
+        {
+            Debug.Log(mapTerrainGenerator.Static.thisLevelAllFloor[0]);
+            Vector3 targetV3 = new Vector3(mapTerrainGenerator.Static.thisLevelAllFloor[0].transform.position.x, mapTerrainGenerator.Static.thisLevelAllFloor[0].transform.position.y, -1);
+            player.transform.position = targetV3;
+            // Debug.Log(player.transform.position);
+            return;
         }
     }
 

@@ -3,9 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class revive_script : MonoBehaviour {
+    public static revive_script Static;
+
     public RectTransform crystal_on;
     public RectTransform crystal_off;
     public RectTransform menu_crystal;
+
+    private void Awake()
+    {
+        if (Static != null)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Static = this;
+        }
+    }
 
     void Update () {
         //Debug.Log(playerDataBase.Static.revive_value);
@@ -13,14 +27,7 @@ public class revive_script : MonoBehaviour {
 
     public void crystal_menu()
     {
-        if (menu_crystal.gameObject.activeSelf == false)
-        {
-            menu_crystal.gameObject.SetActive(true);
-        }
-        else
-        {
-            menu_crystal.gameObject.SetActive(false);
-        }
+        menu_crystal.gameObject.SetActive( !menu_crystal.gameObject.activeSelf);
     }
 
     public void revive_button()

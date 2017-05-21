@@ -8,6 +8,6 @@ public class Spike : groundScript {
     private void Start()
     {
 
-        Debug.Log(  roundScript.Static.round  + "  "+roundScript.Static.round % perRoundShowUpSpike);
+        //Debug.Log(  roundScript.Static.round  + "  "+roundScript.Static.round % perRoundShowUpSpike);
     }
 }

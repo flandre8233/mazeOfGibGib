@@ -23,16 +23,8 @@ public class enemyGenerator : MonoBehaviour {
     void Awake() {
         Static = this;
         upDateProbabilityArray();
-        itemAndEnemyProcessor.checkProbabilityOverflow(2,ref ProbabilityArray);
-        upDateProbabilityVar();
     }
 
-   void  upDateProbabilityVar() {
-        normalProbability = ProbabilityArray[0];
-        patrolbability = ProbabilityArray[1];
-        masksmanProbability = ProbabilityArray[2];
-        tankProbability = ProbabilityArray[3];
-    }
     void upDateProbabilityArray() {
         ProbabilityArray.Clear();
 
@@ -43,8 +35,8 @@ public class enemyGenerator : MonoBehaviour {
     }
 
     public GameObject selectType() {
-        short type = itemAndEnemyProcessor.randomSetThingsType(ProbabilityArray);
-        return enemyPrefabArray[type - 1];
+        Debug.Log("dddsdaghit");
+        return enemyPrefabArray[itemAndEnemyProcessor.RandomProbabilitySystem(ref ProbabilityArray) - 1];
     }
 
 }

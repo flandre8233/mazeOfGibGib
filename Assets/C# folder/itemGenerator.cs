@@ -35,22 +35,8 @@ public class itemGenerator : MonoBehaviour {
     void Awake() {
         Static = this;
         upDateProbabilityArray();
-        itemAndEnemyProcessor.checkProbabilityOverflow(2, ref ProbabilityArray);
-        upDateProbabilityVar();
     }
     
-    void upDateProbabilityVar() {
-        ATKBuffitemProbability = ProbabilityArray[0];
-        DEFBuffitemProbability = ProbabilityArray[1];
-        spitemProbability = ProbabilityArray[2];
-        SPNoCostBuffitemProbability = ProbabilityArray[3];
-        chestProbability = ProbabilityArray[4];
-        //hpitemProbability = ProbabilityArray[0];
-        //hpmaxitemProbability = ProbabilityArray[2];
-        //spmaxitemProbability = ProbabilityArray[3];
-        //coinitemProbability = ProbabilityArray[4];
-
-    }
     void upDateProbabilityArray() {
         ProbabilityArray.Clear();
 

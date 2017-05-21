@@ -14,9 +14,14 @@ public class buttonHold : MonoBehaviour , IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData) {
         mouseDown = true;
+        chessMovement.Static.isInAutoMovement = mouseDown;
+
+        chessMovement.Static.charactor_move.SetBool("run", true);
+        chessMovement.Static.charactor_move.SetBool("idle", false);
     }
     public void OnPointerUp(PointerEventData eventData) {
         mouseDown = false;
+        chessMovement.Static.isInAutoMovement = mouseDown;
         timeMouseDown = 0;
     }
 

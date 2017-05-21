@@ -30,7 +30,7 @@ public class enemyScript : enemyDataBase
 
         cOIN += (int)(COIN / 100.0f * (Random.Range(0, 40) - 20));
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        Debug.Log("ddddff  " + transform.position);
+        //Debug.Log("ddddff  " + transform.position);
         //sensor = GetComponentInChildren<npcSensor>();
         enemyAni = GetComponentInChildren<Animator>();
         roundScript.Static.roundSystem += resetNumberOfActions;
