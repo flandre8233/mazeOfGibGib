@@ -9,10 +9,20 @@ public class playerDataBase : MonoBehaviour {
 
     public int HP { get; set; }
     public int SP { get; set; }
-    public int MaxHP { get; set; }
-    public int MaxSP { get; set; }
-    public int MaxHPInitial { get; set; }
-    public int MaxSPInitial { get; set; }
+    public int HPBuff;
+    public int SPBuff;
+    public int MaxHP {
+        get {
+            return MaxHPInitial + abilityHPMax + HPBuff;
+        }
+    }
+    public int MaxSP {
+        get {
+            return MaxSPInitial + abilitySPMax + SPBuff;
+        }
+    }
+    int MaxHPInitial { get; set; }
+     int MaxSPInitial { get; set; }
 
     public int ATK { get; set; }
     public int DEF { get; set; }
@@ -79,8 +89,6 @@ public class playerDataBase : MonoBehaviour {
         abilityHPMax = 0;
         abilitySPMax = 0;
 
-        MaxHP = MaxHPInitial + abilityHPMax;
-        MaxSP = MaxSPInitial + abilitySPMax;
         HP = MaxHP;
         SP = MaxSP;
         abilityATKPercent = 100;

@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class equipmentScript : MonoBehaviour {
+    public static equipmentScript Static;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    private void Awake()
+    {
+        if (Static != null)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Static = this;
+        }    
+    }
 
     public void ATK_equ()
     {
@@ -22,8 +25,13 @@ public class equipmentScript : MonoBehaviour {
             playerDataBase.Static.COIN -= playerDataBase.Static.equipment_ATKcost;
             playerDataBase.Static.equipment_ATKcost = playerDataBase.Static.equipment_ATKcost + 500;
             playerDataBase.Static.ATKLevel++;
-            playerDataBase.Static.ATK++;
+            playerDataBase.Static.ATK += nextAtk();
         }
+    }
+
+    public int  nextAtk()
+    {
+        return playerDataBase.Static.ATK+1;
     }
 
     public void DEF_equ()
@@ -34,7 +42,14 @@ public class equipmentScript : MonoBehaviour {
             playerDataBase.Static.COIN -= playerDataBase.Static.equipment_DEFcost;
             playerDataBase.Static.equipment_DEFcost = playerDataBase.Static.equipment_DEFcost + 500;
             playerDataBase.Static.DEFLevel++;
-            playerDataBase.Static.DEF++;
+            playerDataBase.Static.DEF+= nextDEF();
         }
     }
+
+    public int nextDEF()
+    {
+        return playerDataBase.Static.DEF + 1;
+    }
+
+
 }

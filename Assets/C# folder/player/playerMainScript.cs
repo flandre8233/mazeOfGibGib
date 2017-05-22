@@ -145,8 +145,8 @@ public class playerMainScript : MonoBehaviour
         }
         playerDataBase.Static.HP += hitItem.gameObject.GetComponent<itemScript>().AddHP;
         playerDataBase.Static.SP += hitItem.gameObject.GetComponent<itemScript>().AddSP;
-        playerDataBase.Static.MaxHP += hitItem.gameObject.GetComponent<itemScript>().AddHPMax;
-        playerDataBase.Static.MaxSP += hitItem.gameObject.GetComponent<itemScript>().AddSPMax;
+        playerDataBase.Static.HPBuff += hitItem.gameObject.GetComponent<itemScript>().AddHPMax;
+        playerDataBase.Static.SPBuff += hitItem.gameObject.GetComponent<itemScript>().AddSPMax;
         playerDataBase.Static.COIN += hitItem.gameObject.GetComponent<itemScript>().AddCOIN;
 
         if (playerDataBase.Static.HP >= playerDataBase.Static.MaxHP) { //max check
@@ -245,8 +245,8 @@ public class playerMainScript : MonoBehaviour
 
         playerDataBase.Static.HP += itemArrayClone[number].AddHP;
         playerDataBase.Static.SP += itemArrayClone[number].AddSP;
-        playerDataBase.Static.MaxHP += itemArrayClone[number].AddHPMax;
-        playerDataBase.Static.MaxSP += itemArrayClone[number].AddSPMax;
+        playerDataBase.Static.HPBuff += itemArrayClone[number].AddHPMax;
+        playerDataBase.Static.SPBuff += itemArrayClone[number].AddSPMax;
         playerDataBase.Static.COIN += itemArrayClone[number].AddCOIN;
 
         if (itemArrayClone[number].SPNoCostTime != 0) {
@@ -293,8 +293,8 @@ public class playerMainScript : MonoBehaviour
 
     public void useItemMaxOnly(itemScript item)
     {
-        playerDataBase.Static.MaxHP += item.AddHPMax;
-        playerDataBase.Static.MaxSP += item.AddSPMax;
+        playerDataBase.Static.HPBuff += item.AddHPMax;
+        playerDataBase.Static.SPBuff += item.AddSPMax;
         Destroy(item.gameObject);
     }
 
