@@ -21,7 +21,7 @@ public class canvasButton : MonoBehaviour {
     }
 
     public void moveButton(string dir) {
-        chessMovement.Static.MovementPart(dir);
+        //chessMovement.Static.MovementPart(dir);
     }
 
     public void useItemButton(int number ) {

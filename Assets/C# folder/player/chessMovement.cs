@@ -37,6 +37,7 @@ public class chessMovement : GeneralMovementSystem
     void Update()
     {
 
+
         LerpMove(ref startLerpMovement, hitObjectPosition,startTime,lerpSpeed);
         if (thisFrameMoved && !roundScript.Static.IsProcessingRound )
         {
@@ -189,10 +190,10 @@ public class chessMovement : GeneralMovementSystem
                     break;
             }
 
-            if (moveCheck())
-            {
-                movePlayer();
-            }
+        if (moveCheck())
+        {
+            movePlayer();
+        }
         
 
     }//把已string化的鍵盤方位數值解碼，指揮檢查用vector3先去鍵盤要求前住的那一格方位
@@ -204,37 +205,12 @@ public class chessMovement : GeneralMovementSystem
 
         if (time >= countDown)
         {
-            /*
-            if (!doOnce) {
-                doOnce = true;
-                normalLerpSpeed = lerpSpeed;
-                lerpSpeed = normalLerpSpeed * 2f;
-            }
-            */
-
             Debug.Log("autoMovement");
             MovementPart(c);
 
         }
     }//自動重復執行MovementPart
 
-    /* void player_idle_check()
-     {
-         if (!roundScript.Static.isProcessingRound)
-         {
-             //if (touchEnemy != null)
-             //{
-                 playerDataBase.Static.idle_time -= Time.deltaTime;
-                 Debug.Log(playerDataBase.Static.idle_time);
-                 if(playerDataBase.Static.idle_time <= 0)
-                 {
-                 //charactor_move.SetTrigger("idle_sit");
-                 charactor_move.SetBool("idle", false);
-                 charactor_move.SetBool("idle_sit_bool", true);
-                 }
-             //}
-         }
-     }*/
     GameObject TouchChest = null;
 
     void movePlayer()
@@ -258,9 +234,6 @@ public class chessMovement : GeneralMovementSystem
             return;
         }
             
-
-
-
                 if (touchEnemy != null)
             {
 
@@ -293,25 +266,23 @@ public class chessMovement : GeneralMovementSystem
     {
         if (isInLerpMovement)
         {
-
             transform.position = Vector3.Lerp(transform.position, targetPosition, (Time.time - startTime) * lerpSpeed);
-            if (Mathf.Abs(Vector3.Distance(transform.position, targetPosition)) == 0.0f)
+            float movementDistance = Mathf.Abs(Vector3.Distance(transform.position, targetPosition) ) ;
+            charactor_move.SetFloat("movementFloat", movementDistance);
+            if (movementDistance  == 0.0f)
             {
                 isInLerpMovement = false;
                 Debug.Log("passhere");
 
+
+
                 lerpSpeed = normalLerpSpeed;
             }
-            else if (Mathf.Abs(Vector3.Distance(transform.position, hitObjectPosition)) <= 0.15f)
+            else if (movementDistance <= 0.15f)
             {
-                if (!isInAutoMovement)
-                {
-                    charactor_move.SetBool("run", false);
-                    charactor_move.SetBool("idle", true);
-                }
+
                 roundScript.Static.movementProcessingChecker = false;
             }
-
 
         }
     }
@@ -357,6 +328,7 @@ public class chessMovement : GeneralMovementSystem
                         hitColliders = Physics.OverlapSphere(new Vector3(transform.position.x, transform.position.y, 0), 0.25f); //還原center
                         CenterGround = hitColliders[0].gameObject.GetComponent<groundScript>();
                         hitObjectPosition = new Vector3(hitColliders[0].gameObject.transform.position.x, hitColliders[0].gameObject.transform.position.y, -1);
+
                         center = resetCenterV3(CenterGround);
                         return true;
                     }
@@ -367,19 +339,20 @@ public class chessMovement : GeneralMovementSystem
                         hitColliders = Physics.OverlapSphere(new Vector3(transform.position.x, transform.position.y, 0), 0.25f); //還原center
                         CenterGround = hitColliders[0].gameObject.GetComponent<groundScript>();
                         hitObjectPosition = new Vector3(hitColliders[0].gameObject.transform.position.x, hitColliders[0].gameObject.transform.position.y, -1);
+                        
                         center = resetCenterV3(CenterGround);
-
-                        return true;
+                        return true; // maybe not work
                     }
                     if (item.tag == "crystal")
                     {
-                        //revive_script.Static.crystal_menu();
                         revive_script.Static.yn_show.gameObject.SetActive(!revive_script.Static.yn_show.gameObject.activeSelf);
+
                         hitColliders = Physics.OverlapSphere(new Vector3(transform.position.x, transform.position.y, 0), 0.25f); //還原center
                         CenterGround = hitColliders[0].gameObject.GetComponent<groundScript>();
                         hitObjectPosition = new Vector3(hitColliders[0].gameObject.transform.position.x, hitColliders[0].gameObject.transform.position.y, -1);
+
                         center = resetCenterV3(CenterGround);
-                        return false;
+                        return false; // maybe not work
                     }
                 }
                 return true; // is Hititem

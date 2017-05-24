@@ -31,6 +31,7 @@ public class charactor_animation : MonoBehaviour {
             run_trigger = false;
         }
 
-        charactor_move.SetBool("run", run_trigger);*/
+        charactor_move.
+        ("run", run_trigger);*/
     }
 }

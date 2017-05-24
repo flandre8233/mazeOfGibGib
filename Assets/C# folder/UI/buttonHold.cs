@@ -16,8 +16,8 @@ public class buttonHold : MonoBehaviour , IPointerDownHandler
         mouseDown = true;
         chessMovement.Static.isInAutoMovement = mouseDown;
 
-        chessMovement.Static.charactor_move.SetBool("run", true);
-        chessMovement.Static.charactor_move.SetBool("idle", false);
+        chessMovement.Static.MovementPart(dir);
+
     }
     public void OnPointerUp(PointerEventData eventData) {
         mouseDown = false;
@@ -34,6 +34,7 @@ public class buttonHold : MonoBehaviour , IPointerDownHandler
 	void Update () {
         if (mouseDown && !roundScript.Static.isInExitLevel) {
             timeMouseDown += Time.deltaTime;
+            Debug.Log(timeMouseDown);
             chessMovement.Static.autoMovement(timeMouseDown, dir);
         }
 
