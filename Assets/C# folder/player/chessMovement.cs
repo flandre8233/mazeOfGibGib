@@ -373,8 +373,8 @@ public class chessMovement : GeneralMovementSystem
                     }
                     if (item.tag == "crystal")
                     {
-                        revive_script.Static.crystal_menu();
-
+                        //revive_script.Static.crystal_menu();
+                        revive_script.Static.yn_show.gameObject.SetActive(!revive_script.Static.yn_show.gameObject.activeSelf);
                         hitColliders = Physics.OverlapSphere(new Vector3(transform.position.x, transform.position.y, 0), 0.25f); //還原center
                         CenterGround = hitColliders[0].gameObject.GetComponent<groundScript>();
                         hitObjectPosition = new Vector3(hitColliders[0].gameObject.transform.position.x, hitColliders[0].gameObject.transform.position.y, -1);

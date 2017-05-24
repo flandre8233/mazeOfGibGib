@@ -8,6 +8,7 @@ public class revive_script : MonoBehaviour {
     public RectTransform crystal_on;
     public RectTransform crystal_off;
     public RectTransform menu_crystal;
+    public RectTransform yn_show;
 
     private void Awake()
     {
@@ -28,6 +29,22 @@ public class revive_script : MonoBehaviour {
     public void crystal_menu()
     {
         menu_crystal.gameObject.SetActive( !menu_crystal.gameObject.activeSelf);
+    }
+
+
+    public void yn_menu()
+    {
+        yn_show.gameObject.SetActive(!yn_show.gameObject.activeSelf);
+    }
+
+    public void no_menu()
+    {
+        yn_show.gameObject.SetActive(false);
+    }
+    public void crystal_menu_press()
+    {
+        menu_crystal.gameObject.SetActive(!menu_crystal.gameObject.activeSelf);
+        yn_show.gameObject.SetActive(!yn_show.gameObject.activeSelf);
     }
 
     public void revive_button()
