@@ -261,11 +261,6 @@ public class mapTerrainGenerator : MonoBehaviour {
             {
                 spawnObj = Instantiate(model, Vector3.zero, Quaternion.identity); //生成
 
-                if (Random.Range(0, 100) < 10) //尖刺生成
-                {
-                    addSpikeFunction(spawnObj);
-                }
-
             }
             else
             {
@@ -275,10 +270,19 @@ public class mapTerrainGenerator : MonoBehaviour {
 
 
             spawnObj.transform.parent = item.transform; //把地塊黏在當前的地形上
+
             spawnObj.transform.rotation = Quaternion.Euler(180, 0, randomRotation()  );
         // spawnObj.transform.rotation = randomRotation();
             //spawnObj.transform.localPosition = Vector3.zero;
             spawnObj.transform.localPosition = new Vector3(0, 0, -0.5f);
+
+            if (!roundScript.Static.isEnterCheckPoint())
+            {
+                if (Random.Range(0, 100) < 10) //尖刺生成
+                {
+                    addSpikeFunction(spawnObj.transform.parent.gameObject,spawnObj);
+                }
+            }
 
             if (!roundScript.Static.isEnterCheckPoint())
             { //泥土設定
@@ -289,7 +293,7 @@ public class mapTerrainGenerator : MonoBehaviour {
                 }
                 //Randnumber -= 2;
                 GameObject InstantiateItem = Instantiate(modelDust[Randnumber], Vector3.zero, Quaternion.identity);
-                InstantiateItem.transform.parent = item.transform;
+                InstantiateItem.transform.parent = spawnObj.transform;
                 InstantiateItem.transform.rotation = Quaternion.Euler(180, 0, randomRotation());
                 //InstantiateItem.transform.localPosition = Vector3.zero;
                 InstantiateItem.transform.localPosition = new Vector3(0, 0, -0.5f);
@@ -302,12 +306,22 @@ public class mapTerrainGenerator : MonoBehaviour {
     }
 
     public GameObject spikePrefab;
-    void addSpikeFunction(GameObject parent)
+    void addSpikeFunction(GameObject parent,GameObject plane)
     {
-        Destroy(parent.GetComponent<groundScript>() );
-        parent.AddComponent<Spike>();
-        GameObject go = Instantiate(spikePrefab,parent.transform);
-        go.transform.localPosition = Vector3.zero;
+        groundScript orlGroundScript = parent.GetComponent<groundScript>();
+        Spike spikeComponent = parent.AddComponent<Spike>();
+        spikeComponent.delByMapLimit = orlGroundScript.delByMapLimit;
+        spikeComponent.alreadyLink = orlGroundScript.alreadyLink;
+        spikeComponent.TerrainUID = orlGroundScript.TerrainUID;
+        Destroy(orlGroundScript);
+        GameObject go = Instantiate(spikePrefab, plane.transform);
+        spikeComponent.spikeObjectTransform = go.transform;
+        spikeComponent.planeTransform = plane.transform;
+        spikeComponent.isSpike = true;
+        spikeComponent.serializeSpike();
+        spikeComponent.UpdataSystem += spikeComponent.earthQuake ;
+        roundScript.Static.spikeSystem += spikeComponent.countSpikeRound;
+        //go.transform.localPosition = Vector3.zero;
 
     }
 

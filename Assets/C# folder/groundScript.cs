@@ -15,9 +15,14 @@ public enum groundType
 
 
 public class groundScript : MonoBehaviour {
+     public delegate void delegateFunction ();
+    public delegateFunction UpdataSystem;
+
+
     public int TerrainUID;
     public int passCount;
     public bool haveSomethingInHere;
+    public GameObject haveSomethingInHereObject;
     public groundType type;
 
     public bool delByMapLimit;
@@ -27,6 +32,8 @@ public class groundScript : MonoBehaviour {
 
     public pathDirection pathdirection;
     public bool alreadyFindAllNeighbor;
+
+    public bool isSpike = false;
 
     /*
     public bool canSpawnThings;
@@ -84,9 +91,11 @@ public class groundScript : MonoBehaviour {
         Collider[] hitColliders = Physics.OverlapSphere(hitPoint, 0.25f);
         if (hitColliders.Length != 0 && Vector2.Distance( ((Vector2)hitColliders[0].transform.position), ((Vector2)transform.position)) <= 0.2f) {
             haveSomethingInHere = true;
+            haveSomethingInHereObject = hitColliders[0].gameObject;
         }
         else {
             haveSomethingInHere = false;
+            haveSomethingInHereObject = null;
         }
         
         if (GetComponent<groundScript>().delByMapLimit) {
@@ -97,6 +106,10 @@ public class groundScript : MonoBehaviour {
             Destroy(gameObject);
         }
 
+        if (UpdataSystem != null)
+        {
+            UpdataSystem.Invoke();
+        }
     }
 
     void OnTriggerEnter(Collider other) {

@@ -310,6 +310,7 @@ public class chessMovement : GeneralMovementSystem
         {
             CenterGround = hitColliders[0].gameObject.GetComponent<groundScript>();
             hitObjectPosition = new Vector3(hitColliders[0].gameObject.transform.position.x, hitColliders[0].gameObject.transform.position.y, -1);
+
             if (hitColliders[0].gameObject.tag == "returnCheckPoint") {
                 returnToBeforeCheckPoint();
             }

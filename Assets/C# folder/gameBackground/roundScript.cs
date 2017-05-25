@@ -9,6 +9,7 @@ public class roundScript : MonoBehaviour {
     public static roundScript Static;
     public delegate void roundSystemFunction();
     public roundSystemFunction roundSystem;
+    public roundSystemFunction spikeSystem;
     public roundSystemFunction enemyMovement;
     public roundSystemFunction enemyAttack;
     [Range(1, 100)]
@@ -36,6 +37,7 @@ public class roundScript : MonoBehaviour {
     public void pastRound() {
         isProcessingRound = true;
         round++;
+        spikeSystem();
         sortEnemyList();
         sortEnemyMove();
 
@@ -296,10 +298,7 @@ public class roundScript : MonoBehaviour {
             chessMovement.Static.center = new Vector3(chessMovement.Static.gameObject.transform.position.x, chessMovement.Static.gameObject.transform.position.y, 0);
             chessMovement.Static.moveCheck();
             chessMovement.Static.startLerpMovement = true;
-
-            //chessMovement.Static.gameObject.GetComponentInChildren<Animator>().Play("idle");
-            chessMovement.Static.gameObject.GetComponentInChildren<Animator>().SetBool("run", false);
-            chessMovement.Static.gameObject.GetComponentInChildren<Animator>().SetBool("idle", true);
+            
             movementProcessingChecker = false;
 
             //mapTerrainGenerator.Static.findLeftGround();
