@@ -143,5 +143,52 @@ public class playerDataBase : MonoBehaviour {
             Static = this;
         }
     }
+    public void restart_data()
+    { //玩家起始值
+        //ability_point keep
+        MaxHPInitial = 10;
+        MaxSPInitial = 20;
+        ATKInitial = 10;
+        DEFInitial = 10;
 
+        //MaxHP = 10;
+        //MaxSP = 7;
+
+        abilityHPMax = 0;
+        abilitySPMax = 0;
+
+        HP = MaxHP;
+        SP = MaxSP;
+        abilityATKPercent = 100;
+        abilityDEFPercent = 100;
+        //ATK = ATKInitial + (int)(ATKInitial * (100/abilityATKPercent));
+        ATK = 1;
+        DEF = 1;
+        //DEF = DEFInitial + (int)(DEFInitial * (100/abilityDEFPercent));
+
+        ATKlevelpercent = 0;
+        DEFlevelpercent = 0;
+        ATKLevel = 0;
+        DEFLevel = 0;
+        HpmaxLevel = 0;
+        SpmaxLevel = 0;
+
+        COIN = 1000;
+        COINBounsPercent = 100;
+        ResetTimes = 0;
+        currentFloor = 0;
+        maxFloor = 0;
+
+        idle_time = 10;
+
+        fifty = 50;
+        hundred = 100;
+        two_hundred = 200;
+        three_hundred = 300;
+
+        equipment_ATKcost = 500;
+        equipment_DEFcost = 500;
+
+        revive_value = false;
+    }
 }
