@@ -205,7 +205,7 @@ public class chessMovement : GeneralMovementSystem
 
         if (time >= countDown)
         {
-            Debug.Log("autoMovement");
+            //Debug.Log("autoMovement");
             MovementPart(c);
 
         }
@@ -253,7 +253,6 @@ public class chessMovement : GeneralMovementSystem
             }
             else
             {
-                Debug.Log("gdfgdh");
                 startLerpMovement = true;
                 roundScript.Static.movementProcessingChecker = true;
                 startTime = Time.time;

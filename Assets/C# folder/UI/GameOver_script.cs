@@ -11,7 +11,7 @@ public class GameOver_script : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        gameover_menu()
+        gameover_menu();
 
     }
 

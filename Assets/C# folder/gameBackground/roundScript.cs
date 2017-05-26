@@ -37,14 +37,19 @@ public class roundScript : MonoBehaviour {
     public void pastRound() {
         isProcessingRound = true;
         round++;
-        spikeSystem();
         sortEnemyList();
         sortEnemyMove();
+
+        if (spikeSystem != null)
+        {
+            spikeSystem();
+        }
 
         if (roundSystem != null)
         {
             roundSystem.Invoke();
         }
+        pathfinding.Static.RoundUseOnly();
         if (enemyMovement != null)
         {
             enemyMovement.Invoke();

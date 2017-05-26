@@ -53,6 +53,10 @@ public class pathfinding : MonoBehaviour {
         List<groundScript> nextLoopGroundArray = new List<groundScript>();
         foreach (var item in loopArray)
         {
+            if (item == null)
+            {
+                continue;
+            }
             nextLoopGroundArray.AddRange(getNeighbor(item) );
         }
 
@@ -137,7 +141,7 @@ public class pathfinding : MonoBehaviour {
         
     }
 
-
+    /*
     private void Start()
     {
         roundScript.Static.roundSystem += RoundUseOnly;
@@ -148,13 +152,14 @@ public class pathfinding : MonoBehaviour {
 
         roundScript.Static.roundSystem -= RoundUseOnly;
     }
+    */
 
     private void Update()
     {
 
     }
 
-    void RoundUseOnly()
+    public void RoundUseOnly()
     {
         BakeAllFloor(chessMovement.Static.center, chessMovement.Static.CenterGround);
     }
