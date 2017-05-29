@@ -8,7 +8,6 @@ public class fingerControlRotation : MonoBehaviour
     GameObject[] goArray;
     public GameObject cameraGameObject;
     public Transform miniCameraTransform;
-    float onPressPrecent = 0.0f;
     float onPressZAngle = 0.0f;
     float closestAngle = 0.0f;
     bool onpress = false;
@@ -25,30 +24,46 @@ public class fingerControlRotation : MonoBehaviour
             Static = this;
         }
 	}
-    
+
+    Vector2 testOne;
+    Vector2 testTwo;
+
+    float onPressFloat;
+
 	// Update is called once per frame
 	void Update () {
         LerpMove();
         miniCameraTransform.rotation = transform.rotation;
-
-        float precent = Input.mousePosition.y / Screen.height;
-        if (Input.GetMouseButtonDown(0) && Input.mousePosition.x > Screen.width * 0.8 ) { // - 向上  + 向下
+        /*
+        if (Input.GetMouseButtonDown(0) && Input.mousePosition.x > Screen.width * 0.8)
+        { // - 向上  + 向下
+        }
+        */
+        if (Input.GetMouseButtonDown(0))
+        {
             startLerpMovement = false;
-            onPressPrecent = Input.mousePosition.y / Screen.height;
+            testOne = new Vector2(Input.mousePosition.x, 0);
+            testTwo = new Vector2(0, Input.mousePosition.y);
+            onPressFloat = (Vector2.Distance(testOne, Input.mousePosition) + Vector2.Distance(testTwo, Input.mousePosition) ) / 2;
             onPressZAngle = transform.rotation.eulerAngles.z;
             onpress = true;
         }
+
         if (Input.GetMouseButtonUp(0) ) {
             closestAngle = calibration(transform.rotation.eulerAngles.z);
             startLerpMovement = true;
             startTime = Time.time;
-            onPressPrecent = 0.0f;
             onpress = false;
         }
         if (onpress) {
             hideWall();
-            float holdHeightPrecent = onPressPrecent - precent;
-            transform.rotation = Quaternion.Euler(0, 0,  onPressZAngle + (360 * holdHeightPrecent));
+            float dis = Vector2.Distance(testOne, Input.mousePosition);
+
+            float dis2 = Vector2.Distance(testTwo, Input.mousePosition);
+
+            transform.rotation = Quaternion.Euler(0, 0, onPressZAngle + (onPressFloat -((dis + dis2)/2) ) );
+
+            //transform.rotation = Quaternion.Euler(0, 0,  onPressZAngle + (360 * holdHeightPrecent));
         }
 	}
     

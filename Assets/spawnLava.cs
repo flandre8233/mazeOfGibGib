@@ -9,6 +9,8 @@ public class spawnLava : MonoBehaviour {
 
     public GameObject[] lavaObject;
 
+    public List<GameObject> lavaObjectArray = new List<GameObject>();
+
 	// Use this for initialization
 	void Start () {
         StartCoroutine(spawnLavaStartDelay() );
@@ -35,7 +37,8 @@ public class spawnLava : MonoBehaviour {
         spawnBool = true;
         yield return new WaitForSeconds(spawnTime);
         Vector3 v3= new Vector3(transform.position.x,transform.position.y,-1f);
-        StartCoroutine(spawnLavaDestroy (Instantiate(lavaObject[Random.Range(0, lavaObject.Length)], v3 , Quaternion.identity) ) );
+        lavaObjectArray.Add(Instantiate(lavaObject[Random.Range(0, lavaObject.Length)], v3, Quaternion.identity) );
+        StartCoroutine(spawnLavaDestroy ( lavaObjectArray[lavaObjectArray.Count-1] )  );
         spawnBool = false;
     }
 
@@ -43,7 +46,19 @@ public class spawnLava : MonoBehaviour {
     {
         //GameObject goDestroy = go;
         yield return new WaitForSeconds(5);
+        lavaObjectArray.Remove(go);
         Destroy(go);
+    }
+
+    private void OnDestroy()
+    {
+        for (int i = 0; i < lavaObjectArray.Count-1; i++)
+        {
+            Destroy(lavaObjectArray[i]);
+
+            lavaObjectArray.RemoveAt( i );
+        }
+
     }
 
 }

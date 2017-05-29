@@ -35,7 +35,7 @@ public class enemyGenerator : MonoBehaviour {
     }
 
     public GameObject selectType() {
-        Debug.Log("dddsdaghit");
+        Debug.Log("dddsddddaghit");
         return enemyPrefabArray[itemAndEnemyProcessor.RandomProbabilitySystem(ref ProbabilityArray) - 1];
     }
 
