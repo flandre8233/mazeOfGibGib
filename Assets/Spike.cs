@@ -122,19 +122,21 @@ public class Spike : groundScript {
         startTime = Time.time;
         targetPosition = new Vector3((0 + Random.Range(0, strong) - (strong / 2)) / 10.0f, (0 + Random.Range(0, strong) - (strong / 2)) / 10.0f, -0.5f);
     }
-
+    public Animator ani;
     public  void serializeSpike()
     {
+        ani.SetBool("open", inShowSpike);
+
         if (inShowSpike)
         {
-            spikeLerpStartTime = Time.time;
-            StartCoroutine(spikeLerp(Vector3.zero));
+            //spikeLerpStartTime = Time.time;
+            //StartCoroutine(spikeLerp(Vector3.zero));
         }
         else
         {
-            planeTransform.localPosition = new Vector3(0, 0, -0.5f);
-            spikeLerpStartTime = Time.time;
-            StartCoroutine(spikeLerp(new Vector3(0, 0, -0.5f) ) );
+            //planeTransform.localPosition = new Vector3(0, 0, -0.5f);
+            //spikeLerpStartTime = Time.time;
+            //StartCoroutine(spikeLerp(new Vector3(0, 0, -0.5f) ) );
         }
     }
 

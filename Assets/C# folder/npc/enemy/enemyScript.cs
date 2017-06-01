@@ -198,7 +198,6 @@ public class enemyScript : enemyDataBase
     }
 
     public virtual void enemyAttackPlayerScript() {
-
         if (NumberOfActions <= 0)
         {
             return;
@@ -213,6 +212,8 @@ public class enemyScript : enemyDataBase
         {
             return;
         }
+
+
         IsUnderAttack = false;
 
         if (findPlayerRoundNumber < 0) {
@@ -246,6 +247,7 @@ public class enemyScript : enemyDataBase
         {
             gamemanager.Static.spawnNumberDisplay(chessMovement.Static.gameObject.transform.position, (ATK - playerDataBase.Static.DEF), 5);
             playerDataBase.Static.HP -= (ATK - playerDataBase.Static.DEF);
+            playerMainScript.Static.deadAliveCheck();
         }
     }
 

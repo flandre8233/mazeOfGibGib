@@ -208,7 +208,12 @@ public class mapTerrainGenerator : MonoBehaviour {
         }
     }
 
+
+
     public GameObject[] floorModel;
+
+    public GameObject[] spikeModel;
+
     public GameObject[] grassModelDust;
     public GameObject[] iceModelDust;
     public GameObject[] lavaModelDust;
@@ -217,25 +222,32 @@ public class mapTerrainGenerator : MonoBehaviour {
 
     public GameObject floorCheckpointModel;
 
+    int floorArea;
     void classificationFloorType()
     {
         if (playerDataBase.Static.currentFloor > 40)
         {
-            skyboxSetting(4);
-            createNewFloorMesh(floorModel[4], swampModelDust);
+            floorArea = 4;
+            skyboxSetting(floorArea);
+
+            createNewFloorMesh(floorModel[floorArea], swampModelDust);
         }
         else if (playerDataBase.Static.currentFloor > 30)
         {
-            skyboxSetting(3);
-            createNewFloorMesh(floorModel[3], desertModelDust);
+            floorArea = 3;
+            skyboxSetting(floorArea);
+            createNewFloorMesh(floorModel[floorArea], desertModelDust);
         }
         else if (playerDataBase.Static.currentFloor > 20)
         {
-            skyboxSetting(2);
-            createNewFloorMesh(floorModel[2], lavaModelDust);
+
+            floorArea = 2;
+            skyboxSetting(floorArea);
+            createNewFloorMesh(floorModel[floorArea], lavaModelDust);
         }
         else if (playerDataBase.Static.currentFloor > 10)
         {
+            floorArea = 1;
             skyboxSetting(0);
             createNewFloorMesh(floorModel[1], iceModelDust);
         }
@@ -273,6 +285,7 @@ public class mapTerrainGenerator : MonoBehaviour {
 
             spawnObj.transform.rotation = Quaternion.Euler(180, 0, randomRotation()  );
         // spawnObj.transform.rotation = randomRotation();
+         
             //spawnObj.transform.localPosition = Vector3.zero;
             spawnObj.transform.localPosition = new Vector3(0, 0, -0.5f);
 
@@ -314,9 +327,11 @@ public class mapTerrainGenerator : MonoBehaviour {
         spikeComponent.alreadyLink = orlGroundScript.alreadyLink;
         spikeComponent.TerrainUID = orlGroundScript.TerrainUID;
         Destroy(orlGroundScript);
-        GameObject go = Instantiate(spikePrefab, plane.transform);
+
+        GameObject go = Instantiate(spikeModel[floorArea], plane.transform);
         spikeComponent.spikeObjectTransform = go.transform;
         spikeComponent.planeTransform = plane.transform;
+        spikeComponent.ani = go.GetComponentInChildren<Transform>().GetComponentInChildren<Animator>();
         spikeComponent.isSpike = true;
         spikeComponent.serializeSpike();
         spikeComponent.UpdataSystem += spikeComponent.earthQuake ;

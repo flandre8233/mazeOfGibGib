@@ -155,6 +155,11 @@ public class chessMovement : GeneralMovementSystem
             return;
         }
 
+        if (roundScript.Static.IsDead)
+        {
+            return;
+        }
+
             switch (moveDirection)
             {
                 default:
@@ -283,6 +288,10 @@ public class chessMovement : GeneralMovementSystem
                 roundScript.Static.movementProcessingChecker = false;
             }
 
+        }
+        else
+        {
+            charactor_move.SetFloat("movementFloat", 0.0f);
         }
     }
 

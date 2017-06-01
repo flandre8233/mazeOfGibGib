@@ -17,6 +17,7 @@ public class roundScript : MonoBehaviour {
 
     public int round = 0;
     public bool IsDead = false;
+    bool onDeadDoOnce = false;
     public bool isExitTouchPlayer = false;
     public bool isInExitLevel = false;
     bool NeedGenertorThings = false;
@@ -319,13 +320,13 @@ public class roundScript : MonoBehaviour {
             OnEnterNextLevel();
         }
 
-        if (IsDead)
+        if (IsDead && !onDeadDoOnce)
         {//dead
+            onDeadDoOnce = true;
+
             playerMainScript.Static.GetComponent<chessMovement>().enabled = false;
             Debug.Log("dead");
-            //chessMovement.Static.gameObject.GetComponentInChildren<Animator>().SetBool("dead_bool", true);
             chessMovement.Static.charactor_move.SetTrigger("dead");
-            IsDead = false;
         }
     }
 
