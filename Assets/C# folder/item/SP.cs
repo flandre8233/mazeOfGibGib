@@ -11,7 +11,9 @@ public class SP : itemScript {
         }
     }
 
-    public override void SetUp() {
-        itemName = "SP";
+    public override void SetUp()
+    {
+        type = itemType.SP;
+
     }
 }

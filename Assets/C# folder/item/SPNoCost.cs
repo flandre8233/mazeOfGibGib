@@ -15,7 +15,7 @@ public class SPNoCost : itemScript
     }
 
     public override void SetUp() {
-        itemName = "SPNoCost";
+        type = itemType.SPNoCost;
         addSP = 1;
     }
 }

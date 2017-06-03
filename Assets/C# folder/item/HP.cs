@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class HP : itemScript {
     public override void SetUp() {
-        itemName = "HP";
+        type = itemType.HP;
+
         addHP = 10;
     }
 

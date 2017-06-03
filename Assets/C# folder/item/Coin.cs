@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Coin : itemScript{
     public override void SetUp() {
-        itemName = "Coin";
+        type = itemType.COIN;
         addCOIN = 10;
     }
 }

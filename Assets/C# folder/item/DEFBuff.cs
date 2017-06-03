@@ -18,7 +18,8 @@ public class DEFBuff : itemScript {
         }
     }
 
+
     public override void SetUp() {
-        itemName = "DEFBuff";
+        type = itemType.DEF;
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ATKBuff : itemScript {
-
+    
     public override int AddATK {
         get {
             addATK = ((level + 2) * 10);
@@ -19,6 +19,6 @@ public class ATKBuff : itemScript {
     }
 
     public override void SetUp() {
-        itemName = "ATKBuff";
+        type = itemType.ATK;
     }
 }

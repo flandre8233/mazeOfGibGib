@@ -50,11 +50,16 @@ public class playerMainScript : MonoBehaviour
             return;
         }
 
+        bool hpHasChanged = false;
         int hpNumber=0;
 
         if (playerDataBase.Static.SP > 0) {
-            if (playerDataBase.Static.HP < playerDataBase.Static.MaxHP) {
-                if ((int)(Mathf.Round(playerDataBase.Static.MaxHP / 100.0f * 5.0f)) > 1) {
+            if (playerDataBase.Static.HP < playerDataBase.Static.MaxHP)
+            {
+                Instantiate(particleManager.Static.character_run_inside01_heal, gameObject.transform); //粒子
+                hpHasChanged = true;
+                if ((int)(Mathf.Round(playerDataBase.Static.MaxHP / 100.0f * 5.0f)) > 1)
+                {
                     hpNumber = (int)(Mathf.Round(playerDataBase.Static.MaxHP / 100.0f * 10.0f)); ;
                 }
                 else {
@@ -65,12 +70,15 @@ public class playerMainScript : MonoBehaviour
             if (hpNumber > 0)
             {
                 gamemanager.Static.spawnNumberDisplay(transform.position, hpNumber, 3);
-
             }
         }
         else {
-            if (playerDataBase.Static.HP > 0) {
-                if ((int)(Mathf.Round(playerDataBase.Static.MaxHP / 100.0f * 10.0f)) > 1) {
+            if (playerDataBase.Static.HP > 0)
+            {
+                Instantiate(particleManager.Static.character_run_inside01_hurt, gameObject.transform); //粒子
+                hpHasChanged = true;
+                if ((int)(Mathf.Round(playerDataBase.Static.MaxHP / 100.0f * 10.0f)) > 1)
+                {
                     hpNumber =  (int)(Mathf.Round(playerDataBase.Static.MaxHP / 100.0f * 15.0f));
                 }
                 else {
@@ -80,6 +88,13 @@ public class playerMainScript : MonoBehaviour
             playerDataBase.Static.HP -= hpNumber;
             gamemanager.Static.spawnNumberDisplay(transform.position, hpNumber, 5);
         }
+
+
+        if (!hpHasChanged)
+        {
+            Instantiate(particleManager.Static.character_run_inside01_normal, gameObject.transform); //粒子
+        }
+
 
         if (playerDataBase.Static.HP > playerDataBase.Static.MaxHP) {
             playerDataBase.Static.HP = playerDataBase.Static.MaxHP;
@@ -181,28 +196,34 @@ public class playerMainScript : MonoBehaviour
         }
 
 
-        itemArrayClone[saveIn] = DeepCopyType(hitItem.GetComponent<itemScript>().itemName, saveIn);
+        itemArrayClone[saveIn] = DeepCopyType(hitItem.GetComponent<itemScript>().type, saveIn);
         itemArrayClone[saveIn] = DeepCopyItem(hitItem.gameObject.GetComponent<itemScript>(), saveIn);
         //itemArray[saveIn] = DeepCopyItem(hitItem.gameObject.GetComponent<itemScript>(), saveIn);
         hitItem = null;
     }
 
 
-    itemScript DeepCopyType(string name, int saveIn)
+    itemScript DeepCopyType(itemType name, int saveIn)
     {
         switch (name)
         {
-            case "SP":
+            case itemType.HP:
+                return gameObject.AddComponent<HP>(); //?
+            case itemType.SP:
                 return gameObject.AddComponent<SP>();
-
-            case "SPNoCost":
+                break;
+            case itemType.SPNoCost:
                 return gameObject.AddComponent<SPNoCost>();
-
-            case "DEFBuff":
-                return gameObject.AddComponent<DEFBuff>();
-
-            case "ATKBuff":
+            case itemType.ATK:
                 return gameObject.AddComponent<ATKBuff>();
+            case itemType.DEF:
+                return gameObject.AddComponent<DEFBuff>();
+            case itemType.HPMAX:
+                break;
+            case itemType.SPMAX:
+                break;
+            default:
+                break;
         }
         return gameObject.AddComponent<SP>();
     }
@@ -237,36 +258,41 @@ public class playerMainScript : MonoBehaviour
     {
         if (number > 1 || number < 0)
         {
+
             return;
         }
 
         //itemArray.Add(hitItem.gameObject.GetComponent<itemScript>()); // this work
-
+        switch (itemArrayClone[number].type)
+        {
+            case itemType.HP:
+                Instantiate(particleManager.Static.character_run_inside01_heal, gameObject.transform); //粒子
+                break;
+            case itemType.SP:
+                Instantiate(particleManager.Static.character_item_food, gameObject.transform); //粒子
+                break;
+            case itemType.SPNoCost:
+                Instantiate(particleManager.Static.character_item_foodtime, gameObject.transform); //粒子
+                inSPBuffStatus = true;
+                StartCoroutine(NoCostSpItem(itemArrayClone[number].SPNoCostTime));
+                break;
+            case itemType.ATK:
+                Instantiate(particleManager.Static.character_item_attack, gameObject.transform); //粒子
+                inATKBuffStatus = ATKBuffSetUp(itemArrayClone[number].ContinueRound, itemArrayClone[number].AddATK);
+                break;
+            case itemType.DEF:
+                Instantiate(particleManager.Static.character_item_defense, gameObject.transform); //粒子
+                inDEFBuffStatus = DEFBuffSetUp(itemArrayClone[number].ContinueRound, itemArrayClone[number].AddDEF);
+                break;
+            default:
+                break;
+        }
 
         playerDataBase.Static.HP += itemArrayClone[number].AddHP;
         playerDataBase.Static.SP += itemArrayClone[number].AddSP;
         playerDataBase.Static.HPBuff += itemArrayClone[number].AddHPMax;
         playerDataBase.Static.SPBuff += itemArrayClone[number].AddSPMax;
         playerDataBase.Static.COIN += itemArrayClone[number].AddCOIN;
-
-        if (itemArrayClone[number].SPNoCostTime != 0) {
-            // spnocost buff item          
-            inSPBuffStatus = true;
-            StartCoroutine(NoCostSpItem(itemArrayClone[number].SPNoCostTime ) );
-        }
-
-        if (itemArrayClone[number].ContinueRound != 0)
-        {
-            if (itemArrayClone[number].AddATK != 0)
-            { // atk buff item
-                inATKBuffStatus = ATKBuffSetUp(itemArrayClone[number].ContinueRound, itemArrayClone[number].AddATK);
-            }
-            else
-            { // def buff item
-                inDEFBuffStatus = DEFBuffSetUp(itemArrayClone[number].ContinueRound, itemArrayClone[number].AddDEF);
-            }
-
-        }
 
         if (itemArrayClone[number].AddHP > 0) {
             gamemanager.Static.spawnNumberDisplay(transform.position, itemArrayClone[number].AddHP, 3);
@@ -394,14 +420,14 @@ public class playerMainScript : MonoBehaviour
 
     #endregion
 
-    bool checkIsAlreadyGetItem(string itemName)
+    bool checkIsAlreadyGetItem(itemType itemName)
     {
 
         for (int i = 0; i < itemArrayClone.Length; i++)
         {
 
 
-            if (itemArrayClone[i] != null && itemArrayClone[i].itemName == itemName )
+            if (itemArrayClone[i] != null && itemArrayClone[i].type == itemName )
             {
                 levelUpItem(itemArrayClone[i]);
                 itemV3[i].GetComponentInChildren<Animator>().SetTrigger("get");
@@ -434,9 +460,9 @@ public class playerMainScript : MonoBehaviour
         { //hit item
             hitItem = other.gameObject;
 
-            if (hitItem.GetComponent<itemScript>().itemName == "HPMax" || hitItem.GetComponent<itemScript>().itemName == "SpMax") //果實
+            if (hitItem.GetComponent<itemScript>().type == itemType.HPMAX || hitItem.GetComponent<itemScript>().type == itemType.SPMAX) //果實
             {
-                if (hitItem.GetComponent<itemScript>().itemName == "HPMax")
+                if (hitItem.GetComponent<itemScript>().type == itemType.HPMAX)
                 {
                     Instantiate(particleManager.Static.Hpmax_up, gameObject.transform);
                 }
@@ -450,7 +476,7 @@ public class playerMainScript : MonoBehaviour
             }
 
             bool itemArrayHaveSpace = false;
-            bool alreadyHaveThisItem = checkIsAlreadyGetItem(other.gameObject.GetComponent<itemScript>().itemName);
+            bool alreadyHaveThisItem = checkIsAlreadyGetItem(other.gameObject.GetComponent<itemScript>().type);
             chessMovement.Static.charactor_move.SetTrigger("get");
             for (int i = 0; i < itemArrayClone.Length; i++)
             {

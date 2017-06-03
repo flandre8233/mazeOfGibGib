@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpMax : itemScript {
    public override void SetUp() {
-        itemName = "SpMax";
+        type = itemType.SPMAX;
         addSPMax = 5;
     }
     

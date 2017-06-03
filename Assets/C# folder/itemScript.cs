@@ -2,11 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum itemType
+{
+    HP,
+    SP,
+    SPNoCost,
+    ATK,
+    DEF,
+    HPMAX,
+    SPMAX,
+    COIN
+};
+
 public class itemScript : MonoBehaviour
 {
 
-    public string itemName { get; set; }
+    //public string itemName { get; set; }
     public int level { get; set; }
+    public itemType type;
     protected int addHP;
     protected int addSP;
     protected int addHPMax;
