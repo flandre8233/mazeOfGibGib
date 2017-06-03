@@ -436,6 +436,14 @@ public class playerMainScript : MonoBehaviour
 
             if (hitItem.GetComponent<itemScript>().itemName == "HPMax" || hitItem.GetComponent<itemScript>().itemName == "SpMax") //果實
             {
+                if (hitItem.GetComponent<itemScript>().itemName == "HPMax")
+                {
+                    Instantiate(particleManager.Static.Hpmax_up, gameObject.transform);
+                }
+                else
+                {
+                    Instantiate(particleManager.Static.Spmax_up, gameObject.transform);
+                }
                 useItemMaxOnly(hitItem.GetComponent<itemScript>());
                 chessMovement.Static.charactor_move.SetTrigger("get");
                 return;

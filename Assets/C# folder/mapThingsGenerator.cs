@@ -195,7 +195,7 @@ public class mapThingsGenerator : MonoBehaviour {
     bool sampleRandom()
     {
         int number = Random.Range(0,100) ;
-        if (number <= 5)
+        if (number <= 100)
         {
             return true;
         }
