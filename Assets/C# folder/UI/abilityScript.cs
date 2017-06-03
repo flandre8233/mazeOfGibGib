@@ -42,7 +42,8 @@ public class abilityScript : MonoBehaviour {
         {
             playerDataBase.Static.ATKlevelpercent++;
             playerDataBase.Static.abilityATKPercent = playerDataBase.Static.abilityATKPercent + 20;
-            playerDataBase.Static.ATK = (int)(playerDataBase.Static.ATK / 100f * playerDataBase.Static.abilityATKPercent);
+            Debug.Log(playerDataBase.Static.abilityATKPercent);
+            playerDataBase.Static.ATK = (int)( ( 1+0)/ 100f * playerDataBase.Static.abilityATKPercent);
             //Debug.Log(playerDataBase.Static.ATKInitial / 100f * playerDataBase.Static.abilityATKPercent);
             playerDataBase.Static.POINT--;
         }
@@ -55,7 +56,7 @@ public class abilityScript : MonoBehaviour {
         {
             playerDataBase.Static.DEFlevelpercent++;
             playerDataBase.Static.abilityDEFPercent = playerDataBase.Static.abilityDEFPercent + 20;
-            playerDataBase.Static.DEF = (int)(playerDataBase.Static.DEF / 100f * playerDataBase.Static.abilityDEFPercent);
+            playerDataBase.Static.DEF = (int)( (1+0)/ 100f * playerDataBase.Static.abilityDEFPercent);
             //Debug.Log(DEF_add);
             playerDataBase.Static.POINT--;
         }
