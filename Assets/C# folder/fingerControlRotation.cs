@@ -21,7 +21,7 @@ public class fingerControlRotation : MonoBehaviour
             Destroy(this);
         }
         else {
-            Static = this;
+          Static = this;
         }
 	}
 
@@ -44,7 +44,7 @@ public class fingerControlRotation : MonoBehaviour
             startLerpMovement = false;
             testOne = new Vector2(Input.mousePosition.x, 0);
             testTwo = new Vector2(0, Input.mousePosition.y);
-            onPressFloat = (Vector2.Distance(testOne, Input.mousePosition) + Vector2.Distance(testTwo, Input.mousePosition) ) / 2;
+            onPressFloat = mouseDistance(testOne,testTwo);
             onPressZAngle = transform.rotation.eulerAngles.z;
             onpress = true;
         }
@@ -57,15 +57,26 @@ public class fingerControlRotation : MonoBehaviour
         }
         if (onpress) {
             hideWall();
-            float dis = Vector2.Distance(testOne, Input.mousePosition);
+            float fixedMouseDistance = (onPressFloat - mouseDistance(testOne, testTwo));
+            float allowMouseDelay = 10;
+            if ( fixedMouseDistance >= allowMouseDelay) //滑鼠delay判定
+            {
+                transform.rotation = Quaternion.Euler(0, 0, onPressZAngle + (fixedMouseDistance - allowMouseDelay) );
+            }
+            else if (fixedMouseDistance <= -allowMouseDelay)
+            {
 
-            float dis2 = Vector2.Distance(testTwo, Input.mousePosition);
-
-            transform.rotation = Quaternion.Euler(0, 0, onPressZAngle + (onPressFloat -((dis + dis2)/2) ) );
+                transform.rotation = Quaternion.Euler(0, 0, onPressZAngle + (fixedMouseDistance + allowMouseDelay));
+            }
 
             //transform.rotation = Quaternion.Euler(0, 0,  onPressZAngle + (360 * holdHeightPrecent));
         }
 	}
+
+    float mouseDistance(Vector2 axisX, Vector2 axisY)
+    {
+       return (Vector2.Distance(axisX, Input.mousePosition) + Vector2.Distance(axisY, Input.mousePosition)) / 2;
+    }
     
     int calibration(float number) {
         int[] array = { 360,90,180,270,0 };

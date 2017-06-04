@@ -56,7 +56,7 @@ public class playerMainScript : MonoBehaviour
         if (playerDataBase.Static.SP > 0) {
             if (playerDataBase.Static.HP < playerDataBase.Static.MaxHP)
             {
-                Instantiate(particleManager.Static.character_run_inside01_heal, gameObject.transform); //粒子
+                Instantiate(particleManager.Static.character_run_inside01_heal, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, -0.5f), Quaternion.identity); //粒子
                 hpHasChanged = true;
                 if ((int)(Mathf.Round(playerDataBase.Static.MaxHP / 100.0f * 5.0f)) > 1)
                 {
@@ -75,7 +75,7 @@ public class playerMainScript : MonoBehaviour
         else {
             if (playerDataBase.Static.HP > 0)
             {
-                Instantiate(particleManager.Static.character_run_inside01_hurt, gameObject.transform); //粒子
+                Instantiate(particleManager.Static.character_run_inside01_hurt, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, -0.5f), Quaternion.identity);  //粒子
                 hpHasChanged = true;
                 if ((int)(Mathf.Round(playerDataBase.Static.MaxHP / 100.0f * 10.0f)) > 1)
                 {
@@ -92,7 +92,7 @@ public class playerMainScript : MonoBehaviour
 
         if (!hpHasChanged)
         {
-            Instantiate(particleManager.Static.character_run_inside01_normal, gameObject.transform); //粒子
+            Instantiate(particleManager.Static.character_run_inside01_normal,new Vector3(gameObject.transform.position.x, gameObject.transform.position.y,-0.5f),Quaternion.identity); //粒子
         }
 
 
