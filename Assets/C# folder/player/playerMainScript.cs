@@ -211,7 +211,6 @@ public class playerMainScript : MonoBehaviour
                 return gameObject.AddComponent<HP>(); //?
             case itemType.SP:
                 return gameObject.AddComponent<SP>();
-                break;
             case itemType.SPNoCost:
                 return gameObject.AddComponent<SPNoCost>();
             case itemType.ATK:
@@ -475,7 +474,7 @@ public class playerMainScript : MonoBehaviour
                 return;
             }
 
-            bool itemArrayHaveSpace = false;
+
             bool alreadyHaveThisItem = checkIsAlreadyGetItem(other.gameObject.GetComponent<itemScript>().type);
             chessMovement.Static.charactor_move.SetTrigger("get");
             for (int i = 0; i < itemArrayClone.Length; i++)
@@ -484,7 +483,6 @@ public class playerMainScript : MonoBehaviour
                 {
                     getItemSet(i);
                     spawnItemIn3DUI(other.gameObject,itemV3[i].transform);
-                    itemArrayHaveSpace = true;
                     break;
                 }
             }

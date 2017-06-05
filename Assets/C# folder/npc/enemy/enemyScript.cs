@@ -264,7 +264,6 @@ public class enemyScript : enemyDataBase
     }
 
     public void allwayFaceAtPlayer() {
-        float Angle = ImageLookAt2D(transform.position, playerTransform.position).eulerAngles.z;
         transform.rotation = ImageLookAt2D(transform.position, playerTransform.position) ;
         //transform.LookAt(playerTransform);
     }
