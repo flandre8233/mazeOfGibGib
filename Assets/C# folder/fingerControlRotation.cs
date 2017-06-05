@@ -58,15 +58,15 @@ public class fingerControlRotation : MonoBehaviour
         if (onpress) {
             hideWall();
             float fixedMouseDistance = (onPressFloat - mouseDistance(testOne, testTwo));
-            float allowMouseDelay = 10;
+            float allowMouseDelay = 25;
             if ( fixedMouseDistance >= allowMouseDelay) //滑鼠delay判定
             {
-                transform.rotation = Quaternion.Euler(0, 0, onPressZAngle + (fixedMouseDistance - allowMouseDelay) );
+                transform.rotation = Quaternion.Euler(0, 0, onPressZAngle + (fixedMouseDistance - allowMouseDelay) *0.7f );
             }
             else if (fixedMouseDistance <= -allowMouseDelay)
             {
 
-                transform.rotation = Quaternion.Euler(0, 0, onPressZAngle + (fixedMouseDistance + allowMouseDelay));
+                transform.rotation = Quaternion.Euler(0, 0, onPressZAngle + (fixedMouseDistance + allowMouseDelay) *0.7f);
             }
 
             //transform.rotation = Quaternion.Euler(0, 0,  onPressZAngle + (360 * holdHeightPrecent));

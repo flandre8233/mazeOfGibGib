@@ -40,7 +40,12 @@ public class damageDisplay : MonoBehaviour {
             //Debug.Log(emptyGameObject.transform.localPosition);
             ChangeSprite(number % 10, type );
             number  /= 10;
+
+
+            emptyGameObject.transform.position -= emptyGameObject.transform.forward;
         }
+
+
     }
 
     public static int getDigits(int n1, int nodigits) {
