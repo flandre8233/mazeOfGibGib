@@ -16,6 +16,11 @@ public class pause_script : MonoBehaviour {
 		
 	}
 
+    public void pause_timescale()
+    {
+        Time.timeScale = 0;
+    }
+
     public void pause_menu_popout()
     {
         if (pause_animator.GetBool("pause_bool")==false)
@@ -28,6 +33,7 @@ public class pause_script : MonoBehaviour {
         {
             pause_animator.SetBool("pause_bool", false);
             pause_background.gameObject.SetActive(false);
+            Time.timeScale = 1.0F;
         }
 
     }

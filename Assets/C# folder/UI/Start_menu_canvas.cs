@@ -7,7 +7,7 @@ public class Start_menu_canvas : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+        start_menu.gameObject.SetActive(true);
 	}
 	
 	// Update is called once per frame
