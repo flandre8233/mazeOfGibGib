@@ -83,7 +83,7 @@ public class abilityCanvasScript : MonoBehaviour {
 
         int nextATK = ((int)((1 + playerDataBase.Static.ATKLevel) / 100f * (((playerDataBase.Static.ATKlevelpercent + 1) * 20) + 100)));
         int nextDEF = ((int)((1 + playerDataBase.Static.DEFLevel) / 100f * (( (playerDataBase.Static.DEFlevelpercent+1) * 20) + 100) ))  ;
-        Debug.Log(playerDataBase.Static.ATKlevelpercent + "   " + playerDataBase.Static.ATKLevel);
+        //Debug.Log(playerDataBase.Static.ATKlevelpercent + "   " + playerDataBase.Static.ATKLevel);
         ATK_result.text = (nextATK) + "";
         DEF_result.text = (nextDEF) + "";
     }

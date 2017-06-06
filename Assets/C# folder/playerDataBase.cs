@@ -182,7 +182,6 @@ public class playerDataBase : MonoBehaviour {
         COINBounsPercent = 100;
         ResetTimes = 0;
         currentFloor = 0;
-        maxFloor = 0;
 
         idle_time = 10;
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Start_menu_canvas : MonoBehaviour {
+    public static Start_menu_canvas Static;
     public RectTransform start_menu;
 
 	// Use this for initialization
