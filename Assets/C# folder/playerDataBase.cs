@@ -24,8 +24,18 @@ public class playerDataBase : MonoBehaviour {
     int MaxHPInitial { get; set; }
      int MaxSPInitial { get; set; }
 
-    public int ATK { get; set; }
-    public int DEF { get; set; }
+    public int ATK {
+        get {
+            return ((int)((1 + ATKLevel) / 100f * ((ATKlevelpercent * 20) + 100)))+ATKBuff;
+        }
+    }
+    public int DEF {
+        get {
+            return (int)((1 + DEFLevel) / 100f * ((DEFlevelpercent * 20) + 100))+DEFBuff;
+        }
+    }
+    public int ATKBuff;
+    public int DEFBuff;
     public int ATKInitial { get; set; }
     public int DEFInitial { get; set; }
 
@@ -58,8 +68,8 @@ public class playerDataBase : MonoBehaviour {
 
     public int abilityHPMax { get; set; }
     public int abilitySPMax { get; set; }
-    public float abilityATKPercent { get; set; }
-    public float abilityDEFPercent { get; set; }
+    //public float abilityATKPercent { get; set; }
+    //public float abilityDEFPercent { get; set; }
 
     public int equipment_ATKcost { get; set; }
     public int equipment_DEFcost { get; set; }
@@ -91,11 +101,7 @@ public class playerDataBase : MonoBehaviour {
 
         HP = MaxHP;
         SP = MaxSP;
-        abilityATKPercent = 100;
-        abilityDEFPercent = 100;
         //ATK = ATKInitial + (int)(ATKInitial * (100/abilityATKPercent));
-        ATK = 1;
-        DEF = 1;
         //DEF = DEFInitial + (int)(DEFInitial * (100/abilityDEFPercent));
 
         ATKlevelpercent = 0;
@@ -105,9 +111,9 @@ public class playerDataBase : MonoBehaviour {
         HpmaxLevel = 0;
         SpmaxLevel = 0;
 
-        COIN = 1000;
+        COIN = 100000;
         COINBounsPercent = 100;
-        POINT = 5;
+        POINT = 500;
         ResetTimes = 0;
         currentFloor = 0;
         maxFloor = 0;
@@ -143,6 +149,9 @@ public class playerDataBase : MonoBehaviour {
             Static = this;
         }
     }
+
+
+
     public void restart_data()
     { //玩家起始值
         //ability_point keep
@@ -159,11 +168,7 @@ public class playerDataBase : MonoBehaviour {
 
         HP = MaxHP;
         SP = MaxSP;
-        abilityATKPercent = 100;
-        abilityDEFPercent = 100;
         //ATK = ATKInitial + (int)(ATKInitial * (100/abilityATKPercent));
-        ATK = 1;
-        DEF = 1;
         //DEF = DEFInitial + (int)(DEFInitial * (100/abilityDEFPercent));
 
         ATKlevelpercent = 0;

@@ -31,7 +31,8 @@ public class equipmentCanvasScript : MonoBehaviour {
         ATK.text = playerDataBase.Static.ATK + "";
         ATKLevel.text = "Level" + playerDataBase.Static.ATKLevel;
         ATK_money.text = playerDataBase.Static.equipment_ATKcost + "";
-        ATKnext.text = equipmentScript.Static.nextAtk().ToString();
+        int nextATK = ((int)((1 + playerDataBase.Static.ATKLevel +1) / 100f * ((playerDataBase.Static.ATKlevelpercent * 20) + 100) ));
+        ATKnext.text = nextATK.ToString();
     }
 
     public void DEFupdate()
@@ -39,7 +40,8 @@ public class equipmentCanvasScript : MonoBehaviour {
         DEF.text = playerDataBase.Static.DEF + "";
         DEFLevel.text = "Level" + playerDataBase.Static.DEFLevel;
         DEF_money.text = playerDataBase.Static.equipment_DEFcost + "";
-        DEFnext.text = equipmentScript.Static.nextDEF().ToString();
+        int nextDEF = ((int)((1 + playerDataBase.Static.DEFLevel +1 ) / 100f * ((playerDataBase.Static.DEFlevelpercent  * 20) + 100) ));
+        DEFnext.text = nextDEF.ToString();
     }
 
 }
