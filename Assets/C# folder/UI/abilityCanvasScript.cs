@@ -80,7 +80,11 @@ public class abilityCanvasScript : MonoBehaviour {
         
         Hpmax_result.text = (playerDataBase.Static.MaxHP+ playerDataBase.Static.HPAbility) + "";
         Spmax_result.text = (playerDataBase.Static.MaxSP + playerDataBase.Static.SPAbility) + "";
-        ATK_result.text = ( (int)(playerDataBase.Static.ATK / 100f * (playerDataBase.Static.abilityATKPercent + 20) ) )+ "";
-        DEF_result.text = ( (int)(playerDataBase.Static.DEF / 100f * playerDataBase.Static.abilityDEFPercent + 20) ) + "";
+
+        int nextATK = ((int)((1 + playerDataBase.Static.ATKLevel) / 100f * (((playerDataBase.Static.ATKlevelpercent + 1) * 20) + 100)));
+        int nextDEF = ((int)((1 + playerDataBase.Static.DEFLevel) / 100f * (( (playerDataBase.Static.DEFlevelpercent+1) * 20) + 100) ))  ;
+        Debug.Log(playerDataBase.Static.ATKlevelpercent + "   " + playerDataBase.Static.ATKLevel);
+        ATK_result.text = (nextATK) + "";
+        DEF_result.text = (nextDEF) + "";
     }
 }

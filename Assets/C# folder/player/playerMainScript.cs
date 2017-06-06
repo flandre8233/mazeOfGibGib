@@ -351,10 +351,9 @@ public class playerMainScript : MonoBehaviour
     {
         DEFbuffStartRound = roundScript.Static.round;
         DEFContinueRound = conRound;
-        originalDEFNumber = playerDataBase.Static.DEF;
-        if (originalDEFNumber > 0)
+        if (playerDataBase.Static.DEFBuff > 0)
         {
-            playerDataBase.Static.DEF += (int)(playerDataBase.Static.DEF / (100 / DEFAddNumber) );
+            playerDataBase.Static.DEFBuff += (int)(playerDataBase.Static.DEF / (100 / DEFAddNumber) ) + 1;
         }
         return true;
     }
@@ -363,12 +362,9 @@ public class playerMainScript : MonoBehaviour
     {
         ATKbuffStartRound = roundScript.Static.round;
         ATKContinueRound = conRound;
-        originalATKNumber = playerDataBase.Static.ATK;
-        Debug.Log((100.0f / originalATKNumber));
-        if (originalATKNumber > 0)
+        if (playerDataBase.Static.ATKBuff > 0)
         {
-            Debug.Log((100.0f / atkAddNumber));
-            playerDataBase.Static.ATK += (int)(playerDataBase.Static.ATK / (100.0f / atkAddNumber) );
+            playerDataBase.Static.ATKBuff += (int)(playerDataBase.Static.ATK / (100.0f / atkAddNumber)) + 1;
         }
         return true;
     }
@@ -386,7 +382,7 @@ public class playerMainScript : MonoBehaviour
             return true;
         }
 
-        playerDataBase.Static.ATK = originalATKNumber;
+        playerDataBase.Static.ATKBuff = 0;
         return false;
     }
     public bool DEFBuff()
@@ -402,7 +398,7 @@ public class playerMainScript : MonoBehaviour
             return true;
         }
 
-        playerDataBase.Static.DEF = originalDEFNumber;
+        playerDataBase.Static.DEFBuff = 0;
         return false;
     }
 

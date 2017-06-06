@@ -21,6 +21,8 @@ public class Spike : groundScript {
 
     public int damage = 3;
 
+    public int damagePercentage = 50;
+
 
     float startTime;
     public float lerpSpeed = 0.0f;
@@ -97,12 +99,12 @@ public class Spike : groundScript {
             }
         }
         */
-        if (playerDataBase.Static.DEF <= damage)
-        {
-            gamemanager.Static.spawnNumberDisplay(chessMovement.Static.gameObject.transform.position, (damage - playerDataBase.Static.DEF), 5);
-            playerDataBase.Static.HP -= (damage - playerDataBase.Static.DEF);
-        }
+        int outputDamage = (int)( (playerDataBase.Static.HP / 100.0f) * damagePercentage);
+
+        gamemanager.Static.spawnNumberDisplay(chessMovement.Static.gameObject.transform.position, outputDamage, 5);
+        playerDataBase.Static.HP -= outputDamage;
     }
+    
 
     float spikeLerpStartTime;
     IEnumerator spikeLerp(Vector3 targetPosition)
