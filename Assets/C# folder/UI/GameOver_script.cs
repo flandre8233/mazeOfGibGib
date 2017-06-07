@@ -20,6 +20,7 @@ public class GameOver_script : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(playerDataBase.Static.check_start);
         gameover_menu();
         //Debug.Log(playerDataBase.Static.maxFloor + "max");
         //Debug.Log(playerDataBase.Static.currentFloor+"current");
@@ -45,9 +46,17 @@ public class GameOver_script : MonoBehaviour {
 
     public void reset_level()
     {
+        playerDataBase.Static.check_start = false;
         playerDataBase.Static.restart_data();
-        gameover_show.gameObject.SetActive(false);
+        //gameover_show.gameObject.SetActive(false);
         SceneManager.LoadScene(0);
         //Start_menu_canvas.Static.start_menu.gameObject.SetActive(false);
+    }
+
+    public void exit_to_start()
+    {
+        playerDataBase.Static.check_start = true;
+        playerDataBase.Static.restart_data();
+        SceneManager.LoadScene(0);
     }
 }

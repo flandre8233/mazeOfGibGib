@@ -8,13 +8,20 @@ public class Start_menu_canvas : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        start_menu.gameObject.SetActive(true);
-	}
+        if (playerDataBase.Static.check_start == true)
+        {
+            start_menu.gameObject.SetActive(true);
+        }
+        else
+        {
+            start_menu.gameObject.SetActive(false);
+        }
+    }
 	
 	// Update is called once per frame
 	void Update () {
-
-	}
+    
+    }
 
     public void Start_exit()
     {
