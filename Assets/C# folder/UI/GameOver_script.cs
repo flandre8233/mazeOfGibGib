@@ -48,6 +48,6 @@ public class GameOver_script : MonoBehaviour {
         playerDataBase.Static.restart_data();
         gameover_show.gameObject.SetActive(false);
         SceneManager.LoadScene(0);
-        Start_menu_canvas.Static.start_menu.gameObject.SetActive(false);
+        //Start_menu_canvas.Static.start_menu.gameObject.SetActive(false);
     }
 }
