@@ -90,6 +90,8 @@ public class playerDataBase : MonoBehaviour {
 
     public bool revive_value { get; set; }
 
+    public bool check_start { get; set; }
+
     public void fullHPSP() {
         HP = MaxHP;
         SP = MaxSP;
@@ -136,6 +138,7 @@ public class playerDataBase : MonoBehaviour {
 
 
         revive_value = false;
+        check_start = true;
     }
 
 
@@ -191,5 +194,6 @@ public class playerDataBase : MonoBehaviour {
         currentFloor = 0;
         currentLifeMaxFloor = 0;
         revive_value = false;
+        //check_start = false;
     }
 }
