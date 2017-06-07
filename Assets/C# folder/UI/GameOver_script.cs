@@ -21,8 +21,8 @@ public class GameOver_script : MonoBehaviour {
     void Update()
     {
         gameover_menu();
-        Debug.Log(playerDataBase.Static.maxFloor + "max");
-        Debug.Log(playerDataBase.Static.currentFloor+"current");
+        //Debug.Log(playerDataBase.Static.maxFloor + "max");
+        //Debug.Log(playerDataBase.Static.currentFloor+"current");
         Current_Stage.text = playerDataBase.Static.currentFloor + "";
         Best_Stage.text = playerDataBase.Static.maxFloor + "";
         if (playerDataBase.Static.currentFloor < playerDataBase.Static.maxFloor)
