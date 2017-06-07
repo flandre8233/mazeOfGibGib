@@ -243,12 +243,17 @@ public class enemyScript : enemyDataBase
 
     public void enemyAttack()
     {
-        if (playerDataBase.Static.DEF <= ATK)
+        if (playerDataBase.Static.DEF < ATK)
         {
             gamemanager.Static.spawnNumberDisplay(chessMovement.Static.gameObject.transform.position, (ATK - playerDataBase.Static.DEF), 5);
             playerDataBase.Static.HP -= (ATK - playerDataBase.Static.DEF);
             playerMainScript.Static.deadAliveCheck();
         }
+        else
+        {
+            gamemanager.Static.spawnNumberDisplay(chessMovement.Static.gameObject.transform.position, 0 , 5);
+        }
+
     }
 
     private void Update() {
