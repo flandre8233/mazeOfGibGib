@@ -349,22 +349,26 @@ public class playerMainScript : MonoBehaviour
     #region itemBuff Set
     public bool DEFBuffSetUp(int conRound, int DEFAddNumber)
     {
+        Debug.Log(playerDataBase.Static.DEFBuff);
         DEFbuffStartRound = roundScript.Static.round;
         DEFContinueRound = conRound;
-        if (playerDataBase.Static.DEFBuff > 0)
+        if (playerDataBase.Static.DEFBuff <= 0)
         {
-            playerDataBase.Static.DEFBuff += (int)(playerDataBase.Static.DEF / (100 / DEFAddNumber) ) + 1;
+            playerDataBase.Static.DEFBuff += (int)((playerDataBase.Static.DEF / 100.0f) * DEFAddNumber ) + 1;
+            Debug.Log(playerDataBase.Static.DEFBuff + "def" + playerDataBase.Static.DEF);
         }
         return true;
     }
 
     public bool ATKBuffSetUp(int conRound, int atkAddNumber)
     {
+        Debug.Log(playerDataBase.Static.ATKBuff);
         ATKbuffStartRound = roundScript.Static.round;
         ATKContinueRound = conRound;
-        if (playerDataBase.Static.ATKBuff > 0)
+        if (playerDataBase.Static.ATKBuff <= 0)
         {
-            playerDataBase.Static.ATKBuff += (int)(playerDataBase.Static.ATK / (100.0f / atkAddNumber)) + 1;
+            playerDataBase.Static.ATKBuff += (int)((playerDataBase.Static.ATK / 100.0f ) * atkAddNumber ) + 1;
+            Debug.Log(playerDataBase.Static.ATKBuff + "atk" + playerDataBase.Static.ATK);
         }
         return true;
     }

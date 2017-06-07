@@ -18,7 +18,6 @@ public class pause_script : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Debug.Log(AudioListener.volume);
 	}
 
     public void pause_timescale()
