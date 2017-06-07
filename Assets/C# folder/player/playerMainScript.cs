@@ -125,16 +125,16 @@ public class playerMainScript : MonoBehaviour
 
     public void deadAliveCheck()
     {
-        /*
-        if (playerDataBase.Static.HP <= 0) {
-            if (playerDataBase.Static.SP <= 0) {
 
-            }
-        }
-        */
+
 
         if (playerDataBase.Static.HP <= 0)
         {
+            if (playerDataBase.Static.revive_value)
+            {
+                revive();
+                return;
+            }
             //event : hp = 0  gameover
             playerDataBase.Static.HP = 0;
             roundScript.Static.IsDead = true;
@@ -153,6 +153,22 @@ public class playerMainScript : MonoBehaviour
         }
     }
 
+    void revive()
+    {
+        playerDataBase.Static.revive_value = false;
+        int sendPlayerBackLevel;
+        sendPlayerBackLevel = playerDataBase.Static.currentFloor - (playerDataBase.Static.currentFloor % 10);
+        playerDataBase.Static.currentFloor = sendPlayerBackLevel - 1;
+        roundScript.Static.OnEnterNextLevel();
+        roundScript.Static.IsDead = false;
+        chessMovement.Static.charactor_move.Play("idle", 0);
+
+        roundScript.Static.movementProcessingChecker = false;
+        roundScript.Static.DoAttackAniProcessingChecker = false;
+        roundScript.Static.IsOpeningChest = false;
+        roundScript.Static.enemyAttackAniProcessingChecker = false;
+
+    }
 
     public void getItem() {
         if (hitItem == null) {
