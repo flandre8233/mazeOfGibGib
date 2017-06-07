@@ -114,13 +114,13 @@ public class playerMainScript : MonoBehaviour
 
     }
 
-    public void OnPlayerDead()
+     void checkMaxFloor()
     {
+        //currentLifeMaxFloor
         if (playerDataBase.Static.maxFloor < playerDataBase.Static.currentFloor)
         {
             playerDataBase.Static.maxFloor = playerDataBase.Static.currentFloor;
         }
-
     }
 
     public void deadAliveCheck()
@@ -138,7 +138,7 @@ public class playerMainScript : MonoBehaviour
             //event : hp = 0  gameover
             playerDataBase.Static.HP = 0;
             roundScript.Static.IsDead = true;
-            OnPlayerDead();
+            checkMaxFloor();
             //GetComponent<chessMovement>().enabled = false; //youdead
         }
         else

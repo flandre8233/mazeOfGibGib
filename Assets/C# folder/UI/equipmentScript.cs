@@ -23,7 +23,6 @@ public class equipmentScript : MonoBehaviour {
         if (playerDataBase.Static.COIN >= playerDataBase.Static.equipment_ATKcost)
         {
             playerDataBase.Static.COIN -= playerDataBase.Static.equipment_ATKcost;
-            playerDataBase.Static.equipment_ATKcost = playerDataBase.Static.equipment_ATKcost + 500;
             playerDataBase.Static.ATKLevel++;
         }
     }
@@ -33,7 +32,6 @@ public class equipmentScript : MonoBehaviour {
         if (playerDataBase.Static.COIN >= playerDataBase.Static.equipment_DEFcost)
         {
             playerDataBase.Static.COIN -= playerDataBase.Static.equipment_DEFcost;
-            playerDataBase.Static.equipment_DEFcost = playerDataBase.Static.equipment_DEFcost + 500;
             playerDataBase.Static.DEFLevel++;
         }
     }

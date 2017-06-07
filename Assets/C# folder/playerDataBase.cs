@@ -59,6 +59,7 @@ public class playerDataBase : MonoBehaviour {
 
     public int ResetTimes { get; set; }
     public int currentFloor { get; set; }
+    public int currentLifeMaxFloor { get; set; }
     public int maxFloor { get; set; }
 
     public float fifty { get; set; }
@@ -71,9 +72,16 @@ public class playerDataBase : MonoBehaviour {
     //public float abilityATKPercent { get; set; }
     //public float abilityDEFPercent { get; set; }
 
-    public int equipment_ATKcost { get; set; }
-    public int equipment_DEFcost { get; set; }
-
+    public int equipment_ATKcost {
+        get {
+            return (ATKLevel+1) * 500;
+        }
+    }
+    public int equipment_DEFcost {
+        get {
+            return (DEFLevel+1) * 500;
+        }
+    }
     public float idle_time { get; set; }
 
     public float VolSet { get; set; }
@@ -117,6 +125,7 @@ public class playerDataBase : MonoBehaviour {
         ResetTimes = 0;
         currentFloor = 0;
         maxFloor = 0;
+        currentLifeMaxFloor = 0;
 
         idle_time = 10;
 
@@ -125,8 +134,6 @@ public class playerDataBase : MonoBehaviour {
         two_hundred = 200;
         three_hundred = 300;
 
-        equipment_ATKcost = 500;
-        equipment_DEFcost = 500;
 
         revive_value = false;
     }
@@ -182,6 +189,7 @@ public class playerDataBase : MonoBehaviour {
         COINBounsPercent = 100;
         POINT = 5;
         currentFloor = 0;
+        currentLifeMaxFloor = 0;
         revive_value = false;
     }
 }

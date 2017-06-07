@@ -165,10 +165,10 @@ public class roundScript : MonoBehaviour {
         
         //
         playerDataBase.Static.currentFloor++; //目前關卡+1
+        checkUpdateMaxFloor();
+        givePoint();
         if (playerDataBase.Static.currentFloor % (checkPoint) == 0) { //到5,10,15,20......關卡
-            playerDataBase.Static.POINT ++;
             currentArea++;
-
         }
 
         mapTerrainGenerator.Static.mapLimit.x = 5+((playerDataBase.Static.currentFloor / checkPoint) + (playerDataBase.Static.currentFloor / (checkPoint / 2)));
@@ -183,7 +183,27 @@ public class roundScript : MonoBehaviour {
         NeedGenertorThings = true;
         
     }
-    
+
+    public void givePoint()
+    {
+        if (playerDataBase.Static.currentFloor % (checkPoint) != 0 || playerDataBase.Static.currentLifeMaxFloor > playerDataBase.Static.currentFloor)
+        {
+            return;
+        }
+
+
+
+        playerDataBase.Static.POINT++;
+    }
+
+    public void checkUpdateMaxFloor()
+    {
+        //currentLifeMaxFloor
+        if (playerDataBase.Static.currentLifeMaxFloor < playerDataBase.Static.currentFloor)
+        {
+            playerDataBase.Static.currentLifeMaxFloor = playerDataBase.Static.currentFloor;
+        }
+    }
     public void enterLevel()
     {
         if (isEnterStartPoint())
