@@ -1,8 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class pause_script : MonoBehaviour {
+
+    public RectTransform testing;
+    public Image image;
 
     public Animator pause_animator;
     public RectTransform pause_background;
@@ -41,14 +45,14 @@ public class pause_script : MonoBehaviour {
     public void mute_sound()
     {
             AudioListener.volume = 0.0F;
-            sound_off.gameObject.SetActive(false);
-            sound_on.gameObject.SetActive(true);
+            sound_off.gameObject.SetActive(true);
+            sound_on.gameObject.SetActive(false);
     }
 
     public void unmute_sound()
     {
         AudioListener.volume = 1;
-        sound_off.gameObject.SetActive(true);
-        sound_on.gameObject.SetActive(false);
+        sound_off.gameObject.SetActive(false);
+        sound_on.gameObject.SetActive(true);
     }
 }

@@ -178,21 +178,10 @@ public class playerDataBase : MonoBehaviour {
         HpmaxLevel = 0;
         SpmaxLevel = 0;
 
-        COIN = 1000;
+        COIN = 100000;
         COINBounsPercent = 100;
-        ResetTimes = 0;
+        POINT = 500;
         currentFloor = 0;
-
-        idle_time = 10;
-
-        fifty = 50;
-        hundred = 100;
-        two_hundred = 200;
-        three_hundred = 300;
-
-        equipment_ATKcost = 500;
-        equipment_DEFcost = 500;
-
         revive_value = false;
     }
 }
