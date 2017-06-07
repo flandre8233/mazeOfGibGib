@@ -111,9 +111,9 @@ public class playerDataBase : MonoBehaviour {
         HpmaxLevel = 0;
         SpmaxLevel = 0;
 
-        COIN = 100000;
+        COIN = 1000;
         COINBounsPercent = 100;
-        POINT = 500;
+        POINT = 5;
         ResetTimes = 0;
         currentFloor = 0;
         maxFloor = 0;
@@ -178,9 +178,9 @@ public class playerDataBase : MonoBehaviour {
         HpmaxLevel = 0;
         SpmaxLevel = 0;
 
-        COIN = 100000;
+        COIN = 1000;
         COINBounsPercent = 100;
-        POINT = 500;
+        POINT = 5;
         currentFloor = 0;
         revive_value = false;
     }

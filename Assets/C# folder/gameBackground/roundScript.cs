@@ -165,8 +165,8 @@ public class roundScript : MonoBehaviour {
         
         //
         playerDataBase.Static.currentFloor++; //目前關卡+1
-        if (playerDataBase.Static.currentFloor % (checkPoint/2) == 0) { //到5,10,15,20......關卡
-            playerDataBase.Static.POINT += 5;
+        if (playerDataBase.Static.currentFloor % (checkPoint) == 0) { //到5,10,15,20......關卡
+            playerDataBase.Static.POINT ++;
             currentArea++;
 
         }
