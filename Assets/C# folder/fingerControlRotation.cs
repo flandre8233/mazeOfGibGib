@@ -28,6 +28,8 @@ public class fingerControlRotation : MonoBehaviour
     Vector2 testOne;
     Vector2 testTwo;
 
+    public float fingerMoveSpeed ;
+
     float onPressFloat;
 
 	// Update is called once per frame
@@ -61,12 +63,12 @@ public class fingerControlRotation : MonoBehaviour
             float allowMouseDelay = 25;
             if ( fixedMouseDistance >= allowMouseDelay) //滑鼠delay判定
             {
-                transform.rotation = Quaternion.Euler(0, 0, onPressZAngle + (fixedMouseDistance - allowMouseDelay) *0.7f );
+                transform.rotation = Quaternion.Euler(0, 0, onPressZAngle + (fixedMouseDistance - allowMouseDelay) * fingerMoveSpeed);
             }
             else if (fixedMouseDistance <= -allowMouseDelay)
             {
 
-                transform.rotation = Quaternion.Euler(0, 0, onPressZAngle + (fixedMouseDistance + allowMouseDelay) *0.7f);
+                transform.rotation = Quaternion.Euler(0, 0, onPressZAngle + (fixedMouseDistance + allowMouseDelay) * fingerMoveSpeed);
             }
 
             //transform.rotation = Quaternion.Euler(0, 0,  onPressZAngle + (360 * holdHeightPrecent));

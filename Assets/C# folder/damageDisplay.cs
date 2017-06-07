@@ -16,7 +16,8 @@ public class damageDisplay : MonoBehaviour {
         //ChangeSprite(2,3);
         //spawnDamageDisplay(1345);
 
-        GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(-2, 2) * 50, Random.Range(-2,2)*50,-350) );
+       // GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(-1, 1) * 50, Random.Range(-1, 1) * 50, -350));
+        GetComponent<Rigidbody>().AddForce(new Vector3(Random.Range(-50, 50) , Random.Range(-50, 50) , -350));
     }
 
     public void spawnDamageDisplay(int damage,int type) {
