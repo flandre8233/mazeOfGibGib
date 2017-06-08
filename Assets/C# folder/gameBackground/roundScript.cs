@@ -186,13 +186,10 @@ public class roundScript : MonoBehaviour {
 
     public void givePoint()
     {
-        if (playerDataBase.Static.currentFloor % (checkPoint) != 0 || playerDataBase.Static.currentLifeMaxFloor > playerDataBase.Static.currentFloor)
+        if (playerDataBase.Static.currentFloor % (checkPoint) != 0 || playerDataBase.Static.currentLifeMaxFloor >= playerDataBase.Static.currentFloor)
         {
             return;
         }
-
-
-
         playerDataBase.Static.POINT++;
     }
 
