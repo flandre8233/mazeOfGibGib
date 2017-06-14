@@ -287,7 +287,7 @@ public class mapTerrainGenerator : MonoBehaviour {
         // spawnObj.transform.rotation = randomRotation();
          
             //spawnObj.transform.localPosition = Vector3.zero;
-            spawnObj.transform.localPosition = new Vector3(0, 0, -0.5f);
+            spawnObj.transform.localPosition = new Vector3(0, 0, 0);
 
             if (!roundScript.Static.isEnterCheckPoint())
             {
@@ -305,11 +305,11 @@ public class mapTerrainGenerator : MonoBehaviour {
                     continue;
                 }
                 //Randnumber -= 2;
-                GameObject InstantiateItem = Instantiate(modelDust[Randnumber], Vector3.zero, Quaternion.identity);
-                InstantiateItem.transform.parent = spawnObj.transform;
+                GameObject InstantiateItem = Instantiate(modelDust[Randnumber], spawnObj.transform);
+                //InstantiateItem.transform.parent = spawnObj.transform;
                 InstantiateItem.transform.rotation = Quaternion.Euler(180, 0, randomRotation());
-                //InstantiateItem.transform.localPosition = Vector3.zero;
-                InstantiateItem.transform.localPosition = new Vector3(0, 0, -0.5f);
+                InstantiateItem.transform.localPosition = Vector3.zero;
+                //InstantiateItem.transform.localPosition = new Vector3(0, 0, -0.5f);
 
 
 
@@ -377,6 +377,7 @@ public class mapTerrainGenerator : MonoBehaviour {
                 spawnObject = Instantiate(gameAllTerrainParts[randomNumber], new Vector3(0,0,0), Quaternion.identity);
                 //spawnObject.transform.Rotate(randomRotation());
                 spawnObject.transform.rotation = Quaternion.Euler(0,0, randomRotation() );
+                //spawnObject.isStatic = true;
                 ThisLevelAllTerrainParts.Add(spawnObject);
             }
             allTerrainPort.Add(spawnObject);

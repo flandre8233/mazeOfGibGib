@@ -55,4 +55,53 @@ public class testonly : MonoBehaviour
 
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public Transform canvasTransform;
+    public GameObject spawnTargetObject;
+
+    void function()
+    {
+        Instantiate(spawnTargetObject, canvasTransform);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

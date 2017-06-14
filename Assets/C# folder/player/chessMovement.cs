@@ -49,11 +49,13 @@ public class chessMovement : GeneralMovementSystem
                 }
                 else
                 {
-                    roundScript.Static.roundSystem -= playerMainScript.Static.subSP;
                     roundScript.Static.pastRound();
-                    roundScript.Static.roundSystem += playerMainScript.Static.subSP;
+
+                    // roundScript.Static.roundSystem -= playerMainScript.Static.subSP; //<--攻擊時唔扣SP部份
+                    //roundScript.Static.pastRound();
+                    //roundScript.Static.roundSystem += playerMainScript.Static.subSP;
                 }
-                
+
             }
             else
             {//不是要打npc
