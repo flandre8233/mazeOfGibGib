@@ -184,6 +184,7 @@ public class roundScript : MonoBehaviour {
     public short currentArea = 1;
     public void OnEnterNextLevel() { // enter next level
         isInExitLevel = true;
+        loadingTest.Static.startLoading();
         mapTerrainGenerator.Static.terrainLength = 7 + playerDataBase.Static.currentFloor; //新增地形
         chessMovement.Static.model.transform.rotation = Quaternion.Euler(0, 0, 0);
         
@@ -355,6 +356,7 @@ public class roundScript : MonoBehaviour {
             //mapTerrainGenerator.Static.findRightGround();
             //mapTerrainGenerator.Static.findCenter();
             isInExitLevel = false;
+            loadingTest.Static.closeLoading();
         }
         if (NeedGenertorThings) {
             nextFrameLock ++;
