@@ -41,7 +41,35 @@ public class playerMainScript : MonoBehaviour
         }
     }
 
+    public shrinkManager UIShrink;
+    public void playerTakeDamge(int damage , bool ignoreDEF)
+    {
+        int DEF = 0;
+        if (ignoreDEF)
+        {
+            DEF = 0;
+        }
+        else
+        {
+            DEF = playerDataBase.Static.DEF;
+        }
 
+
+
+        if (DEF < damage)
+        {
+            gamemanager.Static.spawnNumberDisplay(chessMovement.Static.gameObject.transform.position, (damage - DEF), 5);
+            UIShrink.startShrink();
+            UIShrink.strong = (int)(350 *  ( 1.2f * ( playerDataBase.Static.HP +  damage)  / playerDataBase.Static.HP) );
+            UIShrink.lerpSpeed =  (15 * ( 1.5f * ( playerDataBase.Static.HP +  damage) / playerDataBase.Static.HP) ); 
+            playerDataBase.Static.HP -= (damage - DEF);
+            deadAliveCheck();
+        }
+        else
+        {
+            gamemanager.Static.spawnNumberDisplay(chessMovement.Static.gameObject.transform.position, 0, 5);
+        }
+    }
 
     public void checkLife()
     {

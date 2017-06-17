@@ -99,10 +99,9 @@ public class Spike : groundScript {
             }
         }
         */
-        int outputDamage = (int)( (playerDataBase.Static.MaxHP / 100.0f) * damagePercentage);
+        int outputDamage = (int)((playerDataBase.Static.MaxHP / 100.0f) * damagePercentage);
 
-        gamemanager.Static.spawnNumberDisplay(chessMovement.Static.gameObject.transform.position, outputDamage, 5);
-        playerDataBase.Static.HP -= outputDamage;
+        playerMainScript.Static.playerTakeDamge(outputDamage, true);
     }
     
 
