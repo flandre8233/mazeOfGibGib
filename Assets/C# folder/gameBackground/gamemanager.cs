@@ -11,6 +11,8 @@ public class gamemanager : MonoBehaviour {
         go.GetComponent<damageDisplay>().spawnDamageDisplay(number,type);
     }
 
+
+
 	// Use this for initialization
 	void Start () {
         if (Static != null) {

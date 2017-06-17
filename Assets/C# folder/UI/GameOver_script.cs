@@ -20,7 +20,7 @@ public class GameOver_script : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(playerDataBase.Static.check_start);
+        //Debug.Log(playerDataBase.Static.check_start);
         gameover_menu();
         //Debug.Log(playerDataBase.Static.maxFloor + "max");
         //Debug.Log(playerDataBase.Static.currentFloor+"current");

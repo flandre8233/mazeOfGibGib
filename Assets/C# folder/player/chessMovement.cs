@@ -226,46 +226,15 @@ public class chessMovement : GeneralMovementSystem
         {
             return;
         }
-            roundScript.Static.IsProcessingRound = true;
-
-
-        if (!roundScript.Static.DoAttackAniProcessingChecker  && TouchChest != null)
+        roundScript.Static.IsProcessingRound = true;
+        if (touchEnemy != null)
         {
-
-            charactor_move.SetTrigger("attack");
-            charactor_move.SetInteger("attack_no.", Random.Range(0, 4));
-            roundScript.Static.DoAttackAniProcessingChecker = true;
-
-            StartCoroutine(WaitForAnimationForChest("attackAni"));
-
             return;
         }
-            
-                if (touchEnemy != null)
-            {
-
-
-            Debug.Log("lksai fuck u jgfhlkajfhs     dlkjh   " + roundScript.Static.DoAttackAniProcessingChecker);
-            if (!roundScript.Static.DoAttackAniProcessingChecker && touchEnemy.GetComponent<enemyDataBase>().HP > 0)
-                {
-                    charactor_move.SetTrigger("attack");
-                    charactor_move.SetInteger("attack_no.", Random.Range(0, 4));
-                    roundScript.Static.DoAttackAniProcessingChecker = true;
-                    StartCoroutine(AnimationBuffZone("attackAni"));
-                }
-
-
-
-                startLerpMovement = false;
-            }
-            else
-            {
-                startLerpMovement = true;
-                roundScript.Static.movementProcessingChecker = true;
-                startTime = Time.time;
-                thisFrameMoved = true;
-            }
-        
+            startLerpMovement = true;
+            roundScript.Static.movementProcessingChecker = true;
+            startTime = Time.time;
+            thisFrameMoved = true;
     }
 
     void LerpMove(ref bool isInLerpMovement, Vector3 targetPosition, float startTime, float lerpSpeed)
@@ -309,6 +278,52 @@ public class chessMovement : GeneralMovementSystem
         roundScript.Static.OnEnterNextLevel();
     }
 
+    public void OnPlayerTouchEnemy(GameObject touchObject)
+    {
+        touchEnemy = touchObject;
+        touchEnemy.GetComponent<enemyScript>().IsUnderAttack = true;
+
+        resetPlayerCenter();
+
+
+        if (!roundScript.Static.DoAttackAniProcessingChecker && touchEnemy.GetComponent<enemyDataBase>().HP > 0)
+        {
+            charactor_move.SetTrigger("attack");
+            charactor_move.SetInteger("attack_no.", Random.Range(0, 4));
+            roundScript.Static.DoAttackAniProcessingChecker = true;
+            StartCoroutine(AnimationBuffZone("attackAni"));
+        }
+
+
+
+        startLerpMovement = false;
+
+        touchObject.GetComponent<enemyScript>().thisRoundCompeleAttack = false;
+        isHitNpc = true;
+    }
+
+    public void OnPlayerTouchChest(GameObject touchObject)
+    {
+        TouchChest = touchObject.gameObject;
+        resetPlayerCenter();
+
+        charactor_move.SetTrigger("attack");
+        charactor_move.SetInteger("attack_no.", Random.Range(0, 4));
+        roundScript.Static.DoAttackAniProcessingChecker = true;
+
+        StartCoroutine(WaitForAnimationForChest("attackAni"));
+
+    }
+
+
+    void resetPlayerCenter()
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(new Vector3(transform.position.x, transform.position.y, 0), 0.25f); //還原center
+        CenterGround = hitColliders[0].gameObject.GetComponent<groundScript>();
+        hitObjectPosition = new Vector3(hitColliders[0].gameObject.transform.position.x, hitColliders[0].gameObject.transform.position.y, -1);
+
+        center = resetCenterV3(CenterGround);
+    }
 
     public bool moveCheck()
     { //正確是否正確移動
@@ -333,6 +348,8 @@ public class chessMovement : GeneralMovementSystem
                 {
                     if (item.tag == "enemy")
                     {
+                        OnPlayerTouchEnemy(item.gameObject);
+                        /*
                         touchEnemy = item.gameObject;
                         touchEnemy.GetComponent<enemyScript>().IsUnderAttack = true;
 
@@ -341,10 +358,13 @@ public class chessMovement : GeneralMovementSystem
                         hitObjectPosition = new Vector3(hitColliders[0].gameObject.transform.position.x, hitColliders[0].gameObject.transform.position.y, -1);
 
                         center = resetCenterV3(CenterGround);
+                        */
                         return true;
                     }
                     if (item.tag == "chest")
                     {
+                        OnPlayerTouchChest(item.gameObject);
+                        /*
                         TouchChest = item.gameObject;
 
                         hitColliders = Physics.OverlapSphere(new Vector3(transform.position.x, transform.position.y, 0), 0.25f); //還原center
@@ -352,6 +372,7 @@ public class chessMovement : GeneralMovementSystem
                         hitObjectPosition = new Vector3(hitColliders[0].gameObject.transform.position.x, hitColliders[0].gameObject.transform.position.y, -1);
                         
                         center = resetCenterV3(CenterGround);
+                        */
                         return true; // maybe not work
                     }
                     if (item.tag == "crystal")
@@ -433,9 +454,9 @@ public class chessMovement : GeneralMovementSystem
         touchEnemy.GetComponent<enemyDataBase>().HP -= playerDataBase.Static.ATK;
         touchEnemy.GetComponent<enemyScript>().enemyHPCheck();
 
-        isHitNpc = true;
         thisFrameMoved = true;
 
+        //roundScript.Static.enemyAttackAniProcessingChecker = true;
     }
 }
 

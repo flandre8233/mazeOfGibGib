@@ -336,6 +336,7 @@ public class mapTerrainGenerator : MonoBehaviour {
         spikeComponent.serializeSpike();
         spikeComponent.UpdataSystem += spikeComponent.earthQuake ;
         roundScript.Static.spikeSystem += spikeComponent.countSpikeRound;
+        roundScript.Static.groundCheckSystem += spikeComponent.roundSystemUseOnly;
         //go.transform.localPosition = Vector3.zero;
 
     }
@@ -441,11 +442,15 @@ public class mapTerrainGenerator : MonoBehaviour {
         }
 
         foreach (var item in thisLevelAllFloor) { //刪掉未連上的floor
+            SuperfluousFloorList = new List<GameObject>();
             if (!item.GetComponent<groundScript>().alreadyLink) {
                 item.GetComponent<groundScript>().delByMapLimit = true;
+                SuperfluousFloorList.Add(item);
             }
-
         }
+
+        clearSuperfluousFloor();
+        addToSystem();
 
         /*
         foreach (var item in allTerrainPort) {
@@ -488,6 +493,27 @@ public class mapTerrainGenerator : MonoBehaviour {
         return rotation;
     }
 
+    public List<GameObject> SuperfluousFloorList;
+    void clearSuperfluousFloor()
+    {
+        foreach (var item in SuperfluousFloorList)
+        {
+            thisLevelAllFloor.Remove(item);
+            Destroy(item);
+        }
+    }
+
+    void addToSystem()
+    {
+        foreach (var item in thisLevelAllFloor)
+        {
+            if (item.GetComponent<groundScript>() != null)
+            {
+                roundScript.Static.groundCheckSystem += item.GetComponent<groundScript>().roundSystemUseOnly;
+            }
+        }
+
+    }
 
 
     // Update is called once per frame

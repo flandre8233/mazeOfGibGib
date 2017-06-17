@@ -9,6 +9,7 @@ public class roundScript : MonoBehaviour {
     public static roundScript Static;
     public delegate void roundSystemFunction();
     public roundSystemFunction roundSystem;
+    public roundSystemFunction groundCheckSystem;
     public roundSystemFunction spikeSystem;
     public roundSystemFunction enemyMovement;
     public roundSystemFunction enemyAttack;
@@ -41,15 +42,26 @@ public class roundScript : MonoBehaviour {
         sortEnemyList();
         sortEnemyMove();
 
-        if (spikeSystem != null)
-        {
-            spikeSystem();
-        }
+
+
 
         if (roundSystem != null)
         {
             roundSystem.Invoke();
         }
+
+        if (groundCheckSystem != null)
+        {
+            Debug.Log("dllm");
+            groundCheckSystem.Invoke();
+        }
+
+
+        if (spikeSystem != null)
+        {
+            spikeSystem.Invoke();
+        }
+
         pathfinding.Static.RoundUseOnly();
         if (enemyMovement != null)
         {
@@ -57,8 +69,9 @@ public class roundScript : MonoBehaviour {
         }
         if (enemyAttack != null)
         {
+            enemyAttack.Invoke();
             Debug.Log("do");
-            StartCoroutine(waitPlayerMove() );
+            //StartCoroutine(waitPlayerMove() );
         }
         //resetEnemyUnderAttack();
         playerMainScript.Static.deadAliveCheck();
@@ -82,6 +95,19 @@ public class roundScript : MonoBehaviour {
         {
             item.GetComponent<enemyScript>().IsUnderAttack = false;
         }
+    }
+
+    public void checkALLEnemyIsCompleteAttack()
+    {
+        foreach (var item  in mapThingsGenerator.Static.allEnemyArray)
+        {
+            if (!item.GetComponent<enemyScript>().thisRoundCompeleAttack)
+            {
+                return;
+            }
+        }
+        Debug.Log("??");
+        enemyAttackAniProcessingChecker = false;
     }
 
     public void sortEnemyList()
@@ -132,7 +158,8 @@ public class roundScript : MonoBehaviour {
 
     public bool RoundProcessingChecker()
     {
-        if ( (!movementProcessingChecker && !DoAttackAniProcessingChecker && checkallEnemy() && !enemyAttackAniProcessingChecker  && !IsOpeningChest ) )
+        checkALLEnemyIsCompleteAttack();
+        if ( (!movementProcessingChecker && !DoAttackAniProcessingChecker && checkallEnemy() && !enemyAttackAniProcessingChecker  && !IsOpeningChest )  )
         {
             return false;
             // Processing is complete

@@ -99,7 +99,7 @@ public class Spike : groundScript {
             }
         }
         */
-        int outputDamage = (int)( (playerDataBase.Static.HP / 100.0f) * damagePercentage);
+        int outputDamage = (int)( (playerDataBase.Static.MaxHP / 100.0f) * damagePercentage);
 
         gamemanager.Static.spawnNumberDisplay(chessMovement.Static.gameObject.transform.position, outputDamage, 5);
         playerDataBase.Static.HP -= outputDamage;
@@ -122,7 +122,7 @@ public class Spike : groundScript {
     void resetEarthQuake(int strong)
     {
         startTime = Time.time;
-        targetPosition = new Vector3((0 + Random.Range(0, strong) - (strong / 2)) / 10.0f, (0 + Random.Range(0, strong) - (strong / 2)) / 10.0f, -0.5f);
+        targetPosition = new Vector3((0 + Random.Range(0, strong) - (strong / 2)) / 10.0f, (0 + Random.Range(0, strong) - (strong / 2)) / 10.0f, 0);
     }
     public Animator ani;
     public  void serializeSpike()
@@ -143,8 +143,10 @@ public class Spike : groundScript {
     }
 
 
-    private void OnDestroy()
+    public override void OnDestroy()
     {
+            roundScript.Static.groundCheckSystem -= roundSystemUseOnly;
+        
         roundScript.Static.spikeSystem -= countSpikeRound;
     }
 }

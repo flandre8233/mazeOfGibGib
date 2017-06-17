@@ -11,6 +11,8 @@ public class enemyScript : enemyDataBase
     public bool IsUnderAttack = false;
     public Transform playerTransform;
 
+    public bool thisRoundCompeleAttack;
+
     float startTime;
 
     public bool inDead = false;
@@ -23,6 +25,7 @@ public class enemyScript : enemyDataBase
 
     // Use this for initialization
     void Start () {
+        thisRoundCompeleAttack = true;
         //setItemType();
         //Level = 1;
         SetUp();
@@ -212,7 +215,7 @@ public class enemyScript : enemyDataBase
         {
             return;
         }
-
+        thisRoundCompeleAttack = false;
 
         IsUnderAttack = false;
 
@@ -223,6 +226,7 @@ public class enemyScript : enemyDataBase
         if ((roundScript.Static.round - findPlayerRoundNumber) % CD == 0)
         {//是攻擊的回合才行動 attack
             attackFunction();
+            return;
         }
         else
         {
@@ -232,6 +236,7 @@ public class enemyScript : enemyDataBase
             }
 
         }
+        thisRoundCompeleAttack = true;
     }
 
     public void attackFunction()
@@ -313,7 +318,8 @@ public class enemyScript : enemyDataBase
         {
             yield return null;
         } while (enemyAni.GetCurrentAnimatorStateInfo(0).IsTag(animationTag));
-        roundScript.Static.enemyAttackAniProcessingChecker = false;
+        thisRoundCompeleAttack = true;
+        roundScript.Static.checkALLEnemyIsCompleteAttack();
         //dead here
     }
 

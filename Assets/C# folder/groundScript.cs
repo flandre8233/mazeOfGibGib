@@ -48,9 +48,6 @@ public class groundScript : MonoBehaviour {
         //mapTerrainGenerator.Static.thisLevelAllFloor.Add(gameObject);
     }
 
-    void OnDestroy() {
-        
-    }
 
     public Vector3 passV3;
 
@@ -87,17 +84,9 @@ public class groundScript : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-        Vector3 hitPoint = new Vector3(transform.position.x,transform.position.y,-1);
-        Collider[] hitColliders = Physics.OverlapSphere(hitPoint, 0.25f);
-        if (hitColliders.Length != 0 && Vector2.Distance( ((Vector2)hitColliders[0].transform.position), ((Vector2)transform.position)) <= 0.2f) {
-            haveSomethingInHere = true;
-            haveSomethingInHereObject = hitColliders[0].gameObject;
-        }
-        else {
-            haveSomethingInHere = false;
-            haveSomethingInHereObject = null;
-        }
-        
+        //groundCollidersCheck(); <-改
+
+        /*
         if (GetComponent<groundScript>().delByMapLimit) {
             if (
             mapTerrainGenerator.Static.thisLevelAllFloor.Remove(gameObject)) {
@@ -105,10 +94,34 @@ public class groundScript : MonoBehaviour {
             }
             Destroy(gameObject);
         }
+        */
 
         if (UpdataSystem != null)
         {
             UpdataSystem.Invoke();
+        }
+    }
+
+    public void roundSystemUseOnly() {
+        //Debug.Log(transform.position);
+        groundCollidersCheck();
+    }
+        
+
+    public void groundCollidersCheck() //spike not work but normal is work
+    {
+        Debug.Log(gameObject.name);
+        Vector3 hitPoint = new Vector3(transform.position.x, transform.position.y, -1);
+        Collider[] hitColliders = Physics.OverlapSphere(hitPoint, 0.25f);
+        if (hitColliders.Length != 0 && Vector2.Distance( hitColliders[0].transform.position, transform.position) <= 0.2f)
+        {
+            haveSomethingInHere = true;
+            haveSomethingInHereObject = hitColliders[0].gameObject;
+        }
+        else
+        {
+            haveSomethingInHere = false;
+            haveSomethingInHereObject = null;
         }
     }
 
@@ -125,6 +138,11 @@ public class groundScript : MonoBehaviour {
 
     void OnCollisionEnter(Collision collision) {
         Debug.Log("SADSAD");
+    }
+
+    public virtual void OnDestroy()
+    {
+            roundScript.Static.groundCheckSystem -= roundSystemUseOnly;
     }
 
 }
