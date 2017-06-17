@@ -6,10 +6,19 @@ public class box : MonoBehaviour {
     public int itemProbability;
     Animator ani;
 
+    public int existItemType;
+    public int coin;
+
     private void Awake()
     {
         ani = GetComponentInChildren<Animator>();
         transform.rotation = new Quaternion();
+    }
+
+    private void Start()
+    {
+        coin = ((11 + 56 + 304) * (1 + playerDataBase.Static.currentFloor / 5));
+        existItemType = itemAndEnemyProcessor.RandomProbabilitySystem(ref itemGenerator.Static.ProbabilityArray) - 1;
     }
 
     public void openChest()
@@ -42,15 +51,19 @@ public class box : MonoBehaviour {
 
     public void GetCoin()
     {
-        playerDataBase.Static.COIN +=
-            ((11 + 56 + 304) * (1 + playerDataBase.Static.currentFloor / 5));
+        playerDataBase.Static.COIN += coin;
+
     }
 
     public void spawnExItem()
     {
-        GameObject InstantiateItem = Instantiate(mapThingsGenerator.Static.selectType(), transform.position, Quaternion.Euler(-90, 0, 0));
+        GameObject InstantiateItem = Instantiate(mapThingsGenerator.Static.itemArray[existItemType], transform.position, Quaternion.Euler(-90, 0, 0));
         InstantiateItem.transform.position = new Vector3(InstantiateItem.transform.position.x, InstantiateItem.transform.position.y, -0.2f);
+
+        //
     }
+
+
 
     public Quaternion ImageLookAt2D(Vector3 from, Vector3 to)
     {
