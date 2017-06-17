@@ -8,7 +8,8 @@ public class box : MonoBehaviour {
 
     public int existItemType;
     public int coin;
-
+    public int extraCoin;
+    bool alreadyWatchADS;
     private void Awake()
     {
         ani = GetComponentInChildren<Animator>();
@@ -17,8 +18,14 @@ public class box : MonoBehaviour {
 
     private void Start()
     {
-        coin = ((11 + 56 + 304) * (1 + playerDataBase.Static.currentFloor / 5));
+        extraCoin = coinReward(934) * (1 + playerDataBase.Static.currentFloor / 5);
+        coin = ((coinReward(11) + coinReward(56) + coinReward(304) ) * (1 + playerDataBase.Static.currentFloor / 5));
         existItemType = itemAndEnemyProcessor.RandomProbabilitySystem(ref itemGenerator.Static.ProbabilityArray) - 1;
+    }
+
+    int coinReward(int coin)
+    {
+        return coin + (coin / 100 * (Random.Range(0, 40)-20) );
     }
 
     public void openChest()
@@ -51,7 +58,14 @@ public class box : MonoBehaviour {
 
     public void GetCoin()
     {
-        playerDataBase.Static.COIN += coin;
+        if (alreadyWatchADS)
+        {
+            playerDataBase.Static.COIN += coin + extraCoin;
+        }
+        else
+        {
+            playerDataBase.Static.COIN += coin;
+        }
 
     }
 
