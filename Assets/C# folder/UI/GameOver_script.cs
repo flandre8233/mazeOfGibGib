@@ -46,6 +46,7 @@ public class GameOver_script : MonoBehaviour {
 
     public void reset_level()
     {
+        Time.timeScale = 1.0F;
         playerDataBase.Static.check_start = false;
         playerDataBase.Static.restart_data();
         //gameover_show.gameObject.SetActive(false);
@@ -55,6 +56,7 @@ public class GameOver_script : MonoBehaviour {
 
     public void exit_to_start()
     {
+        Time.timeScale = 1.0F;
         playerDataBase.Static.check_start = true;
         playerDataBase.Static.restart_data();
         SceneManager.LoadScene(0);
