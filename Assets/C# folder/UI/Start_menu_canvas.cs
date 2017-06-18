@@ -1,30 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Start_menu_canvas : MonoBehaviour {
-    public static Start_menu_canvas Static;
-    public RectTransform start_menu;
 
-	// Use this for initialization
-	void Start () {
-        if (playerDataBase.Static.check_start == true)
-        {
-            start_menu.gameObject.SetActive(true);
-        }
-        else
-        {
-            start_menu.gameObject.SetActive(false);
-        }
+    // Use this for initialization
+    void Start () {
+
     }
 	
 	// Update is called once per frame
 	void Update () {
-    
+
     }
 
     public void Start_exit()
     {
-        start_menu.gameObject.SetActive(false);
+        SceneManager.LoadScene(2);
     }
 }
