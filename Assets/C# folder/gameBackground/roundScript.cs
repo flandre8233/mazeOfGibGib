@@ -52,7 +52,7 @@ public class roundScript : MonoBehaviour {
 
         if (groundCheckSystem != null)
         {
-            Debug.Log("dllm");
+            //Debug.Log("dllm");
             groundCheckSystem.Invoke();
         }
 
@@ -70,7 +70,7 @@ public class roundScript : MonoBehaviour {
         if (enemyAttack != null)
         {
             enemyAttack.Invoke();
-            Debug.Log("do");
+            //Debug.Log("do");
             //StartCoroutine(waitPlayerMove() );
         }
         //resetEnemyUnderAttack();
@@ -106,7 +106,7 @@ public class roundScript : MonoBehaviour {
                 return;
             }
         }
-        Debug.Log("??");
+        //Debug.Log("??");
         enemyAttackAniProcessingChecker = false;
     }
 

@@ -283,7 +283,7 @@ public class mapThingsGenerator : MonoBehaviour {
 
         if (mapTerrainGenerator.Static.thisLevelAllFloor.Count != 0)
         {
-            Debug.Log(mapTerrainGenerator.Static.thisLevelAllFloor[0]);
+            //Debug.Log(mapTerrainGenerator.Static.thisLevelAllFloor[0]);
             Vector3 targetV3 = new Vector3(mapTerrainGenerator.Static.thisLevelAllFloor[0].transform.position.x, mapTerrainGenerator.Static.thisLevelAllFloor[0].transform.position.y, -1);
             player.transform.position = targetV3;
             // Debug.Log(player.transform.position);

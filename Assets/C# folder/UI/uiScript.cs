@@ -9,6 +9,7 @@ public class uiScript : MonoBehaviour {
     public RectTransform ability_canvas;
     public RectTransform equipment_canvas_off;
     public RectTransform ability_canvas_off;
+    public GameObject pass_particle;
 
 
     [SerializeField]
@@ -118,5 +119,10 @@ public class uiScript : MonoBehaviour {
         {
             ability_canvas.gameObject.SetActive(true);
         }
+    }
+
+    public void pass_particle_on()
+    {
+        Instantiate(this.pass_particle);
     }
 }
