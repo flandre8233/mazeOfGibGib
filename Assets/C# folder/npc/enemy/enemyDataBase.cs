@@ -14,14 +14,14 @@ public class enemyDataBase : GeneralMovementSystem
 {
     //public enemyType type;
     public int UID = 0;
-    public short Level { get; set; }
+    public short Level = 0;
     
     protected int maxHP;
     protected int aTK;
     protected int dEF;
     protected float cOIN;
 
-    public int HP { get; set; }
+    public int HP = 0;
     public int CD = 1;
 
     public int NumberOfActions = 1;

@@ -35,7 +35,7 @@ public class GameOver_script : MonoBehaviour {
             playerDataBase.Static.maxFloor = playerDataBase.Static.currentFloor;
         }
     }
-
+    
     public void gameover_menu()
     {
         if(playerDataBase.Static.HP <=0)

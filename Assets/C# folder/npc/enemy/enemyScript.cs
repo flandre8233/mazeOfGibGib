@@ -29,7 +29,11 @@ public class enemyScript : enemyDataBase
         //setItemType();
         //Level = 1;
         SetUp();
-        HP = MaxHP;
+
+        if (HP == 0)
+        {
+            HP = MaxHP;
+        }
 
         cOIN += (int)(COIN / 100.0f * (Random.Range(0, 40) - 20));
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
@@ -276,7 +280,7 @@ public class enemyScript : enemyDataBase
         }
 
         if (HP <= 0 || killTest) {
-            playerDataBase.Static.COIN += (COIN * (playerDataBase.Static.COINBounsPercent / 100));
+            playerDataBase.Static.COIN += (int)(COIN * (playerDataBase.Static.COINBounsPercent / 100));
 
             inDead = true;
             enemyAni.SetTrigger("died");

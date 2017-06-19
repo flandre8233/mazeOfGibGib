@@ -49,7 +49,7 @@ public class playerDataBase : MonoBehaviour {
     public int HpmaxLevel { get; set; }
     public int SpmaxLevel { get; set; }
 
-    public float COIN { get; set; }
+    public int COIN { get; set; }
     public int COINBounsPercent { get; set; }
     public int POINT { get; set; }
 
@@ -62,10 +62,10 @@ public class playerDataBase : MonoBehaviour {
     public int currentLifeMaxFloor { get; set; }
     public int maxFloor { get; set; }
 
-    public float fifty { get; set; }
-    public float hundred { get; set; }
-    public float two_hundred { get; set; }
-    public float three_hundred { get; set; }
+    public int fifty { get; set; }
+    public int hundred { get; set; }
+    public int two_hundred { get; set; }
+    public int three_hundred { get; set; }
 
     public int abilityHPMax { get; set; }
     public int abilitySPMax { get; set; }

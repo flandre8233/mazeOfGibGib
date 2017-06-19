@@ -18,7 +18,7 @@ public class itemScript : MonoBehaviour
 {
 
     //public string itemName { get; set; }
-    public int level { get; set; }
+    public int level = 1;
     public itemType type;
     protected int addHP;
     protected int addSP;
@@ -79,7 +79,6 @@ public class itemScript : MonoBehaviour
 #endregion
 
     void Start() {
-        level = 1;
         SetUp();
     }
 

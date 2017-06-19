@@ -231,25 +231,33 @@ public class roundScript : MonoBehaviour {
     }
     public void enterLevel()
     {
+
         if (isEnterStartPoint())
         {
             playerDataBase.Static.fullHPSP();
             mapTerrainGenerator.Static.startPointTerrain();
             return;
-        }
-
+        }     
         //playerDataBase.Static.currentFloor % 10 == 0 || 
         if (isEnterCheckPoint())
         { //到5,10,15,20......關卡
 
             playerDataBase.Static.fullHPSP();
             mapTerrainGenerator.Static.checkPointTerrain();
+            return;
         }
-        else
+        if (gamemanager.Static.beLoaded) //loaded特殊處理
         {
-            mapTerrainGenerator.Static.resetTerrain();
+            mapTerrainGenerator.Static.reGenTerrainFromSave();
+            return;
         }
 
+
+
+
+        mapTerrainGenerator.Static.resetTerrain();
+
+        return;
 
     }
 

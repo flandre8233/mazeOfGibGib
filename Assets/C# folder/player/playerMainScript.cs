@@ -29,6 +29,39 @@ public class playerMainScript : MonoBehaviour
         Static = this;
     }
 
+    private void Start()
+    {
+
+    }
+
+    public void loadPlayerItem()
+    {
+        if (gamemanager.Static.beLoaded)
+        {
+            for (int i = 0; i < testSaveLoad.Static.mydata.playerItem.Length; i++) //好白痴
+            {
+                if (testSaveLoad.Static.mydata.playerItem[i] == null)
+                {
+                    break;
+                }
+                saveGameData.item item = testSaveLoad.Static.mydata.playerItem[i];
+                Vector3 spawnPos = new Vector3(0, 0, -1);
+                //selectType
+
+                GameObject InstantiateItem = Instantiate(mapThingsGenerator.Static.selectType(item.type), spawnPos, Quaternion.Euler(-90, 0, 0));
+                Debug.Log("kkkk" + item.level );
+                InstantiateItem.GetComponent<itemScript>().level = item.level;
+                hitItem = InstantiateItem;
+
+                getItemSet(i);
+                spawnItemIn3DUI(InstantiateItem, itemV3[i].transform);
+
+                Destroy(InstantiateItem);
+            }
+
+        }
+    }
+
     public void subSP()
     {
         if (roundScript.Static.isEnterCheckPoint() ) {
@@ -166,6 +199,7 @@ public class playerMainScript : MonoBehaviour
             //event : hp = 0  gameover
             playerDataBase.Static.HP = 0;
             roundScript.Static.IsDead = true;
+            saveLoadManager.clearSave();
             checkMaxFloor();
             //GetComponent<chessMovement>().enabled = false; //youdead
         }

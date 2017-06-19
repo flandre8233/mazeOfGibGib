@@ -6,9 +6,10 @@ using System.IO;
 
 using LitJson;
 
-public static class saveLoadManager {
+public static class saveLoadManager
+{
 
-    static string path = Application.persistentDataPath + "/playerData.dat";
+    static string path = Application.persistentDataPath + "/playerData.txt";
 
     public static void Save(saveGameData saveGame)
     {
@@ -21,14 +22,19 @@ public static class saveLoadManager {
         Debug.Log("Saved Game: " + Application.persistentDataPath + "/playerData.dat" );
         */
 
-        saveGameData saveData = new saveGameData();
-        saveData.testData = 50;
 
-        string jsonData = JsonMapper.ToJson(saveData);
+        string jsonData = JsonMapper.ToJson(saveGame);
 
         File.WriteAllText(path, jsonData);
         Debug.Log("successed");
 
+    }
+
+    public static void clearSave( )
+    {
+        string jsonData = "";
+        File.WriteAllText(path, jsonData);
+        Debug.Log("successed");
     }
 
     public static saveGameData Load()
@@ -50,9 +56,24 @@ public static class saveLoadManager {
         }
         */
 
+        if (!File.Exists(path))
+        {
+            Debug.Log("no file detect");
+
+            return new saveGameData();
+        }
+
         string jsonData = File.ReadAllText(path);
 
         saveGameData saveData = JsonMapper.ToObject<saveGameData>(jsonData);
+
+        if (saveData.HP <= 0)
+        {
+            Debug.Log("deadFile");
+
+            saveData.define = false;
+            return saveData;
+        }
 
         Debug.Log("loaded");
         return saveData;

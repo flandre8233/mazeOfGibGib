@@ -95,7 +95,7 @@ public class mapTerrainGenerator : MonoBehaviour {
         }
 
         for (int i = 0; i < thisLevelAllFloor.Count; i++) {
-            if ((((thisLevelAllFloor[i].transform.position.x > center.x + mapLimit.x) || (thisLevelAllFloor[i].transform.position.x < center.x - (mapLimit.x))) || ((thisLevelAllFloor[i].transform.position.y > center.y + mapLimit.y) || (thisLevelAllFloor[i].transform.position.y < center.y - (mapLimit.y))) )   ) {
+            if ((((thisLevelAllFloor[i].transform.position.x > center.x + mapLimit.x+1000) || (thisLevelAllFloor[i].transform.position.x < center.x - (mapLimit.x+1000))) || ((thisLevelAllFloor[i].transform.position.y > center.y + mapLimit.y+1000) || (thisLevelAllFloor[i].transform.position.y < center.y - (mapLimit.y+1000))) )   ) {
                 
 
                 //thisLevelAllFloor[i].GetComponent<groundScript>().delByMapLimit = true;
@@ -126,7 +126,7 @@ public class mapTerrainGenerator : MonoBehaviour {
         }
         for (int i = where; i > end; i--) {
             // Debug.Log(mapLimit);
-            if ((((thisLevelAllFloor[i].transform.position.x >= mapLimit.x) || (thisLevelAllFloor[i].transform.position.x <= -mapLimit.x)) || ((thisLevelAllFloor[i].transform.position.y >= mapLimit.y) || (thisLevelAllFloor[i].transform.position.y <= -mapLimit.y)) ) && !thisLevelAllFloor[i].GetComponent<groundScript>().delByMapLimit ) {
+            if ((((thisLevelAllFloor[i].transform.position.x >= mapLimit.x+ 1000) || (thisLevelAllFloor[i].transform.position.x <= -mapLimit.x+ 1000)) || ((thisLevelAllFloor[i].transform.position.y >= mapLimit.y+ 1000) || (thisLevelAllFloor[i].transform.position.y <= -mapLimit.y+ 1000)) ) && !thisLevelAllFloor[i].GetComponent<groundScript>().delByMapLimit ) {
 
                 thisLevelAllFloor[i].GetComponent<groundScript>().delByMapLimit = true;
                 returnBool = true;
@@ -148,6 +148,20 @@ public class mapTerrainGenerator : MonoBehaviour {
         classificationFloorType();
     }
 
+    public void reGenTerrainFromSave()
+    {
+        ThisLevelAllTerrainParts.RemoveRange(1, ThisLevelAllTerrainParts.Count - 1);
+        allTerrainPort.Clear();
+        allTerrainPortExit.Clear();
+
+        LoadSaveTerrainSetting();
+
+        allFloorDetach();
+        canelFloorMesh();
+
+        classificationFloorType();
+    }
+
     public void checkPointTerrain()
     {
         ThisLevelAllTerrainParts.RemoveRange(1, ThisLevelAllTerrainParts.Count - 1);
@@ -161,7 +175,7 @@ public class mapTerrainGenerator : MonoBehaviour {
 
     public void startPointTerrain()
     {
-        Debug.Log("diu");
+
         ThisLevelAllTerrainParts.RemoveRange(1, ThisLevelAllTerrainParts.Count - 1);
         allTerrainPort.Clear();
         allTerrainPortExit.Clear();
@@ -360,6 +374,19 @@ public class mapTerrainGenerator : MonoBehaviour {
 
     }
 
+    public GameObject singleCube;
+
+     public void LoadSaveTerrainSetting()
+    {
+        //testSaveLoad.Static.mydata.allFloorVector2
+
+        foreach (var item in testSaveLoad.Static.mydata.allFloorVector2)
+        {
+            GameObject spawnObject = Instantiate(singleCube, new Vector3(item.X,item.Y,0),Quaternion.identity );
+            thisLevelAllFloor.Add(spawnObject);
+            spawnObject.transform.rotation = Quaternion.Euler(0, 0, randomRotation());
+        }
+    }
 
     public void OLDcreateTerrain() {
         GameObject spawnObject = null;
@@ -368,14 +395,14 @@ public class mapTerrainGenerator : MonoBehaviour {
         for (int i = 0; i < terrainLength; i++) {
             //Debug.Log(i + " . " + count + " . " + thisLevelAllFloor.Count);
             if (i == 0) {
-                mapCenter = new Vector3((int)Random.Range(0, (mapLimit.x - 2) * 2) - (mapLimit.x - 2), (int)Random.Range(0, (mapLimit.y - 2) * 2) - (mapLimit.y - 2), 0);
-                //mapCenter = new Vector3(0, 0, 0);
+                //mapCenter = new Vector3((int)Random.Range(0, (mapLimit.x + 1000 - 2) * 2) - (mapLimit.x + 1000 - 2), (int)Random.Range(0, (mapLimit.y + 1000 - 2) * 2) - (mapLimit.y + 1000 - 2), 0);
+                mapCenter = new Vector3(1000,1000, 0);
                 spawnObject = Instantiate(ThisLevelAllTerrainParts[0], mapCenter, Quaternion.identity); //startpoint
                 //spawnObject.GetComponent<groundScript>().type = groundType.startPoint;
             }
             else {
                 int randomNumber = Random.Range(0, gameAllTerrainParts.Count);
-                spawnObject = Instantiate(gameAllTerrainParts[randomNumber], new Vector3(0,0,0), Quaternion.identity);
+                spawnObject = Instantiate(gameAllTerrainParts[randomNumber], new Vector3(1000, 1000, 0), Quaternion.identity);
                 //spawnObject.transform.Rotate(randomRotation());
                 spawnObject.transform.rotation = Quaternion.Euler(0,0, randomRotation() );
                 //spawnObject.isStatic = true;
