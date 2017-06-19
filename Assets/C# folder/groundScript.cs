@@ -110,7 +110,7 @@ public class groundScript : MonoBehaviour {
 
     public void groundCollidersCheck() //spike not work but normal is work
     {
-        Debug.Log(gameObject.name);
+        //Debug.Log(gameObject.name);
         Vector3 hitPoint = new Vector3(transform.position.x, transform.position.y, -1);
         Collider[] hitColliders = Physics.OverlapSphere(hitPoint, 0.25f);
         if (hitColliders.Length != 0 && Vector2.Distance( hitColliders[0].transform.position, transform.position) <= 0.2f)

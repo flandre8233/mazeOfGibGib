@@ -7,7 +7,7 @@ public class playerAniEvent : MonoBehaviour {
     public void attackAnimationUseOnlyFunction()
     {
 
-        Debug.Log("attack");
+        //Debug.Log("attack");
         chessMovement.Static.attackNpc(chessMovement.Static.touchEnemy);
     }
 }

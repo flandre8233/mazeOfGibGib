@@ -9,6 +9,8 @@ public class chessMovement : GeneralMovementSystem
     public GameObject model;
     public GameObject damageDisplayObject;
 
+    public GameObject attack_particle03;
+
     private float startTime;
 
     public float downTime = 0;
@@ -36,8 +38,6 @@ public class chessMovement : GeneralMovementSystem
 
     void Update()
     {
-
-
         LerpMove(ref startLerpMovement, hitObjectPosition,startTime,lerpSpeed);
         if (thisFrameMoved && !roundScript.Static.IsProcessingRound )
         {
@@ -247,7 +247,7 @@ public class chessMovement : GeneralMovementSystem
             if (movementDistance  == 0.0f)
             {
                 isInLerpMovement = false;
-                Debug.Log("passhere");
+                //Debug.Log("passhere");
 
 
 
@@ -288,12 +288,21 @@ public class chessMovement : GeneralMovementSystem
 
         if (!roundScript.Static.DoAttackAniProcessingChecker && touchEnemy.GetComponent<enemyDataBase>().HP > 0)
         {
+            int number = Random.Range(0, 3);
             charactor_move.SetTrigger("attack");
-            charactor_move.SetInteger("attack_no.", Random.Range(0, 4));
+            charactor_move.SetInteger("attack_no.", number);
             roundScript.Static.DoAttackAniProcessingChecker = true;
             StartCoroutine(AnimationBuffZone("attackAni"));
+
+            if (number == 2)
+            {
+                Debug.Log("fuffffffffffffffffffffff");
+                Instantiate(this.attack_particle03);
+            }
         }
 
+
+        //if(charactor_move.GetInteger())
 
 
         startLerpMovement = false;
