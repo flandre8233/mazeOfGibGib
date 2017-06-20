@@ -56,14 +56,28 @@ public static class saveLoadManager
         }
         */
 
+        /*
+        if (!File.Exists(path))
+        {
+            Debug.Log("no file detect");
+            saveGameData data = new saveGameData();
+            testSaveLoad.Static.savePlayerDataToJSON(data);
+
+
+            return data;
+        }*/
+
         if (!File.Exists(path))
         {
             Debug.Log("no file detect");
 
+
+
             return new saveGameData();
         }
+        
 
-        string jsonData = File.ReadAllText(path);
+       string jsonData = File.ReadAllText(path);
 
         saveGameData saveData = JsonMapper.ToObject<saveGameData>(jsonData);
 

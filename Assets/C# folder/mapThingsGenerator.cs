@@ -279,6 +279,11 @@ public class mapThingsGenerator : MonoBehaviour {
     }
 
     public void spawnExitPoint() {
+        if (gamemanager.Static.beLoaded)
+        {
+            return;
+        }
+
         totalfloorCanBePlaceExit.Clear();
         if (mapTerrainGenerator.Static.thisLevelAllFloor.Count != 0) {
             foreach (var item in mapTerrainGenerator.Static.thisLevelAllFloor) {

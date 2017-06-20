@@ -8,6 +8,8 @@ public class testSaveLoad : MonoBehaviour {
     public saveGameData mydata = new saveGameData();
     // Use this for initialization
 
+    public GameObject camera;
+
     private void Awake()
     {
         if (Static != null)
@@ -44,21 +46,23 @@ public class testSaveLoad : MonoBehaviour {
         if (mydata.define )
         {
             gamemanager.Static.beLoaded = true;
-            loadDataToPlayerData();
+            loadDataToPlayerData(mydata);
         }
         //loadDataToPlayerData();
         //text.text = mydata.testData.ToString();
 
 
     }
-	
-    void savePlayerDataToJSON()
+
+
+    public saveGameData savePlayerDataToJSON(saveGameData mydata)
     {
         mydata = new saveGameData();
         mydata.allFloorVector2 = new List<saveGameData.vector2>();
         mydata.allItemData = new List<saveGameData.item>();
         mydata.allEnemyData = new List<saveGameData.enemy>();
         mydata.playerItem = new saveGameData.item[2];
+        mydata.allExitVector2InExit = new List<saveGameData.vector2>();
 
         mydata.define = true;
 
@@ -84,6 +88,9 @@ public class testSaveLoad : MonoBehaviour {
 
         mydata.playerCenter = saveDataVector((int)chessMovement.Static.center.x, (int)chessMovement.Static.center.y );
 
+        mydata.lookDir = chessMovement.Static.faceDirection;
+        mydata.cameraEuler = (int)camera.transform.rotation.eulerAngles.z;
+
         if (playerMainScript.Static.itemArrayClone[0] != null)
         {
             mydata.playerItem[0] = playerItemSaveToSaveData(0);
@@ -98,6 +105,12 @@ public class testSaveLoad : MonoBehaviour {
         {
             saveGameData.vector2 v2 = saveDataVector((int)item.transform.position.x, (int)item.transform.position.y);
             mydata.allFloorVector2.Add(v2);
+        }
+
+        foreach (var item in GameObject.FindGameObjectsWithTag("exit"))
+        {
+            saveGameData.vector2 v2 = saveDataVector((int)item.transform.position.x, (int)item.transform.position.y);
+            mydata.allExitVector2InExit.Add(v2);
         }
 
         foreach (var item in GameObject.FindGameObjectsWithTag("item"))
@@ -119,6 +132,7 @@ public class testSaveLoad : MonoBehaviour {
             mydata.allEnemyData.Add(itemData);
         }
 
+        return mydata;
     }
 
     saveGameData.item playerItemSaveToSaveData(int number)
@@ -138,7 +152,7 @@ public class testSaveLoad : MonoBehaviour {
         return v2;
     }
 
-    void loadDataToPlayerData()
+    void loadDataToPlayerData(saveGameData mydata)
     {
         playerDataBase PD = playerDataBase.Static;
         PD.abilityHPMax = mydata.abilityHPMax;
@@ -160,6 +174,11 @@ public class testSaveLoad : MonoBehaviour {
         PD.SPBuff = mydata.SPBuff;
         PD.SP = mydata.SP;
 
+        chessMovement.Static.faceDirection =  mydata.lookDir;
+        chessMovement.Static.charFace(chessMovement.Static.faceDirection);
+
+        camera.transform.rotation = Quaternion.Euler(0,0, mydata.cameraEuler);
+
         chessMovement.Static.center = new Vector3(mydata.playerCenter.X, mydata.playerCenter.Y,0);
         chessMovement.Static.transform.position = new Vector3(mydata.playerCenter.X, mydata.playerCenter.Y, -1);
 
@@ -170,23 +189,13 @@ public class testSaveLoad : MonoBehaviour {
 
     public void buttonDown()
     {
-        savePlayerDataToJSON();
+        mydata = savePlayerDataToJSON(mydata);
         saveLoadManager.Save(mydata);
     }
 
-	// Update is called once per frame
-	void Update () {
-        if (Input.GetKeyUp(KeyCode.C))
-        {
-            //mydata.testData += 10;
-            saveLoadManager.Save(mydata);
-        }
-
-	}
-
     private void OnApplicationQuit()
     {
-        savePlayerDataToJSON();
+        mydata = savePlayerDataToJSON(mydata);
         saveLoadManager.Save(mydata);
         Debug.Log("OnApplicationQuit");
     }

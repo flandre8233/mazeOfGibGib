@@ -16,6 +16,7 @@ public class buttonHold : MonoBehaviour , IPointerDownHandler
         mouseDown = true;
         chessMovement.Static.isInAutoMovement = mouseDown;
 
+        chessMovement.Static.faceDirection = dir;
         chessMovement.Static.MovementPart(dir);
 
     }
@@ -35,6 +36,8 @@ public class buttonHold : MonoBehaviour , IPointerDownHandler
         if (mouseDown && !roundScript.Static.isInExitLevel) {
             timeMouseDown += Time.deltaTime;
             //Debug.Log(timeMouseDown);
+
+            chessMovement.Static.faceDirection = dir;
             chessMovement.Static.autoMovement(timeMouseDown, dir);
         }
 

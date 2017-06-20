@@ -35,6 +35,9 @@ public class saveGameData {
 
     public vector2 playerCenter;
 
+    public string lookDir;
+    public int cameraEuler;
+
     public List<vector2> allFloorVector2 = new List<vector2>();
     public List<vector2> allChestVector2InMap = new List<vector2>();
     public List<vector2> allExitVector2InExit = new List<vector2>();

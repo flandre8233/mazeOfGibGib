@@ -199,7 +199,9 @@ public class playerMainScript : MonoBehaviour
             //event : hp = 0  gameover
             playerDataBase.Static.HP = 0;
             roundScript.Static.IsDead = true;
-            saveLoadManager.clearSave();
+            //saveLoadManager.clearSave();
+            testSaveLoad.Static.mydata.define = false;
+            saveLoadManager.Save(testSaveLoad.Static.mydata);
             checkMaxFloor();
             //GetComponent<chessMovement>().enabled = false; //youdead
         }

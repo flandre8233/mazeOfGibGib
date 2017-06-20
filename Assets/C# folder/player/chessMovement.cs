@@ -38,8 +38,8 @@ public class chessMovement : GeneralMovementSystem
 
     void Update()
     {
-        LerpMove(ref startLerpMovement, hitObjectPosition,startTime,lerpSpeed);
-        if (thisFrameMoved && !roundScript.Static.IsProcessingRound )
+        LerpMove(ref startLerpMovement, hitObjectPosition, startTime, lerpSpeed);
+        if (thisFrameMoved && !roundScript.Static.IsProcessingRound)
         {
             if (isHitNpc)
             { //這步會打中npc的話
@@ -150,6 +150,30 @@ public class chessMovement : GeneralMovementSystem
         }
 
     }//找出鍵盤輸入的方位是什麼 並string化輸入數值
+
+    public void charFace(string moveDirection)
+    {
+        switch (moveDirection)
+        {
+            default:
+                break;
+
+            case "up":
+                model.transform.rotation = Quaternion.Euler(0, 0, 0);
+                break;
+            case "down":
+                model.transform.rotation = Quaternion.Euler(0, 0, 180);
+                break;
+            case "left":
+                model.transform.rotation = Quaternion.Euler(0, 0, 90);
+                break;
+            case "right":
+                model.transform.rotation = Quaternion.Euler(0, 0, 270);
+                break;
+
+        }
+    }
+
     public void MovementPart(string moveDirection)
     {
         if (roundScript.Static.IsProcessingRound)
@@ -161,7 +185,7 @@ public class chessMovement : GeneralMovementSystem
         {
             return;
         }
-
+        charFace(moveDirection);
             switch (moveDirection)
             {
                 default:
@@ -169,19 +193,15 @@ public class chessMovement : GeneralMovementSystem
 
                 case "up":
                     center = new Vector3(center.x + 0, center.y + 1, 0); //W
-                    model.transform.rotation = Quaternion.Euler(0, 0, 0);
                     break;
                 case "down":
                     center = new Vector3(center.x + 0, center.y - 1, 0); //S
-                    model.transform.rotation = Quaternion.Euler(0, 0, 180);
                     break;
                 case "left":
                     center = new Vector3(center.x - 1, center.y + 0, 0); //A
-                    model.transform.rotation = Quaternion.Euler(0, 0, 90);
                     break;
                 case "right":
                     center = new Vector3(center.x + 1, center.y + 0, 0);
-                    model.transform.rotation = Quaternion.Euler(0, 0, 270);
                     break;
                 case "up/left":
                     center = new Vector3(center.x - 1, center.y + 1, 0);
