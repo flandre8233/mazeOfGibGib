@@ -38,7 +38,7 @@ public class saveGameData {
     public string lookDir;
     public int cameraEuler;
 
-    public List<vector2> allFloorVector2 = new List<vector2>();
+    public List<floor> allFloorVector2 = new List<floor>();
     public List<vector2> allChestVector2InMap = new List<vector2>();
     public List<vector2> allExitVector2InExit = new List<vector2>();
     public List<item> allItemData = new List<item>();
@@ -47,8 +47,9 @@ public class saveGameData {
     //    public itemScript[] itemArrayClone = new itemScript[2];
 
     [System.Serializable]
-    public class spike : vector2
+    public class floor : vector2
     {
+        public bool isSpike;
         public int curRoundCountDown;
     }
 

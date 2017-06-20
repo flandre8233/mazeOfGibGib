@@ -246,6 +246,12 @@ public class mapThingsGenerator : MonoBehaviour {
                 loadSaveDataSpawnItem(v2,item.type);
             }
 
+            foreach (var item in testSaveLoad.Static.mydata.allChestVector2InMap)
+            {
+                Vector3 v3 = new Vector3(item.X, item.Y, -0.2f);
+                GameObject go = Instantiate(itemArray[4] , v3, Quaternion.identity);
+            }
+
             foreach (var item in saveData.allEnemyData)
             {
                 Vector2 v2 = new Vector2(item.X, item.Y);
@@ -281,6 +287,13 @@ public class mapThingsGenerator : MonoBehaviour {
     public void spawnExitPoint() {
         if (gamemanager.Static.beLoaded)
         {
+
+            foreach (var item in testSaveLoad.Static.mydata.allExitVector2InExit)
+            {
+                Vector3 v3 = new Vector3(item.X,item.Y,-1);
+                GameObject go = Instantiate(exitGoal, v3, Quaternion.identity);
+            }
+
             return;
         }
 

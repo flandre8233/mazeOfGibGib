@@ -7,14 +7,12 @@ public class Spike : groundScript {
     public int curRoundCountDown = 0;
 
     public bool inShowSpike ;
-    /*
-    bool InShowSpike {
-        get {
-            
-            return inShowSpike; }
-        set { inShowSpike = value; }
+
+    private void Start()
+    {
+
+        setupQuakeSpeed();
     }
-    */
 
     public Transform spikeObjectTransform;
     public Transform planeTransform;
@@ -62,10 +60,15 @@ public class Spike : groundScript {
                 serializeSpike();
             }
         }
+        setupQuakeSpeed();
 
-        if (curRoundCountDown == perRoundShowUpSpike-1)
+    }
+
+    public void setupQuakeSpeed()
+    {
+        if (curRoundCountDown == perRoundShowUpSpike - 1)
         {
-            lerpSpeed = lerpOrlSpeed * ((curRoundCountDown + 1) *1.25f);
+            lerpSpeed = lerpOrlSpeed * ((curRoundCountDown + 1) * 1.25f);
         }
         else
         {
@@ -89,16 +92,7 @@ public class Spike : groundScript {
 
     public void Attack()
     {
-        /*
-        if (CenterGround.isSpike) //碰到是刺
-        {
-            Spike hitSpike = hitColliders[0].gameObject.GetComponent<Spike>(); //work
-            if (hitSpike.inShowSpike)
-            {
-                hitSpike.Attack();
-            }
-        }
-        */
+
         int outputDamage = (int)((playerDataBase.Static.MaxHP / 100.0f) * damagePercentage);
 
         playerMainScript.Static.playerTakeDamge(outputDamage, true);
@@ -127,18 +121,6 @@ public class Spike : groundScript {
     public  void serializeSpike()
     {
         ani.SetBool("open", inShowSpike);
-
-        if (inShowSpike)
-        {
-            //spikeLerpStartTime = Time.time;
-            //StartCoroutine(spikeLerp(Vector3.zero));
-        }
-        else
-        {
-            //planeTransform.localPosition = new Vector3(0, 0, -0.5f);
-            //spikeLerpStartTime = Time.time;
-            //StartCoroutine(spikeLerp(new Vector3(0, 0, -0.5f) ) );
-        }
     }
 
 

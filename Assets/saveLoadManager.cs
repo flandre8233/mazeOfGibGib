@@ -13,15 +13,6 @@ public static class saveLoadManager
 
     public static void Save(saveGameData saveGame)
     {
-        /*
-        BinaryFormatter bf = new BinaryFormatter();
-        FileStream file = File.Create(Application.persistentDataPath + "/playerData.dat"); //you can call it anything you want, including the extension. The directories have to exist though.
-
-        bf.Serialize(file, saveGame);
-        file.Close();
-        Debug.Log("Saved Game: " + Application.persistentDataPath + "/playerData.dat" );
-        */
-
 
         string jsonData = JsonMapper.ToJson(saveGame);
 
@@ -39,33 +30,7 @@ public static class saveLoadManager
 
     public static saveGameData Load()
     {
-        /*
-        if (File.Exists(Application.persistentDataPath + "/playerData.dat"))
-        {
-            BinaryFormatter bf = new BinaryFormatter();
-            FileStream file = File.Open(Application.persistentDataPath + "/playerData.dat", FileMode.Open);
-            saveGameData loadedGame = (saveGameData)bf.Deserialize(file);
-            file.Close();
-            Debug.Log("Loaded Game: ");
-            return loadedGame;
-        }
-        else
-        {
-            Debug.Log("File doesn't exist!");
-            return null;
-        }
-        */
 
-        /*
-        if (!File.Exists(path))
-        {
-            Debug.Log("no file detect");
-            saveGameData data = new saveGameData();
-            testSaveLoad.Static.savePlayerDataToJSON(data);
-
-
-            return data;
-        }*/
 
         if (!File.Exists(path))
         {

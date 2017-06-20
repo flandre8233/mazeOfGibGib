@@ -280,8 +280,10 @@ public class mapTerrainGenerator : MonoBehaviour {
     }
 
      void createNewFloorMesh(GameObject model ,GameObject[] modelDust) {
-        foreach (var item in thisLevelAllFloor)
+        for (int i = 0; i < thisLevelAllFloor.Count; i++)
         { //地塊設定
+            var item = thisLevelAllFloor[i];
+
             GameObject spawnObj;
             if (!roundScript.Static.isEnterCheckPoint())
             {
@@ -305,27 +307,46 @@ public class mapTerrainGenerator : MonoBehaviour {
 
             if (!roundScript.Static.isEnterCheckPoint())
             {
-                if (Random.Range(0, 100) < 10) //尖刺生成
+                if (gamemanager.Static.beLoaded)
                 {
-                    addSpikeFunction(spawnObj.transform.parent.gameObject,spawnObj);
+
+                    if (testSaveLoad.Static.mydata.allFloorVector2[i].isSpike) //load突刺 暫時放係度
+                    {
+                        addSpikeFunction(spawnObj.transform.parent.gameObject, spawnObj);
+                        Spike spikeObj = spawnObj.transform.parent.gameObject.GetComponent<Spike>();
+
+                        spikeObj.curRoundCountDown = testSaveLoad.Static.mydata.allFloorVector2[i].curRoundCountDown; //令突刺進度回複
+                        if (spikeObj.curRoundCountDown >= spikeObj.perRoundShowUpSpike) //
+                        {
+                            Debug.Log(spikeObj.curRoundCountDown + "  kk");
+                            spikeObj.inShowSpike = true;
+                            spikeObj.serializeSpike();
+                        }
+                }
+                else
+                {
+                    if (Random.Range(0, 100) < 10) //尖刺生成
+                    {
+                        addSpikeFunction(spawnObj.transform.parent.gameObject, spawnObj);
+                    }
                 }
             }
 
-            if (!roundScript.Static.isEnterCheckPoint())
-            { //泥土設定
-                int Randnumber = Random.Range(0,modelDust.Length+1);
-                if (Randnumber == modelDust.Length)
-                {
-                    continue;
+                if (!roundScript.Static.isEnterCheckPoint())
+                { //泥土設定
+                    int Randnumber = Random.Range(0, modelDust.Length + 1);
+                    if (Randnumber == modelDust.Length)
+                    {
+                        continue;
+                    }
+                    //Randnumber -= 2;
+                    GameObject InstantiateItem = Instantiate(modelDust[Randnumber], spawnObj.transform);
+                    //InstantiateItem.transform.parent = spawnObj.transform;
+                    InstantiateItem.transform.rotation = Quaternion.Euler(180, 0, randomRotation());
+                    InstantiateItem.transform.localPosition = Vector3.zero;
+                    //InstantiateItem.transform.localPosition = new Vector3(0, 0, -0.5f);
+
                 }
-                //Randnumber -= 2;
-                GameObject InstantiateItem = Instantiate(modelDust[Randnumber], spawnObj.transform);
-                //InstantiateItem.transform.parent = spawnObj.transform;
-                InstantiateItem.transform.rotation = Quaternion.Euler(180, 0, randomRotation());
-                InstantiateItem.transform.localPosition = Vector3.zero;
-                //InstantiateItem.transform.localPosition = new Vector3(0, 0, -0.5f);
-
-
 
             }
 

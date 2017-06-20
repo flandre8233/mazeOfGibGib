@@ -58,11 +58,12 @@ public class testSaveLoad : MonoBehaviour {
     public saveGameData savePlayerDataToJSON(saveGameData mydata)
     {
         mydata = new saveGameData();
-        mydata.allFloorVector2 = new List<saveGameData.vector2>();
+        mydata.allFloorVector2 = new List<saveGameData.floor>();
         mydata.allItemData = new List<saveGameData.item>();
         mydata.allEnemyData = new List<saveGameData.enemy>();
         mydata.playerItem = new saveGameData.item[2];
         mydata.allExitVector2InExit = new List<saveGameData.vector2>();
+        mydata.allChestVector2InMap = new List<saveGameData.vector2>();
 
         mydata.define = true;
 
@@ -103,7 +104,17 @@ public class testSaveLoad : MonoBehaviour {
 
         foreach (var item in mapTerrainGenerator.Static.thisLevelAllFloor)
         {
-            saveGameData.vector2 v2 = saveDataVector((int)item.transform.position.x, (int)item.transform.position.y);
+            saveGameData.floor v2 = new saveGameData.floor();
+            v2.X = (int)item.transform.position.x ;
+            v2.Y =(int)item.transform.position.y;
+
+            v2.isSpike = item.GetComponent<groundScript>().isSpike;
+            if (v2.isSpike)
+            {
+                v2.curRoundCountDown = item.GetComponent<Spike>().curRoundCountDown;
+            }
+
+
             mydata.allFloorVector2.Add(v2);
         }
 
@@ -111,6 +122,12 @@ public class testSaveLoad : MonoBehaviour {
         {
             saveGameData.vector2 v2 = saveDataVector((int)item.transform.position.x, (int)item.transform.position.y);
             mydata.allExitVector2InExit.Add(v2);
+        }
+
+        foreach (var item in GameObject.FindGameObjectsWithTag("chest"))
+        {
+            saveGameData.vector2 v2 = saveDataVector((int)item.transform.position.x, (int)item.transform.position.y);
+            mydata.allChestVector2InMap.Add(v2);
         }
 
         foreach (var item in GameObject.FindGameObjectsWithTag("item"))
