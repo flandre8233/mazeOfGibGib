@@ -25,12 +25,24 @@ public class chessMovement : GeneralMovementSystem
     [Range(0, 5)]
     public float lerpSpeed = 1;
     float normalLerpSpeed;
+
+    private void Awake()
+    {
+        if (Static != null)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Static = this;
+        }
+    }
+
     // Use this for initialization
     void Start()
     {
         charactor_move = GetComponentInChildren<Animator>();
         normalLerpSpeed = lerpSpeed;
-        Static = this;
 
     }
 

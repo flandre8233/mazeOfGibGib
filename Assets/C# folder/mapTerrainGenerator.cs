@@ -322,6 +322,7 @@ public class mapTerrainGenerator : MonoBehaviour {
                             spikeObj.inShowSpike = true;
                             spikeObj.serializeSpike();
                         }
+                    }
                 }
                 else
                 {
@@ -348,7 +349,7 @@ public class mapTerrainGenerator : MonoBehaviour {
 
                 }
 
-            }
+            
 
         }
     }

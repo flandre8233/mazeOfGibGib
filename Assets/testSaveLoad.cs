@@ -9,7 +9,7 @@ public class testSaveLoad : MonoBehaviour {
     // Use this for initialization
 
     public GameObject camera;
-
+    public bool alreadyInStart = false;
     private void Awake()
     {
         if (Static != null)
@@ -25,22 +25,7 @@ public class testSaveLoad : MonoBehaviour {
 
     void Start ()
     {
-        /*
-        string Platform = "";
-#if UNITY_EDITOR
-        Platform = "EDITOR";
-#elif UNITY_IPHONE
-		Platform = "IPHONE";
-#elif UNITY_ANDROID
-		Platform = "ANDROID";
-#endif
-        Debug.Log(Platform);
-        Debug.Log("dataPath: " + Application.dataPath);
-        Debug.Log("persistentDataPath: " + Application.persistentDataPath);
-        Debug.Log("streamingAssetsPath: " + Application.streamingAssetsPath);
-        Debug.Log("temporaryCachePath: " + Application.temporaryCachePath);
-        */
-
+        alreadyInStart = true;
 
         mydata = saveLoadManager.Load();
         if (mydata.define )
@@ -48,8 +33,6 @@ public class testSaveLoad : MonoBehaviour {
             gamemanager.Static.beLoaded = true;
             loadDataToPlayerData(mydata);
         }
-        //loadDataToPlayerData();
-        //text.text = mydata.testData.ToString();
 
 
     }
@@ -216,7 +199,24 @@ public class testSaveLoad : MonoBehaviour {
         saveLoadManager.Save(mydata);
         Debug.Log("OnApplicationQuit");
     }
+    void OnApplicationFocus(bool hasFocus)
+    {
+        if (!alreadyInStart)
+        {
+            return;
+        }
+        mydata = savePlayerDataToJSON(mydata);
+        saveLoadManager.Save(mydata);
 
+        Debug.Log("OnApplicationFocus");
+    }
+
+    void OnApplicationPause(bool pauseStatus)
+    {
+        //mydata = savePlayerDataToJSON(mydata);
+        //saveLoadManager.Save(mydata);
+        //Debug.Log("OnApplicationPause");
+    }
     private void OnDestroy()
     {
         Debug.Log("ondestroy");
