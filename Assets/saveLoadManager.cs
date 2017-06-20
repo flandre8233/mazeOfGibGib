@@ -81,7 +81,7 @@ public static class saveLoadManager
 
         saveGameData saveData = JsonMapper.ToObject<saveGameData>(jsonData);
 
-        if (saveData.HP <= 0)
+        if (saveData.HP <= 0 || !saveData.define)
         {
             Debug.Log("deadFile");
 

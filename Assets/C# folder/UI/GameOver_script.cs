@@ -50,6 +50,8 @@ public class GameOver_script : MonoBehaviour {
         playerDataBase.Static.check_start = false;
         playerDataBase.Static.restart_data();
         //gameover_show.gameObject.SetActive(false);
+        testSaveLoad.Static.mydata.define = false;
+        saveLoadManager.Save(testSaveLoad.Static.mydata);
         SceneManager.LoadScene(0);
         //Start_menu_canvas.Static.start_menu.gameObject.SetActive(false);
     }
