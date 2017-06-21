@@ -15,6 +15,11 @@ public class particleManager : MonoBehaviour {
     public GameObject character_run_inside01_normal;
     public GameObject Hpmax_up;
     public GameObject Spmax_up;
+    public GameObject attack01;
+    public GameObject attack02;
+    public GameObject attack03;
+    public GameObject attack04;
+
 
 
     private void Awake()

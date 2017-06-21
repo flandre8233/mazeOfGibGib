@@ -331,11 +331,27 @@ public class chessMovement : GeneralMovementSystem
             roundScript.Static.DoAttackAniProcessingChecker = true;
             StartCoroutine(AnimationBuffZone("attackAni"));
 
-            if (number == 2)
+
+            switch (number)
             {
-                Debug.Log("fuffffffffffffffffffffff");
-                Instantiate(this.attack_particle03);
+                case 0:
+                    Instantiate(particleManager.Static.attack01, gameObject.transform.position,Quaternion.identity); //粒子
+                    break;
+                case 1:
+                    Instantiate(particleManager.Static.attack02, gameObject.transform.position, Quaternion.identity); //粒子
+                    break;
+                case 2:
+                    Instantiate(particleManager.Static.attack03, gameObject.transform.position, Quaternion.identity); //粒子
+                    break;
+                case 3:
+                    Instantiate(particleManager.Static.attack04, gameObject.transform.position, Quaternion.identity); //粒子
+                    break;
             }
+
+            /*if (number == 2)
+            {
+                Instantiate(this.attack_particle03);
+            }*/
         }
 
 
