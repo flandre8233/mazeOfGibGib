@@ -271,6 +271,7 @@ public class chessMovement : GeneralMovementSystem
             thisFrameMoved = true;
     }
 
+
     void LerpMove(ref bool isInLerpMovement, Vector3 targetPosition, float startTime, float lerpSpeed)
     {
         if (isInLerpMovement)

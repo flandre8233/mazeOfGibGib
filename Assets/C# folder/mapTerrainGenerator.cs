@@ -236,6 +236,32 @@ public class mapTerrainGenerator : MonoBehaviour {
 
     public GameObject floorCheckpointModel;
 
+    public int getFloorType()
+    {
+        if (playerDataBase.Static.currentFloor > 40)
+        {
+            return 4;
+        }
+        else if (playerDataBase.Static.currentFloor > 30)
+        {
+            return 3;
+        }
+        else if (playerDataBase.Static.currentFloor > 20)
+        {
+
+            return 2;
+        }
+        else if (playerDataBase.Static.currentFloor > 10)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+
+    }
+
     int floorArea;
     void classificationFloorType()
     {
