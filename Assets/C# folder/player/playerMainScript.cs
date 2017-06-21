@@ -31,7 +31,6 @@ public class playerMainScript : MonoBehaviour
 
     private void Start()
     {
-
     }
 
     public void loadPlayerItem()
@@ -173,10 +172,7 @@ public class playerMainScript : MonoBehaviour
             playerDataBase.Static.SP = 0;
         }
 
-        Debug.Log("llkpkp");
-        Debug.Log(playerDataBase.Static.MaxHP / 100.0f * 25.0f);
 
-        Debug.Log(playerDataBase.Static.HP);
         displayCloseDeadWarning();
 
         //deadAliveCheck();
