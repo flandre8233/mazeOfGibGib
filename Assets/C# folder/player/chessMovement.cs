@@ -10,6 +10,7 @@ public class chessMovement : GeneralMovementSystem
     public GameObject damageDisplayObject;
 
     public GameObject attack_particle03;
+    public RectTransform YN_Menu_backToBefore;
 
     private float startTime;
 
@@ -378,8 +379,10 @@ public class chessMovement : GeneralMovementSystem
             hitObjectPosition = new Vector3(hitColliders[0].gameObject.transform.position.x, hitColliders[0].gameObject.transform.position.y, -1);
 
             if (hitColliders[0].gameObject.tag == "returnCheckPoint") {
-                returnToBeforeCheckPoint();
+                YN_Menu_backToBefore.gameObject.SetActive(!YN_Menu_backToBefore.gameObject.activeSelf);
             }
+
+
         }
         if (hitColliders.Length >= 1)
         {
@@ -418,8 +421,8 @@ public class chessMovement : GeneralMovementSystem
                     }
                     if (item.tag == "crystal")
                     {
-                        revive_script.Static.yn_show.gameObject.SetActive(!revive_script.Static.yn_show.gameObject.activeSelf);
-
+                        //revive_script.Static.yn_show.gameObject.SetActive(!revive_script.Static.yn_show.gameObject.activeSelf);
+                        revive_script.Static.menu_crystal.gameObject.SetActive(!revive_script.Static.menu_crystal.gameObject.activeSelf);
                         hitColliders = Physics.OverlapSphere(new Vector3(transform.position.x, transform.position.y, 0), 0.25f); //還原center
                         CenterGround = hitColliders[0].gameObject.GetComponent<groundScript>();
                         hitObjectPosition = new Vector3(hitColliders[0].gameObject.transform.position.x, hitColliders[0].gameObject.transform.position.y, -1);
@@ -498,6 +501,16 @@ public class chessMovement : GeneralMovementSystem
         thisFrameMoved = true;
 
         //roundScript.Static.enemyAttackAniProcessingChecker = true;
+    }
+
+    public void back_to_before()
+    {
+        returnToBeforeCheckPoint();
+        YN_Menu_backToBefore.gameObject.SetActive(!YN_Menu_backToBefore.gameObject.activeSelf);
+    }
+    public void off_back_menu()
+    {
+        YN_Menu_backToBefore.gameObject.SetActive(!YN_Menu_backToBefore.gameObject.activeSelf);
     }
 }
 

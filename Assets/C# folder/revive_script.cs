@@ -44,7 +44,7 @@ public class revive_script : MonoBehaviour {
     public void crystal_menu_press()
     {
         menu_crystal.gameObject.SetActive(!menu_crystal.gameObject.activeSelf);
-        yn_show.gameObject.SetActive(!yn_show.gameObject.activeSelf);
+        //yn_show.gameObject.SetActive(!yn_show.gameObject.activeSelf);
     }
 
     public void revive_button()
