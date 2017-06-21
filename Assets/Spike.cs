@@ -95,6 +95,7 @@ public class Spike : groundScript {
 
         int outputDamage = (int)((playerDataBase.Static.MaxHP / 100.0f) * damagePercentage);
 
+        soundEffectManager.staticSoundEffect.play_characterHurtWithThorn();
         playerMainScript.Static.playerTakeDamge(outputDamage, true);
     }
     

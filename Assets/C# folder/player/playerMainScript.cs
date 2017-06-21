@@ -48,7 +48,7 @@ public class playerMainScript : MonoBehaviour
                 //selectType
 
                 GameObject InstantiateItem = Instantiate(mapThingsGenerator.Static.selectType(item.type), spawnPos, Quaternion.Euler(-90, 0, 0));
-                Debug.Log("kkkk" + item.level );
+                Debug.Log("kkkk" + item.level);
                 InstantiateItem.GetComponent<itemScript>().level = item.level;
                 hitItem = InstantiateItem;
 
@@ -63,7 +63,8 @@ public class playerMainScript : MonoBehaviour
 
     public void subSP()
     {
-        if (roundScript.Static.isEnterCheckPoint() ) {
+        if (roundScript.Static.isEnterCheckPoint())
+        {
             return;
         }
 
@@ -74,7 +75,7 @@ public class playerMainScript : MonoBehaviour
     }
 
     public shrinkManager UIShrink;
-    public void playerTakeDamge(int damage , bool ignoreDEF)
+    public void playerTakeDamge(int damage, bool ignoreDEF)
     {
         int DEF = 0;
         if (ignoreDEF)
@@ -92,8 +93,8 @@ public class playerMainScript : MonoBehaviour
         {
             gamemanager.Static.spawnNumberDisplay(chessMovement.Static.gameObject.transform.position, (damage - DEF), 5);
             UIShrink.startShrink();
-            UIShrink.strong = (int)(350 *  ( 1.2f * ( playerDataBase.Static.HP +  damage)  / playerDataBase.Static.HP) );
-            UIShrink.lerpSpeed =  (15 * ( 1.5f * ( playerDataBase.Static.HP +  damage) / playerDataBase.Static.HP) ); 
+            UIShrink.strong = (int)(350 * (1.2f * (playerDataBase.Static.HP + damage) / playerDataBase.Static.HP));
+            UIShrink.lerpSpeed = (15 * (1.5f * (playerDataBase.Static.HP + damage) / playerDataBase.Static.HP));
             playerDataBase.Static.HP -= (damage - DEF);
             deadAliveCheck();
         }
@@ -105,70 +106,91 @@ public class playerMainScript : MonoBehaviour
 
     public GameObject closeDeadWarning;
 
+    void OnNonHungry()
+    {
+        int hpNumber = 0;
+
+        if (playerDataBase.Static.HP < playerDataBase.Static.MaxHP)
+        {
+            Instantiate(particleManager.Static.character_run_inside01_heal, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, -0.015f), new Quaternion(-180, 0, 0, 0)); //粒子
+            hpHasChanged = true;
+            if ((int)(Mathf.Round(playerDataBase.Static.MaxHP / 100.0f * 5.0f)) > 1)
+            {
+                hpNumber = (int)(Mathf.Round(playerDataBase.Static.MaxHP / 100.0f * 10.0f));
+            }
+            else
+            {
+                hpNumber = 1;
+            }
+        }
+        playerDataBase.Static.HP += hpNumber;
+        if (hpNumber > 0)
+        {
+            gamemanager.Static.spawnNumberDisplay(transform.position, hpNumber, 3);
+        }
+    }
+    void OnHungry()
+    {
+        int hpNumber = 0;
+
+        if (playerDataBase.Static.HP > 0)
+        {
+            Instantiate(particleManager.Static.character_run_inside01_hurt, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, -0.015f), new Quaternion(-180, 0, 0, 0));  //粒子
+            hpHasChanged = true;
+            if ((int)(Mathf.Round(playerDataBase.Static.MaxHP / 100.0f * 10.0f)) > 1)
+            {
+                hpNumber = (int)(Mathf.Round(playerDataBase.Static.MaxHP / 100.0f * 15.0f));
+            }
+            else
+            {
+                hpNumber = 1;
+            }
+        }
+        playerDataBase.Static.HP -= hpNumber;
+        gamemanager.Static.spawnNumberDisplay(transform.position, hpNumber, 5);
+        soundEffectManager.staticSoundEffect.play_characterHurtWithHungry();
+    }
+
+    bool hpHasChanged = false;
     public void checkLife()
     {
         if (roundScript.Static.isExitTouchPlayer)
         {
             return;
         }
+        hpHasChanged = false;
 
-        bool hpHasChanged = false;
-        int hpNumber=0;
-
-        if (playerDataBase.Static.SP > 0) {
-            if (playerDataBase.Static.HP < playerDataBase.Static.MaxHP)
-            {
-                Instantiate(particleManager.Static.character_run_inside01_heal, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, -0.015f), new Quaternion(-180, 0, 0, 0) ); //粒子
-                hpHasChanged = true;
-                if ((int)(Mathf.Round(playerDataBase.Static.MaxHP / 100.0f * 5.0f)) > 1)
-                {
-                    hpNumber = (int)(Mathf.Round(playerDataBase.Static.MaxHP / 100.0f * 10.0f));
-                }
-                else {
-                    hpNumber = 1;
-                }
-            }
-            playerDataBase.Static.HP += hpNumber ;
-            if (hpNumber > 0)
-            {
-                gamemanager.Static.spawnNumberDisplay(transform.position, hpNumber, 3);
-            }
+        if (playerDataBase.Static.SP > 0)
+        {
+            OnNonHungry();
         }
-        else {
-            if (playerDataBase.Static.HP > 0)
-            {
-                Instantiate(particleManager.Static.character_run_inside01_hurt, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, -0.015f), new Quaternion(-180,0,0,0) );  //粒子
-                hpHasChanged = true;
-                if ((int)(Mathf.Round(playerDataBase.Static.MaxHP / 100.0f * 10.0f)) > 1)
-                {
-                    hpNumber =  (int)(Mathf.Round(playerDataBase.Static.MaxHP / 100.0f * 15.0f));
-                }
-                else {
-                    hpNumber = 1;
-                }
-            }
-            playerDataBase.Static.HP -= hpNumber;
-            gamemanager.Static.spawnNumberDisplay(transform.position, hpNumber, 5);
+        else
+        {
+            OnHungry();
         }
 
 
         if (!hpHasChanged)
         {
-            Instantiate(particleManager.Static.character_run_inside01_normal,new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, -0.015f), new Quaternion(-180, 0, 0, 0) ); //粒子
+            Instantiate(particleManager.Static.character_run_inside01_normal, new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, -0.015f), new Quaternion(-180, 0, 0, 0)); //粒子
         }
 
 
-        if (playerDataBase.Static.HP > playerDataBase.Static.MaxHP) {
+        if (playerDataBase.Static.HP > playerDataBase.Static.MaxHP)
+        {
             playerDataBase.Static.HP = playerDataBase.Static.MaxHP;
         }
-        else if (playerDataBase.Static.HP < 0) {
+        else if (playerDataBase.Static.HP < 0)
+        {
             playerDataBase.Static.HP = 0;
         }
 
-        if (playerDataBase.Static.SP > playerDataBase.Static.MaxSP) {
+        if (playerDataBase.Static.SP > playerDataBase.Static.MaxSP)
+        {
             playerDataBase.Static.SP = playerDataBase.Static.MaxSP;
         }
-        else if (playerDataBase.Static.SP < 0) {
+        else if (playerDataBase.Static.SP < 0)
+        {
             playerDataBase.Static.SP = 0;
         }
 
@@ -192,13 +214,31 @@ public class playerMainScript : MonoBehaviour
         }
     }
 
-     void checkMaxFloor()
+    void checkMaxFloor()
     {
         //currentLifeMaxFloor
         if (playerDataBase.Static.maxFloor < playerDataBase.Static.currentFloor)
         {
             playerDataBase.Static.maxFloor = playerDataBase.Static.currentFloor;
         }
+    }
+
+    void OnGameOver()
+    {
+        if (playerDataBase.Static.revive_value)
+        {
+            revive();
+            return;
+        }
+        //event : hp = 0  gameover
+        playerDataBase.Static.HP = 0;
+        roundScript.Static.IsDead = true;
+        //saveLoadManager.clearSave();
+        testSaveLoad.Static.mydata.define = false;
+        saveLoadManager.Save(testSaveLoad.Static.mydata);
+        soundEffectManager.staticSoundEffect.play_gameOver();
+        checkMaxFloor();
+        //GetComponent<chessMovement>().enabled = false; //youdead
     }
 
     public void deadAliveCheck()
@@ -208,19 +248,7 @@ public class playerMainScript : MonoBehaviour
 
         if (playerDataBase.Static.HP <= 0)
         {
-            if (playerDataBase.Static.revive_value)
-            {
-                revive();
-                return;
-            }
-            //event : hp = 0  gameover
-            playerDataBase.Static.HP = 0;
-            roundScript.Static.IsDead = true;
-            //saveLoadManager.clearSave();
-            testSaveLoad.Static.mydata.define = false;
-            saveLoadManager.Save(testSaveLoad.Static.mydata);
-            checkMaxFloor();
-            //GetComponent<chessMovement>().enabled = false; //youdead
+            OnGameOver();
         }
         else
         {
@@ -251,8 +279,10 @@ public class playerMainScript : MonoBehaviour
 
     }
 
-    public void getItem() {
-        if (hitItem == null) {
+    public void getItem()
+    {
+        if (hitItem == null)
+        {
             return;
         }
         playerDataBase.Static.HP += hitItem.gameObject.GetComponent<itemScript>().AddHP;
@@ -261,18 +291,22 @@ public class playerMainScript : MonoBehaviour
         playerDataBase.Static.SPBuff += hitItem.gameObject.GetComponent<itemScript>().AddSPMax;
         playerDataBase.Static.COIN += hitItem.gameObject.GetComponent<itemScript>().AddCOIN;
 
-        if (playerDataBase.Static.HP >= playerDataBase.Static.MaxHP) { //max check
+        if (playerDataBase.Static.HP >= playerDataBase.Static.MaxHP)
+        { //max check
             playerDataBase.Static.HP = playerDataBase.Static.MaxHP;
         }
-        if (playerDataBase.Static.SP >= playerDataBase.Static.MaxSP) {
+        if (playerDataBase.Static.SP >= playerDataBase.Static.MaxSP)
+        {
             playerDataBase.Static.SP = playerDataBase.Static.MaxSP;
         }
 
-        if (hitItem.gameObject.GetComponent<itemScript>().AddHP > 0) {
+        if (hitItem.gameObject.GetComponent<itemScript>().AddHP > 0)
+        {
             gamemanager.Static.spawnNumberDisplay(transform.position, hitItem.gameObject.GetComponent<itemScript>().AddHP, 3);
         }
 
-        if (hitItem.gameObject.GetComponent<itemScript>().AddSP > 0) {
+        if (hitItem.gameObject.GetComponent<itemScript>().AddSP > 0)
+        {
             gamemanager.Static.spawnNumberDisplay(transform.position, hitItem.gameObject.GetComponent<itemScript>().AddSP, 3);
         }
 
@@ -280,7 +314,7 @@ public class playerMainScript : MonoBehaviour
         hitItem = null;
     }
 
-    
+
 
 
 
@@ -331,7 +365,7 @@ public class playerMainScript : MonoBehaviour
         clone.level = original.level;
         //clone.SetUp();
         //clone.includeLevelSetUp();
-        
+
         /*
         clone.itemName = original.itemName;
         clone.AddHP = original.AddHP;
@@ -390,11 +424,13 @@ public class playerMainScript : MonoBehaviour
         playerDataBase.Static.SPBuff += itemArrayClone[number].AddSPMax;
         playerDataBase.Static.COIN += itemArrayClone[number].AddCOIN;
 
-        if (itemArrayClone[number].AddHP > 0) {
+        if (itemArrayClone[number].AddHP > 0)
+        {
             gamemanager.Static.spawnNumberDisplay(transform.position, itemArrayClone[number].AddHP, 3);
         }
 
-        if (itemArrayClone[number].AddSP > 0) {
+        if (itemArrayClone[number].AddSP > 0)
+        {
             gamemanager.Static.spawnNumberDisplay(transform.position, itemArrayClone[number].AddSP, 3);
         }
 
@@ -408,9 +444,12 @@ public class playerMainScript : MonoBehaviour
             playerDataBase.Static.SP = playerDataBase.Static.MaxSP;
         }
         //itemArrayClone[number] = null;
-        Destroy(itemArrayClone[number] );
+        Destroy(itemArrayClone[number]);
         itemArrayClone[number] = null;
-        Destroy(itemV3[number].GetComponentInChildren<Animator>().gameObject) ; // <- item destroy in 3d ui
+        Destroy(itemV3[number].GetComponentInChildren<Animator>().gameObject); // <- item destroy in 3d ui
+
+        soundEffectManager.staticSoundEffect.play_button_onItemUse(); // use item sound
+
     }
 
     public void useItemMaxOnly(itemScript item)
@@ -451,7 +490,7 @@ public class playerMainScript : MonoBehaviour
         DEFContinueRound = conRound;
         if (playerDataBase.Static.DEFBuff <= 0)
         {
-            playerDataBase.Static.DEFBuff += (int)((playerDataBase.Static.DEF / 100.0f) * DEFAddNumber ) + 1;
+            playerDataBase.Static.DEFBuff += (int)((playerDataBase.Static.DEF / 100.0f) * DEFAddNumber) + 1;
             Debug.Log(playerDataBase.Static.DEFBuff + "def" + playerDataBase.Static.DEF);
         }
         return true;
@@ -464,7 +503,7 @@ public class playerMainScript : MonoBehaviour
         ATKContinueRound = conRound;
         if (playerDataBase.Static.ATKBuff <= 0)
         {
-            playerDataBase.Static.ATKBuff += (int)((playerDataBase.Static.ATK / 100.0f ) * atkAddNumber ) + 1;
+            playerDataBase.Static.ATKBuff += (int)((playerDataBase.Static.ATK / 100.0f) * atkAddNumber) + 1;
             Debug.Log(playerDataBase.Static.ATKBuff + "atk" + playerDataBase.Static.ATK);
         }
         return true;
@@ -523,7 +562,7 @@ public class playerMainScript : MonoBehaviour
         {
 
 
-            if (itemArrayClone[i] != null && itemArrayClone[i].type == itemName )
+            if (itemArrayClone[i] != null && itemArrayClone[i].type == itemName)
             {
                 levelUpItem(itemArrayClone[i]);
                 itemV3[i].GetComponentInChildren<Animator>().SetTrigger("get");
@@ -531,7 +570,7 @@ public class playerMainScript : MonoBehaviour
             }
         }
 
-            
+
         return false;
     }
 
@@ -540,9 +579,9 @@ public class playerMainScript : MonoBehaviour
         item.level++;
     }
 
-    void spawnItemIn3DUI(GameObject item,Transform UI3DitemPos)
+    void spawnItemIn3DUI(GameObject item, Transform UI3DitemPos)
     {
-        GameObject itemObject = Instantiate(item.gameObject, UI3DitemPos );
+        GameObject itemObject = Instantiate(item.gameObject, UI3DitemPos);
         itemObject.transform.localPosition = Vector3.zero;
         itemObject.transform.rotation = Quaternion.Euler(0, 180, 0);
         itemObject.GetComponentInChildren<Animator>().SetTrigger("get");
@@ -568,18 +607,20 @@ public class playerMainScript : MonoBehaviour
                 }
                 useItemMaxOnly(hitItem.GetComponent<itemScript>());
                 chessMovement.Static.charactor_move.SetTrigger("get");
+                soundEffectManager.staticSoundEffect.play_get_fruit();
                 return;
             }
 
 
             bool alreadyHaveThisItem = checkIsAlreadyGetItem(other.gameObject.GetComponent<itemScript>().type);
             chessMovement.Static.charactor_move.SetTrigger("get");
+            soundEffectManager.staticSoundEffect.play_get_item();
             for (int i = 0; i < itemArrayClone.Length; i++)
             {
                 if (itemArrayClone[i] == null && !alreadyHaveThisItem) // this wor) 
                 {
                     getItemSet(i);
-                    spawnItemIn3DUI(other.gameObject,itemV3[i].transform);
+                    spawnItemIn3DUI(other.gameObject, itemV3[i].transform);
                     break;
                 }
             }
@@ -589,9 +630,9 @@ public class playerMainScript : MonoBehaviour
                 getItem();
             }
             */
-            
+
             Destroy(other.gameObject);
-            
+
         }
 
 

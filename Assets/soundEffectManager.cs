@@ -80,7 +80,7 @@ public class soundEffectManager : MonoBehaviour
     }
     public void play_characterOpenChest()
     {
-        myAudio.PlayOneShot(characterOpenChest, 1.0f);
+        myAudio.PlayOneShot(characterOpenChest, 6.5f);
     }
     public void play_get_fruit()
     {
@@ -117,7 +117,7 @@ public class soundEffectManager : MonoBehaviour
     }
     public void play_button_onItemUse()
     {
-        myAudio.PlayOneShot(button_onItemUse, 1.0f);
+        myAudio.PlayOneShot(button_onItemUse, 4.0f);
     }
     public void play_Click_Button()
     {
@@ -125,7 +125,7 @@ public class soundEffectManager : MonoBehaviour
     }
     public void play_gameOver()
     {
-        myAudio.PlayOneShot(gameOver, 1.0f);
+        myAudio.PlayOneShot(gameOver, 8.0f);
     }
     public void play_levelPass()
     {

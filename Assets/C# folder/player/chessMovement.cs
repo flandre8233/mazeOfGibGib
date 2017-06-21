@@ -264,11 +264,14 @@ public class chessMovement : GeneralMovementSystem
         {
             return;
         }
-        soundEffectManager.staticSoundEffect.play_characterMove(0);
+        int curLevelType = mapTerrainGenerator.Static.getFloorType();
+        soundEffectManager.staticSoundEffect.play_characterMove(curLevelType); // 依個ok
+
+
         startLerpMovement = true;
-            roundScript.Static.movementProcessingChecker = true;
-            startTime = Time.time;
-            thisFrameMoved = true;
+        roundScript.Static.movementProcessingChecker = true;
+        startTime = Time.time;
+        thisFrameMoved = true;
     }
 
 
@@ -375,6 +378,7 @@ public class chessMovement : GeneralMovementSystem
         roundScript.Static.DoAttackAniProcessingChecker = true;
 
         StartCoroutine(WaitForAnimationForChest("attackAni"));
+        soundEffectManager.staticSoundEffect.play_characterOpenChest();
 
     }
 

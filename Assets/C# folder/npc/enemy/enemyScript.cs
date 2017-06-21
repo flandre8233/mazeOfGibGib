@@ -133,8 +133,8 @@ public class enemyScript : enemyDataBase
             }
 
         }
-        
 
+        soundEffectManager.staticSoundEffect.play_monster_move();
         startLerpMovement = true;
         NumberOfActions--;
         startTime = Time.time;
@@ -248,6 +248,19 @@ public class enemyScript : enemyDataBase
         enemyAni.SetTrigger("attack");
         roundScript.Static.enemyAttackAniProcessingChecker = true;
         StartCoroutine(AnimationBuffZone("attackAni"));
+
+        switch (Level) // on atk sound
+        {
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                soundEffectManager.staticSoundEffect.play_monster4_attack();
+                break;
+        }
     }
 
     public void enemyAttack()
@@ -283,6 +296,22 @@ public class enemyScript : enemyDataBase
             playerDataBase.Static.COIN += (int)(COIN * (playerDataBase.Static.COINBounsPercent / 100));
 
             inDead = true;
+
+            switch (Level) // on dead sound
+            {
+                case 1:
+                    soundEffectManager.staticSoundEffect.play_monster1_dead();
+                    break;
+                case 2:
+                    soundEffectManager.staticSoundEffect.play_monster2_dead();
+                    break;
+                case 3:
+                    soundEffectManager.staticSoundEffect.play_monster3_dead();
+                    break;
+                case 4:
+                    soundEffectManager.staticSoundEffect.play_monster4_dead();
+                    break;
+            }
             enemyAni.SetTrigger("died");
             //delEnemy();
         }
