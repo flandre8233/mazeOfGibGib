@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 public class testSaveLoad : MonoBehaviour {
     public static testSaveLoad Static;
-    public Text text;
     public saveGameData mydata = new saveGameData();
     // Use this for initialization
 
@@ -186,12 +185,6 @@ public class testSaveLoad : MonoBehaviour {
         playerMainScript.Static.displayCloseDeadWarning();
     }
     
-
-    public void buttonDown()
-    {
-        mydata = savePlayerDataToJSON(mydata);
-        saveLoadManager.Save(mydata);
-    }
 
     private void OnApplicationQuit()
     {

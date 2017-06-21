@@ -264,7 +264,8 @@ public class chessMovement : GeneralMovementSystem
         {
             return;
         }
-            startLerpMovement = true;
+        soundEffectManager.staticSoundEffect.play_characterMove(0);
+        startLerpMovement = true;
             roundScript.Static.movementProcessingChecker = true;
             startTime = Time.time;
             thisFrameMoved = true;
@@ -302,6 +303,7 @@ public class chessMovement : GeneralMovementSystem
     public Vector3 hitObjectPosition = new Vector3();
 
     public void returnToBeforeCheckPoint() {
+        
         if (playerDataBase.Static.currentFloor - roundScript.Static.checkPoint < 0) {
             playerDataBase.Static.currentFloor = 0;
         }
@@ -309,6 +311,7 @@ public class chessMovement : GeneralMovementSystem
             playerDataBase.Static.currentFloor -= 11;
         }
         roundScript.Static.OnEnterNextLevel();
+        
     }
 
     public void OnPlayerTouchEnemy(GameObject touchObject)
@@ -322,6 +325,7 @@ public class chessMovement : GeneralMovementSystem
         if (!roundScript.Static.DoAttackAniProcessingChecker && touchEnemy.GetComponent<enemyDataBase>().HP > 0)
         {
             int number = Random.Range(0, 3);
+            soundEffectManager.staticSoundEffect.play_characterAttack(number);
             charactor_move.SetTrigger("attack");
             charactor_move.SetInteger("attack_no.", number);
             roundScript.Static.DoAttackAniProcessingChecker = true;
