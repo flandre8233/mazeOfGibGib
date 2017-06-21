@@ -24,6 +24,8 @@ public class equipmentScript : MonoBehaviour {
         {
             playerDataBase.Static.COIN -= playerDataBase.Static.equipment_ATKcost;
             playerDataBase.Static.ATKLevel++;
+
+            soundEffectManager.staticSoundEffect.play_equitment_sword_up();
         }
     }
     public void DEF_equ()
@@ -33,6 +35,7 @@ public class equipmentScript : MonoBehaviour {
         {
             playerDataBase.Static.COIN -= playerDataBase.Static.equipment_DEFcost;
             playerDataBase.Static.DEFLevel++;
+            soundEffectManager.staticSoundEffect.play_equitment_shield_up();
         }
     }
 

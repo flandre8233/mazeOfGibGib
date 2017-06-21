@@ -13,6 +13,7 @@ public class canvasButton : MonoBehaviour {
     }
 
     public void OpenMapButtonClick(bool Bool) {
+        soundEffectManager.staticSoundEffect.play_Click_Button();
         normalGameCanvas.SetActive(!Bool);
         bigMapCanvas.SetActive(Bool);
         bigMapCamera.SetActive(Bool);
@@ -49,6 +50,7 @@ public class canvasButton : MonoBehaviour {
     public void passRound()
     {
         roundScript.Static.pastRound();
+        soundEffectManager.staticSoundEffect.play_levelPass();
     }
 
     /*

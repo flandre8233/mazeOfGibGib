@@ -54,6 +54,7 @@ public class revive_script : MonoBehaviour {
             playerDataBase.Static.revive_value = true;
             crystal_on.gameObject.SetActive(true);
             crystal_off.gameObject.SetActive(false);
+            soundEffectManager.staticSoundEffect.play_crystal_light();
         }
         else
         {

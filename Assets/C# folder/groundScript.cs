@@ -118,10 +118,20 @@ public class groundScript : MonoBehaviour {
 
         //Debug.Log(hitColliders.Length +  "diu");
 
-        if (hitColliders.Length != 0 && Vector2.Distance( hitColliders[0].transform.position, transform.position) <= 0.2f)
+        if (hitColliders.Length != 0 )
         {
-            haveSomethingInHere = true;
-            haveSomethingInHereObject = hitColliders[0].gameObject;
+            float dis;
+            foreach (var item in hitColliders)
+            {
+                dis = Vector3.Distance(transform.position, item.gameObject.transform.position);
+                if (dis <= 1f)
+                {
+                    haveSomethingInHere = true;
+                    haveSomethingInHereObject = item.gameObject;
+                    break;
+                }
+            }
+
         }
         else
         {

@@ -19,6 +19,7 @@ public class abilityScript : MonoBehaviour {
             playerDataBase.Static.fullHPSP();
             //Debug.Log(Hpmax_add);
             playerDataBase.Static.POINT--;
+            soundEffectManager.staticSoundEffect.play_ability_UP();
         }
     }
 
@@ -32,6 +33,7 @@ public class abilityScript : MonoBehaviour {
             playerDataBase.Static.fullHPSP();
             //Debug.Log(Spmax_add);
             playerDataBase.Static.POINT--;
+            soundEffectManager.staticSoundEffect.play_ability_UP();
         }
     }
 
@@ -43,6 +45,7 @@ public class abilityScript : MonoBehaviour {
             playerDataBase.Static.ATKlevelpercent++;
             //Debug.Log(playerDataBase.Static.ATKInitial / 100f * playerDataBase.Static.abilityATKPercent);
             playerDataBase.Static.POINT--;
+            soundEffectManager.staticSoundEffect.play_ability_UP();
         }
     }
 
@@ -54,6 +57,7 @@ public class abilityScript : MonoBehaviour {
             playerDataBase.Static.DEFlevelpercent++;
             //Debug.Log(DEF_add);
             playerDataBase.Static.POINT--;
+            soundEffectManager.staticSoundEffect.play_ability_UP();
         }
     }
 }
