@@ -364,7 +364,16 @@ public class roundScript : MonoBehaviour {
             //mapTerrainGenerator.Static.findRightGround();
             //mapTerrainGenerator.Static.findCenter();
             isInExitLevel = false;
+            if (groundCheckSystem != null)
+            {
+                Debug.Log("dllm");
+                groundCheckSystem.Invoke();
+            }
+            miniMapSpriteManager.Static.startGenIcon();
+
+
             loadingTest.Static.closeLoading();
+
         }
         if (NeedGenertorThings) {
             nextFrameLock ++;
@@ -399,6 +408,8 @@ public class roundScript : MonoBehaviour {
         roundSystem += playerMainScript.Static.subSP;
         roundSystem += playerMainScript.Static.checkLife;
         enterLevel();
+
+
         //roundSystem += RoundProcessingChecker;
         //roundSystem += OnEnterNextLevel;
         //roundSystem += playerMainScript.getItemSet;

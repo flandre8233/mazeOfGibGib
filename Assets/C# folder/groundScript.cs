@@ -105,14 +105,19 @@ public class groundScript : MonoBehaviour {
     public void roundSystemUseOnly() {
         //Debug.Log(transform.position);
         groundCollidersCheck();
+
+        Debug.Log( "diu?");
     }
         
 
     public void groundCollidersCheck() //spike not work but normal is work
     {
         //Debug.Log(gameObject.name);
-        Vector3 hitPoint = new Vector3(transform.position.x, transform.position.y, -1);
-        Collider[] hitColliders = Physics.OverlapSphere(hitPoint, 0.25f);
+        Vector3 hitPoint = new Vector3(transform.position.x, transform.position.y, -1f); //問題
+        Collider[] hitColliders = Physics.OverlapSphere(hitPoint, 0.5f);
+
+        Debug.Log(hitColliders.Length +  "diu");
+
         if (hitColliders.Length != 0 && Vector2.Distance( hitColliders[0].transform.position, transform.position) <= 0.2f)
         {
             haveSomethingInHere = true;

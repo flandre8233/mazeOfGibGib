@@ -15,8 +15,7 @@ public class mapThingsGenerator : MonoBehaviour {
 
     //[HideInInspector]
     //public GameObject item;
-
-    [HideInInspector]
+    
     public GameObject exitGoal;
 
     GameObject player;
@@ -403,6 +402,15 @@ public class mapThingsGenerator : MonoBehaviour {
             //mapTerrainGenerator.Static.findRightGround();
             //mapTerrainGenerator.Static.findCenter();
             playerMainScript.Static.loadPlayerItem();
+
+            miniMapSpriteManager.Static.startGenIcon();
+
+            if (roundScript.Static.groundCheckSystem != null) // ok
+            {
+                //Debug.Log("dllm");
+                roundScript.Static.groundCheckSystem.Invoke();
+            }
+
             gamemanager.Static.beLoaded = false;
         }
     }

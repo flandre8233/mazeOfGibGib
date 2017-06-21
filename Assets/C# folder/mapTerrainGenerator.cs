@@ -408,6 +408,7 @@ public class mapTerrainGenerator : MonoBehaviour {
             thisLevelAllFloor.Add(spawnObject);
             spawnObject.transform.rotation = Quaternion.Euler(0, 0, randomRotation());
         }
+        addToSystem();
     }
 
     public void OLDcreateTerrain() {
