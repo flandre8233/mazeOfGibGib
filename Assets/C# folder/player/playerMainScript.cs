@@ -104,6 +104,8 @@ public class playerMainScript : MonoBehaviour
         }
     }
 
+    public GameObject closeDeadWarning;
+
     public void checkLife()
     {
         if (roundScript.Static.isExitTouchPlayer)
@@ -171,8 +173,27 @@ public class playerMainScript : MonoBehaviour
             playerDataBase.Static.SP = 0;
         }
 
+        Debug.Log("llkpkp");
+        Debug.Log(playerDataBase.Static.MaxHP / 100.0f * 25.0f);
+
+        Debug.Log(playerDataBase.Static.HP);
+        displayCloseDeadWarning();
+
         //deadAliveCheck();
 
+    }
+
+    public void displayCloseDeadWarning()
+    {
+        if (playerDataBase.Static.HP <= playerDataBase.Static.MaxHP / 100.0f * 25.0f)
+        {
+            closeDeadWarning.GetComponent<ParticleSystem>().loop = true;
+            closeDeadWarning.SetActive(true);
+        }
+        else
+        {
+            closeDeadWarning.GetComponent<ParticleSystem>().loop = false;
+        }
     }
 
      void checkMaxFloor()
