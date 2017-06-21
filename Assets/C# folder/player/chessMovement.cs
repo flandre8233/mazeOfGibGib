@@ -9,7 +9,7 @@ public class chessMovement : GeneralMovementSystem
     public GameObject model;
     public GameObject damageDisplayObject;
 
-    public GameObject attack_particle03;
+    public GameObject parent;
     public RectTransform YN_Menu_backToBefore;
 
     private float startTime;
@@ -335,16 +335,16 @@ public class chessMovement : GeneralMovementSystem
             switch (number)
             {
                 case 0:
-                    Instantiate(particleManager.Static.attack01, gameObject.transform.position,Quaternion.identity); //粒子
+                    Instantiate(particleManager.Static.attack01, parent.transform); //粒子
                     break;
                 case 1:
-                    Instantiate(particleManager.Static.attack02, gameObject.transform.position, Quaternion.identity); //粒子
+                    Instantiate(particleManager.Static.attack02, parent.transform); //粒子
                     break;
                 case 2:
-                    Instantiate(particleManager.Static.attack03, gameObject.transform.position, Quaternion.identity); //粒子
+                    Instantiate(particleManager.Static.attack03, parent.transform); //粒子
                     break;
                 case 3:
-                    Instantiate(particleManager.Static.attack04, gameObject.transform.position, Quaternion.identity); //粒子
+                    Instantiate(particleManager.Static.attack04, parent.transform); //粒子
                     break;
             }
 

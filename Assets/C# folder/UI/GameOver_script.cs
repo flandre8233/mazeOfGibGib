@@ -61,6 +61,7 @@ public class GameOver_script : MonoBehaviour {
         Time.timeScale = 1.0F;
         playerDataBase.Static.check_start = true;
         playerDataBase.Static.restart_data();
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
+        gameover_show.gameObject.SetActive(false);
     }
 }
