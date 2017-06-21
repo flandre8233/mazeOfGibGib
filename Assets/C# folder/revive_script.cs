@@ -7,6 +7,8 @@ public class revive_script : MonoBehaviour {
 
     public RectTransform crystal_on;
     public RectTransform crystal_off;
+    public GameObject crystal_particle_on;
+    public GameObject crystal_particle_off;
     public RectTransform menu_crystal;
     public RectTransform yn_show;
 
@@ -52,14 +54,19 @@ public class revive_script : MonoBehaviour {
         if (playerDataBase.Static.revive_value == false)
         {
             playerDataBase.Static.revive_value = true;
+            crystal_particle_off.gameObject.SetActive(false);
             crystal_on.gameObject.SetActive(true);
+            crystal_particle_on.gameObject.SetActive(true);
             crystal_off.gameObject.SetActive(false);
+            yn_show.gameObject.SetActive(false);
         }
-        else
+        /*else
         {
             playerDataBase.Static.revive_value = false;
             crystal_on.gameObject.SetActive(false);
+            crystal_particle_on.gameObject.SetActive(false);
             crystal_off.gameObject.SetActive(true);
-        }
+            crystal_particle_off.gameObject.SetActive(true);
+        }*/
     }
 }
