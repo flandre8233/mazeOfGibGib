@@ -106,7 +106,7 @@ public class groundScript : MonoBehaviour {
         //Debug.Log(transform.position);
         groundCollidersCheck();
 
-        Debug.Log( "diu?");
+        //Debug.Log( "diu?");
     }
         
 
@@ -116,7 +116,7 @@ public class groundScript : MonoBehaviour {
         Vector3 hitPoint = new Vector3(transform.position.x, transform.position.y, -1f); //問題
         Collider[] hitColliders = Physics.OverlapSphere(hitPoint, 0.5f);
 
-        Debug.Log(hitColliders.Length +  "diu");
+        //Debug.Log(hitColliders.Length +  "diu");
 
         if (hitColliders.Length != 0 && Vector2.Distance( hitColliders[0].transform.position, transform.position) <= 0.2f)
         {

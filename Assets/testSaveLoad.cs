@@ -183,7 +183,7 @@ public class testSaveLoad : MonoBehaviour {
         chessMovement.Static.transform.position = new Vector3(mydata.playerCenter.X, mydata.playerCenter.Y, -1);
 
 
-
+        playerMainScript.Static.displayCloseDeadWarning();
     }
     
 
