@@ -27,7 +27,7 @@ public class coin_UI : MonoBehaviour {
     {
         Text_coin.text = playerDataBase.Static.COIN.ToString();
         Text_equ_coin.text = playerDataBase.Static.COIN.ToString();
-        Text_shop_coin.text = playerDataBase.Static.COIN.ToString();
+        //Text_shop_coin.text = playerDataBase.Static.COIN.ToString();
     }
 
 }

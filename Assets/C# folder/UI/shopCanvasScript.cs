@@ -32,27 +32,29 @@ public class shopCanvasScript : MonoBehaviour {
         }
     }
 
-    public void fifty_coin()
+    public void free_coin()
     {
-        //Debug.Log("50");
-        playerDataBase.Static.COIN = playerDataBase.Static.fifty + playerDataBase.Static.COIN;
+        Debug.Log("free_Coin");
+        //playerDataBase.Static.COIN = playerDataBase.Static.fifty + playerDataBase.Static.COIN;
     }
 
     public void hundred_coin()
     {
-        //Debug.Log("100");
-        playerDataBase.Static.COIN = playerDataBase.Static.hundred + playerDataBase.Static.COIN;
+        Debug.Log("100");
     }
 
     public void two_hundred_coin()
     {
-        playerDataBase.Static.COIN = playerDataBase.Static.two_hundred + playerDataBase.Static.COIN;
-        //Debug.Log("200");
+        Debug.Log("200");
     }
 
-    public void three_hundred_coin()
+    public void five_hundred_coin()
     {
-        playerDataBase.Static.COIN = playerDataBase.Static.three_hundred + playerDataBase.Static.COIN;
-        //Debug.Log("300");
+        Debug.Log("500");
+    }
+
+    public void one_thousand_coin()
+    {
+        Debug.Log("1000");
     }
 }
