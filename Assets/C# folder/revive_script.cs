@@ -58,11 +58,8 @@ public class revive_script : MonoBehaviour {
             crystal_on.gameObject.SetActive(true);
             crystal_particle_on.gameObject.SetActive(true);
             crystal_off.gameObject.SetActive(false);
-<<<<<<< HEAD
             yn_show.gameObject.SetActive(false);
-=======
             soundEffectManager.staticSoundEffect.play_crystal_light();
->>>>>>> 3f82cc803c164f51291b107195c7b3081a0f9d7c
         }
         /*else
         {
