@@ -150,6 +150,7 @@ public class roundScript : MonoBehaviour {
 
     }
 
+    public bool popUpMenuChecker = false;
     public bool movementProcessingChecker = false;
     public bool DoAttackAniProcessingChecker = false;
     public bool IsOpeningChest = false;
@@ -159,7 +160,7 @@ public class roundScript : MonoBehaviour {
     public bool RoundProcessingChecker()
     {
         checkALLEnemyIsCompleteAttack();
-        if ( (!movementProcessingChecker && !DoAttackAniProcessingChecker && checkallEnemy() && !enemyAttackAniProcessingChecker  && !IsOpeningChest )  )
+        if ( (!movementProcessingChecker && !DoAttackAniProcessingChecker && checkallEnemy() && !enemyAttackAniProcessingChecker  && !IsOpeningChest ) && !popUpMenuChecker)
         {
             return false;
             // Processing is complete
