@@ -32,7 +32,7 @@ public class shopUpStatus : MonoBehaviour {
 
     public void UpDataSpTime (){
         spTimeLeft = (int)playerMainScript.Static.spTimeLeft;
-        StatusText[0].text = spTimeLeft.ToString();
+        StatusText[0].text = spTimeLeft + "S";
     }
 
     public void updateStatusInfo()
