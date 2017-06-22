@@ -37,8 +37,8 @@ public class shopUpStatus : MonoBehaviour {
 
     public void updateStatusInfo()
     {
-        atkLeftRound = playerMainScript.Static.ATKbuffStartRound - playerMainScript.Static.ATKContinueRound;
-        defLeftRound = playerMainScript.Static.DEFbuffStartRound - playerMainScript.Static.DEFContinueRound;
+        atkLeftRound =  (playerMainScript.Static.ATKbuffStartRound  + playerMainScript.Static.ATKContinueRound) - roundScript.Static.round;
+        defLeftRound = (playerMainScript.Static.DEFbuffStartRound + playerMainScript.Static.DEFContinueRound) - roundScript.Static.round;
 
         StatusText[1].text = atkLeftRound.ToString();
         StatusText[2].text = defLeftRound.ToString();

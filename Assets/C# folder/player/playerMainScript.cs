@@ -406,7 +406,6 @@ public class playerMainScript : MonoBehaviour
                 inSPBuffStatus = true;
                 spStartTime = Time.time;
                 spEndTime = Time.time+ itemArrayClone[number].SPNoCostTime;
-                StartCoroutine(NoCostSpItem(itemArrayClone[number].SPNoCostTime));
                 break;
             case itemType.ATK:
                 Instantiate(particleManager.Static.character_item_attack, gameObject.transform); //粒子
@@ -520,11 +519,13 @@ public class playerMainScript : MonoBehaviour
 
         if (roundScript.Static.round - ATKbuffStartRound < ATKContinueRound)
         { // ok 
-            //per frame
+          //per frame
+            shopUpStatus.Static.checkStatus();
             return true;
         }
 
         playerDataBase.Static.ATKBuff = 0;
+        shopUpStatus.Static.showUpStatus[1].SetActive(false);
         return false;
     }
     public bool DEFBuff()
@@ -536,27 +537,18 @@ public class playerMainScript : MonoBehaviour
 
         if (roundScript.Static.round - DEFbuffStartRound < DEFContinueRound)
         { // ok 
-            //per frame
+          //per frame
+            shopUpStatus.Static.checkStatus();
             return true;
         }
 
         playerDataBase.Static.DEFBuff = 0;
+        shopUpStatus.Static.showUpStatus[2].SetActive(false);
         return false;
     }
     public float spTimeLeft;
     public float spStartTime;
     public float spEndTime;
-    private IEnumerator NoCostSpItem(int waitTime)
-    {
-        roundScript.Static.roundSystem -= subSP;
-        spTimeLeft = spEndTime - spStartTime + (spStartTime - Time.time);
-        shopUpStatus.Static.UpDataSpTime();
-        yield return new WaitForSeconds(waitTime);
-        inSPBuffStatus = false;
-        shopUpStatus.Static.checkStatus();
-        roundScript.Static.roundSystem += subSP;
-
-    }
 
 
 
@@ -644,5 +636,23 @@ public class playerMainScript : MonoBehaviour
 
 
     }
+    private void FixedUpdate()
+    {
+        if (inSPBuffStatus)  //new sp buff parts
+        {
+            roundScript.Static.roundSystem -= subSP;
+            spTimeLeft = (spEndTime - spStartTime) + (spStartTime - Time.time);
+            Debug.Log(spTimeLeft);
+            shopUpStatus.Static.UpDataSpTime();
+            if (spTimeLeft <= 0)
+            {
+                inSPBuffStatus = false;
+                shopUpStatus.Static.checkStatus();
+                roundScript.Static.roundSystem += subSP;
+            }
+        }
+
+    }
+
 }
 
