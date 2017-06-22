@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class loadingTest : MonoBehaviour {
     public static loadingTest Static;
     public GameObject loadingScene;
+    public GameObject level_pass;
     private AsyncOperation async = null;
 
     private void Awake()
@@ -37,12 +38,12 @@ public class loadingTest : MonoBehaviour {
 
     public void startLoading()
     {
-        StartCoroutine(playLoadingScene());
+        //StartCoroutine(playLoadingScene());
     }
 
     public void closeLoading()
     {
-        loadingScene.SetActive(false);
+        //loadingScene.SetActive(false);
     }
 
     private IEnumerator LoadLevel(string Level)
@@ -53,7 +54,7 @@ public class loadingTest : MonoBehaviour {
     }
     private IEnumerator playLoadingScene( )
     {
-        loadingScene.SetActive(true);
+        //loadingScene.SetActive(true);
         //SceneManager.LoadScene("testMAPZone");
         //SceneManager.LoadSceneAsync(Level);
         yield return null;

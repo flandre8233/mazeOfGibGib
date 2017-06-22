@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using LitJson;
 
 public class OnlineData : MonoBehaviour {
 
     public string url;
+    public Text test;
 
+    public shop_itemArray mymy;
     private void Start()
     {
         StartCoroutine(GetData());
@@ -18,7 +21,21 @@ public class OnlineData : MonoBehaviour {
     {
         WWW www = new WWW(url+"GetData.php");
         yield return www;
-        Debug.Log(www.text.Trim());
+        //JsonData json = JsonMapper.ToObject<JsonData>(www.text);
+        mymy = JsonMapper.ToObject<shop_itemArray>(www.text.Trim().ToString() );
+        /*string test = json["dataList"].ToString();
+        JsonData json2 = JsonMapper.ToObject<JsonData>(test);
+
+        
+
+        user = json2["Name"].ToString();
+        Debug.Log(www.text);
+        Debug.Log(test);*/
+        //Debug.Log(www.text.Trim());
+
+        playerDataBase.Static.MonsterLevelSettingArray[0].coin = int.Parse(mymy.dataList[0].Price);
+
+        //test.text=www.text.Trim().ToString();
     }
 
     /*IEnumerator InsertData()
