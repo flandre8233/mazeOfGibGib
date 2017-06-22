@@ -409,7 +409,11 @@ public class chessMovement : GeneralMovementSystem
             hitObjectPosition = new Vector3(hitColliders[0].gameObject.transform.position.x, hitColliders[0].gameObject.transform.position.y, -1);
 
             if (hitColliders[0].gameObject.tag == "returnCheckPoint") {
-                YN_Menu_backToBefore.gameObject.SetActive(!YN_Menu_backToBefore.gameObject.activeSelf);
+                YN_Menu_backToBefore.gameObject.SetActive(true);
+                roundScript.Static.movementProcessingChecker = false;
+                roundScript.Static.popUpMenuChecker = true;
+                resetPlayerCenter();
+                return true;
             }
 
 
@@ -434,8 +438,10 @@ public class chessMovement : GeneralMovementSystem
                     }
                     if (item.tag == "crystal")
                     {
+
+                        roundScript.Static.popUpMenuChecker = true;
                         //revive_script.Static.yn_show.gameObject.SetActive(!revive_script.Static.yn_show.gameObject.activeSelf);
-                        revive_script.Static.menu_crystal.gameObject.SetActive(!revive_script.Static.menu_crystal.gameObject.activeSelf);
+                        revive_script.Static.menu_crystal.gameObject.SetActive(true);
                         hitColliders = Physics.OverlapSphere(new Vector3(transform.position.x, transform.position.y, 0), 0.25f); //還原center
                         CenterGround = hitColliders[0].gameObject.GetComponent<groundScript>();
                         hitObjectPosition = new Vector3(hitColliders[0].gameObject.transform.position.x, hitColliders[0].gameObject.transform.position.y, -1);
@@ -518,11 +524,13 @@ public class chessMovement : GeneralMovementSystem
 
     public void back_to_before()
     {
+        roundScript.Static.popUpMenuChecker = false;
         returnToBeforeCheckPoint();
         YN_Menu_backToBefore.gameObject.SetActive(!YN_Menu_backToBefore.gameObject.activeSelf);
     }
     public void off_back_menu()
     {
+        roundScript.Static.popUpMenuChecker = false;
         YN_Menu_backToBefore.gameObject.SetActive(!YN_Menu_backToBefore.gameObject.activeSelf);
     }
 }

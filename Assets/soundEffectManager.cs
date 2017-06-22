@@ -5,7 +5,7 @@ using UnityEngine;
 public class soundEffectManager : MonoBehaviour
 {
     public static soundEffectManager staticSoundEffect;
-    AudioSource myAudio;
+    public AudioSource myAudio;
 
     public List<AudioClip> characterAttack;
     public List<AudioClip> characterMove;
@@ -129,6 +129,7 @@ public class soundEffectManager : MonoBehaviour
     }
     public void play_levelPass()
     {
+        myAudio.Stop();
         myAudio.PlayOneShot(levelPass, 1.0f);
     }
     public void play_TapToStart()

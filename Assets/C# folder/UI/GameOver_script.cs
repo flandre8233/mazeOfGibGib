@@ -47,6 +47,7 @@ public class GameOver_script : MonoBehaviour {
     public void reset_level()
     {
         Time.timeScale = 1.0F;
+        soundEffectManager.staticSoundEffect.myAudio.Stop();
         playerDataBase.Static.check_start = false;
         playerDataBase.Static.restart_data();
         //gameover_show.gameObject.SetActive(false);
