@@ -20,7 +20,10 @@ public class particleManager : MonoBehaviour {
     public GameObject attack03;
     public GameObject attack04;
     //public GameObject pass_particle;
-    public GameObject button_particle;
+    public GameObject pass_particle;
+    public GameObject click_button_up;
+    public GameObject click_button_down;
+    public GameObject click_pass;
 
 
     private void Awake()

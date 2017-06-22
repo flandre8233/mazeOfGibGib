@@ -77,10 +77,23 @@ public class canvasButton : MonoBehaviour {
     }
 
 */
-
-    public void button_Particle()
+    public void click_button_up()
     {
-        Instantiate(particleManager.Static.button_particle.SetParent(canvas.transform)); //粒子
+        Instantiate(particleManager.Static.click_button_up); //粒子
     }
 
+    public void click_button_down()
+    {
+        Instantiate(particleManager.Static.click_button_down); //粒子
+    }
+
+    public void click_pass()
+    {
+        Instantiate(particleManager.Static.click_pass); //粒子
+    }
+    
+    public void pass_particle()
+    {
+        Instantiate(particleManager.Static.pass_particle); //粒子
+    }
 }
