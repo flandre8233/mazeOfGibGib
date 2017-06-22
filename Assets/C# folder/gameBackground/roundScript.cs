@@ -50,6 +50,35 @@ public class roundScript : MonoBehaviour {
             roundSystem.Invoke();
         }
 
+
+        pathfinding.Static.RoundUseOnly();
+        if (enemyMovement != null)
+        {
+            enemyMovement.Invoke();
+        }
+        if (enemyAttack != null)
+        {
+            enemyAttack.Invoke();
+            //Debug.Log("do");
+        }
+        StartCoroutine(waitPlayerMove());
+        //resetEnemyUnderAttack();
+        playerMainScript.Static.deadAliveCheck();
+    }
+
+    private IEnumerator waitPlayerMove( )
+    {
+        do
+        {
+            yield return null;
+        } while (movementProcessingChecker);
+        Debug.Log(playerMainScript.Static.gameObject.transform.position);
+        /*
+        if (enemyAttack != null)
+        {
+            enemyAttack.Invoke();
+        }
+        */
         if (groundCheckSystem != null)
         {
             //Debug.Log("dllm");
@@ -62,33 +91,8 @@ public class roundScript : MonoBehaviour {
             spikeSystem.Invoke();
         }
 
-        pathfinding.Static.RoundUseOnly();
-        if (enemyMovement != null)
-        {
-            enemyMovement.Invoke();
-        }
-        if (enemyAttack != null)
-        {
-            enemyAttack.Invoke();
-            //Debug.Log("do");
-            //StartCoroutine(waitPlayerMove() );
-        }
-        //resetEnemyUnderAttack();
-        playerMainScript.Static.deadAliveCheck();
     }
 
-    private IEnumerator waitPlayerMove( )
-    {
-        do
-        {
-            yield return null;
-        } while (movementProcessingChecker);
-        if (enemyAttack != null)
-        {
-            enemyAttack.Invoke();
-        }
-    }
-    
     void resetEnemyUnderAttack()
     {
         foreach (var item in mapThingsGenerator.Static.allEnemyArray)

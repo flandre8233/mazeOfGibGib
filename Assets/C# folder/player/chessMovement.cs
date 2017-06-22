@@ -293,7 +293,7 @@ public class chessMovement : GeneralMovementSystem
 
                 lerpSpeed = normalLerpSpeed;
             }
-            else if (movementDistance <= 0.15f)
+            else if (movementDistance <= 0.08f)
             {
 
                 roundScript.Static.movementProcessingChecker = false;
@@ -373,6 +373,7 @@ public class chessMovement : GeneralMovementSystem
     public void OnPlayerTouchChest(GameObject touchObject)
     {
         TouchChest = touchObject.gameObject;
+        TouchChest.tag = "Untagged";
         resetPlayerCenter();
 
         Chest_canvas.gameObject.SetActive(!Chest_canvas.gameObject.activeSelf);

@@ -16,10 +16,10 @@ public class playerMainScript : MonoBehaviour
 
     public GameObject[] itemV3;
 
-    int ATKContinueRound = 3;
-    int DEFContinueRound = 3;
-    int ATKbuffStartRound = 0;
-    int DEFbuffStartRound = 0;
+    public int ATKContinueRound = 3;
+    public int DEFContinueRound = 3;
+    public int ATKbuffStartRound = 0;
+    public int DEFbuffStartRound = 0;
     int originalATKNumber = 0;
     int originalDEFNumber = 0;
 
@@ -404,6 +404,8 @@ public class playerMainScript : MonoBehaviour
             case itemType.SPNoCost:
                 Instantiate(particleManager.Static.character_item_foodtime, gameObject.transform); //粒子
                 inSPBuffStatus = true;
+                spStartTime = Time.time;
+                spEndTime = Time.time+ itemArrayClone[number].SPNoCostTime;
                 StartCoroutine(NoCostSpItem(itemArrayClone[number].SPNoCostTime));
                 break;
             case itemType.ATK:
@@ -449,7 +451,7 @@ public class playerMainScript : MonoBehaviour
         Destroy(itemV3[number].GetComponentInChildren<Animator>().gameObject); // <- item destroy in 3d ui
 
         soundEffectManager.staticSoundEffect.play_button_onItemUse(); // use item sound
-
+        shopUpStatus.Static.checkStatus();
     }
 
     public void useItemMaxOnly(itemScript item)
@@ -541,12 +543,17 @@ public class playerMainScript : MonoBehaviour
         playerDataBase.Static.DEFBuff = 0;
         return false;
     }
-
+    public float spTimeLeft;
+    public float spStartTime;
+    public float spEndTime;
     private IEnumerator NoCostSpItem(int waitTime)
     {
         roundScript.Static.roundSystem -= subSP;
+        spTimeLeft = spEndTime - spStartTime + (spStartTime - Time.time);
+        shopUpStatus.Static.UpDataSpTime();
         yield return new WaitForSeconds(waitTime);
         inSPBuffStatus = false;
+        shopUpStatus.Static.checkStatus();
         roundScript.Static.roundSystem += subSP;
 
     }

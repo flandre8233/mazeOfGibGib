@@ -108,7 +108,19 @@ public class groundScript : MonoBehaviour {
 
         //Debug.Log( "diu?");
     }
-        
+
+
+    public bool equalVector2(Vector2 v2a, Vector3 v2b)
+    { // is ok
+        v2a = roundTheVector2(v2a);
+        v2b = roundTheVector2(v2b);
+        return !((v2a.x != v2b.x) || (v2a.y != v2b.y) );
+    }
+
+    public Vector2 roundTheVector2(Vector3 v2)
+    {
+        return new Vector3(Mathf.Round(v2.x), Mathf.Round(v2.y) );
+    }
 
     public void groundCollidersCheck() //spike not work but normal is work
     {
@@ -120,24 +132,27 @@ public class groundScript : MonoBehaviour {
 
         if (hitColliders.Length != 0 )
         {
-            float dis;
             foreach (var item in hitColliders)
             {
-                dis = Vector3.Distance(transform.position, item.gameObject.transform.position);
-                if (dis <= 1f)
+                if (equalVector2(item.transform.position,transform.position) )
                 {
                     haveSomethingInHere = true;
                     haveSomethingInHereObject = item.gameObject;
-                    break;
+                    return;
                 }
+
+                haveSomethingInHere = false;
+                haveSomethingInHereObject = null;
+                return;
             }
 
         }
-        else
-        {
-            haveSomethingInHere = false;
-            haveSomethingInHereObject = null;
-        }
+
+        haveSomethingInHere = false;
+        haveSomethingInHereObject = null;
+        return;
+
+
     }
 
     void OnTriggerEnter(Collider other) {

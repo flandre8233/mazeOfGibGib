@@ -313,6 +313,7 @@ public class enemyScript : enemyDataBase
                     break;
             }
             enemyAni.SetTrigger("died");
+            gameObject.tag = "Untagged";
             //delEnemy();
         }
     }

@@ -10,17 +10,20 @@ public class miniMapSpriteManager : MonoBehaviour
 
     public List<Transform> allMiniIcon;
 
-    void spawnIcon(int arrayNumber,Vector3 v3,int sortLayer,Transform parent)
+    GameObject spawnIcon(int arrayNumber,Vector3 v3,int sortLayer,Transform parent)
     {
         GameObject newObj = new GameObject();
         allMiniIcon.Add(newObj.transform);
         newObj.layer = LayerMask.NameToLayer("UI");
         SpriteRenderer objSprite = newObj.AddComponent<SpriteRenderer>();
+
         objSprite.sprite = miniMapSpriteArray[arrayNumber];
         objSprite.transform.localScale = new Vector3(1.9f, 1.9f, 1);
         objSprite.transform.position = v3;
         objSprite.transform.parent = parent.transform;
         objSprite.sortingOrder = sortLayer;
+
+        return newObj;
     }
 
     void genFloorIcon()
@@ -90,7 +93,8 @@ public class miniMapSpriteManager : MonoBehaviour
         foreach (var item in GameObject.FindGameObjectsWithTag("enemy"))
         {
             Vector3 v3 = new Vector3(item.transform.position.x, item.transform.position.y, 5f);
-            spawnIcon(3, v3, 2, item.transform);
+            GameObject newObj =  spawnIcon(3, v3, 2, item.transform);
+            newObj.AddComponent<lockRotation>();
             /*
             switch (item.GetComponent<enemyDataBase>().Level)
             {
