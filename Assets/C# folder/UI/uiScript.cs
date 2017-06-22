@@ -4,12 +4,13 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 public class uiScript : MonoBehaviour {
+    public static uiScript Static;
 
     public RectTransform equipment_canvas;
     public RectTransform ability_canvas;
     public RectTransform equipment_canvas_off;
     public RectTransform ability_canvas_off;
-    public GameObject pass_particle;
+    public Text AD_coin;
 
 
     [SerializeField]
@@ -26,7 +27,16 @@ public class uiScript : MonoBehaviour {
 
 
 
-    void Awake() {
+    void Awake()
+    {
+        if (Static != null)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Static = this;
+        }
     }
 
     // Use this for initialization
@@ -119,10 +129,5 @@ public class uiScript : MonoBehaviour {
         {
             ability_canvas.gameObject.SetActive(true);
         }
-    }
-
-    public void pass_particle_on()
-    {
-        Instantiate(this.pass_particle);
     }
 }

@@ -8,12 +8,15 @@ public class chessMovement : GeneralMovementSystem
     public Animator charactor_move;
     public GameObject model;
     public GameObject damageDisplayObject;
-    public RectTransform Chest_canvas;
+
+    public RectTransform chest_canvas;
+    public RectTransform money_chest_canvas;
 
     public GameObject parent;
     public RectTransform YN_Menu_backToBefore;
 
     private float startTime;
+
 
     public float downTime = 0;
     public float countDown = 0.5f;
@@ -374,19 +377,17 @@ public class chessMovement : GeneralMovementSystem
         TouchChest = touchObject.gameObject;
         TouchChest.tag = "Untagged";
         resetPlayerCenter();
+        //chest_script.Static.money_chest_canvas.gameObject.SetActive(!chest_script.Static.money_chest_canvas);
 
-        Chest_canvas.gameObject.SetActive(!Chest_canvas.gameObject.activeSelf);
-        //Money_Chest_canvas.gameObject.SetActive(!Money_Chest_canvas.gameObject.activeSelf);
-
-    charactor_move.SetTrigger("attack");
+        charactor_move.SetTrigger("attack");
         charactor_move.SetInteger("attack_no.", Random.Range(0, 4));
         roundScript.Static.DoAttackAniProcessingChecker = true;
 
         StartCoroutine(WaitForAnimationForChest("attackAni"));
         soundEffectManager.staticSoundEffect.play_characterOpenChest();
+        money_chest_show();
 
     }
-
 
     void resetPlayerCenter()
     {
@@ -532,6 +533,26 @@ public class chessMovement : GeneralMovementSystem
     {
         roundScript.Static.popUpMenuChecker = false;
         YN_Menu_backToBefore.gameObject.SetActive(!YN_Menu_backToBefore.gameObject.activeSelf);
+    }
+
+    public void chest_show()
+    {
+        chest_canvas.gameObject.SetActive(!chest_canvas.gameObject.activeSelf);
+    }
+
+    public void money_chest_show()
+    {
+        money_chest_canvas.gameObject.SetActive(!money_chest_canvas.gameObject.activeSelf);
+    }
+
+    public void chest_off()
+    {
+        chest_canvas.gameObject.SetActive(!chest_canvas.gameObject.activeSelf);
+    }
+
+    public void money_chest_off()
+    {
+        money_chest_canvas.gameObject.SetActive(!money_chest_canvas.gameObject.activeSelf);
     }
 }
 
