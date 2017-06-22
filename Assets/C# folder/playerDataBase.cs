@@ -5,8 +5,6 @@ using UnityEngine;
 public class playerDataBase : MonoBehaviour {
     public static playerDataBase Static;
 
-    public playerDataBaseJson playerDataJson = new playerDataBaseJson();
-
     public int HP { get; set; }
     public int SP { get; set; }
     public int HPBuff;
@@ -36,8 +34,8 @@ public class playerDataBase : MonoBehaviour {
     }
     public int ATKBuff;
     public int DEFBuff;
-    public int ATKInitial { get; set; }
-    public int DEFInitial { get; set; }
+    public int ATKInitial = 10;
+    public int DEFInitial = 10;
 
     public int HPAbility = 3;
     public int SPAbility = 5;
@@ -50,13 +48,11 @@ public class playerDataBase : MonoBehaviour {
     public int SpmaxLevel { get; set; }
 
     public int COIN { get; set; }
-    public int COINBounsPercent { get; set; }
     public int POINT { get; set; }
 
-    public int HPItemBounsPercent { get; set; }
-    public int SPItemBounsPercent { get; set; }
-    //public int 
 
+
+    public int reviveTimes = 0;
     public int ResetTimes { get; set; }
     public int currentFloor { get; set; }
     public int currentLifeMaxFloor { get; set; }
@@ -82,6 +78,22 @@ public class playerDataBase : MonoBehaviour {
             return (DEFLevel+1) * 500;
         }
     }
+    public int revivCost {
+        get {
+            switch (reviveTimes)
+            {
+                case 0:
+                    return 500;
+                case 1:
+                    return 1000;
+                case 2:
+                    return 4000;
+            }
+            return 500 * (reviveTimes - 1) ^ 2 ;
+        }
+
+    }
+
     public float idle_time { get; set; }
 
     public float VolSet { get; set; }
@@ -102,17 +114,13 @@ public class playerDataBase : MonoBehaviour {
         MaxSPInitial = 20;
         ATKInitial = 10;
         DEFInitial = 10;
-
-        //MaxHP = 10;
-        //MaxSP = 7;
+        
         
         abilityHPMax = 0;
         abilitySPMax = 0;
 
         HP = MaxHP;
         SP = MaxSP;
-        //ATK = ATKInitial + (int)(ATKInitial * (100/abilityATKPercent));
-        //DEF = DEFInitial + (int)(DEFInitial * (100/abilityDEFPercent));
 
         ATKlevelpercent = 0;
         DEFlevelpercent = 0;
@@ -122,7 +130,6 @@ public class playerDataBase : MonoBehaviour {
         SpmaxLevel = 0;
 
         COIN = 1000;
-        COINBounsPercent = 100;
         POINT = 5;
         ResetTimes = 0;
         currentFloor = 0;
@@ -144,11 +151,6 @@ public class playerDataBase : MonoBehaviour {
 
 
     void Awake() {
-        //Debug.Log(GetComponent<Transform>().name);
-
-        string jsonString = playerDataJson.toJson();
-
-        playerDataJson = JsonUtility.FromJson<playerDataBaseJson>(jsonString);
 
         serializeSetUp();
         DontDestroyOnLoad(transform.gameObject);
@@ -189,7 +191,6 @@ public class playerDataBase : MonoBehaviour {
         SpmaxLevel = 0;
 
         COIN = 1000;
-        COINBounsPercent = 100;
         POINT = 5;
         currentFloor = 0;
         currentLifeMaxFloor = 0;

@@ -68,6 +68,7 @@ public class testSaveLoad : MonoBehaviour {
         mydata.ResetTimes = PD.ResetTimes;
         mydata.SPBuff = PD.SPBuff;
         mydata.SP = PD.SP;
+        mydata.reviveTimes = PD.reviveTimes;
 
         mydata.playerCenter = saveDataVector((int)chessMovement.Static.center.x, (int)chessMovement.Static.center.y );
 
@@ -172,6 +173,7 @@ public class testSaveLoad : MonoBehaviour {
         PD.ResetTimes = mydata.ResetTimes;
         PD.SPBuff = mydata.SPBuff;
         PD.SP = mydata.SP;
+        PD.reviveTimes = mydata.reviveTimes;
 
         chessMovement.Static.faceDirection =  mydata.lookDir;
         chessMovement.Static.charFace(chessMovement.Static.faceDirection);

@@ -24,8 +24,8 @@ public class saveGameData {
 
     public int COIN = 0;
     public int POINT = 0;
-    
-    
+
+    public int reviveTimes = 0;
     public int ResetTimes = 0;
     public int currentFloor = 0;
     public int currentLifeMaxFloor = 0;

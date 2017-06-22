@@ -293,8 +293,8 @@ public class enemyScript : enemyDataBase
         }
 
         if (HP <= 0 || killTest) {
-            playerDataBase.Static.COIN += (int)(COIN * (playerDataBase.Static.COINBounsPercent / 100));
-
+            //playerDataBase.Static.COIN += (int)(COIN * (playerDataBase.Static.COINBounsPercent / 100));
+            playerDataBase.Static.COIN += (int)COIN;
             inDead = true;
 
             switch (Level) // on dead sound

@@ -51,8 +51,11 @@ public class revive_script : MonoBehaviour {
 
     public void revive_button()
     {
-        if (playerDataBase.Static.revive_value == false)
+        if (playerDataBase.Static.revive_value == false && playerDataBase.Static.COIN - playerDataBase.Static.revivCost >= 0)
         {
+            playerDataBase.Static.COIN -= playerDataBase.Static.revivCost;
+            //here
+
             playerDataBase.Static.revive_value = true;
             crystal_particle_off.gameObject.SetActive(false);
             crystal_on.gameObject.SetActive(true);
