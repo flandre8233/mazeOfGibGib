@@ -55,6 +55,7 @@ public class playerDataBase : MonoBehaviour {
     public int reviveTimes = 0;
     public int ResetTimes { get; set; }
     public int currentFloor { get; set; }
+    public int currentAlyreadyWatchAdsLevel = 0;
     public int currentLifeMaxFloor { get; set; }
     public int maxFloor { get; set; }
 
@@ -142,6 +143,7 @@ public class playerDataBase : MonoBehaviour {
         reviveTimes = 0;
         ResetTimes = 0;
         currentFloor = 0;
+        currentAlyreadyWatchAdsLevel = 0;
         maxFloor = 0;
         currentLifeMaxFloor = 0;
 
@@ -181,23 +183,23 @@ public class playerDataBase : MonoBehaviour {
         //MaxHP = 10;
         //MaxSP = 7;
 
-        abilityHPMax = 0;
-        abilitySPMax = 0;
+        //abilityHPMax = 0;
+        //abilitySPMax = 0;
 
         HP = MaxHP;
         SP = MaxSP;
         //ATK = ATKInitial + (int)(ATKInitial * (100/abilityATKPercent));
         //DEF = DEFInitial + (int)(DEFInitial * (100/abilityDEFPercent));
+        //ATKlevelpercent = 0;
+        //DEFlevelpercent = 0;
 
-        ATKlevelpercent = 0;
-        DEFlevelpercent = 0;
         ATKLevel = 0;
         DEFLevel = 0;
         HpmaxLevel = 0;
         SpmaxLevel = 0;
 
         COIN = 1000;
-        POINT = 5;
+        //POINT = 5;
         currentFloor = 0;
         currentLifeMaxFloor = 0;
         reviveTimes = 0;

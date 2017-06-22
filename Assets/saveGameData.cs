@@ -29,6 +29,7 @@ public class saveGameData {
     public int ResetTimes = 0;
     public int currentFloor = 0;
     public int currentLifeMaxFloor = 0;
+    public int currentAlyreadyWatchAdsLevel;
     public int maxFloor = 0;
 
     public item[] playerItem = new item[2];
