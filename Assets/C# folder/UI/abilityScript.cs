@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class abilityScript : MonoBehaviour {
-	void Update () {
+public class abilityScript : MonoBehaviour
+{
+
+    void Update () {
         //Button Hpmax_btn = Hpmax_add.GetComponent<Button>();
         //Hpmax_btn.onClick.AddListener();
     }
@@ -13,7 +15,7 @@ public class abilityScript : MonoBehaviour {
     {
         //playerDataBase.Static.ability_point--;
         if(playerDataBase.Static.POINT >= 1)
-        { 
+        {
             playerDataBase.Static.HpmaxLevel++;
             playerDataBase.Static.abilityHPMax += playerDataBase.Static.HPAbility;
             playerDataBase.Static.fullHPSP();
@@ -21,6 +23,7 @@ public class abilityScript : MonoBehaviour {
             playerDataBase.Static.POINT--;
             soundEffectManager.staticSoundEffect.play_ability_UP();
         }
+
     }
 
     public void Spmax_add()

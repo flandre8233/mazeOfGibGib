@@ -12,6 +12,9 @@ public class equipmentCanvasScript : MonoBehaviour {
     public Text ATKnext;
     public Text DEFnext;
 
+    public Button ATKButton;
+    public Button DEFButton;
+
     public Text ATK_money;
     public Text DEF_money;
     //public Text ATKCostText;
@@ -24,6 +27,27 @@ public class equipmentCanvasScript : MonoBehaviour {
     void Update() {
         ATKupdate();
         DEFupdate();
+        checkButtonActive();
+    }
+
+    public void checkButtonActive()
+    {
+        if (playerDataBase.Static.COIN >= playerDataBase.Static.equipment_ATKcost)
+        {
+            ATKButton.interactable = true;
+        }
+        else
+        {
+            ATKButton.interactable = false;
+        }
+        if (playerDataBase.Static.COIN >= playerDataBase.Static.equipment_DEFcost)
+        {
+            DEFButton.interactable = true;
+        }
+        else
+        {
+            DEFButton.interactable = false;
+        }
     }
 
     public void ATKupdate()

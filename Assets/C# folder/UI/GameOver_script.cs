@@ -47,6 +47,7 @@ public class GameOver_script : MonoBehaviour {
     public void reset_level()
     {
         Time.timeScale = 1.0F;
+        soundEffectManager.staticSoundEffect.play_Click_Button();
         soundEffectManager.staticSoundEffect.myAudio.Stop();
         playerDataBase.Static.check_start = false;
         playerDataBase.Static.restart_data();
@@ -60,6 +61,7 @@ public class GameOver_script : MonoBehaviour {
     public void exit_to_start()
     {
         Time.timeScale = 1.0F;
+        soundEffectManager.staticSoundEffect.play_Click_Button();
         playerDataBase.Static.check_start = true;
         playerDataBase.Static.restart_data();
         SceneManager.LoadScene(1);
