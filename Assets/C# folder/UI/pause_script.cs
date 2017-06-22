@@ -27,6 +27,7 @@ public class pause_script : MonoBehaviour {
 
     public void pause_menu_popout()
     {
+        soundEffectManager.staticSoundEffect.play_Click_Button();
         if (pause_animator.GetBool("pause_bool")==false)
         {
             //Debug.Log(pause_animator.GetBool("pause_bool"));
@@ -51,6 +52,7 @@ public class pause_script : MonoBehaviour {
     public void unmute_sound()
     {
         AudioListener.volume = 1;
+        soundEffectManager.staticSoundEffect.play_Click_Button();
         sound_off.gameObject.SetActive(false);
         sound_on.gameObject.SetActive(true);
     }

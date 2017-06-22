@@ -15,6 +15,11 @@ public class abilityCanvasScript : MonoBehaviour {
     public Text ATK_now;
     public Text DEF_now;
 
+    public Button Hpmax_Button;
+    public Button Spmax_Button;
+    public Button ATK_Button;
+    public Button DEF_Button;
+
     /*public Text Hpmax_next_pv;
     public Text Spmax_next_pv;
     public Text ATK_next_pv;
@@ -37,11 +42,31 @@ public class abilityCanvasScript : MonoBehaviour {
         data_level();
         data_now();
         data_next();
+        checkButtonActive();
         //data_previous();
         //.Log(playerDataBase.Static.DEF);
 
         //data_next_pv();
     }
+
+    void checkButtonActive()
+    {
+        if (playerDataBase.Static.POINT >= 1)
+        {
+            Hpmax_Button.interactable = true;
+            Spmax_Button.interactable = true;
+            ATK_Button.interactable = true;
+            DEF_Button.interactable = true;
+        }
+        else
+        {
+            Hpmax_Button.interactable = false;
+            Spmax_Button.interactable = false;
+            ATK_Button.interactable = false;
+            DEF_Button.interactable = false;
+        }
+    }
+
     public void data_level()
     {
         ATK_level.text = "Level " + playerDataBase.Static.ATKlevelpercent;

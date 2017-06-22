@@ -211,6 +211,7 @@ public class roundScript : MonoBehaviour {
         givePoint();
         if (playerDataBase.Static.currentFloor % (checkPoint) == 0) { //到5,10,15,20......關卡
             currentArea++;
+            backgeoundMusicScript.staticBackgeound.play_backgroundAmbient(currentArea-1);
         }
 
         mapTerrainGenerator.Static.mapLimit.x = 5+((playerDataBase.Static.currentFloor / checkPoint) + (playerDataBase.Static.currentFloor / (checkPoint / 2)));
@@ -422,7 +423,15 @@ public class roundScript : MonoBehaviour {
         roundSystem += playerMainScript.Static.subSP;
         roundSystem += playerMainScript.Static.checkLife;
         enterLevel();
-
+        if (gamemanager.Static.beLoaded)
+        {
+            backgeoundMusicScript.staticBackgeound.play_backgroundAmbient(Mathf.FloorToInt (testSaveLoad.Static.mydata.currentFloor/10) );
+        }
+        else
+        {
+            backgeoundMusicScript.staticBackgeound.play_backgroundAmbient(0);
+        }
+        backgeoundMusicScript.staticBackgeound.play_game_background();
 
         //roundSystem += RoundProcessingChecker;
         //roundSystem += OnEnterNextLevel;
