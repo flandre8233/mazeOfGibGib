@@ -8,6 +8,8 @@ public class chessMovement : GeneralMovementSystem
     public Animator charactor_move;
     public GameObject model;
     public GameObject damageDisplayObject;
+    public RectTransform Chest_canvas;
+    public RectTransform Money_Chest_canvas;
 
     public GameObject parent;
     public RectTransform YN_Menu_backToBefore;
@@ -373,7 +375,10 @@ public class chessMovement : GeneralMovementSystem
         TouchChest = touchObject.gameObject;
         resetPlayerCenter();
 
-        charactor_move.SetTrigger("attack");
+        Chest_canvas.gameObject.SetActive(!Chest_canvas.gameObject.activeSelf);
+        //Money_Chest_canvas.gameObject.SetActive(!Money_Chest_canvas.gameObject.activeSelf);
+
+    charactor_move.SetTrigger("attack");
         charactor_move.SetInteger("attack_no.", Random.Range(0, 4));
         roundScript.Static.DoAttackAniProcessingChecker = true;
 
