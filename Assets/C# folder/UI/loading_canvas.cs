@@ -23,7 +23,7 @@ public class loading_canvas : MonoBehaviour {
 
     public void Start_exit()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 
     private IEnumerator LoadLevel(string Level)

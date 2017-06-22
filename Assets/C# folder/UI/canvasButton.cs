@@ -6,6 +6,7 @@ public class canvasButton : MonoBehaviour {
     public GameObject normalGameCanvas;
     public GameObject bigMapCanvas;
     public GameObject bigMapCamera;
+    //public static Object Instantiate(particleManager.Static.pass_particle, parent.transform)
 
 
     public void buttonClick() {
@@ -51,7 +52,8 @@ public class canvasButton : MonoBehaviour {
     {
         roundScript.Static.pastRound();
         soundEffectManager.staticSoundEffect.play_levelPass();
-        //Instantiate(particleManager.Static.pass_particle, parent.transform)
+
+       // .SetParent(canvas.transform);
     }
 
     /*
