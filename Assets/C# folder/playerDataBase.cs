@@ -58,15 +58,23 @@ public class playerDataBase : MonoBehaviour {
     public int currentLifeMaxFloor { get; set; }
     public int maxFloor { get; set; }
 
-    public int fifty { get; set; }
-    public int hundred { get; set; }
-    public int two_hundred { get; set; }
-    public int three_hundred { get; set; }
 
     public int abilityHPMax { get; set; }
     public int abilitySPMax { get; set; }
     //public float abilityATKPercent { get; set; }
     //public float abilityDEFPercent { get; set; }
+
+    public List<monsterLevelSetting> MonsterLevelSettingArray;
+
+    [System.Serializable]
+    public class monsterLevelSetting
+    {
+        public int maxhp = 0;
+        public int coin = 0;
+        public int atk = 0;
+        public int def = 0;
+
+    }
 
     public int equipment_ATKcost {
         get {
@@ -131,6 +139,7 @@ public class playerDataBase : MonoBehaviour {
 
         COIN = 1000;
         POINT = 5;
+        reviveTimes = 0;
         ResetTimes = 0;
         currentFloor = 0;
         maxFloor = 0;
@@ -138,10 +147,7 @@ public class playerDataBase : MonoBehaviour {
 
         idle_time = 10;
 
-        fifty = 50;
-        hundred = 100;
-        two_hundred = 200;
-        three_hundred = 300;
+
 
 
         revive_value = false;
@@ -194,6 +200,7 @@ public class playerDataBase : MonoBehaviour {
         POINT = 5;
         currentFloor = 0;
         currentLifeMaxFloor = 0;
+        reviveTimes = 0;
         revive_value = false;
         //check_start = false;
     }

@@ -418,30 +418,13 @@ public class chessMovement : GeneralMovementSystem
                     if (item.tag == "enemy")
                     {
                         OnPlayerTouchEnemy(item.gameObject);
-                        /*
-                        touchEnemy = item.gameObject;
-                        touchEnemy.GetComponent<enemyScript>().IsUnderAttack = true;
 
-                        hitColliders = Physics.OverlapSphere(new Vector3(transform.position.x, transform.position.y, 0), 0.25f); //還原center
-                        CenterGround = hitColliders[0].gameObject.GetComponent<groundScript>();
-                        hitObjectPosition = new Vector3(hitColliders[0].gameObject.transform.position.x, hitColliders[0].gameObject.transform.position.y, -1);
-
-                        center = resetCenterV3(CenterGround);
-                        */
                         return true;
                     }
                     if (item.tag == "chest")
                     {
                         OnPlayerTouchChest(item.gameObject);
-                        /*
-                        TouchChest = item.gameObject;
 
-                        hitColliders = Physics.OverlapSphere(new Vector3(transform.position.x, transform.position.y, 0), 0.25f); //還原center
-                        CenterGround = hitColliders[0].gameObject.GetComponent<groundScript>();
-                        hitObjectPosition = new Vector3(hitColliders[0].gameObject.transform.position.x, hitColliders[0].gameObject.transform.position.y, -1);
-                        
-                        center = resetCenterV3(CenterGround);
-                        */
                         return true; // maybe not work
                     }
                     if (item.tag == "crystal")

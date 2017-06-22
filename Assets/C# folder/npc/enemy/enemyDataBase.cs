@@ -29,96 +29,28 @@ public class enemyDataBase : GeneralMovementSystem
     #region abSetting
     public int MaxHP {
         get {
-            switch (Level)
-            {
-                case 1:
-                    maxHP = 3;
-                    break;
-                case 2:
-                    maxHP = 6;
-                    break;
-                case 3:
-                    maxHP = 12;
-                    break;
-                case 4:
-                    maxHP = 18;
-                    break;
-                default:
-                    maxHP = 0;
-                    break;
-            }
+            maxHP = playerDataBase.Static.MonsterLevelSettingArray[Level].maxhp;
             maxHP = (maxHP * (1 + playerDataBase.Static.currentFloor / 5) ) + playerDataBase.Static.currentFloor;
             return maxHP;
         }
     }
     public int ATK {
         get {
-            switch (Level)
-            {
-                case 1:
-                    aTK = 1;
-                    break;
-                case 2:
-                    aTK = 2;
-                    break;
-                case 3:
-                    aTK = 4;
-                    break;
-                case 4:
-                    aTK = 6;
-                    break;
-                default:
-                    aTK = 0;
-                    break;
-            }
+            aTK = playerDataBase.Static.MonsterLevelSettingArray[Level].atk;
             aTK =(aTK * (1 + playerDataBase.Static.currentFloor / 10) );
             return aTK;
         }
     }
     public int DEF {
         get {
-            switch (Level)
-            {
-                case 1:
-                    dEF = 0;
-                    break;
-                case 2:
-                    dEF = 0;
-                    break;
-                case 3:
-                    dEF = 0;
-                    break;
-                case 4:
-                    dEF = 0;
-                    break;
-                default:
-                    dEF = 0;
-                    break;
-            }
+            dEF = playerDataBase.Static.MonsterLevelSettingArray[Level].def;
             dEF = (dEF * (1 + playerDataBase.Static.currentFloor / 30));
             return dEF;
         }
     }
     public float COIN {
         get {
-            switch (Level)
-            {
-                case 1:
-                    cOIN = 11;
-                    break;
-                case 2:
-                    cOIN = 56;
-                    break;
-                case 3:
-                    cOIN = 304;
-                    break;
-                case 4:
-                    cOIN = 936;
-                    break;
-                default:
-                    cOIN = 0;
-                    break;
-            }
+            cOIN = playerDataBase.Static.MonsterLevelSettingArray[Level].coin;
             cOIN =( cOIN* (1 + playerDataBase.Static.currentFloor / 5) );
             return cOIN;
         }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class revive_script : MonoBehaviour {
     public static revive_script Static;
@@ -11,6 +12,8 @@ public class revive_script : MonoBehaviour {
     public GameObject crystal_particle_off;
     public RectTransform menu_crystal;
     public RectTransform yn_show;
+
+    public Text priceText;
 
     private void Awake()
     {
@@ -37,6 +40,7 @@ public class revive_script : MonoBehaviour {
     public void yn_menu()
     {
         yn_show.gameObject.SetActive(!yn_show.gameObject.activeSelf);
+        priceText.text = playerDataBase.Static.revivCost.ToString();
     }
 
     public void no_menu()
@@ -56,6 +60,7 @@ public class revive_script : MonoBehaviour {
             playerDataBase.Static.COIN -= playerDataBase.Static.revivCost;
             //here
 
+            playerDataBase.Static.reviveTimes++;
             playerDataBase.Static.revive_value = true;
             crystal_particle_off.gameObject.SetActive(false);
             crystal_on.gameObject.SetActive(true);
