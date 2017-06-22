@@ -9,7 +9,6 @@ public class chessMovement : GeneralMovementSystem
     public GameObject model;
     public GameObject damageDisplayObject;
     public RectTransform Chest_canvas;
-    public RectTransform Money_Chest_canvas;
 
     public GameObject parent;
     public RectTransform YN_Menu_backToBefore;

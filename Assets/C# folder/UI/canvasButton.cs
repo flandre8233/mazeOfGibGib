@@ -77,4 +77,10 @@ public class canvasButton : MonoBehaviour {
     }
 
 */
+
+    public void button_Particle()
+    {
+        Instantiate(particleManager.Static.button_particle.SetParent(canvas.transform)); //粒子
+    }
+
 }
