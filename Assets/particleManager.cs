@@ -19,6 +19,7 @@ public class particleManager : MonoBehaviour {
     public GameObject attack02;
     public GameObject attack03;
     public GameObject attack04;
+    public GameObject pass_particle;
 
 
 
