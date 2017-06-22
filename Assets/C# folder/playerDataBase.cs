@@ -47,7 +47,21 @@ public class playerDataBase : MonoBehaviour {
     public int HpmaxLevel { get; set; }
     public int SpmaxLevel { get; set; }
 
-    public int COIN { get; set; }
+    public int coin;
+    public int COIN {
+        get {
+
+            return coin;
+        }
+
+        set {
+            if (coin_UI.Static != null)
+            {
+                coin_UI.Static.updateCoinDisplay();
+            }
+            coin = value;
+        }
+    }
     public int POINT { get; set; }
 
 
