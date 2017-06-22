@@ -34,6 +34,8 @@ public class revive_script : MonoBehaviour {
     public void crystal_menu()
     {
         menu_crystal.gameObject.SetActive( !menu_crystal.gameObject.activeSelf);
+
+        roundScript.Static.popUpMenuChecker = false;
     }
 
 
@@ -50,6 +52,7 @@ public class revive_script : MonoBehaviour {
     public void crystal_menu_press()
     {
         menu_crystal.gameObject.SetActive(!menu_crystal.gameObject.activeSelf);
+        roundScript.Static.popUpMenuChecker = false;
         //yn_show.gameObject.SetActive(!yn_show.gameObject.activeSelf);
     }
 
