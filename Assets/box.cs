@@ -1,15 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class box : MonoBehaviour {
+    public static box Static;
     public int itemProbability;
     Animator ani;
+
+    public Text AD_Coin;
 
     public int existItemType;
     public int coin;
     public int extraCoin;
-    bool alreadyWatchADS;
+    public int watchAD_coin;
+    public bool alreadyWatchADS = false;
+
+
+    public bool get_coin = false;
     private void Awake()
     {
         ani = GetComponentInChildren<Animator>();
@@ -21,6 +29,7 @@ public class box : MonoBehaviour {
         extraCoin = coinReward(934) * (1 + playerDataBase.Static.currentFloor / 5);
         coin = ((coinReward(11) + coinReward(56) + coinReward(304) ) * (1 + playerDataBase.Static.currentFloor / 5));
         existItemType = itemAndEnemyProcessor.RandomProbabilitySystem(ref itemGenerator.Static.ProbabilityArray) - 1;
+        watchAD_coin = coin + extraCoin;
     }
 
     int coinReward(int coin)
@@ -31,6 +40,7 @@ public class box : MonoBehaviour {
     public void openChest()
     {
         //spawn Item
+
         if (Random.Range(0,100) <= itemProbability )
         {
             spawnExItem();
@@ -39,9 +49,11 @@ public class box : MonoBehaviour {
         //open chest ani
         roundScript.Static.IsOpeningChest = true;
         ani.Play("open");
+        //get_coin = true;
         StartCoroutine(WaitForAnimation("openChest"));
-
         GetCoin();
+        Debug.Log(watchAD_coin);
+        uiScript.Static.AD_coin.text = watchAD_coin.ToString();
     }
 
     private IEnumerator WaitForAnimation(string animationTag)
@@ -56,9 +68,15 @@ public class box : MonoBehaviour {
         //dead here
     }
 
+    public void watchAD()
+    {
+        alreadyWatchADS = true;
+        GetCoin();
+        chessMovement.Static.money_chest_off();
+    }
     public void GetCoin()
     {
-        if (alreadyWatchADS)
+        if (alreadyWatchADS==true)
         {
             playerDataBase.Static.COIN += coin + extraCoin;
         }
