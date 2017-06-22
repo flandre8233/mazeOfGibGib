@@ -92,7 +92,7 @@ public class pathfinding : MonoBehaviour {
                 {
                     if (item.tag == "enemy")
                     {
-                        if (item.GetComponent<enemyDataBase>().Level != 2) //非移動怪物
+                        if (item.GetComponent<enemyDataBase>().Level == 1 || item.GetComponent<enemyDataBase>().Level == 4 ) //非移動怪物
                         {
                             hitColliders[0].GetComponent<groundScript>().pathdirection = pathDirection.cantFind;
                             find = true;

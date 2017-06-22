@@ -322,6 +322,7 @@ public class chessMovement : GeneralMovementSystem
     public void OnPlayerTouchEnemy(GameObject touchObject)
     {
         touchEnemy = touchObject;
+        playerTargetDisplay.Static.DisplayTarget(touchEnemy.GetComponent<enemyDataBase>());
         touchEnemy.GetComponent<enemyScript>().IsUnderAttack = true;
 
         resetPlayerCenter();
@@ -401,6 +402,7 @@ public class chessMovement : GeneralMovementSystem
     { //正確是否正確移動
         Collider[] hitColliders = Physics.OverlapSphere(center, 0.25f);
         Collider[] hitEnemyColliders = Physics.OverlapSphere(new Vector3(center.x, center.y, -1), 0.35f);
+        playerTargetDisplay.Static.disableAllTargetDisplay();
         touchEnemy = null;
         TouchChest = null;
         if (hitColliders.Length != 0)

@@ -3,11 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class canvasButton : MonoBehaviour {
+    public static canvasButton Static;
     public GameObject normalGameCanvas;
     public GameObject bigMapCanvas;
     public GameObject bigMapCamera;
     //public static Object Instantiate(particleManager.Static.pass_particle, parent.transform)
 
+    private void Awake()
+    {
+        if (Static != null)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Static = this;
+        }
+    }
 
     public void buttonClick() {
         roundScript.Static.OnEnterNextLevel();

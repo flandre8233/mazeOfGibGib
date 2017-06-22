@@ -150,6 +150,11 @@ public class roundScript : MonoBehaviour {
             {
                 enemyMovement += item.GetComponent<enemyScript>().move;
             }
+            if (item.GetComponent<enemyScript>().Level == 3 )
+            {
+                Debug.Log(item.gameObject.name);
+                enemyMovement += item.GetComponent<enemyScript>().move;
+            }
         }
 
     }

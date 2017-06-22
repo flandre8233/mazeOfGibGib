@@ -65,6 +65,7 @@ public class enemyScript : enemyDataBase
             return;
         }
 
+
         switch (CenterGround.pathdirection)
         {
             case pathDirection.notyet:

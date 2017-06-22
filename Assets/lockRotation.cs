@@ -6,6 +6,12 @@ public class lockRotation : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-        transform.rotation = Quaternion.Euler(0,0,-270);	
+        if (canvasButton.Static.bigMapCamera.activeSelf) { 
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+        else
+        {
+            transform.rotation = Quaternion.Euler(0, 0, fingerControlRotation.Static.cameraGameObject.transform.rotation.eulerAngles.z);
+        }
 	}
 }
