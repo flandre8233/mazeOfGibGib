@@ -54,7 +54,7 @@ public class GameOver_script : MonoBehaviour {
         //gameover_show.gameObject.SetActive(false);
         testSaveLoad.Static.mydata.define = false;
         saveLoadManager.Save(testSaveLoad.Static.mydata);
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
         //Start_menu_canvas.Static.start_menu.gameObject.SetActive(false);
     }
 
@@ -64,7 +64,7 @@ public class GameOver_script : MonoBehaviour {
         soundEffectManager.staticSoundEffect.play_Click_Button();
         playerDataBase.Static.check_start = true;
         playerDataBase.Static.restart_data();
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
         gameover_show.gameObject.SetActive(false);
     }
 }
