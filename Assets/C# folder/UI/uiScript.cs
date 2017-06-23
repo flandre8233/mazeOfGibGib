@@ -58,7 +58,7 @@ public class uiScript : MonoBehaviour {
         HPBAR_script();
         SPBAR_script();
 
-
+        updatePlayerAtkDef();
 
 
         testonlyText.text = "HP : " + playerDataBase.Static.HP + " / " + playerDataBase.Static.MaxHP + "\n" + "SP : " +
@@ -69,6 +69,14 @@ public class uiScript : MonoBehaviour {
         currentFloor.text ="-Stage"+playerDataBase.Static.currentFloor+"-";
 
 
+    }
+
+    public Text atkDisplay;
+    public Text DefDisplay;
+    void updatePlayerAtkDef()
+    {
+        atkDisplay.text = playerDataBase.Static.ATK.ToString();
+        DefDisplay.text = playerDataBase.Static.DEF.ToString();
     }
 
     void HPBAR_script()

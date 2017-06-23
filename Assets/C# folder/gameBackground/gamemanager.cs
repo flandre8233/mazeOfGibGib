@@ -24,5 +24,11 @@ public class gamemanager : MonoBehaviour {
 
     }
 
+    
+
+    private void Update()
+    {
+
+    }
 
 }

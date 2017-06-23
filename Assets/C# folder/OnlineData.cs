@@ -33,7 +33,12 @@ public class OnlineData : MonoBehaviour {
         Debug.Log(test);*/
         //Debug.Log(www.text.Trim());
 
-        playerDataBase.Static.MonsterLevelSettingArray[0].coin = int.Parse(mymy.dataList[0].Price);
+        if (mymy != null)
+        {
+            playerDataBase.Static.MonsterLevelSettingArray[0].coin = int.Parse(mymy.dataList[0].Price);
+
+        }
+
 
         //test.text=www.text.Trim().ToString();
     }

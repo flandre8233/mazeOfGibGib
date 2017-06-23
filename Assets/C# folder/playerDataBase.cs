@@ -209,13 +209,14 @@ public class playerDataBase : MonoBehaviour {
 
         ATKLevel = 0;
         DEFLevel = 0;
-        HpmaxLevel = 0;
-        SpmaxLevel = 0;
+        //HpmaxLevel = 0;
+        //SpmaxLevel = 0;
 
         COIN = 1000;
         //POINT = 5;
         currentFloor = 0;
         currentLifeMaxFloor = 0;
+        currentAlyreadyWatchAdsLevel = 0;
         reviveTimes = 0;
         revive_value = false;
         //check_start = false;
