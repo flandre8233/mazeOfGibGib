@@ -325,6 +325,12 @@ public class enemyScript : enemyDataBase
         roundScript.Static.roundSystem -= resetNumberOfActions;
         roundScript.Static.roundSystem -= enemyHPCheck;
         roundScript.Static.enemyAttack -= enemyAttackPlayerScript;
+
+        if (playerTargetDisplay.Static.targetObject == gameObject.GetComponent<enemyDataBase>())
+        {
+            playerTargetDisplay.Static.disableAllTargetDisplay();
+        }
+
         Destroy(gameObject);
     }
 

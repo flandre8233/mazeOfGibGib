@@ -38,10 +38,18 @@ public class revive_script : MonoBehaviour {
         roundScript.Static.popUpMenuChecker = false;
     }
 
-
+    public Button revive_Button;
     public void yn_menu()
     {
         yn_show.gameObject.SetActive(!yn_show.gameObject.activeSelf);
+        if (playerDataBase.Static.COIN - playerDataBase.Static.revivCost >= 0)
+        {
+            revive_Button.interactable = true;
+        }
+        else
+        {
+            revive_Button.interactable = false;
+        }
         priceText.text = playerDataBase.Static.revivCost.ToString();
     }
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class chessMovement : GeneralMovementSystem
 {
@@ -500,7 +501,6 @@ public class chessMovement : GeneralMovementSystem
         } while (charactor_move.GetCurrentAnimatorStateInfo(0).IsTag(animationTag));
 
         TouchChest.GetComponent<box>().allwayFaceAtPlayer();
-        TouchChest.GetComponent<box>().openChest();
         roundScript.Static.DoAttackAniProcessingChecker = false;
         thisFrameMoved = true;
         //dead here
@@ -537,14 +537,19 @@ public class chessMovement : GeneralMovementSystem
         YN_Menu_backToBefore.gameObject.SetActive(!YN_Menu_backToBefore.gameObject.activeSelf);
     }
 
+
     public void chest_show()
     {
         chest_canvas.gameObject.SetActive(!chest_canvas.gameObject.activeSelf);
     }
 
+    public Text coinNumber;
+    public Text adsExtraNumber;
     public void money_chest_show()
     {
         money_chest_canvas.gameObject.SetActive(!money_chest_canvas.gameObject.activeSelf);
+        coinNumber.text = TouchChest.GetComponent<box>().coin.ToString();
+        adsExtraNumber.text =TouchChest.GetComponent<box>().watchAD_coin.ToString();
     }
 
     public void chest_off()
@@ -554,8 +559,18 @@ public class chessMovement : GeneralMovementSystem
 
     public void money_chest_off()
     {
+        TouchChest.GetComponent<box>().openChest();
         money_chest_canvas.gameObject.SetActive(!money_chest_canvas.gameObject.activeSelf);
     }
+
+    public void adsChest()
+    {
+        //watchAD_coin
+        TouchChest.GetComponent<box>().openChest();
+        playerDataBase.Static.coin += TouchChest.GetComponent<box>().extraCoin;
+        money_chest_canvas.gameObject.SetActive(!money_chest_canvas.gameObject.activeSelf);
+    }
+
 }
 
 
