@@ -562,7 +562,7 @@ public class chessMovement : GeneralMovementSystem
     public void money_chest_off()
     {
         saveChest.GetComponent<box>().openChest();
-        money_chest_canvas.gameObject.SetActive(!money_chest_canvas.gameObject.activeSelf);
+        money_chest_canvas.gameObject.SetActive(false);
         saveChest = null;
     }
 
@@ -571,7 +571,7 @@ public class chessMovement : GeneralMovementSystem
         //watchAD_coin
         saveChest.GetComponent<box>().openChest();
         playerDataBase.Static.coin += TouchChest.GetComponent<box>().extraCoin;
-        money_chest_canvas.gameObject.SetActive(!money_chest_canvas.gameObject.activeSelf);
+        money_chest_canvas.gameObject.SetActive(false);
         saveChest = null;
     }
 
