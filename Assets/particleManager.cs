@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,6 +25,7 @@ public class particleManager : MonoBehaviour {
     public GameObject click_button_down;
     public GameObject click_pass;
     public GameObject click_pause;
+
 
 
     private void Awake()

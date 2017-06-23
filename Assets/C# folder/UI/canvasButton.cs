@@ -112,6 +112,5 @@ public class canvasButton : MonoBehaviour {
     public void click_pause()
     {
         Instantiate(particleManager.Static.click_pause); //粒子
-
     }
 }
