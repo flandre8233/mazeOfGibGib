@@ -28,18 +28,18 @@ public class loadingTest : MonoBehaviour {
     public void startLoading()
     {
         //StartCoroutine(playLoadingScene());
-        trigger_pass = true;
+       /* trigger_pass = true;
         Debug.Log("in");
         if (trigger_pass == true)
         {
             level_pass.gameObject.SetActive(true);
-        }
+        }*/
     }
 
     public void closeLoading()
     {
         //loadingScene.SetActive(false);
-        Debug.Log("out");
+        //Debug.Log("out");
         //level_pass.gameObject.SetActive(false);
 
     }

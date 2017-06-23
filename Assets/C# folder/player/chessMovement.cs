@@ -256,7 +256,7 @@ public class chessMovement : GeneralMovementSystem
         }
     }//自動重復執行MovementPart
 
-    GameObject TouchChest = null;
+    public GameObject TouchChest = null;
 
     void movePlayer()
     { //真正移動
@@ -377,6 +377,7 @@ public class chessMovement : GeneralMovementSystem
     public void OnPlayerTouchChest(GameObject touchObject)
     {
         TouchChest = touchObject.gameObject;
+        saveChest = touchObject.gameObject;
         TouchChest.tag = "Untagged";
         resetPlayerCenter();
         //chest_script.Static.money_chest_canvas.gameObject.SetActive(!chest_script.Static.money_chest_canvas);
@@ -407,6 +408,7 @@ public class chessMovement : GeneralMovementSystem
         playerTargetDisplay.Static.disableAllTargetDisplay();
         touchEnemy = null;
         TouchChest = null;
+
         if (hitColliders.Length != 0)
         {
             CenterGround = hitColliders[0].gameObject.GetComponent<groundScript>();
@@ -506,7 +508,7 @@ public class chessMovement : GeneralMovementSystem
         //dead here
     }
 
-
+    public GameObject saveChest;
 
     public void attackNpc(GameObject touchEnemy)
     {
@@ -559,16 +561,18 @@ public class chessMovement : GeneralMovementSystem
 
     public void money_chest_off()
     {
-        TouchChest.GetComponent<box>().openChest();
+        saveChest.GetComponent<box>().openChest();
         money_chest_canvas.gameObject.SetActive(!money_chest_canvas.gameObject.activeSelf);
+        saveChest = null;
     }
 
     public void adsChest()
     {
         //watchAD_coin
-        TouchChest.GetComponent<box>().openChest();
+        saveChest.GetComponent<box>().openChest();
         playerDataBase.Static.coin += TouchChest.GetComponent<box>().extraCoin;
         money_chest_canvas.gameObject.SetActive(!money_chest_canvas.gameObject.activeSelf);
+        saveChest = null;
     }
 
 }
