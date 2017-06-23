@@ -7,7 +7,10 @@ using UnityEngine.SceneManagement;
 public class loadingTest : MonoBehaviour {
     public static loadingTest Static;
     public GameObject loadingScene;
-    public GameObject level_pass;
+
+    public RectTransform level_pass;
+    public bool trigger_pass=false;
+
     private AsyncOperation async = null;
 
     private void Awake()
@@ -39,11 +42,16 @@ public class loadingTest : MonoBehaviour {
     public void startLoading()
     {
         //StartCoroutine(playLoadingScene());
+        trigger_pass = true;
+        Debug.Log("in");
+        level_pass.gameObject.SetActive(true);
+
     }
 
     public void closeLoading()
     {
         //loadingScene.SetActive(false);
+        Debug.Log("out");
     }
 
     private IEnumerator LoadLevel(string Level)
