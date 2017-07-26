@@ -46,6 +46,7 @@ public class playerDataBase : MonoBehaviour {
     public int DEFLevel { get; set; }
     public int HpmaxLevel { get; set; }
     public int SpmaxLevel { get; set; }
+    public double runTimeDouble { get; set; }
 
     public int coin;
     public int COIN {

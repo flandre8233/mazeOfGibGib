@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 public class testSaveLoad : MonoBehaviour {
@@ -32,7 +33,6 @@ public class testSaveLoad : MonoBehaviour {
             gamemanager.Static.beLoaded = true;
             loadDataToPlayerData(mydata);
         }
-
 
     }
 
@@ -75,6 +75,8 @@ public class testSaveLoad : MonoBehaviour {
 
         mydata.lookDir = chessMovement.Static.faceDirection;
         mydata.cameraEuler = (int)camera.transform.rotation.eulerAngles.z;
+
+        mydata.runTimeDouble = PD.runTimeDouble;
 
         if (playerMainScript.Static.itemArrayClone[0] != null)
         {
@@ -176,6 +178,8 @@ public class testSaveLoad : MonoBehaviour {
         PD.SP = mydata.SP;
         PD.reviveTimes = mydata.reviveTimes;
         PD.currentAlyreadyWatchAdsLevel = mydata.currentAlyreadyWatchAdsLevel;
+
+        PD.runTimeDouble = mydata.runTimeDouble;
 
         chessMovement.Static.faceDirection =  mydata.lookDir;
         chessMovement.Static.charFace(chessMovement.Static.faceDirection);

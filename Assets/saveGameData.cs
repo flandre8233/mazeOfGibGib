@@ -32,6 +32,8 @@ public class saveGameData {
     public int currentAlyreadyWatchAdsLevel;
     public int maxFloor = 0;
 
+    public double runTimeDouble = 0;
+
     public item[] playerItem = new item[2];
 
     public vector2 playerCenter;
