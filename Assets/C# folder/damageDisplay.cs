@@ -31,7 +31,7 @@ public class damageDisplay : MonoBehaviour {
             digits = 1;
         }
         float spawnXAxisLimit = ( (textDistance * digits)/ 2 )- (textDistance / 2);
-        //Debug.Log(digits + " / " + damage);
+        ////Debug.Log(digits + " / " + damage);
         int number = damage;
         for (int i = 0; i < digits; i++) {
             //GameObject emptyGameObject = new GameObject();
@@ -41,7 +41,7 @@ public class damageDisplay : MonoBehaviour {
             myImage.color = new Color(myImage.color.r,myImage.color.b,myImage.color.a,0);
             emptyGameObject.transform.parent = damageNumberParent;
             emptyGameObject.transform.localPosition = new Vector3( spawnXAxisLimit-(textDistance * i ),0,0);
-            //Debug.Log(emptyGameObject.transform.localPosition);
+            ////Debug.Log(emptyGameObject.transform.localPosition);
             ChangeSprite(number % 10, type );
             number  /= 10;
 
@@ -84,7 +84,7 @@ public void ChangeSprite(int number , int type) {
     }
 
     public void aniDestroy() {
-        //Debug.Log("saff");
+        ////Debug.Log("saff");
 
         Destroy(gameObject);
     }

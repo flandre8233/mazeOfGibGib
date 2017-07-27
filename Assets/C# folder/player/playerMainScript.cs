@@ -48,7 +48,7 @@ public class playerMainScript : MonoBehaviour
                 //selectType
 
                 GameObject InstantiateItem = Instantiate(mapThingsGenerator.Static.selectType(item.type), spawnPos, Quaternion.Euler(-90, 0, 0));
-                Debug.Log("kkkk" + item.level);
+                
                 InstantiateItem.GetComponent<itemScript>().level = item.level;
                 hitItem = InstantiateItem;
 
@@ -486,26 +486,26 @@ public class playerMainScript : MonoBehaviour
     #region itemBuff Set
     public bool DEFBuffSetUp(int conRound, int DEFAddNumber)
     {
-        Debug.Log(playerDataBase.Static.DEFBuff);
+        //Debug.Log(playerDataBase.Static.DEFBuff);
         DEFbuffStartRound = roundScript.Static.round;
         DEFContinueRound = conRound;
         if (playerDataBase.Static.DEFBuff <= 0)
         {
             playerDataBase.Static.DEFBuff += (int)((playerDataBase.Static.DEF / 100.0f) * DEFAddNumber) + 1;
-            Debug.Log(playerDataBase.Static.DEFBuff + "def" + playerDataBase.Static.DEF);
+            //Debug.Log(playerDataBase.Static.DEFBuff + "def" + playerDataBase.Static.DEF);
         }
         return true;
     }
 
     public bool ATKBuffSetUp(int conRound, int atkAddNumber)
     {
-        Debug.Log(playerDataBase.Static.ATKBuff);
+        //Debug.Log(playerDataBase.Static.ATKBuff);
         ATKbuffStartRound = roundScript.Static.round;
         ATKContinueRound = conRound;
         if (playerDataBase.Static.ATKBuff <= 0)
         {
             playerDataBase.Static.ATKBuff += (int)((playerDataBase.Static.ATK / 100.0f) * atkAddNumber) + 1;
-            Debug.Log(playerDataBase.Static.ATKBuff + "atk" + playerDataBase.Static.ATK);
+            //Debug.Log(playerDataBase.Static.ATKBuff + "atk" + playerDataBase.Static.ATK);
         }
         return true;
     }
@@ -642,7 +642,7 @@ public class playerMainScript : MonoBehaviour
         {
             roundScript.Static.roundSystem -= subSP;
             spTimeLeft = (spEndTime - spStartTime) + (spStartTime - Time.time);
-            Debug.Log(spTimeLeft);
+            //Debug.Log(spTimeLeft);
             shopUpStatus.Static.UpDataSpTime();
             if (spTimeLeft <= 0)
             {

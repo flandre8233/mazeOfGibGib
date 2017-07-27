@@ -18,10 +18,7 @@ public class testonly : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
-        //GetComponent<CanvasScaler>().referenceResolution.x
-
-        //Debug.Log(GUIUtility.ScreenToGUIPoint (new Vector2(Input.mousePosition.x, Input.mousePosition.y) ) );
-        //Debug.Log(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
+        ////Debug.Log(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
 
         if ( ( !IsPointerOverUIObject() ) && Input.GetMouseButtonDown(0) && Input.mousePosition.x <= Screen.width * 0.8) {
             go.SetActive(!go.activeSelf);
@@ -41,7 +38,7 @@ public class testonly : MonoBehaviour
         // * 0.830729167f
         //CanvasScaler scaler = GetComponentInParent<CanvasScaler>();
         //GetComponent<RectTransform>().anchoredPosition = new Vector2(Input.mousePosition.x * scaler.referenceResolution.x / Screen.width, Input.mousePosition.y * scaler.referenceResolution.y / Screen.height);
-        //Debug.Log(Input.mousePosition.x * (1080.0f / Screen.width) + "lkhj");
+        ////Debug.Log(Input.mousePosition.x * (1080.0f / Screen.width) + "lkhj");
         //GetComponent<RectTransform>().anchoredPosition = new Vector3(200, 200, 0);
         //GetComponent<RectTransform>().anchoredPosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0);
     }

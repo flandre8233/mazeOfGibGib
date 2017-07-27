@@ -132,7 +132,6 @@ public class mapThingsGenerator : MonoBehaviour {
 
     void StartGeneratorTheThings(int times, string type)
     {
-        //Debug.Log(times + "  " + type);
 
         if (mapTerrainGenerator.Static.thisLevelAllFloor.Count == 0)
         {
@@ -383,10 +382,10 @@ public class mapThingsGenerator : MonoBehaviour {
 
         if (mapTerrainGenerator.Static.thisLevelAllFloor.Count != 0)
         {
-            //Debug.Log(mapTerrainGenerator.Static.thisLevelAllFloor[0]);
+            ////Debug.Log(mapTerrainGenerator.Static.thisLevelAllFloor[0]);
             Vector3 targetV3 = new Vector3(mapTerrainGenerator.Static.thisLevelAllFloor[0].transform.position.x, mapTerrainGenerator.Static.thisLevelAllFloor[0].transform.position.y, -1);
             player.transform.position = targetV3;
-            // Debug.Log(player.transform.position);
+            // //Debug.Log(player.transform.position);
             return;
         }
     }
@@ -407,7 +406,7 @@ public class mapThingsGenerator : MonoBehaviour {
 
             if (roundScript.Static.groundCheckSystem != null) // ok
             {
-                //Debug.Log("dllm");
+                ////Debug.Log("dllm");
                 roundScript.Static.groundCheckSystem.Invoke();
             }
 

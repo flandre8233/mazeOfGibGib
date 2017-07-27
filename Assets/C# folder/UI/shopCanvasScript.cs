@@ -70,7 +70,6 @@ public class shopCanvasScript : MonoBehaviour {
         playerDataBase.Static.currentAlyreadyWatchAdsLevel = playerDataBase.Static.currentFloor;
         adsButton.interactable = false;
         playerDataBase.Static.COIN += adsCoinNumber;
-        Debug.Log("free_Coin");
         //playerDataBase.Static.COIN = playerDataBase.Static.fifty + playerDataBase.Static.COIN;
     }
 
@@ -78,28 +77,28 @@ public class shopCanvasScript : MonoBehaviour {
     {
         playerDataBase.Static.COIN += buyMenuCoinNumber[1];
         playerDataBase.Static.POINT += 0;
-        Debug.Log("100");
+        //Debug.Log("100");
     }
 
     public void two_hundred_coin()
     {
         playerDataBase.Static.COIN += buyMenuCoinNumber[2];
         playerDataBase.Static.POINT += 0;
-        Debug.Log("200");
+        //Debug.Log("200");
     }
 
     public void five_hundred_coin()
     {
         playerDataBase.Static.COIN += buyMenuCoinNumber[3];
         playerDataBase.Static.POINT += 0;
-        Debug.Log("500");
+        //Debug.Log("500");
     }
 
     public void one_thousand_coin()
     {
         playerDataBase.Static.COIN += buyMenuCoinNumber[4];
         playerDataBase.Static.POINT += 1;
-        Debug.Log("1000");
+        //Debug.Log("1000");
     }
 
      int timesCoins(int coin)

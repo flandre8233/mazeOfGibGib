@@ -118,7 +118,6 @@ public class fingerControlRotation : MonoBehaviour
 
         for (int i = 0; i < goArray.Length; i++) {
             DistanceArray[i] = Mathf.Abs(Vector3.Distance(goArray[i].transform.position, cameraGameObject.transform.position) );
-            //Debug.Log(DistanceArray[i]);
         }
         
 

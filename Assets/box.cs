@@ -52,7 +52,7 @@ public class box : MonoBehaviour {
         //get_coin = true;
         StartCoroutine(WaitForAnimation("openChest"));
         GetCoin();
-        Debug.Log(watchAD_coin);
+        ////Debug.Log(watchAD_coin);
         uiScript.Static.AD_coin.text = watchAD_coin.ToString();
     }
 

@@ -15,7 +15,8 @@ public class mouseClick : MonoBehaviour {
 
                 playerTargetDisplay.Static.DisplayTarget(hit.collider.gameObject.GetComponentInParent<enemyDataBase>());
             }
-            Debug.Log(hit.transform.name);
+            
+            
         }
     }
 

@@ -20,10 +20,9 @@ public class GameOver_script : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(playerDataBase.Static.check_start);
         gameover_menu();
-        //Debug.Log(playerDataBase.Static.maxFloor + "max");
-        //Debug.Log(playerDataBase.Static.currentFloor+"current");
+        ////Debug.Log(playerDataBase.Static.maxFloor + "max");
+        ////Debug.Log(playerDataBase.Static.currentFloor+"current");
         Current_Stage.text = playerDataBase.Static.currentFloor + "";
         Best_Stage.text = playerDataBase.Static.maxFloor + "";
         if (playerDataBase.Static.currentFloor < playerDataBase.Static.maxFloor)

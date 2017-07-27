@@ -19,8 +19,6 @@ public class idle_timer : MonoBehaviour
 
     public void idle_time()
     {
-        //playerDataBase.Static.idle_time -= Time.deltaTime;
-        //Debug.Log(playerDataBase.Static.idle_time);
     }
 }
 

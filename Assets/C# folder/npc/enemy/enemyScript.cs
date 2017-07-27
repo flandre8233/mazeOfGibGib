@@ -37,7 +37,6 @@ public class enemyScript : enemyDataBase
 
         cOIN += (int)(COIN / 100.0f * (Random.Range(0, 40) - 20));
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        //Debug.Log("ddddff  " + transform.position);
         //sensor = GetComponentInChildren<npcSensor>();
         enemyAni = GetComponentInChildren<Animator>();
         roundScript.Static.roundSystem += resetNumberOfActions;
@@ -90,7 +89,7 @@ public class enemyScript : enemyDataBase
                 break;
         }
 
-        Debug.Log(equalVector3(chessMovement.Static.center, center));
+        //Debug.Log(equalVector3(chessMovement.Static.center, center));
 
         //Vector3.Distance(chessMovement.Static.center, center) <= 0.25f
         if (equalVector3(chessMovement.Static.center,center) )//玩家優先
@@ -111,7 +110,7 @@ public class enemyScript : enemyDataBase
         }
 
         Collider[] hitSomethingColliders = Physics.OverlapSphere(new Vector3(center.x,center.y,-1) , 0.35f);
-        Debug.Log("ddd");
+        //Debug.Log("ddd");
 
 
         
@@ -122,7 +121,7 @@ public class enemyScript : enemyDataBase
                 if (item.gameObject.tag == "Player" && chessMovement.Static.startLerpMovement == false) //撞到玩家
                 {
                     center = resetCenterV3(CenterGround);
-                    Debug.Log("ff");
+                    //Debug.Log("ff");
                     return;
                 }
                 if (item.gameObject.tag == "enemy" && item.GetComponent<enemyScript>().startLerpMovement == false && item.GetComponent<enemyScript>().HP > 0)//撞到另一隻怪物
@@ -194,7 +193,7 @@ public class enemyScript : enemyDataBase
         foreach (var item in checkPlayerPointArray)
         {
 
-            //Debug.Log(Mathf.Abs(Vector3.Distance(new Vector3(enemyPoint.x, enemyPoint.y, 0), chessMovement.Static.center))  );
+            ////Debug.Log(Mathf.Abs(Vector3.Distance(new Vector3(enemyPoint.x, enemyPoint.y, 0), chessMovement.Static.center))  );
             if (equalVector3(item, chessMovement.Static.center))
             {
 

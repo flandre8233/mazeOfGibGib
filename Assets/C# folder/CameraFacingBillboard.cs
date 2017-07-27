@@ -13,7 +13,7 @@ public class CameraFacingBillboard : MonoBehaviour {
 
         float distance = Vector3.Distance(transform.position, Camera.main.transform.position);
         float fixedScale = distance / defaultDistance;
-        //Debug.Log(distance);
+        ////Debug.Log(distance);
         transform.localScale = new Vector3(fixedScale, fixedScale, fixedScale);
     }
 }

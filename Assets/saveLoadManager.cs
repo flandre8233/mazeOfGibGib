@@ -17,7 +17,6 @@ public static class saveLoadManager
         string jsonData = JsonMapper.ToJson(saveGame);
 
         File.WriteAllText(path, jsonData);
-        Debug.Log("successed");
 
     }
 
@@ -25,7 +24,7 @@ public static class saveLoadManager
     {
         string jsonData = "";
         File.WriteAllText(path, jsonData);
-        Debug.Log("successed");
+        ////Debug.Log("successed");
     }
 
     public static saveGameData Load()
@@ -34,7 +33,7 @@ public static class saveLoadManager
 
         if (!File.Exists(path))
         {
-            Debug.Log("no file detect");
+            ////Debug.Log("no file detect");
 
 
 
@@ -48,13 +47,13 @@ public static class saveLoadManager
 
         if (saveData.HP <= 0 || !saveData.define)
         {
-            Debug.Log("deadFile");
+            ////Debug.Log("deadFile");
 
             saveData.define = false;
             return saveData;
         }
 
-        Debug.Log("loaded");
+        ////Debug.Log("loaded");
         return saveData;
     }
 }

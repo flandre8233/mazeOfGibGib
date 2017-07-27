@@ -250,7 +250,6 @@ public class chessMovement : GeneralMovementSystem
 
         if (time >= countDown)
         {
-            //Debug.Log("autoMovement");
             MovementPart(c);
 
         }
@@ -290,7 +289,7 @@ public class chessMovement : GeneralMovementSystem
             if (movementDistance  == 0.0f)
             {
                 isInLerpMovement = false;
-                //Debug.Log("passhere");
+                ////Debug.Log("passhere");
 
 
 

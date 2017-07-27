@@ -28,7 +28,6 @@ public class revive_script : MonoBehaviour {
     }
 
     void Update () {
-        //Debug.Log(playerDataBase.Static.revive_value);
 	}
 
     public void crystal_menu()

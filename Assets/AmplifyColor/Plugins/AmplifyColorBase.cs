@@ -139,13 +139,13 @@ public class AmplifyColorBase : MonoBehaviour
 
 	void ReportMissingShaders()
 	{
-		Debug.LogError( "[AmplifyColor] Failed to initialize shaders. Please attempt to re-enable the Amplify Color Effect component. If that fails, please reinstall Amplify Color." );
+		//Debug.LogError( "[AmplifyColor] Failed to initialize shaders. Please attempt to re-enable the Amplify Color Effect component. If that fails, please reinstall Amplify Color." );
 		enabled = false;
 	}
 
 	void ReportNotSupported()
 	{
-		Debug.LogError( "[AmplifyColor] This image effect is not supported on this platform." );	
+		//Debug.LogError( "[AmplifyColor] This image effect is not supported on this platform." );	
 		enabled = false;
 	}
 
@@ -185,38 +185,38 @@ public class AmplifyColorBase : MonoBehaviour
 		return true;
 	}
 
-	void OnEnable()
-	{
+    void OnEnable()
+    {
 #if !UNITY_5
 		bool nullDev = ( SystemInfo.graphicsDeviceName == "Null Device" );
 #else
-		bool nullDev = ( SystemInfo.graphicsDeviceType == GraphicsDeviceType.Null );
+        bool nullDev = (SystemInfo.graphicsDeviceType == GraphicsDeviceType.Null);
 #endif
-		if ( nullDev )
-		{
-			Debug.LogWarning( "[AmplifyColor] Null graphics device detected. Skipping effect silently." );
-			silentError = true;
-			return;
-		}
+        if (nullDev)
+        {
+            //Debug.LogWarning( "[AmplifyColor] Null graphics device detected. Skipping effect silently." );
+            silentError = true;
+            return;
+        }
 
-		if ( !CheckSupport() )
-			return;
+        if (!CheckSupport())
+            return;
 
-		if ( !CreateMaterials() )
-			return;
+        if (!CreateMaterials())
+            return;
 
-		Texture2D lutTex2d = LutTexture as Texture2D;
-		Texture2D lutBlendTex2d = LutBlendTexture as Texture2D;
+        Texture2D lutTex2d = LutTexture as Texture2D;
+        Texture2D lutBlendTex2d = LutBlendTexture as Texture2D;
 
-		if ( ( lutTex2d != null && lutTex2d.mipmapCount > 1 ) || ( lutBlendTex2d != null && lutBlendTex2d.mipmapCount > 1 ) )
-			Debug.LogError( "[AmplifyColor] Please disable \"Generate Mip Maps\" import settings on all LUT textures to avoid visual glitches. " +
-				"Change Texture Type to \"Advanced\" to access Mip settings." );
+        if ((lutTex2d != null && lutTex2d.mipmapCount > 1) || (lutBlendTex2d != null && lutBlendTex2d.mipmapCount > 1))
+            Debug.LogError("[AmplifyColor] Please disable \"Generate Mip Maps\" import settings on all LUT textures to avoid visual glitches. " +
+                    "Change Texture Type to \"Advanced\" to access Mip settings.");
 
 #if TRIAL
 		watermark = new Texture2D( 4, 4 ) { hideFlags = HideFlags.HideAndDontSave };
 		watermark.LoadImage( AmplifyColor.Watermark.ImageData );
 #endif
-	}
+    }
 
 	void OnDisable()
 	{
@@ -617,12 +617,12 @@ public class AmplifyColorBase : MonoBehaviour
 	{
 		if ( material == null || material.shader == null )
 		{
-			Debug.LogWarning( "[AmplifyColor] Error creating " + name + " material. Effect disabled." );
+			//Debug.LogWarning( "[AmplifyColor] Error creating " + name + " material. Effect disabled." );
 			enabled = false;
 		}
 		else if ( !material.shader.isSupported )
 		{
-			Debug.LogWarning( "[AmplifyColor] " + name + " shader not supported on this platform. Effect disabled." );
+			//Debug.LogWarning( "[AmplifyColor] " + name + " shader not supported on this platform. Effect disabled." );
 			enabled = false;
 		}
 		else
@@ -728,7 +728,7 @@ public class AmplifyColorBase : MonoBehaviour
 		{
 			if ( ( lut.width / lut.height ) != lut.height )
 			{
-				Debug.LogWarning( "[AmplifyColor] Lut " + lut.name + " has invalid dimensions." );
+				//Debug.LogWarning( "[AmplifyColor] Lut " + lut.name + " has invalid dimensions." );
 				valid = false;
 			}
 			else

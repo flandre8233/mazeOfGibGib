@@ -42,7 +42,7 @@ public class shrinkManager : MonoBehaviour {
 
         rectTS.anchoredPosition = Vector2.Lerp(rectTS.anchoredPosition, targetPosition, (Time.time - startTime) * lerpSpeed);
         float movementDistance = Mathf.Abs(Vector2.Distance(rectTS.anchoredPosition, targetPosition));
-        //Debug.Log(movementDistance);
+        
         if (movementDistance <= 0.1f)
         {
             resetEarthQuake(strong);

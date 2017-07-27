@@ -198,7 +198,6 @@ public class testSaveLoad : MonoBehaviour {
     {
         mydata = savePlayerDataToJSON(mydata);
         saveLoadManager.Save(mydata);
-        Debug.Log("OnApplicationQuit");
     }
     void OnApplicationFocus(bool hasFocus)
     {
@@ -209,17 +208,17 @@ public class testSaveLoad : MonoBehaviour {
         mydata = savePlayerDataToJSON(mydata);
         saveLoadManager.Save(mydata);
 
-        Debug.Log("OnApplicationFocus");
+        //Debug.Log("OnApplicationFocus");
     }
 
     void OnApplicationPause(bool pauseStatus)
     {
         //mydata = savePlayerDataToJSON(mydata);
         //saveLoadManager.Save(mydata);
-        //Debug.Log("OnApplicationPause");
+        ////Debug.Log("OnApplicationPause");
     }
     private void OnDestroy()
     {
-        Debug.Log("ondestroy");
+        //Debug.Log("ondestroy");
     }
 }

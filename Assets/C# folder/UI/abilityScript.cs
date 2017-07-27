@@ -19,7 +19,6 @@ public class abilityScript : MonoBehaviour
             playerDataBase.Static.HpmaxLevel++;
             playerDataBase.Static.abilityHPMax += playerDataBase.Static.HPAbility;
             playerDataBase.Static.fullHPSP();
-            //Debug.Log(Hpmax_add);
             playerDataBase.Static.POINT--;
             soundEffectManager.staticSoundEffect.play_ability_UP();
         }
@@ -34,7 +33,7 @@ public class abilityScript : MonoBehaviour
             playerDataBase.Static.SpmaxLevel++;
             playerDataBase.Static.abilitySPMax += playerDataBase.Static.SPAbility;
             playerDataBase.Static.fullHPSP();
-            //Debug.Log(Spmax_add);
+            ////Debug.Log(Spmax_add);
             playerDataBase.Static.POINT--;
             soundEffectManager.staticSoundEffect.play_ability_UP();
         }
@@ -46,7 +45,7 @@ public class abilityScript : MonoBehaviour
         if (playerDataBase.Static.POINT >= 1)
         {
             playerDataBase.Static.ATKlevelpercent++;
-            //Debug.Log(playerDataBase.Static.ATKInitial / 100f * playerDataBase.Static.abilityATKPercent);
+            ////Debug.Log(playerDataBase.Static.ATKInitial / 100f * playerDataBase.Static.abilityATKPercent);
             playerDataBase.Static.POINT--;
             soundEffectManager.staticSoundEffect.play_ability_UP();
         }
@@ -58,7 +57,7 @@ public class abilityScript : MonoBehaviour
         if (playerDataBase.Static.POINT >= 1)
         {
             playerDataBase.Static.DEFlevelpercent++;
-            //Debug.Log(DEF_add);
+            ////Debug.Log(DEF_add);
             playerDataBase.Static.POINT--;
             soundEffectManager.staticSoundEffect.play_ability_UP();
         }

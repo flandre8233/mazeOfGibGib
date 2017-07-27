@@ -44,7 +44,6 @@ public class mapTerrainGenerator : MonoBehaviour {
         float centerX = (Leftest + Rightest) / 2;
         float centerY = (Downest + Toppest) / 2;
         center = new Vector3(centerX,centerY,0);
-        Debug.Log(center);
     }//要
     public void findTopLeftDownRight() {
 
@@ -125,7 +124,7 @@ public class mapTerrainGenerator : MonoBehaviour {
             return true;
         }
         for (int i = where; i > end; i--) {
-            // Debug.Log(mapLimit);
+            // //Debug.Log(mapLimit);
             if ((((thisLevelAllFloor[i].transform.position.x >= mapLimit.x+ 1000) || (thisLevelAllFloor[i].transform.position.x <= -mapLimit.x+ 1000)) || ((thisLevelAllFloor[i].transform.position.y >= mapLimit.y+ 1000) || (thisLevelAllFloor[i].transform.position.y <= -mapLimit.y+ 1000)) ) && !thisLevelAllFloor[i].GetComponent<groundScript>().delByMapLimit ) {
 
                 thisLevelAllFloor[i].GetComponent<groundScript>().delByMapLimit = true;
@@ -344,7 +343,7 @@ public class mapTerrainGenerator : MonoBehaviour {
                         spikeObj.curRoundCountDown = testSaveLoad.Static.mydata.allFloorVector2[i].curRoundCountDown; //令突刺進度回複
                         if (spikeObj.curRoundCountDown >= spikeObj.perRoundShowUpSpike) //
                         {
-                            Debug.Log(spikeObj.curRoundCountDown + "  kk");
+                            //Debug.Log(spikeObj.curRoundCountDown + "  kk");
                             spikeObj.inShowSpike = true;
                             spikeObj.serializeSpike();
                         }
@@ -442,7 +441,7 @@ public class mapTerrainGenerator : MonoBehaviour {
 
         int count = 0;
         for (int i = 0; i < terrainLength; i++) {
-            //Debug.Log(i + " . " + count + " . " + thisLevelAllFloor.Count);
+            ////Debug.Log(i + " . " + count + " . " + thisLevelAllFloor.Count);
             if (i == 0) {
                 //mapCenter = new Vector3((int)Random.Range(0, (mapLimit.x + 1000 - 2) * 2) - (mapLimit.x + 1000 - 2), (int)Random.Range(0, (mapLimit.y + 1000 - 2) * 2) - (mapLimit.y + 1000 - 2), 0);
                 mapCenter = new Vector3(1000,1000, 0);
@@ -485,7 +484,7 @@ public class mapTerrainGenerator : MonoBehaviour {
 
                             allTerrainPort[i].transform.position = allTerrainPortExit[h].transform.position;
 
-                            //Debug.Log( (checkMapLimit(thisLevelAllFloor.Count - 1,count) + "   " + i ) );                        
+                            ////Debug.Log( (checkMapLimit(thisLevelAllFloor.Count - 1,count) + "   " + i ) );                        
                             if (checkMapLimit(thisLevelAllFloor.Count - 1, count) == false) { //檢查是否超出map限制
                                 allTerrainPort[i].transform.parent = allTerrainPortExit[h].transform;
                                 allTerrainPort[i].GetComponent<groundScript>().alreadyLink = true;

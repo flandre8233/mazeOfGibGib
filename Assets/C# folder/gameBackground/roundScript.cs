@@ -63,7 +63,6 @@ public class roundScript : MonoBehaviour {
         if (enemyAttack != null)
         {
             enemyAttack.Invoke();
-            //Debug.Log("do");
         }
         StartCoroutine(waitPlayerMove());
         //resetEnemyUnderAttack();
@@ -76,7 +75,7 @@ public class roundScript : MonoBehaviour {
         {
             yield return null;
         } while (movementProcessingChecker);
-        Debug.Log(playerMainScript.Static.gameObject.transform.position);
+        //Debug.Log(playerMainScript.Static.gameObject.transform.position);
         /*
         if (enemyAttack != null)
         {
@@ -85,7 +84,7 @@ public class roundScript : MonoBehaviour {
         */
         if (groundCheckSystem != null)
         {
-            //Debug.Log("dllm");
+            ////Debug.Log("dllm");
             groundCheckSystem.Invoke();
         }
 
@@ -114,7 +113,7 @@ public class roundScript : MonoBehaviour {
                 return;
             }
         }
-        //Debug.Log("??");
+        ////Debug.Log("??");
         enemyAttackAniProcessingChecker = false;
     }
 
@@ -156,7 +155,7 @@ public class roundScript : MonoBehaviour {
             }
             if (item.GetComponent<enemyScript>().Level == 3 )
             {
-                Debug.Log(item.gameObject.name);
+                //Debug.Log(item.gameObject.name);
                 enemyMovement += item.GetComponent<enemyScript>().move;
             }
         }
@@ -309,7 +308,7 @@ public class roundScript : MonoBehaviour {
         { //看來GameObject.FindGameObjectsWithTag("floor")不太靈活
             //item.transform.position = new Vector3(item.transform.position.x, item.transform.position.y, item.transform.position.z + 5);
             Destroy(item);
-            //Debug.Log(GameObject.FindGameObjectsWithTag("floor").Length);
+            ////Debug.Log(GameObject.FindGameObjectsWithTag("floor").Length);
             //item.GetComponent<groundScript>().haveSomethingInHere = false;
         }
         foreach (var item in GameObject.FindGameObjectsWithTag("item"))
@@ -359,7 +358,7 @@ public class roundScript : MonoBehaviour {
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 50.0f )) {
             selectionX = (int)hit.point.x;
             selectionY = (int)hit.point.y;
-            Debug.Log(selectionX + " . " + selectionY);
+            //Debug.Log(selectionX + " . " + selectionY);
         }
         */
         if (nextFrameLock >= 2) {
@@ -381,7 +380,7 @@ public class roundScript : MonoBehaviour {
             isInExitLevel = false;
             if (groundCheckSystem != null)
             {
-                Debug.Log("dllm");
+                //Debug.Log("dllm");
                 groundCheckSystem.Invoke();
             }
             miniMapSpriteManager.Static.startGenIcon();
@@ -403,7 +402,7 @@ public class roundScript : MonoBehaviour {
             onDeadDoOnce = true;
 
             playerMainScript.Static.GetComponent<chessMovement>().enabled = false;
-            Debug.Log("dead");
+            //Debug.Log("dead");
             chessMovement.Static.charactor_move.SetTrigger("dead");
         }
     }

@@ -30,7 +30,6 @@ public class pause_script : MonoBehaviour {
         soundEffectManager.staticSoundEffect.play_Click_Button();
         if (pause_animator.GetBool("pause_bool")==false)
         {
-            //Debug.Log(pause_animator.GetBool("pause_bool"));
             pause_animator.SetBool("pause_bool", true);
             pause_background.gameObject.SetActive(true);
         }

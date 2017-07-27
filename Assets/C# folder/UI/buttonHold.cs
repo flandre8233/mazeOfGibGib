@@ -35,7 +35,6 @@ public class buttonHold : MonoBehaviour , IPointerDownHandler
 	void Update () {
         if (mouseDown && !roundScript.Static.isInExitLevel) {
             timeMouseDown += Time.deltaTime;
-            //Debug.Log(timeMouseDown);
 
             chessMovement.Static.faceDirection = dir;
             chessMovement.Static.autoMovement(timeMouseDown, dir);

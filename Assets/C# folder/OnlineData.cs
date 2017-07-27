@@ -29,9 +29,15 @@ public class OnlineData : MonoBehaviour {
         
 
         user = json2["Name"].ToString();
-        Debug.Log(www.text);
-        Debug.Log(test);*/
-        //Debug.Log(www.text.Trim());
+        
+        
+        
+        
+        
+        
+        .Log(www.text);
+        //Debug.Log(test);*/
+        ////Debug.Log(www.text.Trim());
 
         if (mymy != null)
         {
@@ -57,7 +63,7 @@ public class OnlineData : MonoBehaviour {
 
         WWW www = new WWW(url + "InsertData.php",wwwForm);
         yield return www;
-        Debug.Log(www.text.Trim());
+        //Debug.Log(www.text.Trim());
     }*/
 
     /*IEnumerator UpdateData()
@@ -75,6 +81,6 @@ public class OnlineData : MonoBehaviour {
 
         WWW www = new WWW(url + "UpdateData.php", wwwForm);
         yield return www;
-        Debug.Log(www.text.Trim());
+        //Debug.Log(www.text.Trim());
     }*/
 }

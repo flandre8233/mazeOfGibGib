@@ -29,7 +29,10 @@ public class loadingTest : MonoBehaviour {
     {
         //StartCoroutine(playLoadingScene());
        /* trigger_pass = true;
-        Debug.Log("in");
+        
+        
+        
+        .Log("in");
         if (trigger_pass == true)
         {
             level_pass.gameObject.SetActive(true);
@@ -39,7 +42,7 @@ public class loadingTest : MonoBehaviour {
     public void closeLoading()
     {
         //loadingScene.SetActive(false);
-        //Debug.Log("out");
+        ////Debug.Log("out");
         //level_pass.gameObject.SetActive(false);
 
     }
