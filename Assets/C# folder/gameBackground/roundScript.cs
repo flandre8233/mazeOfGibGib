@@ -38,9 +38,14 @@ public class roundScript : MonoBehaviour {
         }
     }
 
-    public List<GameObject> enemyList; 
+    public List<GameObject> enemyList;
 
     public void pastRound() {
+        if (isInExitLevel)
+        {
+            return;
+        }
+
         isProcessingRound = true;
         round++;
         sortEnemyList();
@@ -65,23 +70,18 @@ public class roundScript : MonoBehaviour {
             enemyAttack.Invoke();
         }
         StartCoroutine(waitPlayerMove());
+        StartCoroutine(waitRoundProcessingChecker() );
         //resetEnemyUnderAttack();
         playerMainScript.Static.deadAliveCheck();
     }
 
-    private IEnumerator waitPlayerMove( )
-    {
+    private IEnumerator waitRoundProcessingChecker(){
         do
         {
             yield return null;
-        } while (movementProcessingChecker);
-        //Debug.Log(playerMainScript.Static.gameObject.transform.position);
-        /*
-        if (enemyAttack != null)
-        {
-            enemyAttack.Invoke();
-        }
-        */
+        } while ( RoundProcessingChecker() );
+
+
         if (groundCheckSystem != null)
         {
             ////Debug.Log("dllm");
@@ -93,6 +93,15 @@ public class roundScript : MonoBehaviour {
         {
             spikeSystem.Invoke();
         }
+
+    }
+
+    private IEnumerator waitPlayerMove( )
+    {
+        do
+        {
+            yield return null;
+        } while (movementProcessingChecker);
 
     }
 
@@ -198,6 +207,7 @@ public class roundScript : MonoBehaviour {
     public void OnEnterNextLevel() { // enter next level
         isInExitLevel = true;
         loadingTest.Static.startLoading();
+        
         mapTerrainGenerator.Static.terrainLength = 7 + playerDataBase.Static.currentFloor; //新增地形
         chessMovement.Static.model.transform.rotation = Quaternion.Euler(0, 0, 0);
         
@@ -206,8 +216,8 @@ public class roundScript : MonoBehaviour {
         
         //
         playerDataBase.Static.currentFloor++; //目前關卡+1
-        checkUpdateMaxFloor();
         givePoint();
+        checkUpdateMaxFloor();
         if (playerDataBase.Static.currentFloor % (checkPoint) == 0) { //到5,10,15,20......關卡
             currentArea++;
             backgeoundMusicScript.staticBackgeound.play_backgroundAmbient(currentArea-1);
@@ -266,9 +276,14 @@ public class roundScript : MonoBehaviour {
             return;
         }
 
+        if (isEnterBossPoint() )
+        {
+            Debug.Log("enterBossPoint");
+            mapTerrainGenerator.Static.createBossTerrain();
+            return;
+        }
 
-
-
+        //條件都被排除後
         mapTerrainGenerator.Static.resetTerrain();
 
         return;
@@ -287,6 +302,19 @@ public class roundScript : MonoBehaviour {
         }
     }
 
+    public bool isEnterBossPoint()
+    {
+        if ( (playerDataBase.Static.currentFloor + 1) % checkPoint == 0)//到  休息關重生點
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+
+    }
     public bool isEnterCheckPoint()
     {
         if (playerDataBase.Static.currentFloor % checkPoint == 0)//到  休息關重生點
@@ -365,6 +393,7 @@ public class roundScript : MonoBehaviour {
             nextFrameLock = 0;
             NeedGenertorThings = false;
             mapThingsGenerator.Static.spawnExitPoint();
+
             mapThingsGenerator.Static.spawnItemAndEnemy();
             mapThingsGenerator.Static.SerializePlayerPositionToSpawnPoint();
 

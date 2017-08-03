@@ -51,6 +51,7 @@ public class box : MonoBehaviour {
         ani.Play("open");
         //get_coin = true;
         StartCoroutine(WaitForAnimation("openChest"));
+        soundEffectManager.staticSoundEffect.play_characterOpenChest();
         GetCoin();
         ////Debug.Log(watchAD_coin);
         uiScript.Static.AD_coin.text = watchAD_coin.ToString();

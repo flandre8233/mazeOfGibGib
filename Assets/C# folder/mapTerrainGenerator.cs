@@ -8,6 +8,8 @@ public class mapTerrainGenerator : MonoBehaviour {
     public List<GameObject> gameAllTerrainParts;
     public List<GameObject> ThisLevelAllTerrainParts;
 
+    public List<GameObject> bossLevelAllTerrainParts;
+
 
     public Vector3 mapCenter = new Vector3();
     public Vector3 center;
@@ -191,16 +193,6 @@ public class mapTerrainGenerator : MonoBehaviour {
             //item.transform.parent = levelMapParentObject.transform;
         }
 
-        /*
-        for (int i = 1; i < thisLevelAllFloor.Count; i++) {
-            
-            //thisLevelAllFloor[i].transform.parent = thisLevelAllFloor[0].transform; //起初點
-        }
-       // thisLevelAllFloor[0].transform.position = Vector3.zero; //原點
-       */
-
-
-        //mapLimitDestroyer();
 
         foreach (var item in GameObject.FindGameObjectsWithTag("floor")) {
             if (item.GetComponent<groundScript>().delByMapLimit) {
@@ -209,9 +201,6 @@ public class mapTerrainGenerator : MonoBehaviour {
                 Destroy(item);
             }
         }
-
-           
-
     }
 
     void canelFloorMesh() {
@@ -220,9 +209,6 @@ public class mapTerrainGenerator : MonoBehaviour {
             Destroy(item.GetComponent<MeshRenderer>());
         }
     }
-
-
-
     public GameObject[] floorModel;
 
     public GameObject[] spikeModel;
@@ -503,17 +489,12 @@ public class mapTerrainGenerator : MonoBehaviour {
                                 }
                                 //allTerrainPortExit[h].GetComponent<groundScript>().delByMapLimit = true;
                             }
-
                             break;
                         }
                     }
                 }
-
                 count = thisLevelAllFloor.Count;
             }
-
-
-           
         }
 
         foreach (var item in thisLevelAllFloor) { //刪掉未連上的floor
@@ -526,21 +507,40 @@ public class mapTerrainGenerator : MonoBehaviour {
 
         clearSuperfluousFloor();
         addToSystem();
+    }
 
-        /*
-        foreach (var item in allTerrainPort) {
-            if (!item.GetComponent<groundScript>().alreadyLink) {
-                for (int i = 0; i < thisLevelAllFloor.Count; i++) {
-                    if (item.GetComponent<groundScript>().TerrainUID == thisLevelAllFloor[i].GetComponent<groundScript>().TerrainUID && !thisLevelAllFloor[i].GetComponent<groundScript>().delByMapLimit) {
-                        thisLevelAllFloor[i].GetComponent<groundScript>().delByMapLimit = true;
-                        //Destroy(thisLevelAllFloor[i]);
-                        //thisLevelAllFloor.RemoveAt(i);
-                    }
-                }
+    public void createBossTerrain()
+    {
+        ThisLevelAllTerrainParts.RemoveRange(1, ThisLevelAllTerrainParts.Count - 1);
+        allTerrainPort.Clear();
+        allTerrainPortExit.Clear();
+        
+
+        GameObject spawnObject = null;
+        mapCenter = new Vector3(1000, 1000, 0);
+        spawnObject = Instantiate(bossLevelAllTerrainParts[0],mapCenter, Quaternion.identity);
+
+        allTerrainPort.Add(spawnObject);
+        thisLevelAllFloor.Add(spawnObject);
+        spawnObject.GetComponent<groundScript>().TerrainUID = 0;
+        foreach (Transform child in spawnObject.transform)
+        { //依個work
+            thisLevelAllFloor.Add(child.gameObject);
+            child.gameObject.GetComponent<groundScript>().TerrainUID = 0;
+
+            if (child.gameObject.GetComponent<groundScript>().type == groundType.isPortExitFloor)
+            {
+                allTerrainPortExit.Add(child.gameObject);
             }
-            
+
         }
-        */
+
+
+        allFloorDetach();
+        canelFloorMesh();
+
+        classificationFloorType();
+
     }
 
     int randomRotation() {
@@ -588,17 +588,5 @@ public class mapTerrainGenerator : MonoBehaviour {
             }
         }
 
-    }
-
-
-    // Update is called once per frame
-    void Update () {
-        /*
-        if (Input.anyKeyDown) {
-            ThisLevelAllTerrainParts.Clear();
-            allTerrainPort.Clear();
-            allTerrainPortExit.Clear();
-        }
-        */
     }
 }

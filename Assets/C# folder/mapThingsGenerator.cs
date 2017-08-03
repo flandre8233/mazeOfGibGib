@@ -130,6 +130,34 @@ public class mapThingsGenerator : MonoBehaviour {
         return itemArray[ 0 ];
     }
 
+    void spawnEnemyInBossLevel()
+    {
+        if (mapTerrainGenerator.Static.thisLevelAllFloor.Count == 0)
+        {
+            return;
+        }
+
+        List< Vector3 > spawnPoint = new List<Vector3>();
+
+        foreach (var item in mapTerrainGenerator.Static.thisLevelAllFloor)
+        { // count 有幾多個地版可以spawn物件
+            if (item.GetComponent<groundScript>().type == groundType.enemyPointBossLevelUseOnly)
+            {
+                spawnPoint.Add(new Vector3(item.transform.position.x,item.transform.position.y,-1));
+            }
+        }
+        Debug.Log("ddd");
+        for (int i = 0; i < spawnPoint.Count; i++)
+        {
+            GameObject InstantiateEnemy = Instantiate(enemyGenerator.Static.selectType(), spawnPoint[i], Quaternion.identity);
+            InstantiateEnemy.GetComponent<enemyDataBase>().UID = allEnemyArray.Count;
+
+            InstantiateEnemy.GetComponent<enemyDataBase>().center = new Vector3(Mathf.Round(spawnPoint[i].x), Mathf.Round(spawnPoint[i].y), 0);
+            allEnemyArray.Add(InstantiateEnemy);
+        }
+
+        }
+
     void StartGeneratorTheThings(int times, string type)
     {
 
@@ -269,8 +297,18 @@ public class mapThingsGenerator : MonoBehaviour {
         }
 
         StartGeneratorTheThings(levelSpawnItemTimes, "item");
+
+        //處理enemy
+        if (roundScript.Static.isEnterBossPoint())
+        {
+           spawnEnemyInBossLevel();
+
+            return;
+        }
         StartGeneratorTheThings(levelSpawnEnemyTimes, "enemy");
     }
+
+
 
     bool sampleRandom()
     {

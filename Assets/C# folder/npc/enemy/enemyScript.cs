@@ -269,6 +269,19 @@ public class enemyScript : enemyDataBase
 
     }
 
+    public void NpcTakeDamage(int damage)
+    {
+
+
+        //touch Enemy之後既行動
+        gamemanager.Static.spawnNumberDisplay(transform.position, damage, 0);
+        GetComponent<enemyDataBase>().HP -= damage;
+        GetComponent<enemyScript>().enemyHPCheck();
+
+
+        //roundScript.Static.enemyAttackAniProcessingChecker = true;
+    }
+
     private void Update() {
         allwayFaceAtPlayer();
         LerpMove(ref startLerpMovement, new Vector3(center.x, center.y,-1) , startTime,0.75f);

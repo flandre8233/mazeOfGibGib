@@ -21,6 +21,7 @@ public class abilityScript : MonoBehaviour
             playerDataBase.Static.fullHPSP();
             playerDataBase.Static.POINT--;
             soundEffectManager.staticSoundEffect.play_ability_UP();
+            Gui3dParticleScript.Static.spawnHpMaxParticle();
         }
 
     }
@@ -36,6 +37,7 @@ public class abilityScript : MonoBehaviour
             ////Debug.Log(Spmax_add);
             playerDataBase.Static.POINT--;
             soundEffectManager.staticSoundEffect.play_ability_UP();
+            Gui3dParticleScript.Static.spawnSpMaxParticle();
         }
     }
 
@@ -48,6 +50,7 @@ public class abilityScript : MonoBehaviour
             ////Debug.Log(playerDataBase.Static.ATKInitial / 100f * playerDataBase.Static.abilityATKPercent);
             playerDataBase.Static.POINT--;
             soundEffectManager.staticSoundEffect.play_ability_UP();
+            Gui3dParticleScript.Static.spawnAtkMaxParticle();
         }
     }
 
@@ -60,6 +63,7 @@ public class abilityScript : MonoBehaviour
             ////Debug.Log(DEF_add);
             playerDataBase.Static.POINT--;
             soundEffectManager.staticSoundEffect.play_ability_UP();
+            Gui3dParticleScript.Static.spawnDefMaxParticle();
         }
     }
 }

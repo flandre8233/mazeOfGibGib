@@ -5,8 +5,10 @@ using UnityEngine;
 public class playerDataBase : MonoBehaviour {
     public static playerDataBase Static;
 
-    public int HP { get; set; }
-    public int SP { get; set; }
+    public bool isReadFromSaveFile = false;
+
+    public int HP = 0;
+    public int SP = 0;
     public int HPBuff;
     public int SPBuff;
     public int MaxHP {
@@ -19,8 +21,8 @@ public class playerDataBase : MonoBehaviour {
             return MaxSPInitial + abilitySPMax + SPBuff;
         }
     }
-    int MaxHPInitial { get; set; }
-     int MaxSPInitial { get; set; }
+    int MaxHPInitial = 10;
+    int MaxSPInitial = 20;
 
     public int ATK {
         get {
@@ -63,13 +65,13 @@ public class playerDataBase : MonoBehaviour {
             coin = value;
         }
     }
-    public int POINT { get; set; }
+    public int POINT = 0;
 
 
 
     public int reviveTimes = 0;
-    public int ResetTimes { get; set; }
-    public int currentFloor { get; set; }
+    public int ResetTimes = 0;
+    public int currentFloor = 0;
     public int currentAlyreadyWatchAdsLevel = 0;
     public int currentLifeMaxFloor { get; set; }
     public int maxFloor { get; set; }
@@ -134,12 +136,15 @@ public class playerDataBase : MonoBehaviour {
     }
 
     public void serializeSetUp() { //玩家起始值
+
         MaxHPInitial = 10;
         MaxSPInitial = 20;
         ATKInitial = 10;
         DEFInitial = 10;
-        
-        
+
+        HPBuff = 0;
+        SPBuff = 0;
+
         abilityHPMax = 0;
         abilitySPMax = 0;
 
@@ -164,8 +169,7 @@ public class playerDataBase : MonoBehaviour {
 
         idle_time = 10;
 
-
-
+        runTimeDouble = 0;
 
         revive_value = false;
         check_start = true;
@@ -178,7 +182,7 @@ public class playerDataBase : MonoBehaviour {
         serializeSetUp();
         DontDestroyOnLoad(transform.gameObject);
         if (Static != null) {
-            Destroy(this);
+            Destroy(gameObject);
         }
         else {
             Static = this;
@@ -189,6 +193,7 @@ public class playerDataBase : MonoBehaviour {
 
     public void restart_data()
     { //玩家起始值
+        isReadFromSaveFile = false;
         //ability_point keep
         MaxHPInitial = 10;
         MaxSPInitial = 20;
@@ -200,6 +205,9 @@ public class playerDataBase : MonoBehaviour {
 
         //abilityHPMax = 0;
         //abilitySPMax = 0;
+
+        HPBuff = 0;
+        SPBuff = 0;
 
         HP = MaxHP;
         SP = MaxSP;
@@ -220,6 +228,9 @@ public class playerDataBase : MonoBehaviour {
         currentAlyreadyWatchAdsLevel = 0;
         reviveTimes = 0;
         revive_value = false;
+
+        runTimeDouble = 0;
+
         //check_start = false;
     }
 }

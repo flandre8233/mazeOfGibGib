@@ -10,7 +10,7 @@ public class fingerControlRotation : MonoBehaviour
     public Transform miniCameraTransform;
     float onPressZAngle = 0.0f;
     float closestAngle = 0.0f;
-    bool onpress = false;
+   public  bool onpress = false;
     bool startLerpMovement = false;
     float startTime = 0.0f;
     // Use this for initialization
@@ -46,7 +46,7 @@ public class fingerControlRotation : MonoBehaviour
             startLerpMovement = false;
             testOne = new Vector2(Input.mousePosition.x, 0);
             testTwo = new Vector2(0, Input.mousePosition.y);
-            onPressFloat = mouseDistance(testOne,testTwo);
+            onPressFloat = mouseDistance(testOne, testTwo);
             onPressZAngle = transform.rotation.eulerAngles.z;
             onpress = true;
         }

@@ -46,10 +46,11 @@ public class Spike : groundScript {
                     switch (haveSomethingInHereObject.tag)
                     {
                         case "Player":
-                            Attack();
+                            AttackPlayer();
                             break;
 
                         case "enemy":
+                            AttackEnemy(haveSomethingInHereObject.GetComponent<enemyScript>() );
                             break;
 
 
@@ -89,8 +90,16 @@ public class Spike : groundScript {
         }
 
     }
+    public void AttackEnemy(enemyScript enemy)
+    {
 
-    public void Attack()
+        int outputDamage = (int)((enemy.MaxHP / 100.0f) * damagePercentage);
+
+        soundEffectManager.staticSoundEffect.play_characterHurtWithThorn();
+        enemy.NpcTakeDamage(outputDamage);
+    }
+
+    public void AttackPlayer()
     {
 
         int outputDamage = (int)((playerDataBase.Static.MaxHP / 100.0f) * damagePercentage);

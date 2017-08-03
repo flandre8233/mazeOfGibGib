@@ -14,7 +14,9 @@ public class uiScript : MonoBehaviour {
 
 
     [SerializeField]
-    Text testonlyText;
+    Text hpDisplayText;
+    [SerializeField]
+    Text spDisplayText;
     [SerializeField]
     Text currentFloor;
     [SerializeField]
@@ -60,15 +62,19 @@ public class uiScript : MonoBehaviour {
 
         updatePlayerAtkDef();
 
+        hpSpTextDisplay();
 
-        testonlyText.text = "HP : " + playerDataBase.Static.HP + " / " + playerDataBase.Static.MaxHP + "\n" + "SP : " +
-            playerDataBase.Static.SP + " / " + playerDataBase.Static.MaxSP;
-        //+
-        //    playerDataBase.Static.currentFloor + "\n" ;
+
 
         currentFloor.text ="-Stage"+playerDataBase.Static.currentFloor+"-";
 
 
+    }
+
+    void hpSpTextDisplay()
+    {
+        hpDisplayText.text = "HP" + " " + playerDataBase.Static.HP + "/" + playerDataBase.Static.MaxHP ;
+        spDisplayText.text = "SP" + " " + playerDataBase.Static.SP + "/" + playerDataBase.Static.MaxSP ;
     }
 
     public Text atkDisplay;

@@ -381,12 +381,7 @@ public class chessMovement : GeneralMovementSystem
         resetPlayerCenter();
         //chest_script.Static.money_chest_canvas.gameObject.SetActive(!chest_script.Static.money_chest_canvas);
 
-        charactor_move.SetTrigger("attack");
-        charactor_move.SetInteger("attack_no.", Random.Range(0, 4));
-        roundScript.Static.DoAttackAniProcessingChecker = true;
-
-        StartCoroutine(WaitForAnimationForChest("attackAni"));
-        soundEffectManager.staticSoundEffect.play_characterOpenChest();
+        TouchChest.GetComponent<box>().allwayFaceAtPlayer();
         money_chest_show();
 
     }
@@ -501,30 +496,13 @@ public class chessMovement : GeneralMovementSystem
             yield return null;
         } while (charactor_move.GetCurrentAnimatorStateInfo(0).IsTag(animationTag));
 
-        TouchChest.GetComponent<box>().allwayFaceAtPlayer();
         roundScript.Static.DoAttackAniProcessingChecker = false;
+        roundScript.Static.movementProcessingChecker = false;
         thisFrameMoved = true;
         //dead here
     }
 
     public GameObject saveChest;
-
-    public void attackNpc(GameObject touchEnemy)
-    {
-        if (touchEnemy == null)
-        {
-            return;
-        }
-
-        //touch Enemy之後既行動
-        gamemanager.Static.spawnNumberDisplay(touchEnemy.transform.position, playerDataBase.Static.ATK, 0);
-        touchEnemy.GetComponent<enemyDataBase>().HP -= playerDataBase.Static.ATK;
-        touchEnemy.GetComponent<enemyScript>().enemyHPCheck();
-
-        thisFrameMoved = true;
-
-        //roundScript.Static.enemyAttackAniProcessingChecker = true;
-    }
 
     public void back_to_before()
     {
@@ -542,13 +520,16 @@ public class chessMovement : GeneralMovementSystem
     public void chest_show()
     {
         chest_canvas.gameObject.SetActive(!chest_canvas.gameObject.activeSelf);
+        inOpenChest = true;
     }
 
     public Text coinNumber;
     public Text adsExtraNumber;
+    public bool inOpenChest = false;
     public void money_chest_show()
     {
         money_chest_canvas.gameObject.SetActive(!money_chest_canvas.gameObject.activeSelf);
+        inOpenChest = true;
         coinNumber.text = TouchChest.GetComponent<box>().coin.ToString();
         adsExtraNumber.text =TouchChest.GetComponent<box>().watchAD_coin.ToString();
     }
@@ -556,13 +537,25 @@ public class chessMovement : GeneralMovementSystem
     public void chest_off()
     {
         chest_canvas.gameObject.SetActive(!chest_canvas.gameObject.activeSelf);
+        inOpenChest = false;
+
+        charactor_move.SetTrigger("attack");
+        charactor_move.SetInteger("attack_no.", Random.Range(0, 4));
+        roundScript.Static.DoAttackAniProcessingChecker = true;
+        StartCoroutine(WaitForAnimationForChest("attackAni"));
     }
 
     public void money_chest_off()
     {
         saveChest.GetComponent<box>().openChest();
         money_chest_canvas.gameObject.SetActive(false);
+        inOpenChest = false;
         saveChest = null;
+
+        charactor_move.SetTrigger("attack");
+        charactor_move.SetInteger("attack_no.", Random.Range(0, 4));
+        roundScript.Static.DoAttackAniProcessingChecker = true;
+        StartCoroutine(WaitForAnimationForChest("attackAni"));
     }
 
     public void adsChest()
@@ -572,6 +565,11 @@ public class chessMovement : GeneralMovementSystem
         playerDataBase.Static.coin += TouchChest.GetComponent<box>().extraCoin;
         money_chest_canvas.gameObject.SetActive(false);
         saveChest = null;
+
+        charactor_move.SetTrigger("attack");
+        charactor_move.SetInteger("attack_no.", Random.Range(0, 4));
+        roundScript.Static.DoAttackAniProcessingChecker = true;
+        StartCoroutine(WaitForAnimationForChest("attackAni"));
     }
 
 }

@@ -9,9 +9,19 @@ public class loading_canvas : MonoBehaviour {
     // Use this for initialization
     void Start () {
         StartCoroutine(LoadLevel("testMAPZone"));
-
+        offBackMusic();
     }
 	
+    void offBackMusic()
+    {
+        if (backgeoundMusicScript.staticBackgeound == null)
+        {
+            return;
+        }
+        backgeoundMusicScript.staticBackgeound.myAudio.Stop();
+        backgeoundMusicScript.staticBackgeound.ambientAudio.Stop();
+    }
+
 	// Update is called once per frame
 	void Update () {
         if (async != null)

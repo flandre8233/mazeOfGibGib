@@ -9,7 +9,8 @@ public enum groundType
     startPoint,
     ExitGoalPoint,
     isPortFloor,
-    isPortExitFloor
+    isPortExitFloor,
+    enemyPointBossLevelUseOnly
 }
 
 
@@ -34,15 +35,6 @@ public class groundScript : MonoBehaviour {
     public bool alreadyFindAllNeighbor;
 
     public bool isSpike = false;
-
-    /*
-    public bool canSpawnThings;
-    public bool startPoint;
-    public bool ExitGoalPoint;
-
-    public bool isPortFloor = false;
-    public bool isPortExitFloor = false;
-    */
 
     void Start() {
         //mapTerrainGenerator.Static.thisLevelAllFloor.Add(gameObject);
@@ -84,18 +76,6 @@ public class groundScript : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-        //groundCollidersCheck(); <-改
-
-        /*
-        if (GetComponent<groundScript>().delByMapLimit) {
-            if (
-            mapTerrainGenerator.Static.thisLevelAllFloor.Remove(gameObject)) {
-                mapTerrainGenerator.Static.thisLevelAllFloor.Remove(gameObject);
-            }
-            Destroy(gameObject);
-        }
-        */
-
         if (UpdataSystem != null)
         {
             UpdataSystem.Invoke();
@@ -121,7 +101,7 @@ public class groundScript : MonoBehaviour {
         return new Vector3(Mathf.Round(v2.x), Mathf.Round(v2.y) );
     }
 
-    public void groundCollidersCheck() //spike not work but normal is work
+    public void groundCollidersCheck() 
     {
         ////Debug.Log(gameObject.name);
         Vector3 hitPoint = new Vector3(transform.position.x, transform.position.y, -1f); //問題
@@ -140,11 +120,10 @@ public class groundScript : MonoBehaviour {
                     return;
                 }
 
-                haveSomethingInHere = false;
-                haveSomethingInHereObject = null;
-                return;
             }
-
+            haveSomethingInHere = false;
+            haveSomethingInHereObject = null;
+            return;
         }
 
         haveSomethingInHere = false;

@@ -158,6 +158,9 @@ public class testSaveLoad : MonoBehaviour {
     void loadDataToPlayerData(saveGameData mydata)
     {
         playerDataBase PD = playerDataBase.Static;
+
+        PD.isReadFromSaveFile = true;
+
         PD.abilityHPMax = mydata.abilityHPMax;
         PD.abilitySPMax = mydata.abilitySPMax;
         PD.ATKBuff = mydata.ATKBuff;

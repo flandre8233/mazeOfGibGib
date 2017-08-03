@@ -8,11 +8,22 @@ using UnityEngine.SceneManagement;
 public class buttonHold : MonoBehaviour , IPointerDownHandler
 , IPointerUpHandler
 {
-    bool mouseDown = false;
+
+    public bool mouseDown = false;
     float timeMouseDown = 0.0f;
     public string dir = "";
 
+    private void Awake()
+    {
+
+    }
+
     public void OnPointerDown(PointerEventData eventData) {
+        if (chessMovement.Static.inOpenChest)
+        {
+            mouseDown = false;
+            return;
+        }
         mouseDown = true;
         chessMovement.Static.isInAutoMovement = mouseDown;
 
@@ -34,6 +45,11 @@ public class buttonHold : MonoBehaviour , IPointerDownHandler
 	// Update is called once per frame
 	void Update () {
         if (mouseDown && !roundScript.Static.isInExitLevel) {
+            if (chessMovement.Static.inOpenChest)
+            {
+                return;
+            }
+
             timeMouseDown += Time.deltaTime;
 
             chessMovement.Static.faceDirection = dir;
