@@ -46,6 +46,22 @@ public class enemyScript : enemyDataBase
 
     }
 
+    void followPlane() //用唔到 原因：個lerp吃左 大概要轉用localPos
+    {
+        if (CenterGround == null)
+        {
+            return;
+        }
+
+        if (CenterGround.GetComponent<Spike>() == null)
+        {
+            return;
+        }
+
+        gameObject.transform.parent = CenterGround.GetComponent<Spike>().planeTransform.transform;
+
+    }
+
     public void resetNumberOfActions()
     {
         NumberOfActions = 1;
@@ -138,6 +154,7 @@ public class enemyScript : enemyDataBase
         startLerpMovement = true;
         NumberOfActions--;
         startTime = Time.time;
+
     }
 
     void LerpMove(ref bool isInLerpMovement,Vector3 centerition , float startTime,float lerpSpeed)

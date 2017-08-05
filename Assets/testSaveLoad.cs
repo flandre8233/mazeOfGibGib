@@ -69,6 +69,7 @@ public class testSaveLoad : MonoBehaviour {
         mydata.SPBuff = PD.SPBuff;
         mydata.SP = PD.SP;
         mydata.reviveTimes = PD.reviveTimes;
+        mydata.revive_value = PD.revive_value;
         mydata.currentAlyreadyWatchAdsLevel = PD.currentAlyreadyWatchAdsLevel;
 
         mydata.playerCenter = saveDataVector((int)chessMovement.Static.center.x, (int)chessMovement.Static.center.y );
@@ -180,6 +181,7 @@ public class testSaveLoad : MonoBehaviour {
         PD.SPBuff = mydata.SPBuff;
         PD.SP = mydata.SP;
         PD.reviveTimes = mydata.reviveTimes;
+        PD.revive_value = mydata.revive_value;
         PD.currentAlyreadyWatchAdsLevel = mydata.currentAlyreadyWatchAdsLevel;
 
         PD.runTimeDouble = mydata.runTimeDouble;
@@ -192,7 +194,7 @@ public class testSaveLoad : MonoBehaviour {
         chessMovement.Static.center = new Vector3(mydata.playerCenter.X, mydata.playerCenter.Y,0);
         chessMovement.Static.transform.position = new Vector3(mydata.playerCenter.X, mydata.playerCenter.Y, -1);
 
-
+        revive_script.Static.reviveLight();
         playerMainScript.Static.displayCloseDeadWarning();
     }
     

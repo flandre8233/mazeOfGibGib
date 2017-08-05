@@ -277,6 +277,7 @@ public class playerMainScript : MonoBehaviour
         roundScript.Static.IsOpeningChest = false;
         roundScript.Static.enemyAttackAniProcessingChecker = false;
 
+        revive_script.Static.reviveLight();
     }
 
     public void getItem()

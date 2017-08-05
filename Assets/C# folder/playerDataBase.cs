@@ -73,8 +73,8 @@ public class playerDataBase : MonoBehaviour {
     public int ResetTimes = 0;
     public int currentFloor = 0;
     public int currentAlyreadyWatchAdsLevel = 0;
-    public int currentLifeMaxFloor { get; set; }
-    public int maxFloor { get; set; }
+    public int currentLifeMaxFloor = 0;
+    public int maxFloor = 0;
 
 
     public int abilityHPMax { get; set; }
@@ -223,6 +223,12 @@ public class playerDataBase : MonoBehaviour {
 
         COIN = 1000;
         //POINT = 5;
+        POINT = 5 + ((maxFloor / roundScript.Static.checkPoint) * roundScript.Static.perCheckPointPoint); //test
+        ATKlevelpercent = 0;
+        DEFlevelpercent = 0;
+        abilityHPMax = 0;
+        abilitySPMax = 0;
+
         currentFloor = 0;
         currentLifeMaxFloor = 0;
         currentAlyreadyWatchAdsLevel = 0;

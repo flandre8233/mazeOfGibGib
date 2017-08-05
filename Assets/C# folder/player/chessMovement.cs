@@ -270,8 +270,7 @@ public class chessMovement : GeneralMovementSystem
         }
         int curLevelType = mapTerrainGenerator.Static.getFloorType();
         soundEffectManager.staticSoundEffect.play_characterMove(curLevelType); // 依個ok
-
-
+        
         startLerpMovement = true;
         roundScript.Static.movementProcessingChecker = true;
         startTime = Time.time;

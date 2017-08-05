@@ -72,20 +72,36 @@ public class revive_script : MonoBehaviour {
 
             playerDataBase.Static.reviveTimes++;
             playerDataBase.Static.revive_value = true;
+            yn_show.gameObject.SetActive(false);
+            reviveLight();
+            /*
             crystal_particle_off.gameObject.SetActive(false);
             crystal_on.gameObject.SetActive(true);
             crystal_particle_on.gameObject.SetActive(true);
             crystal_off.gameObject.SetActive(false);
-            yn_show.gameObject.SetActive(false);
+
+            */
             soundEffectManager.staticSoundEffect.play_crystal_light();
         }
-        /*else
+    }
+
+    public void reviveLight()
+    {
+        if (    playerDataBase.Static.revive_value)
         {
-            playerDataBase.Static.revive_value = false;
+            crystal_particle_off.gameObject.SetActive(false);
+            crystal_on.gameObject.SetActive(true);
+            crystal_particle_on.gameObject.SetActive(true);
+            crystal_off.gameObject.SetActive(false);
+        }
+        else
+        {
+            crystal_particle_off.gameObject.SetActive(true);
             crystal_on.gameObject.SetActive(false);
             crystal_particle_on.gameObject.SetActive(false);
             crystal_off.gameObject.SetActive(true);
-            crystal_particle_off.gameObject.SetActive(true);
-        }*/
+        }
+
     }
+
 }

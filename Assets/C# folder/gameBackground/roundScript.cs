@@ -20,6 +20,9 @@ public class roundScript : MonoBehaviour {
     [Range(1, 100)]
     public short checkPoint;
 
+    [Range(1, 100)]
+    public short perCheckPointPoint;
+
     public int round = 0;
     public bool IsDead = false;
     bool onDeadDoOnce = false;
@@ -242,7 +245,7 @@ public class roundScript : MonoBehaviour {
         {
             return;
         }
-        playerDataBase.Static.POINT++;
+        playerDataBase.Static.POINT+= perCheckPointPoint;
     }
 
     public void checkUpdateMaxFloor()
@@ -451,7 +454,7 @@ public class roundScript : MonoBehaviour {
         roundSystem += playerMainScript.Static.subSP;
         roundSystem += playerMainScript.Static.checkLife;
         enterLevel();
-        if (gamemanager.Static.beLoaded)
+        if (gamemanager.Static.beLoaded) //處理背景音效
         {
             backgeoundMusicScript.staticBackgeound.play_backgroundAmbient(Mathf.FloorToInt (testSaveLoad.Static.mydata.currentFloor/10) );
         }
